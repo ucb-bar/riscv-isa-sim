@@ -42,6 +42,7 @@ riscv_hdrs = \
 	jtag_dtm.h \
 	csrs.h \
 	triggers.h \
+	socketif.h
 
 riscv_install_hdrs = \
 	abstract_device.h \
@@ -94,6 +95,7 @@ riscv_srcs = \
 	jtag_dtm.cc \
 	csrs.cc \
 	triggers.cc \
+	socketif.cc \
 	$(riscv_gen_srcs) \
 
 riscv_test_srcs =

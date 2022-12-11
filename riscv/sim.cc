@@ -1,5 +1,6 @@
 // See LICENSE for license details.
 
+#include "config.h"
 #include "sim.h"
 #include "mmu.h"
 #include "dts.h"
@@ -7,6 +8,7 @@
 #include "byteorder.h"
 #include "platform.h"
 #include "libfdt.h"
+#include "socketif.h"
 #include <fstream>
 #include <map>
 #include <iostream>
@@ -35,9 +37,7 @@ sim_t::sim_t(const cfg_t *cfg, bool halted,
              const debug_module_config_t &dm_config,
              const char *log_path,
              bool dtb_enabled, const char *dtb_file,
-#ifdef HAVE_BOOST_ASIO
-             boost::asio::io_service *io_service_ptr, boost::asio::ip::tcp::acceptor *acceptor_ptr, // option -s
-#endif
+             bool socket_enabled,
              FILE *cmd_file) // needed for command line option --cmd
   : htif_t(args),
     isa(cfg->isa(), cfg->priv()),
@@ -49,10 +49,6 @@ sim_t::sim_t(const cfg_t *cfg, bool halted,
     dtb_enabled(dtb_enabled),
     log_file(log_path),
     cmd_file(cmd_file),
-#ifdef HAVE_BOOST_ASIO
-    io_service_ptr(io_service_ptr), // socket interface
-    acceptor_ptr(acceptor_ptr),
-#endif
     sout_(nullptr),
     current_step(0),
     current_proc(0),
@@ -73,6 +69,21 @@ sim_t::sim_t(const cfg_t *cfg, bool halted,
     bus.add_device(x.first, x.second);
 
   debug_module.add_device(&bus);
+
+  socketif = NULL;
+#ifdef HAVE_BOOST_ASIO
+  if (socket_enabled) {
+    socketif = new socketif_t();
+  }
+#else
+  if (socket_enabled) {
+    fputs("Socket support requires compilation with boost asio; "
+          "please rebuild the riscv-isa-sim project using "
+          "\"configure --with-boost-asio\".\n",
+          stderr);
+    abort();
+  }
+#endif
 
 #ifndef RISCV_ENABLE_DUAL_ENDIAN
   if (cfg->endianness != memif_endianness_little) {

@@ -4,13 +4,6 @@
 #define _RISCV_SIM_H
 
 #include "config.h"
-
-#ifdef HAVE_BOOST_ASIO
-#include <boost/algorithm/string.hpp>
-#include <boost/regex.hpp>
-#include <boost/asio.hpp>
-#endif
-
 #include "cfg.h"
 #include "debug_module.h"
 #include "devices.h"
@@ -27,6 +20,7 @@
 
 class mmu_t;
 class remote_bitbang_t;
+class socketif_t;
 
 // this class encapsulates the processors and memory in a RISC-V machine.
 class sim_t : public htif_t, public simif_t
@@ -38,9 +32,7 @@ public:
         const std::vector<std::string>& args,
         const debug_module_config_t &dm_config, const char *log_path,
         bool dtb_enabled, const char *dtb_file,
-#ifdef HAVE_BOOST_ASIO
-        boost::asio::io_service *io_service_ptr_ctor, boost::asio::ip::tcp::acceptor *acceptor_ptr_ctor,  // option -s
-#endif
+        bool socket_enabled,
         FILE *cmd_file); // needed for command line option --cmd
   ~sim_t();
 
@@ -89,14 +81,7 @@ private:
 
   FILE *cmd_file; // pointer to debug command input file
 
-#ifdef HAVE_BOOST_ASIO
-  // the following are needed for command socket interface
-  boost::asio::io_service *io_service_ptr;
-  boost::asio::ip::tcp::acceptor *acceptor_ptr;
-  std::unique_ptr<boost::asio::ip::tcp::socket> socket_ptr;
-  std::string rin(boost::asio::streambuf *bout_ptr); // read input command string
-  void wout(boost::asio::streambuf *bout_ptr); // write output to socket
-#endif
+  socketif_t *socketif;
   std::ostream sout_; // used for socket and terminal interface
 
   processor_t* get_core(const std::string& i);

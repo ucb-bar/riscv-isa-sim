@@ -8,7 +8,7 @@
 #include "processor.h"
 #include "mmu.h"
 // For get_field():
-#include "decode.h"
+#include "decode_macros.h"
 // For trap_virtual_instruction and trap_illegal_instruction:
 #include "trap.h"
 // For require():

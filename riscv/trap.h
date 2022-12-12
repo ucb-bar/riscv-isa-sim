@@ -4,6 +4,7 @@
 #define _RISCV_TRAP_H
 
 #include "decode.h"
+#include "encoding.h"
 #include <string>
 
 struct state_t;

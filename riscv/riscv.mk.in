@@ -17,6 +17,7 @@ riscv_hdrs = \
 	abstract_device.h \
 	common.h \
 	decode.h \
+	decode_macros.h \
 	devices.h \
 	dts.h \
 	isa_parser.h \

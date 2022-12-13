@@ -16,8 +16,6 @@
 #include "common.h"
 #include "softfloat_types.h"
 #include "specialize.h"
-#include "p_ext_macros.h"
-#include "v_ext_macros.h"
 #include <cinttypes>
 #include <type_traits>
 

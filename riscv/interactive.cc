@@ -4,6 +4,7 @@
 #include "decode.h"
 #include "disasm.h"
 #include "mmu.h"
+#include "vector_unit.h"
 #include <sys/mman.h>
 #include <termios.h>
 #include <map>

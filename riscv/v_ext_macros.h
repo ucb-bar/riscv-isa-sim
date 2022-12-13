@@ -3,6 +3,8 @@
 #ifndef _RISCV_V_EXT_MACROS_H
 #define _RISCV_V_EXT_MACROS_H
 
+#include "vector_unit.h"
+
 //
 // vector: masking skip helper
 //

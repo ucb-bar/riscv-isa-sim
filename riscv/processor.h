@@ -17,6 +17,7 @@
 #include "isa_parser.h"
 #include "triggers.h"
 #include "memif.h"
+#include "vector_unit.h"
 
 #define N_HPMCOUNTERS 29
 
@@ -58,68 +59,6 @@ typedef std::unordered_map<reg_t, freg_t> commit_log_reg_t;
 
 // addr, value, size
 typedef std::vector<std::tuple<reg_t, uint64_t, uint8_t>> commit_log_mem_t;
-
-enum VRM{
-  RNU = 0,
-  RNE,
-  RDN,
-  ROD,
-  INVALID_RM
-};
-
-template<uint64_t N>
-struct type_usew_t;
-
-template<>
-struct type_usew_t<8>
-{
-  using type=uint8_t;
-};
-
-template<>
-struct type_usew_t<16>
-{
-  using type=uint16_t;
-};
-
-template<>
-struct type_usew_t<32>
-{
-  using type=uint32_t;
-};
-
-template<>
-struct type_usew_t<64>
-{
-  using type=uint64_t;
-};
-
-template<uint64_t N>
-struct type_sew_t;
-
-template<>
-struct type_sew_t<8>
-{
-  using type=int8_t;
-};
-
-template<>
-struct type_sew_t<16>
-{
-  using type=int16_t;
-};
-
-template<>
-struct type_sew_t<32>
-{
-  using type=int32_t;
-};
-
-template<>
-struct type_sew_t<64>
-{
-  using type=int64_t;
-};
 
 // architectural state of a RISC-V hart
 struct state_t
@@ -380,88 +319,6 @@ public:
   reg_t n_pmp;
   reg_t lg_pmp_granularity;
   reg_t pmp_tor_mask() { return -(reg_t(1) << (lg_pmp_granularity - PMP_SHIFT)); }
-
-  class vectorUnit_t {
-    public:
-      processor_t* p;
-      void *reg_file;
-      char reg_referenced[NVPR];
-      int setvl_count;
-      reg_t vlmax;
-      reg_t vlenb;
-      csr_t_p vxsat;
-      vector_csr_t_p vxrm, vstart, vl, vtype;
-      reg_t vma, vta;
-      reg_t vsew;
-      float vflmul;
-      reg_t ELEN, VLEN;
-      bool vill;
-      bool vstart_alu;
-
-      // vector element for varies SEW
-      template<class T>
-        T& elt(reg_t vReg, reg_t n, bool UNUSED is_write = false) {
-          assert(vsew != 0);
-          assert((VLEN >> 3)/sizeof(T) > 0);
-          reg_t elts_per_reg = (VLEN >> 3) / (sizeof(T));
-          vReg += n / elts_per_reg;
-          n = n % elts_per_reg;
-#ifdef WORDS_BIGENDIAN
-          // "V" spec 0.7.1 requires lower indices to map to lower significant
-          // bits when changing SEW, thus we need to index from the end on BE.
-          n ^= elts_per_reg - 1;
-#endif
-          reg_referenced[vReg] = 1;
-
-#ifdef RISCV_ENABLE_COMMITLOG
-          if (is_write)
-            p->get_state()->log_reg_write[((vReg) << 4) | 2] = {0, 0};
-#endif
-
-          T *regStart = (T*)((char*)reg_file + vReg * (VLEN >> 3));
-          return regStart[n];
-        }
-    public:
-
-      void reset();
-
-      vectorUnit_t():
-        p(0),
-        reg_file(0),
-        reg_referenced{0},
-        setvl_count(0),
-        vlmax(0),
-        vlenb(0),
-        vxsat(0),
-        vxrm(0),
-        vstart(0),
-        vl(0),
-        vtype(0),
-        vma(0),
-        vta(0),
-        vsew(0),
-        vflmul(0),
-        ELEN(0),
-        VLEN(0),
-        vill(false),
-        vstart_alu(false) {
-      }
-
-      ~vectorUnit_t() {
-        free(reg_file);
-        reg_file = 0;
-      }
-
-      reg_t set_vl(int rd, int rs1, reg_t reqVL, reg_t newType);
-
-      reg_t get_vlen() { return VLEN; }
-      reg_t get_elen() { return ELEN; }
-      reg_t get_slen() { return VLEN; }
-
-      VRM get_vround_mode() {
-        return (VRM)(vxrm->read());
-      }
-  };
 
   vectorUnit_t VU;
   triggers::module_t TM;

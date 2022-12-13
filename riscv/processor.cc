@@ -9,6 +9,7 @@
 #include "mmu.h"
 #include "disasm.h"
 #include "platform.h"
+#include "vector_unit.h"
 #include <cinttypes>
 #include <cmath>
 #include <cstdlib>
@@ -509,67 +510,6 @@ void state_t::reset(processor_t* const proc, reg_t max_isa)
   last_inst_xlen = 0;
   last_inst_flen = 0;
 #endif
-}
-
-void processor_t::vectorUnit_t::reset()
-{
-  free(reg_file);
-  VLEN = get_vlen();
-  ELEN = get_elen();
-  reg_file = malloc(NVPR * vlenb);
-  memset(reg_file, 0, NVPR * vlenb);
-
-  auto& csrmap = p->get_state()->csrmap;
-  csrmap[CSR_VXSAT] = vxsat = std::make_shared<vxsat_csr_t>(p, CSR_VXSAT);
-  csrmap[CSR_VSTART] = vstart = std::make_shared<vector_csr_t>(p, CSR_VSTART, /*mask*/ VLEN - 1);
-  csrmap[CSR_VXRM] = vxrm = std::make_shared<vector_csr_t>(p, CSR_VXRM, /*mask*/ 0x3ul);
-  csrmap[CSR_VL] = vl = std::make_shared<vector_csr_t>(p, CSR_VL, /*mask*/ 0);
-  csrmap[CSR_VTYPE] = vtype = std::make_shared<vector_csr_t>(p, CSR_VTYPE, /*mask*/ 0);
-  csrmap[CSR_VLENB] = std::make_shared<vector_csr_t>(p, CSR_VLENB, /*mask*/ 0, /*init*/ vlenb);
-  assert(VCSR_VXSAT_SHIFT == 0);  // composite_csr_t assumes vxsat begins at bit 0
-  csrmap[CSR_VCSR] = std::make_shared<composite_csr_t>(p, CSR_VCSR, vxrm, vxsat, VCSR_VXRM_SHIFT);
-
-  vtype->write_raw(0);
-  set_vl(0, 0, 0, -1); // default to illegal configuration
-}
-
-reg_t processor_t::vectorUnit_t::set_vl(int rd, int rs1, reg_t reqVL, reg_t newType)
-{
-  int new_vlmul = 0;
-  if (vtype->read() != newType) {
-    vsew = 1 << (extract64(newType, 3, 3) + 3);
-    new_vlmul = int8_t(extract64(newType, 0, 3) << 5) >> 5;
-    vflmul = new_vlmul >= 0 ? 1 << new_vlmul : 1.0 / (1 << -new_vlmul);
-    vlmax = (VLEN/vsew) * vflmul;
-    vta = extract64(newType, 6, 1);
-    vma = extract64(newType, 7, 1);
-
-    vill = !(vflmul >= 0.125 && vflmul <= 8)
-           || vsew > std::min(vflmul, 1.0f) * ELEN
-           || (newType >> 8) != 0;
-
-    if (vill) {
-      vlmax = 0;
-      vtype->write_raw(UINT64_MAX << (p->get_xlen() - 1));
-    } else {
-      vtype->write_raw(newType);
-    }
-  }
-
-  // set vl
-  if (vlmax == 0) {
-    vl->write_raw(0);
-  } else if (rd == 0 && rs1 == 0) {
-    vl->write_raw(vl->read() > vlmax ? vlmax : vl->read());
-  } else if (rd != 0 && rs1 == 0) {
-    vl->write_raw(vlmax);
-  } else if (rs1 != 0) {
-    vl->write_raw(reqVL > vlmax ? vlmax : reqVL);
-  }
-
-  vstart->write_raw(0);
-  setvl_count++;
-  return vl->read();
 }
 
 void processor_t::set_debug(bool value)

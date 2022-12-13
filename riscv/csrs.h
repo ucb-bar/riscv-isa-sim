@@ -2,6 +2,8 @@
 #ifndef _RISCV_CSRS_H
 #define _RISCV_CSRS_H
 
+#include "common.h"
+#include "encoding.h"
 // For reg_t:
 #include "decode.h"
 // For std::shared_ptr

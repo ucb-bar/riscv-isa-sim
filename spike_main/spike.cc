@@ -497,29 +497,6 @@ int main(int argc, char** argv)
     }
   }
 
-#ifdef HAVE_BOOST_ASIO
-  boost::asio::io_service *io_service_ptr = NULL; // needed for socket command interface option -s
-  boost::asio::ip::tcp::acceptor *acceptor_ptr = NULL;
-  if (socket) {  // if command line option -s is set
-     try
-     { // create socket server
-       using boost::asio::ip::tcp;
-       io_service_ptr = new boost::asio::io_service;
-       acceptor_ptr = new tcp::acceptor(*io_service_ptr, tcp::endpoint(tcp::v4(), 0));
-       // aceptor is created passing argument port=0, so O.S. will choose a free port
-       std::string name = boost::asio::ip::host_name();
-       std::cout << "Listening for debug commands on " << name.substr(0,name.find('.'))
-                 << " port " << acceptor_ptr->local_endpoint().port() << " ." << std::endl;
-       // at the end, add space and some other character for convenience of javascript .split(" ")
-     }
-     catch (std::exception& e)
-     {
-       std::cerr << e.what() << std::endl;
-       exit(-1);
-     }
-  }
-#endif
-
   if (cfg.explicit_hartids) {
     if (nprocs.overridden() && (nprocs() != cfg.nprocs())) {
       std::cerr << "Number of specified hartids ("
@@ -542,9 +519,7 @@ int main(int argc, char** argv)
 
   sim_t s(&cfg, halted,
       mems, plugin_devices, htif_args, dm_config, log_path, dtb_enabled, dtb_file,
-#ifdef HAVE_BOOST_ASIO
-      io_service_ptr, acceptor_ptr,
-#endif
+      socket,
       cmd_file);
   std::unique_ptr<remote_bitbang_t> remote_bitbang((remote_bitbang_t *) NULL);
   std::unique_ptr<jtag_dtm_t> jtag_dtm(

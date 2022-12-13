@@ -1,10 +1,12 @@
 // See LICENSE for license details.
 
+#include "config.h"
 #include "sim.h"
 #include "decode.h"
 #include "disasm.h"
 #include "mmu.h"
 #include "vector_unit.h"
+#include "socketif.h"
 #include <sys/mman.h>
 #include <termios.h>
 #include <map>
@@ -247,58 +249,6 @@ static std::string readline(int fd)
   return s.substr(initial_s_len);
 }
 
-#ifdef HAVE_BOOST_ASIO
-// read input command string
-std::string sim_t::rin(boost::asio::streambuf *bout_ptr) {
-  std::string s;
-  if (acceptor_ptr) { // if we are listening, get commands from socket
-    try {
-      socket_ptr.reset(new boost::asio::ip::tcp::socket(*io_service_ptr));
-      acceptor_ptr->accept(*socket_ptr); // wait for someone to open connection
-      boost::asio::streambuf buf;
-      boost::asio::read_until(*socket_ptr, buf, "\n"); // wait for command
-      s = boost::asio::buffer_cast<const char*>(buf.data());
-      boost::erase_all(s, "\r");  // get rid off any cr and lf
-      boost::erase_all(s, "\n");
-      // The socket client is a web server and it appends the IP of the computer
-      // that sent the command from its web browser.
-
-      // For now, erase the IP if it is there.
-      boost::regex re(" ((25[0-5]|2[0-4][0-9]|[01]?[0-9]?[0-9])\\.){3}"
-                      "(25[0-5]|2[0-4][0-9]|[01]?[0-9]?[0-9])$");
-      s = boost::regex_replace(s, re, (std::string)"");
-
-      // TODO: check the IP against the IP used to upload RISC-V source files
-    } catch (std::exception& e) {
-      std::cerr << e.what() << std::endl;
-    }
-    // output goes to socket
-    sout_.rdbuf(bout_ptr);
-  } else { // if we are not listening on a socket, get commands from terminal
-    s = readline(2); // 2 is stderr, but when doing reads it reverts to stdin
-    // output goes to stderr
-    sout_.rdbuf(std::cerr.rdbuf());
-  }
-  return s;
-}
-
-// write sout_ to socket (via bout)
-void sim_t::wout(boost::asio::streambuf *bout_ptr) {
-  if (!cmd_file && acceptor_ptr) { // only if  we are not getting command inputs from a file
-                                   // and if a socket has been created
-    try {
-      boost::system::error_code ignored_error;
-      boost::asio::write(*socket_ptr, *bout_ptr, boost::asio::transfer_all(), ignored_error);
-      socket_ptr->close(); // close the socket after each command input/ouput
-                           //  This is need to in order to make the socket interface
-                           //  acessible by HTTP GET via a socket client in a web server.
-    } catch (std::exception& e) {
-      std::cerr << e.what() << std::endl;
-    }
-  }
-}
-#endif
-
 void sim_t::interactive()
 {
   typedef void (sim_t::*interactive_func)(const std::string&, const std::vector<std::string>&);
@@ -330,9 +280,6 @@ void sim_t::interactive()
 
   while (!done())
   {
-#ifdef HAVE_BOOST_ASIO
-    boost::asio::streambuf bout; // socket output
-#endif
     std::string s;
     char cmd_str[MAX_CMD_STR+1]; // only used for following fscanf
     // first get commands from file, if cmd_file has been set
@@ -345,10 +292,14 @@ void sim_t::interactive()
       // when there are no commands left from file or if there was no file from the beginning
       cmd_file = NULL; // mark file pointer as being not valid, so any method can test this easily
 #ifdef HAVE_BOOST_ASIO
-      s = rin(&bout); // get command string from socket or terminal
-#else
-      s = readline(2); // 2 is stderr, but when doing reads it reverts to stdin
+      if (socketif) {
+        s = socketif->rin(sout_); // get command string from socket or terminal
+      }
+      else
 #endif
+      {
+        s = readline(2); // 2 is stderr, but when doing reads it reverts to stdin
+      }
     }
 
     std::stringstream ss(s);
@@ -360,7 +311,8 @@ void sim_t::interactive()
       set_procs_debug(true);
       step(1);
 #ifdef HAVE_BOOST_ASIO
-      wout(&bout); // socket output, if required
+      if (socketif)
+        socketif->wout(); // socket output, if required
 #endif
       continue;
     }
@@ -380,7 +332,8 @@ void sim_t::interactive()
       out << "Bad or missing arguments for command " << cmd << std::endl;
     }
 #ifdef HAVE_BOOST_ASIO
-    wout(&bout); // socket output, if required
+    if (socketif)
+      socketif->wout(); // socket output, if required
 #endif
   }
   ctrlc_pressed = false;

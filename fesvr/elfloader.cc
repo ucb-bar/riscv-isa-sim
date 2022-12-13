@@ -1,5 +1,6 @@
 // See LICENSE for license details.
 
+#include "config.h"
 #include "elf.h"
 #include "memif.h"
 #include "byteorder.h"

@@ -15,6 +15,7 @@ riscv_install_prog_srcs = \
 
 riscv_hdrs = \
 	abstract_device.h \
+	abstract_interrupt_controller.h \
 	common.h \
 	decode.h \
 	decode_macros.h \
@@ -48,7 +49,7 @@ riscv_hdrs = \
 
 riscv_install_hdrs = \
 	abstract_device.h \
-	cachesim.h \
+	abstract_interrupt_controller.h \
 	cfg.h \
 	common.h \
 	csrs.h \
@@ -63,14 +64,13 @@ riscv_install_hdrs = \
 	memtracer.h \
 	mmio_plugin.h \
 	mmu.h \
-	p_ext_macros.h \
 	platform.h \
 	processor.h \
 	sim.h \
 	simif.h \
 	trap.h \
 	triggers.h \
-	v_ext_macros.h \
+	vector_unit.h \
 
 riscv_precompiled_hdrs = \
 	insn_template.h \

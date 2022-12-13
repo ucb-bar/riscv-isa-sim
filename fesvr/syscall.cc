@@ -1,5 +1,6 @@
 // See LICENSE for license details.
 
+#include "config.h"
 #include "syscall.h"
 #include "htif.h"
 #include "byteorder.h"

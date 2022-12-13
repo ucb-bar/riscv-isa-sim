@@ -1,5 +1,6 @@
 // See LICENSE for license details.
 
+#include "config.h"
 #include "mmu.h"
 #include "arith.h"
 #include "simif.h"

@@ -3,7 +3,6 @@
 #define _RISCV_PROCESSOR_H
 
 #include "decode.h"
-#include "config.h"
 #include "trap.h"
 #include "abstract_device.h"
 #include <string>
@@ -16,8 +15,8 @@
 #include "csrs.h"
 #include "isa_parser.h"
 #include "triggers.h"
-#include "memif.h"
 #include "vector_unit.h"
+#include "cfg.h"
 
 #define N_HPMCOUNTERS 29
 
@@ -265,6 +264,8 @@ public:
   void set_mmu_capability(int cap);
 
   const char* get_symbol(uint64_t addr);
+  bool histogram_enabled;
+  std::map<reg_t,uint64_t> pc_histogram;
 
 private:
   const isa_parser_t * const isa;
@@ -276,7 +277,7 @@ private:
   state_t state;
   uint32_t id;
   unsigned xlen;
-  bool histogram_enabled;
+
   bool log_commits_enabled;
   FILE *log_file;
   std::ostream sout_; // needed for socket command interface -s, also used for -d and -l, but not for --log
@@ -284,7 +285,7 @@ private:
   std::vector<bool> impl_table;
 
   std::vector<insn_desc_t> instructions;
-  std::map<reg_t,uint64_t> pc_histogram;
+
 
   static const size_t OPCODE_CACHE_SIZE = 8191;
   insn_desc_t opcode_cache[OPCODE_CACHE_SIZE];

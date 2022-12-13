@@ -1,5 +1,6 @@
 // See LICENSE for license details.
 
+#include "config.h"
 #include "dts.h"
 #include "libfdt.h"
 #include "platform.h"

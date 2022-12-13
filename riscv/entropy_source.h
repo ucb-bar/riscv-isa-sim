@@ -2,7 +2,6 @@
 #include <fstream>
 #include <iostream>
 
-#include "internals.h"
 #include "common.h"
 
 //

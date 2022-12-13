@@ -1,10 +1,10 @@
 // See LICENSE for license details.
 
+#include "config.h"
 #include "arith.h"
 #include "processor.h"
 #include "extension.h"
 #include "common.h"
-#include "config.h"
 #include "simif.h"
 #include "mmu.h"
 #include "disasm.h"

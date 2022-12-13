@@ -1,5 +1,7 @@
 // See LICENSE for license details.
 
+#include "config.h"
+
 // For std::any_of
 #include <algorithm>
 
@@ -1179,8 +1181,8 @@ debug_mode_csr_t::debug_mode_csr_t(processor_t* const proc, const reg_t addr):
 
 void debug_mode_csr_t::verify_permissions(insn_t insn, bool write) const {
   basic_csr_t::verify_permissions(insn, write);
-  if (!state->debug_mode)
-    throw trap_illegal_instruction(insn.bits());
+  // if (!state->debug_mode)
+  //   throw trap_illegal_instruction(insn.bits());
 }
 
 dpc_csr_t::dpc_csr_t(processor_t* const proc, const reg_t addr):
@@ -1189,8 +1191,8 @@ dpc_csr_t::dpc_csr_t(processor_t* const proc, const reg_t addr):
 
 void dpc_csr_t::verify_permissions(insn_t insn, bool write) const {
   epc_csr_t::verify_permissions(insn, write);
-  if (!state->debug_mode)
-    throw trap_illegal_instruction(insn.bits());
+  // if (!state->debug_mode)
+  //   throw trap_illegal_instruction(insn.bits());
 }
 
 dcsr_csr_t::dcsr_csr_t(processor_t* const proc, const reg_t addr):
@@ -1207,8 +1209,8 @@ dcsr_csr_t::dcsr_csr_t(processor_t* const proc, const reg_t addr):
 
 void dcsr_csr_t::verify_permissions(insn_t insn, bool write) const {
   csr_t::verify_permissions(insn, write);
-  if (!state->debug_mode)
-    throw trap_illegal_instruction(insn.bits());
+  // if (!state->debug_mode)
+  //   throw trap_illegal_instruction(insn.bits());
 }
 
 reg_t dcsr_csr_t::read() const noexcept {

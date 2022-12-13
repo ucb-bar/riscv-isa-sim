@@ -15,12 +15,6 @@
 #include <stdlib.h>
 #include <vector>
 
-// virtual memory configuration
-#define PGSHIFT 12
-const reg_t PGSIZE = 1 << PGSHIFT;
-const reg_t PGMASK = ~(PGSIZE-1);
-#define MAX_PADDR_BITS 56 // imposed by Sv39 / Sv48
-
 struct insn_fetch_t
 {
   insn_func_t func;

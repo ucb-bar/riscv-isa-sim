@@ -240,4 +240,10 @@ private:
 #define DEBUG_START             0x0
 #define DEBUG_END               (0x1000 - 1)
 
+// virtual memory configuration
+#define PGSHIFT 12
+const reg_t PGSIZE = 1 << PGSHIFT;
+const reg_t PGMASK = ~(PGSIZE-1);
+#define MAX_PADDR_BITS 56 // imposed by Sv39 / Sv48
+
 #endif

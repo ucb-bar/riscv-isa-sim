@@ -3,7 +3,6 @@
 #ifndef _RISCV_SIM_H
 #define _RISCV_SIM_H
 
-#include "config.h"
 #include "cfg.h"
 #include "debug_module.h"
 #include "devices.h"
@@ -130,6 +129,7 @@ private:
   void interactive_until(const std::string& cmd, const std::vector<std::string>& args, bool noisy);
   void interactive_until_silent(const std::string& cmd, const std::vector<std::string>& args);
   void interactive_until_noisy(const std::string& cmd, const std::vector<std::string>& args);
+  void interactive_hist(const std::string& cmd, const std::vector<std::string>& args);
   reg_t get_reg(const std::vector<std::string>& args);
   freg_t get_freg(const std::vector<std::string>& args, int size);
   reg_t get_mem(const std::vector<std::string>& args);

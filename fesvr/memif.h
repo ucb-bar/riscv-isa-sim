@@ -7,15 +7,12 @@
 #include <stddef.h>
 #include <stdexcept>
 #include "byteorder.h"
+// for memif_endianness_t
+#include "../riscv/cfg.h"
 
 typedef uint64_t reg_t;
 typedef int64_t sreg_t;
 typedef reg_t addr_t;
-
-typedef enum {
-  memif_endianness_little,
-  memif_endianness_big
-} memif_endianness_t;
 
 class chunked_memif_t
 {

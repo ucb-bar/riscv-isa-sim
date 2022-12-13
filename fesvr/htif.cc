@@ -1,5 +1,6 @@
 // See LICENSE for license details.
 
+#include "config.h"
 #include "htif.h"
 #include "rfb.h"
 #include "elfloader.h"

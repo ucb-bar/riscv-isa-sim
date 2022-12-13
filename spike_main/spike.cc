@@ -1,5 +1,6 @@
 // See LICENSE for license details.
 
+#include "config.h"
 #include "cfg.h"
 #include "sim.h"
 #include "mmu.h"

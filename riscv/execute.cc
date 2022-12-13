@@ -1,5 +1,6 @@
 // See LICENSE for license details.
 
+#include "config.h"
 #include "processor.h"
 #include "mmu.h"
 #include "disasm.h"

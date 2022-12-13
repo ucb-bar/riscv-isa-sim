@@ -44,9 +44,6 @@
 #define CLEAR 3
 #define CSRRx(type, dst, csr, src) (0x73 | ((type) << 12) | ((dst) << 7) | ((src) << 15) | (uint32_t)((csr) << 20))
 
-#define get_field(reg, mask) (((reg) & (mask)) / ((mask) & ~((mask) << 1)))
-#define set_field(reg, mask, val) (((reg) & ~(mask)) | (((val) * ((mask) & ~((mask) << 1))) & (mask)))
-
 #define RUN_AC_OR_DIE(a, b, c, d, e) { \
     uint32_t cmderr = run_abstract_command(a, b, c, d, e);      \
     if (cmderr) {                                               \

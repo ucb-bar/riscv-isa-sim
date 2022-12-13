@@ -3,12 +3,11 @@
 #define _RISCV_DEBUG_MODULE_H
 
 #include <set>
-
 #include "abstract_device.h"
-#include "mmu.h"
 
 class sim_t;
 class bus_t;
+class processor_t;
 
 typedef struct {
   // Size of program_buffer in 32-bit words, as exposed to the rest of the

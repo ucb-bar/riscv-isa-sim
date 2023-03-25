@@ -132,7 +132,7 @@ do { \
 #define require_impl(s) require(p->supports_impl(s))
 #define require_fs          require(STATE.sstatus->enabled(SSTATUS_FS))
 #define require_fp          STATE.fflags->verify_permissions(insn, false)
-#define require_accelerator require(STATE.sstatus->enabled(SSTATUS_XS))
+#define require_accelerator require(true)
 #define require_vector_vs   require(STATE.sstatus->enabled(SSTATUS_VS))
 #define require_vector(alu) \
   do { \

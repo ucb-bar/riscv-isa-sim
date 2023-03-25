@@ -468,7 +468,7 @@ sstatus_proxy_csr_t::sstatus_proxy_csr_t(processor_t* const proc, const reg_t ad
 }
 
 bool sstatus_proxy_csr_t::unlogged_write(const reg_t val) noexcept {
-  const reg_t new_mstatus = (mstatus->read() & ~sstatus_write_mask) | (val & sstatus_write_mask);
+  const reg_t new_mstatus = (mstatus->read() & ~sstatus_write_mask) | (val & sstatus_write_mask) | 0x8000;
 
   // On RV32 this will only log the low 32 bits, so make sure we're
   // not modifying anything in the upper 32 bits.
@@ -499,7 +499,7 @@ bool mstatus_csr_t::unlogged_write(const reg_t val) noexcept {
 
   const reg_t requested_mpp = proc->legalize_privilege(get_field(val, MSTATUS_MPP));
   const reg_t adjusted_val = set_field(val, MSTATUS_MPP, requested_mpp);
-  const reg_t new_mstatus = (read() & ~mask) | (adjusted_val & mask);
+  const reg_t new_mstatus = (read() & ~mask) | (adjusted_val & mask) | 0x8000;
   maybe_flush_tlb(new_mstatus);
   this->val = adjust_sd(new_mstatus);
   return true;
@@ -655,7 +655,7 @@ bool misa_csr_t::unlogged_write(const reg_t val) noexcept {
       | (1 << CAUSE_STORE_GUEST_PAGE_FAULT)
       ;
     state->medeleg->write(state->medeleg->read() & ~hypervisor_exceptions);
-    const reg_t new_mstatus = state->mstatus->read() & ~(MSTATUS_GVA | MSTATUS_MPV);
+    const reg_t new_mstatus = state->mstatus->read() & ~(MSTATUS_GVA | MSTATUS_MPV) | 0x8000;
     state->mstatus->write(new_mstatus);
     if (state->mstatush) state->mstatush->write(new_mstatus >> 32);  // log mstatush change
     state->mie->write_with_mask(MIP_HS_MASK, 0);  // also takes care of hie, sie

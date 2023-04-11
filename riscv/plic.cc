@@ -418,7 +418,8 @@ std::string plic_generate_dts(const sim_t* sim)
 plic_t* plic_parse_from_fdt(const void* fdt, const sim_t* sim, reg_t* base, const std::vector<std::string>& sargs)
 {
   uint32_t plic_ndev;
-  if (fdt_parse_plic(fdt, base, &plic_ndev, "riscv,plic0") == 0)
+  if (fdt_parse_plic(fdt, base, &plic_ndev, "riscv,plic0") == 0 ||
+      fdt_parse_plic(fdt, base, &plic_ndev, "sifive,plic-1.0.0") == 0)
     return new plic_t(sim, plic_ndev);
   else
     return nullptr;

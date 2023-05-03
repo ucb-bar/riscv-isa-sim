@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdexcept>
+#include <stdio.h>
 #include "memif.h"
 
 void memif_t::read(addr_t addr, size_t len, void* bytes)

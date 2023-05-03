@@ -20,6 +20,7 @@
 #include <unistd.h>
 #include <signal.h>
 #include <getopt.h>
+#include <inttypes.h>
 
 /* Attempt to determine the execution prefix automatically.  autoconf
  * sets PREFIX, and pconfigure sets __PCONFIGURE__PREFIX. */
@@ -84,16 +85,26 @@ htif_t::~htif_t()
 
 void htif_t::start()
 {
+  fprintf(stdout, "htif_t::start targs.empty: %d targs[0] %s\n", targs.empty(), targs[0]);
+  fflush(stdout);
+
   if (!targs.empty() && targs[0] != "none") {
+    fprintf(stdout, "!targs.empty() && targs[0] != none\n");
+    fflush(stdout);
     try {
       load_program();
     } catch (const incompat_xlen & err) {
-      fprintf(stderr, "Error: cannot execute %d-bit program on RV%d hart\n", err.actual_xlen, err.expected_xlen);
+      fprintf(stdout, "Error: cannot execute %d-bit program on RV%d hart\n", err.actual_xlen, err.expected_xlen);
+      fflush(stdout);
       exit(1);
     }
   }
+  fprintf(stdout, "htif_t, load_program done\n");
+  fflush(stdout);
 
   reset();
+  fprintf(stdout, "htif reset done\n");
+  fflush(stdout);
 }
 
 static void bad_address(const std::string& situation, reg_t addr)
@@ -105,6 +116,9 @@ static void bad_address(const std::string& situation, reg_t addr)
 
 std::map<std::string, uint64_t> htif_t::load_payload(const std::string& payload, reg_t* entry)
 {
+  fprintf(stdout, "htif_t::load_payload\n");
+  fflush(stdout);
+
   std::string path;
   if (access(payload.c_str(), F_OK) == 0)
     path = payload;
@@ -120,6 +134,8 @@ std::map<std::string, uint64_t> htif_t::load_payload(const std::string& payload,
         "\t" + PREFIX TARGET_DIR + " (based on configured --prefix and --with-target)"
       );
   }
+
+  std::cout << path << std::endl;
 
   if (path.empty())
     throw std::runtime_error(
@@ -142,23 +158,48 @@ std::map<std::string, uint64_t> htif_t::load_payload(const std::string& payload,
     htif_t* htif;
   } preload_aware_memif(this);
 
+
+  fprintf(stdout, "before load_elf\n");
+  fflush(stdout);
+
   try {
     return load_elf(path.c_str(), &preload_aware_memif, entry, expected_xlen);
   } catch (mem_trap_t& t) {
+    fprintf(stdout, "bad_address\n");
+    fflush(stdout);
+
     bad_address("loading payload " + payload, t.get_tval());
     abort();
   }
+
+  fprintf(stdout, "after load_elf\n");
+  fflush(stdout);
 }
 
 void htif_t::load_program()
 {
+  fprintf(stdout, "htif_t::load_program\n");
+  fflush(stdout);
+
   std::map<std::string, uint64_t> symbols = load_payload(targs[0], &entry);
+  for ( const auto &pld : symbols ) {
+    std::cout << pld.first << pld.second << std::endl;
+  }
+
+  fprintf(stdout, "htif_t::load_payload\n");
+  fflush(stdout);
+
+  fprintf(stdout, "symbols[tohost] %d symbols[fromhost] %d\n", symbols.count("tohost"), symbols.count("fromhost"));
+  fflush(stdout);
 
   if (symbols.count("tohost") && symbols.count("fromhost")) {
     tohost_addr = symbols["tohost"];
     fromhost_addr = symbols["fromhost"];
+    fprintf(stdout, "tohost_addr 0x%" PRIx64 " fromhost_addr 0x%" PRIx64 "\n", tohost_addr, fromhost_addr);
+    fflush(stdout);
   } else {
-    fprintf(stderr, "warning: tohost and fromhost symbols not in ELF; can't communicate with target\n");
+    fprintf(stdout, "warning: tohost and fromhost symbols not in ELF; can't communicate with target\n");
+    fflush(stdout);
   }
 
   // detect torture tests so we can print the memory signature at the end
@@ -245,6 +286,10 @@ void htif_t::clear_chunk(addr_t taddr, size_t len)
 
 int htif_t::run()
 {
+  fprintf(stdout, "htif_t::run()\n");
+  fflush(stdout);
+
+  fprintf(stdout, "htif_t::start()\n");
   start();
 
   auto enq_func = [](std::queue<reg_t>* q, uint64_t x) { q->push(x); };

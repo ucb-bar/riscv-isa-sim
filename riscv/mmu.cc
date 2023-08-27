@@ -536,6 +536,9 @@ reg_t mmu_t::walk(mem_access_info_t access_info)
 
       if ((pte & ad) != ad) {
         if (hade) {
+          // Check for write permission to the first-stage PT in second-stage
+          // PTE and set the D bit in the second-stage PTE if needed
+          s2xlate(addr, base + idx * vm.ptesize, STORE, type, virt, false);
           // set accessed and possibly dirty bits.
           pte_store(pte_paddr, pte | ad, addr, virt, type, vm.ptesize);
         } else {

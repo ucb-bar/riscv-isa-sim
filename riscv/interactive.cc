@@ -28,7 +28,7 @@
 # pragma GCC diagnostic ignored "-Wunused-parameter"
 #endif
 
-#define MAX_CMD_STR 40 // maximum possible size of a command line
+#define MAX_CMD_STR 100 // maximum possible size of a command line
 #define BITS_PER_CHAR 8
 
 #define STR_(X) #X      // these definitions allow to use a macro as a string
@@ -773,6 +773,9 @@ void sim_t::interactive_dumpmems(const std::string& cmd, const std::vector<std::
 {
   for (unsigned i = 0; i < mems.size(); i++) {
     std::stringstream mem_fname;
+    if (args.size() == 1) {
+      mem_fname << args[0] << "/";
+    }
     mem_fname << "mem.0x" << std::hex << mems[i].first << ".bin";
 
     std::ofstream mem_file(mem_fname.str());

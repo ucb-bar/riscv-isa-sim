@@ -28,7 +28,7 @@
 # pragma GCC diagnostic ignored "-Wunused-parameter"
 #endif
 
-#define MAX_CMD_STR 100 // maximum possible size of a command line
+#define MAX_CMD_STR 1000 // maximum possible size of a command line
 #define BITS_PER_CHAR 8
 
 #define STR_(X) #X      // these definitions allow to use a macro as a string

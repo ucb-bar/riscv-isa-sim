@@ -750,7 +750,7 @@
 //  - 'rs1', unsigned, SEW width, by value, constant.
 #define VI_ZVK_VX_WIDENING_ULOOP(BODY) \
   do { \
-    VI_CHECK_DSS(true); \
+    VI_CHECK_DSS(false); \
     VI_LOOP_BASE \
       switch (sew) { \
         case e8: { \
@@ -788,7 +788,7 @@
 //  - 'zimm5', unsigned, SEW width, by value, constant.
 #define VI_ZVK_VI_WIDENING_ULOOP(BODY) \
   do { \
-    VI_CHECK_DSS(true); \
+    VI_CHECK_DSS(false); \
     VI_LOOP_BASE \
       switch (sew) { \
         case e8: { \

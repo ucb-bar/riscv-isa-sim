@@ -10,6 +10,7 @@
 #include "extension.h"
 #include <dlfcn.h>
 #include <fesvr/option_parser.h>
+#include <stdexcept>
 #include <stdio.h>
 #include <stdlib.h>
 #include <vector>
@@ -18,6 +19,7 @@
 #include <fstream>
 #include <limits>
 #include <cinttypes>
+#include <sstream>
 #include "../VERSION"
 
 static void help(int exit_code = 1)
@@ -332,7 +334,7 @@ int main(int argc, char** argv)
   bool dtb_enabled = true;
   const char* kernel = NULL;
   reg_t kernel_offset, kernel_size;
-  std::vector<const device_factory_t*> plugin_device_factories;
+  std::vector<device_factory_t*> plugin_device_factories;
   std::unique_ptr<icache_sim_t> ic;
   std::unique_ptr<dcache_sim_t> dc;
   std::unique_ptr<cache_sim_t> l2;
@@ -374,10 +376,24 @@ int main(int argc, char** argv)
             /*default_trigger_count=*/4);
 
   auto const device_parser = [&plugin_device_factories](const char *s) {
-    const std::string name(s);
+    const std::string device_args(s);
+    std::vector<std::string> parsed_args;
+    std::stringstream sstr(device_args);
+    while (sstr.good()) {
+      std::string substr;
+      getline(sstr, substr, ',');
+      parsed_args.push_back(substr);
+    }
+    if (parsed_args.empty()) throw std::runtime_error("Plugin argument is empty.");
+
+    const std::string name = parsed_args[0];
     if (name.empty()) throw std::runtime_error("Plugin name is empty.");
+
     auto it = mmio_device_map().find(name);
     if (it == mmio_device_map().end()) throw std::runtime_error("Plugin \"" + name + "\" not found in loaded extlibs.");
+
+    parsed_args.erase(parsed_args.begin());
+    it->second->set_sargs(parsed_args);
     plugin_device_factories.push_back(it->second);
   };
 

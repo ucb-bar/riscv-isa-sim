@@ -116,7 +116,8 @@ void clint_t::tick(reg_t rtc_ticks)
   }
 }
 
-clint_t* clint_parse_from_fdt(const void* fdt, const sim_t* sim, reg_t* base) {
+clint_t* clint_parse_from_fdt(const void* fdt, const sim_t* sim, reg_t* base,
+    const std::vector<std::string>& sargs) {
   if (fdt_parse_clint(fdt, base, "riscv,clint0") == 0)
     return new clint_t(sim,
                        sim->CPU_HZ / sim->INSNS_PER_RTC_TICK,

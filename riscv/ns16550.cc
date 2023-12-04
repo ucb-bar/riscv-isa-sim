@@ -341,7 +341,7 @@ std::string ns16550_generate_dts(const sim_t* sim)
   return s.str();
 }
 
-ns16550_t* ns16550_parse_from_fdt(const void* fdt, const sim_t* sim, reg_t* base)
+ns16550_t* ns16550_parse_from_fdt(const void* fdt, const sim_t* sim, reg_t* base, const std::vector<std::string>& sargs)
 {
   uint32_t ns16550_shift, ns16550_io_width, ns16550_int_id;
   if (fdt_parse_ns16550(fdt, base,

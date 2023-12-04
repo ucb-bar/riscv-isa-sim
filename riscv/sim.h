@@ -27,7 +27,7 @@ class sim_t : public htif_t, public simif_t
 public:
   sim_t(const cfg_t *cfg, bool halted,
         std::vector<std::pair<reg_t, abstract_mem_t*>> mems,
-        std::vector<const device_factory_t*> plugin_device_factories,
+        std::vector<device_factory_t*> plugin_device_factories,
         const std::vector<std::string>& args,
         const debug_module_config_t &dm_config, const char *log_path,
         bool dtb_enabled, const char *dtb_file,

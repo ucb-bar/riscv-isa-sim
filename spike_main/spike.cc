@@ -348,17 +348,7 @@ int main(int argc, char** argv)
   bool use_rbb = false;
   unsigned dmi_rti = 0;
   reg_t blocksz = 64;
-  debug_module_config_t dm_config = {
-    .progbufsize = 2,
-    .max_sba_data_width = 0,
-    .require_authentication = false,
-    .abstract_rti = 0,
-    .support_hasel = true,
-    .support_abstract_csr_access = true,
-    .support_abstract_fpr_access = true,
-    .support_haltgroups = true,
-    .support_impebreak = true
-  };
+  debug_module_config_t dm_config;
   cfg_arg_t<size_t> nprocs(1);
 
   cfg_t cfg;

@@ -17,17 +17,7 @@ int main()
   cfg_t cfg;
   std::vector<device_factory_t*> plugin_devices;
   std::vector<std::string> htif_args {"pk", "hello"};
-  debug_module_config_t dm_config = {
-    .progbufsize = 2,
-    .max_sba_data_width = 0,
-    .require_authentication = false,
-    .abstract_rti = 0,
-    .support_hasel = true,
-    .support_abstract_csr_access = true,
-    .support_abstract_fpr_access = true,
-    .support_haltgroups = true,
-    .support_impebreak = true
-  };
+  debug_module_config_t dm_config;
   std::vector<std::pair<reg_t, abstract_mem_t*>> mems =
       make_mems(cfg.mem_layout);
   sim_t sim(&cfg, false,

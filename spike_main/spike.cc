@@ -493,10 +493,10 @@ int main(int argc, char** argv)
     help();
 
   std::vector<std::pair<reg_t, abstract_mem_t*>> mems =
-      make_mems(cfg.mem_layout());
+      make_mems(cfg.mem_layout);
 
   if (kernel && check_file_exists(kernel)) {
-    const char *isa = cfg.isa();
+    const char *isa = cfg.isa;
     kernel_size = get_file_size(kernel);
     if (isa[2] == '6' && isa[3] == '4')
       kernel_offset = 0x200000;

@@ -514,7 +514,7 @@ bool debug_module_t::dmi_read(unsigned address, uint32_t *value)
           unsigned base = hawindowsel * 32;
           for (unsigned i = 0; i < 32; i++) {
             unsigned n = base + i;
-            if (n < sim->get_cfg().nprocs() && hart_array_mask[sim->get_cfg().hartids()[n]]) {
+            if (n < sim->get_cfg().nprocs() && hart_array_mask[sim->get_cfg().hartids[n]]) {
               result |= 1 << i;
             }
           }
@@ -916,7 +916,7 @@ bool debug_module_t::dmi_write(unsigned address, uint32_t value)
           for (unsigned i = 0; i < 32; i++) {
             unsigned n = base + i;
             if (n < sim->get_cfg().nprocs()) {
-              hart_array_mask[sim->get_cfg().hartids()[n]] = (value >> i) & 1;
+              hart_array_mask[sim->get_cfg().hartids[n]] = (value >> i) & 1;
             }
           }
         }
@@ -1030,5 +1030,5 @@ hart_debug_state_t& debug_module_t::selected_hart_state()
 
 size_t debug_module_t::selected_hart_id() const
 {
-  return sim->get_cfg().hartids().at(dmcontrol.hartsel);
+  return sim->get_cfg().hartids.at(dmcontrol.hartsel);
 }

@@ -43,7 +43,7 @@ int main()
     .support_impebreak = true
   };
   std::vector<std::pair<reg_t, abstract_mem_t*>> mems =
-      make_mems(cfg.mem_layout());
+      make_mems(cfg.mem_layout);
   sim_t sim(&cfg, false,
             mems,
             plugin_devices,

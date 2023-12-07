@@ -54,7 +54,7 @@ processor_t::processor_t(const isa_parser_t *isa, const cfg_t *cfg,
   }
 #endif
 
-  parse_varch_string(cfg->varch());
+  parse_varch_string(cfg->varch);
 
   register_base_instructions();
   mmu = new mmu_t(sim, cfg->endianness, this);

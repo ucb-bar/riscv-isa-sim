@@ -88,6 +88,7 @@ public:
       real_time_clint(default_real_time_clint),
       trigger_count(default_trigger_count)
   {}
+  cfg_t();
 
   std::pair<reg_t, reg_t> initrd_bounds;
   const char *            bootargs;

@@ -3,6 +3,8 @@
 #include "cfg.h"
 #include "mmu.h"
 #include "decode.h"
+#include "encoding.h"
+#include "platform.h"
 
 mem_cfg_t::mem_cfg_t(reg_t base, reg_t size) : base(base), size(size)
 {
@@ -24,4 +26,23 @@ bool mem_cfg_t::check_if_supported(reg_t base, reg_t size)
          (base % PGSIZE == 0) &&
          (size > 0) &&
          ((base + size > base) || (base + size == 0));
+}
+
+cfg_t::cfg_t()
+{
+  // The default system configuration
+  initrd_bounds    = std::make_pair((reg_t)0, (reg_t)0);
+  bootargs         = nullptr;
+  isa              = DEFAULT_ISA;
+  priv             = DEFAULT_PRIV;
+  varch            = DEFAULT_VARCH;
+  misaligned       = false;
+  endianness       = endianness_little;
+  pmpregions       = 16;
+  pmpgranularity   = (1 << PMP_SHIFT);
+  mem_layout       = std::vector<mem_cfg_t>({mem_cfg_t(reg_t(DRAM_BASE), (size_t)2048 << 20)});
+  hartids          = std::vector<size_t>({0});
+  explicit_hartids = false;
+  real_time_clint  = false;
+  trigger_count    = 4;
 }

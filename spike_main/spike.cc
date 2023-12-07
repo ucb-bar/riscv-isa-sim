@@ -361,19 +361,7 @@ int main(int argc, char** argv)
   };
   cfg_arg_t<size_t> nprocs(1);
 
-  cfg_t cfg(/*default_initrd_bounds=*/std::make_pair((reg_t)0, (reg_t)0),
-            /*default_bootargs=*/nullptr,
-            /*default_isa=*/DEFAULT_ISA,
-            /*default_priv=*/DEFAULT_PRIV,
-            /*default_varch=*/DEFAULT_VARCH,
-            /*default_misaligned=*/false,
-            /*default_endianness*/endianness_little,
-            /*default_pmpregions=*/16,
-            /*default_pmpgranularity=*/(1 << PMP_SHIFT),
-            /*default_mem_layout=*/parse_mem_layout("2048"),
-            /*default_hartids=*/std::vector<size_t>(),
-            /*default_real_time_clint=*/false,
-            /*default_trigger_count=*/4);
+  cfg_t cfg;
 
   auto const device_parser = [&plugin_device_factories](const char *s) {
     const std::string device_args(s);

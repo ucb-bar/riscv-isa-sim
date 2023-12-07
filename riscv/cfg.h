@@ -61,33 +61,6 @@ private:
 class cfg_t
 {
 public:
-  cfg_t(std::pair<reg_t, reg_t> default_initrd_bounds,
-        const char *default_bootargs,
-        const char *default_isa, const char *default_priv,
-        const char *default_varch,
-        const bool default_misaligned,
-        const endianness_t default_endianness,
-        const reg_t default_pmpregions,
-        const reg_t default_pmpgranularity,
-        const std::vector<mem_cfg_t> &default_mem_layout,
-        const std::vector<size_t> default_hartids,
-        bool default_real_time_clint,
-        const reg_t default_trigger_count)
-    : initrd_bounds(default_initrd_bounds),
-      bootargs(default_bootargs),
-      isa(default_isa),
-      priv(default_priv),
-      varch(default_varch),
-      misaligned(default_misaligned),
-      endianness(default_endianness),
-      pmpregions(default_pmpregions),
-      pmpgranularity(default_pmpgranularity),
-      mem_layout(default_mem_layout),
-      hartids(default_hartids),
-      explicit_hartids(false),
-      real_time_clint(default_real_time_clint),
-      trigger_count(default_trigger_count)
-  {}
   cfg_t();
 
   std::pair<reg_t, reg_t> initrd_bounds;

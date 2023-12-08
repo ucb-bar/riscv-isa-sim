@@ -37,6 +37,7 @@
 DECLARE_TRAP(-1, interactive)
 
 static std::vector<std::string> history_commands;
+static size_t insts_until_next_interleave = sim_t::INTERLEAVE;
 
 // if input an arrow/home key, there will be a 3/4-key input sequence,
 // so we use an uint32_t to buffer it
@@ -291,7 +292,8 @@ void sim_t::interactive()
   funcs["help"] = &sim_t::interactive_help;
   funcs["h"] = funcs["help"];
 
-  while (!done())
+  //while (!done())
+  while (true)
   {
     std::string s;
     char cmd_str[MAX_CMD_STR+1]; // only used for following fscanf
@@ -408,17 +410,43 @@ void sim_t::interactive_run(const std::string& cmd, const std::vector<std::strin
   size_t steps = args.size() ? atoll(args[0].c_str()) : -1;
   set_procs_debug(noisy);
 
-  const size_t actual_steps = std::min(INTERLEAVE, steps);
-  for (size_t i = 0; i < actual_steps && !ctrlc_pressed && !done(); i++)
-    step(1);
-
-  if (actual_steps < steps) {
-    next_interactive_action = [=](){ interactive_run(cmd, {std::to_string(steps - actual_steps)}, noisy); };
+  if (steps > insts_until_next_interleave) {
+    //printf("steps %zu > insts_until_next_interleave %zu, stepping by: %zu, next step: %zu\n", steps, insts_until_next_interleave, insts_until_next_interleave, steps - insts_until_next_interleave);
+    // We won't be done in this step() call since we have to INTERLEAVE before [steps] steps have run
+    step(insts_until_next_interleave);
+    const std::string remaining_insts = std::to_string(steps - insts_until_next_interleave);
+    next_interactive_action = [=](){ interactive_run(cmd, {remaining_insts}, noisy); };
+    insts_until_next_interleave = INTERLEAVE;
     return;
+  } else if (steps == insts_until_next_interleave) {
+    //printf("steps %zu == insts_until_next_interleave %zu, stepping by: %zu, done\n", steps, insts_until_next_interleave, steps, 0);
+    // What a coincidence, we are perfectly done in this step call
+    step(steps);
+    insts_until_next_interleave = INTERLEAVE;
+    //printf(":\n");
+    std::ostream out(sout_.rdbuf());
+    if (!noisy) out << ":" << std::endl;
+  } else {
+    //printf("steps %zu < insts_until_next_interleave %zu, stepping by: %zu, done\n", steps, insts_until_next_interleave, steps, 0);
+    // We're done in this step call, but we haven't hit the interleaving point yet
+    step(steps);
+    insts_until_next_interleave -= steps;
+    //printf(":\n");
+    std::ostream out(sout_.rdbuf());
+    if (!noisy) out << ":" << std::endl;
   }
 
-  std::ostream out(sout_.rdbuf());
-  if (!noisy) out << ":" << std::endl;
+  // const size_t actual_steps = std::min(INTERLEAVE, steps);
+  // for (size_t i = 0; i < actual_steps && !ctrlc_pressed && !done(); i++)
+  //   step(1);
+
+  // if (actual_steps < steps) {
+  //   next_interactive_action = [=](){ interactive_run(cmd, {std::to_string(steps - actual_steps)}, noisy); };
+  //   return;
+  // }
+
+  // std::ostream out(sout_.rdbuf());
+  // if (!noisy) out << ":" << std::endl;
 }
 
 void sim_t::interactive_quit(const std::string& cmd, const std::vector<std::string>& args)
@@ -764,6 +792,7 @@ void sim_t::interactive_until(const std::string& cmd, const std::vector<std::str
 
     set_procs_debug(noisy);
     step(1);
+    insts_until_next_interleave -= 1;
   }
 
   next_interactive_action = [=](){ interactive_until(cmd, args, noisy); };

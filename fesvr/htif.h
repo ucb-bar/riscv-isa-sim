@@ -92,6 +92,7 @@ class htif_t : public chunked_memif_t
   addr_t fromhost_addr;
   int exitcode;
   bool stopped;
+  bool suppress_exit = false;
 
   device_list_t device_list;
   syscall_t syscall_proxy;
@@ -130,6 +131,8 @@ class htif_t : public chunked_memif_t
        +payload=PATH\n\
       --symbol-elf=PATH    Populate the symbol table with the ELF file at PATH\n\
        +symbol-elf=PATH\n\
+      --suppress-exit      Do not terminate the simulation when fesvr receives an exit syscall\n\
+       +suppress-exit\n\
 \n\
 HOST OPTIONS (currently unsupported)\n\
       --disk=DISK          Add DISK device. Use a ramdisk since this isn't\n\
@@ -150,6 +153,7 @@ TARGET (RISC-V BINARY) OPTIONS\n\
 {"signature-granularity",    required_argument, 0, HTIF_LONG_OPTIONS_OPTIND + 5 },     \
 {"target-argument",          required_argument, 0, HTIF_LONG_OPTIONS_OPTIND + 6 },     \
 {"symbol-elf",               required_argument, 0, HTIF_LONG_OPTIONS_OPTIND + 7 },     \
+{"suppress-exit",            no_argument,       0, HTIF_LONG_OPTIONS_OPTIND + 8 },     \
 {0, 0, 0, 0}
 
 #endif // __HTIF_H

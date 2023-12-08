@@ -257,8 +257,14 @@ int htif_t::run()
       idle();
   }
 
-  while (!signal_exit && exitcode == 0)
+  //while (!signal_exit && exitcode == 0)
+  while (true)
   {
+    if (signal_exit)
+      break;
+    if (exitcode != 0 && !suppress_exit)
+      break;
+
     uint64_t tohost;
 
     try {
@@ -348,6 +354,10 @@ void htif_t::parse_arguments(int argc, char ** argv)
       case HTIF_LONG_OPTIONS_OPTIND + 7:
         symbol_elfs.push_back(optarg);
         break;
+      case HTIF_LONG_OPTIONS_OPTIND + 8:
+        suppress_exit = true;
+        printf("HTIF: suppressing exit\n");
+        break;
       case '?':
         if (!opterr)
           break;
@@ -393,6 +403,10 @@ void htif_t::parse_arguments(int argc, char ** argv)
         else if (arg.find("+symbol-elf=") == 0) {
           c = HTIF_LONG_OPTIONS_OPTIND + 7;
           optarg = optarg + 12;
+        }
+        else if (arg.find("+suppress-exit") == 0) {
+          c = HTIF_LONG_OPTIONS_OPTIND + 8;
+          optarg = optarg + 14;
         }
         else if (arg.find("+permissive-off") == 0) {
           if (opterr)

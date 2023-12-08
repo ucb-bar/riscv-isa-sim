@@ -261,6 +261,7 @@ int sim_t::run()
 
 void sim_t::step(size_t n)
 {
+  //printf("sim_t::step n = %ld\n", n);
   for (size_t i = 0, steps = 0; i < n; i += steps)
   {
     steps = std::min(n - i, INTERLEAVE - current_step);
@@ -405,7 +406,7 @@ void sim_t::reset()
 
 void sim_t::idle()
 {
-  if (done())
+  if (done() && !debug)
     return;
 
   if (debug || ctrlc_pressed)

@@ -2173,14 +2173,14 @@ void disassembler_t::add_instructions(const isa_parser_t* isa)
   }
 
   if (isa->extension_enabled(EXT_ZCMOP)) {
-      DISASM_INSN("c.mop.1", c_mop_1, 0, {});
-      DISASM_INSN("c.mop.3", c_mop_3, 0, {});
-      DISASM_INSN("c.mop.5", c_mop_5, 0, {});
-      DISASM_INSN("c.mop.7", c_mop_7, 0, {});
-      DISASM_INSN("c.mop.9", c_mop_9, 0, {});
-      DISASM_INSN("c.mop.11", c_mop_11, 0, {});
-      DISASM_INSN("c.mop.13", c_mop_13, 0, {});
-      DISASM_INSN("c.mop.15", c_mop_15, 0, {});
+    DISASM_INSN("c.mop.1", c_mop_1, 0, {});
+    DISASM_INSN("c.mop.3", c_mop_3, 0, {});
+    DISASM_INSN("c.mop.5", c_mop_5, 0, {});
+    DISASM_INSN("c.mop.7", c_mop_7, 0, {});
+    DISASM_INSN("c.mop.9", c_mop_9, 0, {});
+    DISASM_INSN("c.mop.11", c_mop_11, 0, {});
+    DISASM_INSN("c.mop.13", c_mop_13, 0, {});
+    DISASM_INSN("c.mop.15", c_mop_15, 0, {});
   }
 
   if (isa->extension_enabled(EXT_ZKND) ||

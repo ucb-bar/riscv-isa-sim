@@ -2172,6 +2172,49 @@ void disassembler_t::add_instructions(const isa_parser_t* isa)
     DEFINE_RTYPE(czero_nez);
   }
 
+  if (isa->extension_enabled(EXT_ZIMOP)) {
+    DEFINE_R1TYPE(mop_r_0);
+    DEFINE_R1TYPE(mop_r_1);
+    DEFINE_R1TYPE(mop_r_2);
+    DEFINE_R1TYPE(mop_r_3);
+    DEFINE_R1TYPE(mop_r_4);
+    DEFINE_R1TYPE(mop_r_5);
+    DEFINE_R1TYPE(mop_r_6);
+    DEFINE_R1TYPE(mop_r_7);
+    DEFINE_R1TYPE(mop_r_8);
+    DEFINE_R1TYPE(mop_r_9);
+    DEFINE_R1TYPE(mop_r_10);
+    DEFINE_R1TYPE(mop_r_11);
+    DEFINE_R1TYPE(mop_r_12);
+    DEFINE_R1TYPE(mop_r_13);
+    DEFINE_R1TYPE(mop_r_14);
+    DEFINE_R1TYPE(mop_r_15);
+    DEFINE_R1TYPE(mop_r_16);
+    DEFINE_R1TYPE(mop_r_17);
+    DEFINE_R1TYPE(mop_r_18);
+    DEFINE_R1TYPE(mop_r_19);
+    DEFINE_R1TYPE(mop_r_20);
+    DEFINE_R1TYPE(mop_r_21);
+    DEFINE_R1TYPE(mop_r_22);
+    DEFINE_R1TYPE(mop_r_23);
+    DEFINE_R1TYPE(mop_r_24);
+    DEFINE_R1TYPE(mop_r_25);
+    DEFINE_R1TYPE(mop_r_26);
+    DEFINE_R1TYPE(mop_r_27);
+    DEFINE_R1TYPE(mop_r_28);
+    DEFINE_R1TYPE(mop_r_29);
+    DEFINE_R1TYPE(mop_r_30);
+    DEFINE_R1TYPE(mop_r_31);
+    DEFINE_RTYPE(mop_rr_0);
+    DEFINE_RTYPE(mop_rr_1);
+    DEFINE_RTYPE(mop_rr_2);
+    DEFINE_RTYPE(mop_rr_3);
+    DEFINE_RTYPE(mop_rr_4);
+    DEFINE_RTYPE(mop_rr_5);
+    DEFINE_RTYPE(mop_rr_6);
+    DEFINE_RTYPE(mop_rr_7);
+  }
+
   if (isa->extension_enabled(EXT_ZCMOP)) {
     DISASM_INSN("c.mop.1", c_mop_1, 0, {});
     DISASM_INSN("c.mop.3", c_mop_3, 0, {});
@@ -2347,7 +2390,7 @@ disassembler_t::disassembler_t(const isa_parser_t *isa)
 
   // next-highest priority: other instructions in same base ISA
   std::string fallback_isa_string = std::string("rv") + std::to_string(isa->get_max_xlen()) +
-    "gqchv_zfh_zba_zbb_zbc_zbs_zcb_zicbom_zicboz_zicond_zkn_zkr_zks_svinval_zcmop";
+    "gqchv_zfh_zba_zbb_zbc_zbs_zcb_zicbom_zicboz_zicond_zkn_zkr_zks_svinval_zcmop_zimop";
   isa_parser_t fallback_isa(fallback_isa_string.c_str(), DEFAULT_PRIV);
   add_instructions(&fallback_isa);
 

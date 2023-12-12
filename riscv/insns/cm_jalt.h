@@ -1,5 +1,5 @@
 require_extension(EXT_ZCMT);
-STATE.jvt->verify_permissions(insn, false);
+STATE.jvt->verify_permissions(insn, false, p);
 reg_t jvt = STATE.jvt->read();
 uint8_t mode = get_field(jvt, JVT_MODE);
 reg_t base = jvt & JVT_BASE;

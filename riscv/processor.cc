@@ -1022,7 +1022,7 @@ reg_t processor_t::get_csr(int which, insn_t insn, bool write, bool peek)
   auto search = state.csrmap.find(which);
   if (search != state.csrmap.end()) {
     if (!peek)
-      search->second->verify_permissions(insn, write);
+      search->second->verify_permissions(insn, write, this);
     return search->second->read();
   }
   // If we get here, the CSR doesn't exist.  Unimplemented CSRs always throw

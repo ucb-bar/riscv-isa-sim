@@ -27,7 +27,7 @@ class csr_t {
   csr_t(processor_t* const proc, const reg_t addr);
 
   // Throw exception if read/write disallowed.
-  virtual void verify_permissions(insn_t insn, bool write) const;
+  virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const;
 
   // read() returns the architectural value of this CSR. No permission
   // checking needed or allowed. Side effects not allowed.
@@ -87,7 +87,7 @@ class basic_csr_t: public csr_t {
 class pmpaddr_csr_t: public csr_t {
  public:
   pmpaddr_csr_t(processor_t* const proc, const reg_t addr);
-  virtual void verify_permissions(insn_t insn, bool write) const override;
+  virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const override;
   virtual reg_t read() const noexcept override;
 
   // Does a 4-byte access at the specified address match this PMP entry?
@@ -132,7 +132,7 @@ typedef std::shared_ptr<pmpaddr_csr_t> pmpaddr_csr_t_p;
 class pmpcfg_csr_t: public csr_t {
  public:
   pmpcfg_csr_t(processor_t* const proc, const reg_t addr);
-  virtual void verify_permissions(insn_t insn, bool write) const override;
+  virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const override;
   virtual reg_t read() const noexcept override;
  protected:
   virtual bool unlogged_write(const reg_t val) noexcept override;
@@ -141,7 +141,7 @@ class pmpcfg_csr_t: public csr_t {
 class mseccfg_csr_t: public basic_csr_t {
  public:
   mseccfg_csr_t(processor_t* const proc, const reg_t addr);
-  virtual void verify_permissions(insn_t insn, bool write) const override;
+  virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const override;
   bool get_mml() const noexcept;
   bool get_mmwp() const noexcept;
   bool get_rlb() const noexcept;
@@ -275,7 +275,7 @@ class rv32_low_csr_t: public csr_t {
  public:
   rv32_low_csr_t(processor_t* const proc, const reg_t addr, csr_t_p orig);
   virtual reg_t read() const noexcept override;
-  virtual void verify_permissions(insn_t insn, bool write) const override;
+  virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const override;
  protected:
   virtual bool unlogged_write(const reg_t val) noexcept override;
   virtual reg_t written_value() const noexcept override;
@@ -287,7 +287,7 @@ class rv32_high_csr_t: public csr_t {
  public:
   rv32_high_csr_t(processor_t* const proc, const reg_t addr, csr_t_p orig);
   virtual reg_t read() const noexcept override;
-  virtual void verify_permissions(insn_t insn, bool write) const override;
+  virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const override;
  protected:
   virtual bool unlogged_write(const reg_t val) noexcept override;
   virtual reg_t written_value() const noexcept override;
@@ -438,7 +438,7 @@ class mie_proxy_csr_t: public csr_t {
 class mideleg_csr_t: public basic_csr_t {
  public:
   mideleg_csr_t(processor_t* const proc, const reg_t addr);
-  virtual void verify_permissions(insn_t insn, bool write) const override;
+  virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const override;
   virtual reg_t read() const noexcept override;
  protected:
   virtual bool unlogged_write(const reg_t val) noexcept override;
@@ -447,7 +447,7 @@ class mideleg_csr_t: public basic_csr_t {
 class medeleg_csr_t: public basic_csr_t {
  public:
   medeleg_csr_t(processor_t* const proc, const reg_t addr);
-  virtual void verify_permissions(insn_t insn, bool write) const override;
+  virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const override;
  protected:
   virtual bool unlogged_write(const reg_t val) noexcept override;
  private:
@@ -482,7 +482,7 @@ class henvcfg_csr_t final: public envcfg_csr_t {
     return (menvcfg->read() | ~(MENVCFG_PBMTE | MENVCFG_STCE | MENVCFG_ADUE)) & masked_csr_t::read();
   }
 
-  virtual void verify_permissions(insn_t insn, bool write) const override;
+  virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const override;
 
  private:
   csr_t_p menvcfg;
@@ -503,7 +503,7 @@ class base_atp_csr_t: public basic_csr_t {
 class satp_csr_t: public base_atp_csr_t {
  public:
   satp_csr_t(processor_t* const proc, const reg_t addr);
-  virtual void verify_permissions(insn_t insn, bool write) const override;
+  virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const override;
 };
 
 typedef std::shared_ptr<satp_csr_t> satp_csr_t_p;
@@ -511,7 +511,7 @@ typedef std::shared_ptr<satp_csr_t> satp_csr_t_p;
 class virtualized_satp_csr_t: public virtualized_csr_t {
  public:
   virtualized_satp_csr_t(processor_t* const proc, satp_csr_t_p orig, csr_t_p virt);
-  virtual void verify_permissions(insn_t insn, bool write) const override;
+  virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const override;
  protected:
   virtual bool unlogged_write(const reg_t val) noexcept override;
  private:
@@ -583,7 +583,7 @@ class const_csr_t: public csr_t {
 class counter_proxy_csr_t: public proxy_csr_t {
  public:
   counter_proxy_csr_t(processor_t* const proc, const reg_t addr, csr_t_p delegate);
-  virtual void verify_permissions(insn_t insn, bool write) const override;
+  virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const override;
  private:
   bool myenable(csr_t_p counteren) const noexcept;
 };
@@ -599,7 +599,7 @@ class mevent_csr_t: public basic_csr_t {
 class hypervisor_csr_t: public basic_csr_t {
  public:
   hypervisor_csr_t(processor_t* const proc, const reg_t addr);
-  virtual void verify_permissions(insn_t insn, bool write) const override;
+  virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const override;
 };
 
 class hideleg_csr_t: public masked_csr_t {
@@ -613,7 +613,7 @@ class hideleg_csr_t: public masked_csr_t {
 class hgatp_csr_t: public basic_csr_t {
  public:
   hgatp_csr_t(processor_t* const proc, const reg_t addr);
-  virtual void verify_permissions(insn_t insn, bool write) const override;
+  virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const override;
  protected:
   virtual bool unlogged_write(const reg_t val) noexcept override;
 };
@@ -661,19 +661,19 @@ class tinfo_csr_t: public csr_t {
 class debug_mode_csr_t: public basic_csr_t {
  public:
   debug_mode_csr_t(processor_t* const proc, const reg_t addr);
-  virtual void verify_permissions(insn_t insn, bool write) const override;
+  virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const override;
 };
 
 class dpc_csr_t: public epc_csr_t {
  public:
   dpc_csr_t(processor_t* const proc, const reg_t addr);
-  virtual void verify_permissions(insn_t insn, bool write) const override;
+  virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const override;
 };
 
 class dcsr_csr_t: public csr_t {
  public:
   dcsr_csr_t(processor_t* const proc, const reg_t addr);
-  virtual void verify_permissions(insn_t insn, bool write) const override;
+  virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const override;
   virtual reg_t read() const noexcept override;
   void write_cause_and_prv(uint8_t cause, reg_t prv, bool v) noexcept;
  protected:
@@ -696,7 +696,7 @@ typedef std::shared_ptr<dcsr_csr_t> dcsr_csr_t_p;
 class float_csr_t final: public masked_csr_t {
  public:
   float_csr_t(processor_t* const proc, const reg_t addr, const reg_t mask, const reg_t init);
-  virtual void verify_permissions(insn_t insn, bool write) const override;
+  virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const override;
  protected:
   virtual bool unlogged_write(const reg_t val) noexcept override;
 };
@@ -709,7 +709,7 @@ class composite_csr_t: public csr_t {
  public:
   // We assume the lower_csr maps to bit 0.
   composite_csr_t(processor_t* const proc, const reg_t addr, csr_t_p upper_csr, csr_t_p lower_csr, const unsigned upper_lsb);
-  virtual void verify_permissions(insn_t insn, bool write) const override;
+  virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const override;
   virtual reg_t read() const noexcept override;
  protected:
   virtual bool unlogged_write(const reg_t val) noexcept override;
@@ -722,7 +722,7 @@ class composite_csr_t: public csr_t {
 class seed_csr_t: public csr_t {
  public:
   seed_csr_t(processor_t* const proc, const reg_t addr);
-  virtual void verify_permissions(insn_t insn, bool write) const override;
+  virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const override;
   virtual reg_t read() const noexcept override;
  protected:
   virtual bool unlogged_write(const reg_t val) noexcept override;
@@ -731,7 +731,7 @@ class seed_csr_t: public csr_t {
 class vector_csr_t: public basic_csr_t {
  public:
   vector_csr_t(processor_t* const proc, const reg_t addr, const reg_t mask, const reg_t init=0);
-  virtual void verify_permissions(insn_t insn, bool write) const override;
+  virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const override;
   // Write without regard to mask, and without touching mstatus.VS
   void write_raw(const reg_t val) noexcept;
  protected:
@@ -746,7 +746,7 @@ typedef std::shared_ptr<vector_csr_t> vector_csr_t_p;
 class vxsat_csr_t: public masked_csr_t {
  public:
   vxsat_csr_t(processor_t* const proc, const reg_t addr);
-  virtual void verify_permissions(insn_t insn, bool write) const override;
+  virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const override;
  protected:
   virtual bool unlogged_write(const reg_t val) noexcept override;
 };
@@ -755,7 +755,7 @@ class hstateen_csr_t: public masked_csr_t {
  public:
   hstateen_csr_t(processor_t* const proc, const reg_t addr, const reg_t mask, const reg_t init, uint8_t index);
   virtual reg_t read() const noexcept override;
-  virtual void verify_permissions(insn_t insn, bool write) const override;
+  virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const override;
  protected:
   virtual bool unlogged_write(const reg_t val) noexcept override;
 protected:
@@ -766,7 +766,7 @@ class sstateen_csr_t: public hstateen_csr_t {
  public:
   sstateen_csr_t(processor_t* const proc, const reg_t addr, const reg_t mask, const reg_t init, uint8_t index);
   virtual reg_t read() const noexcept override;
-  virtual void verify_permissions(insn_t insn, bool write) const override;
+  virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const override;
  protected:
   virtual bool unlogged_write(const reg_t val) noexcept override;
 };
@@ -774,7 +774,7 @@ class sstateen_csr_t: public hstateen_csr_t {
 class senvcfg_csr_t final: public envcfg_csr_t {
  public:
   senvcfg_csr_t(processor_t* const proc, const reg_t addr, const reg_t mask, const reg_t init);
-  virtual void verify_permissions(insn_t insn, bool write) const override;
+  virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const override;
 };
 
 class stimecmp_csr_t: public basic_csr_t {
@@ -789,13 +789,13 @@ class stimecmp_csr_t: public basic_csr_t {
 class virtualized_stimecmp_csr_t: public virtualized_csr_t {
  public:
   virtualized_stimecmp_csr_t(processor_t* const proc, csr_t_p orig, csr_t_p virt);
-  virtual void verify_permissions(insn_t insn, bool write) const override;
+  virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const override;
 };
 
 class scountovf_csr_t: public csr_t {
  public:
   scountovf_csr_t(processor_t* const proc, const reg_t addr);
-  virtual void verify_permissions(insn_t insn, bool write) const override;
+  virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const override;
   virtual reg_t read() const noexcept override;
  protected:
   virtual bool unlogged_write(const reg_t val) noexcept override;
@@ -804,7 +804,7 @@ class scountovf_csr_t: public csr_t {
 class jvt_csr_t: public basic_csr_t {
  public:
   jvt_csr_t(processor_t* const proc, const reg_t addr, const reg_t init);
-  virtual void verify_permissions(insn_t insn, bool write) const override;
+  virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const override;
 };
 
 // Sscsrind registers needs permissions checked
@@ -812,7 +812,7 @@ class jvt_csr_t: public basic_csr_t {
 class virtualized_indirect_csr_t: public virtualized_csr_t {
  public:
   virtualized_indirect_csr_t(processor_t* const proc, csr_t_p orig, csr_t_p virt);
-  virtual void verify_permissions(insn_t insn, bool write) const override;
+  virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const override;
 };
 
 class sscsrind_reg_csr_t : public csr_t {
@@ -820,7 +820,7 @@ class sscsrind_reg_csr_t : public csr_t {
   typedef std::shared_ptr<sscsrind_reg_csr_t> sscsrind_reg_csr_t_p;
   sscsrind_reg_csr_t(processor_t* const proc, const reg_t addr, csr_t_p iselect);
   reg_t read() const noexcept override;
-  virtual void verify_permissions(insn_t insn, bool write) const override;
+  virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const override;
   void add_ireg_proxy(const reg_t iselect_val, csr_t_p proxy_csr);
  protected:
   virtual bool unlogged_write(const reg_t val) noexcept override;

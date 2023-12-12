@@ -351,7 +351,7 @@ bool mmu_t::pmp_ok(reg_t addr, reg_t len, access_type type, reg_t mode)
     bool all_match = true;
     for (reg_t offset = 0; offset < len; offset += 1 << PMP_SHIFT) {
       reg_t cur_addr = addr + offset;
-      bool match = proc->state.pmpaddr[i]->match4(cur_addr);
+      bool match = proc->state.pmpaddr[i]->match4(cur_addr, proc);
       any_match |= match;
       all_match &= match;
     }
@@ -361,13 +361,13 @@ bool mmu_t::pmp_ok(reg_t addr, reg_t len, access_type type, reg_t mode)
       if (!all_match)
         return false;
 
-      return proc->state.pmpaddr[i]->access_ok(type, mode);
+      return proc->state.pmpaddr[i]->access_ok(type, mode, proc);
     }
   }
 
   // in case matching region is not found
-  const bool mseccfg_mml = proc->state.mseccfg->get_mml();
-  const bool mseccfg_mmwp = proc->state.mseccfg->get_mmwp();
+  const bool mseccfg_mml = proc->state.mseccfg->get_mml(proc);
+  const bool mseccfg_mmwp = proc->state.mseccfg->get_mmwp(proc);
   return ((mode == PRV_M) && !mseccfg_mmwp
           && (!mseccfg_mml || ((type == LOAD) || (type == STORE))));
 }
@@ -381,7 +381,7 @@ reg_t mmu_t::pmp_homogeneous(reg_t addr, reg_t len)
     return true;
 
   for (size_t i = 0; i < proc->n_pmp; i++)
-    if (proc->state.pmpaddr[i]->subset_match(addr, len))
+    if (proc->state.pmpaddr[i]->subset_match(addr, len, proc))
       return false;
 
   return true;
@@ -392,14 +392,14 @@ reg_t mmu_t::s2xlate(reg_t gva, reg_t gpa, access_type type, access_type trap_ty
   if (!virt)
     return gpa;
 
-  vm_info vm = decode_vm_info(proc->get_const_xlen(), true, 0, proc->get_state()->hgatp->read());
+  vm_info vm = decode_vm_info(proc->get_const_xlen(), true, 0, proc->get_state()->hgatp->read(proc));
   if (vm.levels == 0)
     return gpa;
 
   int maxgpabits = vm.levels * vm.idxbits + vm.widenbits + PGSHIFT;
   reg_t maxgpa = (1ULL << maxgpabits) - 1;
 
-  bool mxr = proc->state.sstatus->readvirt(false) & MSTATUS_MXR;
+  bool mxr = proc->state.sstatus->readvirt(false, proc) & MSTATUS_MXR;
   // tinst is set to 0x3000/0x3020 - for RV64 read/write respectively for
   // VS-stage address translation (for spike HSXLEN == VSXLEN always) else
   // tinst is set to 0x2000/0x2020 - for RV32 read/write respectively for
@@ -420,8 +420,8 @@ reg_t mmu_t::s2xlate(reg_t gva, reg_t gpa, access_type type, access_type trap_ty
       auto pte_paddr = base + idx * vm.ptesize;
       reg_t pte = pte_load(pte_paddr, gva, virt, trap_type, vm.ptesize);
       reg_t ppn = (pte & ~reg_t(PTE_ATTR)) >> PTE_PPN_SHIFT;
-      bool pbmte = proc->get_state()->menvcfg->read() & MENVCFG_PBMTE;
-      bool hade = proc->get_state()->menvcfg->read() & MENVCFG_ADUE;
+      bool pbmte = proc->get_state()->menvcfg->read(proc) & MENVCFG_PBMTE;
+      bool hade = proc->get_state()->menvcfg->read(proc) & MENVCFG_ADUE;
 
       if (pte & PTE_RSVD) {
         break;
@@ -489,14 +489,14 @@ reg_t mmu_t::walk(mem_access_info_t access_info)
   bool hlvx = access_info.flags.hlvx;
   reg_t mode = access_info.effective_priv;
   reg_t page_mask = (reg_t(1) << PGSHIFT) - 1;
-  reg_t satp = proc->get_state()->satp->readvirt(virt);
+  reg_t satp = proc->get_state()->satp->readvirt(virt, proc);
   vm_info vm = decode_vm_info(proc->get_const_xlen(), false, mode, satp);
   if (vm.levels == 0)
     return s2xlate(addr, addr & ((reg_t(2) << (proc->xlen-1))-1), type, type, virt, hlvx, false) & ~page_mask; // zero-extend from xlen
 
   bool s_mode = mode == PRV_S;
-  bool sum = proc->state.sstatus->readvirt(virt) & MSTATUS_SUM;
-  bool mxr = (proc->state.sstatus->readvirt(false) | proc->state.sstatus->readvirt(virt)) & MSTATUS_MXR;
+  bool sum = proc->state.sstatus->readvirt(virt, proc) & MSTATUS_SUM;
+  bool mxr = (proc->state.sstatus->readvirt(false, proc) | proc->state.sstatus->readvirt(virt, proc)) & MSTATUS_MXR;
 
   // verify bits xlen-1:va_bits-1 are all equal
   int va_bits = PGSHIFT + vm.levels * vm.idxbits;
@@ -514,8 +514,8 @@ reg_t mmu_t::walk(mem_access_info_t access_info)
     auto pte_paddr = s2xlate(addr, base + idx * vm.ptesize, LOAD, type, virt, false, true);
     reg_t pte = pte_load(pte_paddr, addr, virt, type, vm.ptesize);
     reg_t ppn = (pte & ~reg_t(PTE_ATTR)) >> PTE_PPN_SHIFT;
-    bool pbmte = virt ? (proc->get_state()->henvcfg->read() & HENVCFG_PBMTE) : (proc->get_state()->menvcfg->read() & MENVCFG_PBMTE);
-    bool hade = virt ? (proc->get_state()->henvcfg->read() & HENVCFG_ADUE) : (proc->get_state()->menvcfg->read() & MENVCFG_ADUE);
+    bool pbmte = virt ? (proc->get_state()->henvcfg->read(proc) & HENVCFG_PBMTE) : (proc->get_state()->menvcfg->read(proc) & MENVCFG_PBMTE);
+    bool hade = virt ? (proc->get_state()->henvcfg->read(proc) & HENVCFG_ADUE) : (proc->get_state()->menvcfg->read(proc) & MENVCFG_ADUE);
 
     if (pte & PTE_RSVD) {
       break;

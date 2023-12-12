@@ -85,10 +85,10 @@ bool trigger_t::textra_match(processor_t * const proc) const noexcept
     for (int i = 0; i < CSR_TEXTRA64_SBYTEMASK_LENGTH; i++)
       if (sbytemask & (1 << i))
         mask &= ~(reg_t(0xff) << (i * 8));
-    if ((state->scontext->read() & mask) != (svalue & mask))
+    if ((state->scontext->read(proc) & mask) != (svalue & mask))
       return false;
   } else if (sselect == SSELECT_ASID) {
-    const reg_t satp = state->satp->read();
+    const reg_t satp = state->satp->read(proc);
     const reg_t asid = get_field(satp,  SATP_ASID(xlen));
     if (asid != (svalue & ((1 << ASIDMAX(xlen)) - 1)))
       return false;
@@ -98,10 +98,10 @@ bool trigger_t::textra_match(processor_t * const proc) const noexcept
   const mhselect_mode_t mode = mhselect_interp.mode;
   if (mode == MHSELECT_MODE_MCONTEXT) { // 4, 1, and 5 are mcontext
     reg_t mask = (1 << (CSR_TEXTRA_MHVALUE_LENGTH(xlen) + 1)) - 1;
-    if ((state->mcontext->read() & mask) != mhselect_interp.compare_val(mhvalue))
+    if ((state->mcontext->read(proc) & mask) != mhselect_interp.compare_val(mhvalue))
       return false;
   } else if (mode == MHSELECT_MODE_VMID) { // 2 and 6 are vmid
-    const reg_t vmid = get_field(state->hgatp->read(), HGATP_VMID(hsxlen));
+    const reg_t vmid = get_field(state->hgatp->read(proc), HGATP_VMID(hsxlen));
     if (vmid != (mhselect_interp.compare_val(mhvalue) & ((1 << VMIDMAX(hsxlen)) - 1)))
       return false;
   }
@@ -109,14 +109,15 @@ bool trigger_t::textra_match(processor_t * const proc) const noexcept
   return true;
 }
 
-bool trigger_t::allow_action(const state_t * const state) const
+bool trigger_t::allow_action(processor_t * p) const
 {
+  const state_t* state = p->get_state();
   if (get_action() == ACTION_DEBUG_EXCEPTION) {
-    const bool mstatus_mie = state->mstatus->read() & MSTATUS_MIE;
-    const bool sstatus_sie = state->sstatus->read() & MSTATUS_SIE;
-    const bool vsstatus_sie = state->vsstatus->read() & MSTATUS_SIE;
-    const bool medeleg_breakpoint = (state->medeleg->read() >> CAUSE_BREAKPOINT) & 1;
-    const bool hedeleg_breakpoint = (state->hedeleg->read() >> CAUSE_BREAKPOINT) & 1;
+    const bool mstatus_mie = state->mstatus->read(p) & MSTATUS_MIE;
+    const bool sstatus_sie = state->sstatus->read(p) & MSTATUS_SIE;
+    const bool vsstatus_sie = state->vsstatus->read(p) & MSTATUS_SIE;
+    const bool medeleg_breakpoint = (state->medeleg->read(p) >> CAUSE_BREAKPOINT) & 1;
+    const bool hedeleg_breakpoint = (state->hedeleg->read(p) >> CAUSE_BREAKPOINT) & 1;
     return (state->prv != PRV_M || mstatus_mie) &&
            (state->prv != PRV_S || state->v || !medeleg_breakpoint || sstatus_sie) &&
            (state->prv != PRV_S || !state->v || !medeleg_breakpoint || !hedeleg_breakpoint || vsstatus_sie);
@@ -230,7 +231,7 @@ std::optional<match_result_t> mcontrol_common_t::detect_memory_access_match(proc
     value &= 0xffffffff;
   }
 
-  if (simple_match(xlen, value) && allow_action(proc->get_state())) {
+  if (simple_match(xlen, value) && allow_action(proc)) {
     /* This is OK because this function is only called if the trigger was not
      * inhibited by the previous trigger in the chain. */
     hit = true;
@@ -307,7 +308,7 @@ void mcontrol6_t::tdata1_write(processor_t * const proc, const reg_t val, const 
 
 std::optional<match_result_t> icount_t::detect_icount_fire(processor_t * const proc) noexcept
 {
-  if (!common_match(proc) || !allow_action(proc->get_state()))
+  if (!common_match(proc) || !allow_action(proc))
     return std::nullopt;
 
   std::optional<match_result_t> ret = std::nullopt;
@@ -322,7 +323,7 @@ std::optional<match_result_t> icount_t::detect_icount_fire(processor_t * const p
 
 void icount_t::detect_icount_decrement(processor_t * const proc) noexcept
 {
-  if (!common_match(proc) || !allow_action(proc->get_state()))
+  if (!common_match(proc) || !allow_action(proc))
     return;
 
   if (count >= 1) {
@@ -414,7 +415,7 @@ std::optional<match_result_t> trap_common_t::detect_trap_match(processor_t * con
   bool interrupt = (t.cause() & ((reg_t)1 << (xlen - 1))) != 0;
   reg_t bit = t.cause() & ~((reg_t)1 << (xlen - 1));
   assert(bit < xlen);
-  if (simple_match(interrupt, bit) && allow_action(proc->get_state())) {
+  if (simple_match(interrupt, bit) && allow_action(proc)) {
     hit = true;
     return match_result_t(TIMING_AFTER, action);
   }

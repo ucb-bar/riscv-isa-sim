@@ -3,7 +3,7 @@ VI_CHECK_SLIDE(true);
 
 const reg_t offset = insn.v_zimm5();
 VI_LOOP_BASE
-if (P.VU.vstart->read() < offset && i < offset)
+if (P.VU.vstart->read(p) < offset && i < offset)
   continue;
 
 switch (sew) {

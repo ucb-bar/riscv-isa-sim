@@ -1,16 +1,16 @@
 // vmsif.m rd, vs2, vm
 require(P.VU.vsew >= e8 && P.VU.vsew <= e64);
 require_vector(true);
-require(P.VU.vstart->read() == 0);
+require(P.VU.vstart->read(p) == 0);
 require_vm;
 require(insn.rd() != insn.rs2());
 
-reg_t vl = P.VU.vl->read();
+reg_t vl = P.VU.vl->read(p);
 reg_t rd_num = insn.rd();
 reg_t rs2_num = insn.rs2();
 
 bool has_one = false;
-for (reg_t i = P.VU.vstart->read(); i < vl; ++i) {
+for (reg_t i = P.VU.vstart->read(p); i < vl; ++i) {
   const int midx = i / 64;
   const int mpos = i % 64;
   const uint64_t mmask = UINT64_C(1) << mpos; \

@@ -79,9 +79,9 @@
 #define FRS3_H READ_FREG_H(insn.rs3())
 #define FRS3_F READ_FREG_F(insn.rs3())
 #define FRS3_D READ_FREG_D(insn.rs3())
-#define dirty_fp_state  STATE.sstatus->dirty(SSTATUS_FS)
-#define dirty_ext_state STATE.sstatus->dirty(SSTATUS_XS)
-#define dirty_vs_state  STATE.sstatus->dirty(SSTATUS_VS)
+#define dirty_fp_state  STATE.sstatus->dirty(SSTATUS_FS, p)
+#define dirty_ext_state STATE.sstatus->dirty(SSTATUS_XS, p)
+#define dirty_vs_state  STATE.sstatus->dirty(SSTATUS_VS, p)
 #define DO_WRITE_FREG(reg, value) (STATE.FPR.write(reg, value), dirty_fp_state)
 #define WRITE_FRD(value) WRITE_FREG(insn.rd(), value)
 #define WRITE_FRD_H(value) \
@@ -119,7 +119,7 @@ do { \
 #define BRANCH_TARGET (pc + insn.sb_imm())
 #define JUMP_TARGET (pc + insn.uj_imm())
 #define RM ({ int rm = insn.rm(); \
-              if (rm == 7) rm = STATE.frm->read(); \
+              if (rm == 7) rm = STATE.frm->read(p); \
               if (rm > 4) throw trap_illegal_instruction(insn.bits()); \
               rm; })
 
@@ -137,17 +137,17 @@ static inline bool is_aligned(const unsigned val, const unsigned pos)
 #define require_extension(s) require(p->extension_enabled(s))
 #define require_either_extension(A,B) require(p->extension_enabled(A) || p->extension_enabled(B));
 #define require_impl(s) require(p->supports_impl(s))
-#define require_fs          require(STATE.sstatus->enabled(SSTATUS_FS))
-#define require_fp          STATE.fflags->verify_permissions(insn, false)
-#define require_accelerator require(STATE.sstatus->enabled(SSTATUS_XS))
-#define require_vector_vs   require(STATE.sstatus->enabled(SSTATUS_VS))
+#define require_fs          require(STATE.sstatus->enabled(SSTATUS_FS, p))
+#define require_fp          STATE.fflags->verify_permissions(insn, false, p)
+#define require_accelerator require(STATE.sstatus->enabled(SSTATUS_XS, p))
+#define require_vector_vs   require(STATE.sstatus->enabled(SSTATUS_VS, p))
 #define require_vector(alu) \
   do { \
     require_vector_vs; \
     require_extension('V'); \
     require(!P.VU.vill); \
     if (alu && !P.VU.vstart_alu) \
-      require(P.VU.vstart->read() == 0); \
+      require(P.VU.vstart->read(p) == 0); \
     WRITE_VSTATUS; \
     dirty_vs_state; \
   } while (0);
@@ -187,7 +187,7 @@ static inline bool is_aligned(const unsigned val, const unsigned pos)
   } while (0);
 
 #define set_fp_exceptions ({ if (softfloat_exceptionFlags) { \
-                               STATE.fflags->write(STATE.fflags->read() | softfloat_exceptionFlags); \
+                               STATE.fflags->write(STATE.fflags->read(p) | softfloat_exceptionFlags, p); \
                              } \
                              softfloat_exceptionFlags = 0; })
 
@@ -316,8 +316,8 @@ inline long double to_f(float128_t f) { long double r; memcpy(&r, &f, sizeof(r))
 #endif
 
 #define DECLARE_XENVCFG_VARS(field) \
-  reg_t m##field = get_field(STATE.menvcfg->read(), MENVCFG_##field); \
-  reg_t s##field = get_field(STATE.senvcfg->read(), SENVCFG_##field); \
-  reg_t h##field = get_field(STATE.henvcfg->read(), HENVCFG_##field)
+  reg_t m##field = get_field(STATE.menvcfg->read(p), MENVCFG_##field); \
+  reg_t s##field = get_field(STATE.senvcfg->read(p), SENVCFG_##field); \
+  reg_t h##field = get_field(STATE.henvcfg->read(p), HENVCFG_##field)
 
 #endif

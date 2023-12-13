@@ -77,13 +77,13 @@ private:
     reg_t mode = proc->state.prv;
     if (type != FETCH) {
       if (in_mprv()) {
-        mode = get_field(proc->state.mstatus->read(), MSTATUS_MPP);
-        if (get_field(proc->state.mstatus->read(), MSTATUS_MPV) && mode != PRV_M)
+        mode = get_field(proc->state.mstatus->read(proc), MSTATUS_MPP);
+        if (get_field(proc->state.mstatus->read(proc), MSTATUS_MPV) && mode != PRV_M)
           virt = true;
       }
       if (xlate_flags.forced_virt) {
         virt = true;
-        mode = get_field(proc->state.hstatus->read(), HSTATUS_SPVP);
+        mode = get_field(proc->state.hstatus->read(proc), HSTATUS_SPVP);
       }
     }
     return {addr, mode, virt, xlate_flags, type};
@@ -475,9 +475,9 @@ private:
   inline bool in_mprv()
   {
     return proc != nullptr
-           && !(proc->state.mnstatus && !get_field(proc->state.mnstatus->read(), MNSTATUS_NMIE))
+           && !(proc->state.mnstatus && !get_field(proc->state.mnstatus->read(proc), MNSTATUS_NMIE))
            && !proc->state.debug_mode
-           && get_field(proc->state.mstatus->read(), MSTATUS_MPRV);
+           && get_field(proc->state.mstatus->read(proc), MSTATUS_MPRV);
   }
 
   reg_t pmp_homogeneous(reg_t addr, reg_t len);

@@ -716,24 +716,24 @@ void processor_t::take_interrupt(reg_t pending_interrupts)
   in_wfi = false;
 
   // M-ints have higher priority over HS-ints and VS-ints
-  const reg_t mie = get_field(state.mstatus->read(), MSTATUS_MIE);
+  const reg_t mie = get_field(state.mstatus->read(this), MSTATUS_MIE);
   const reg_t m_enabled = state.prv < PRV_M || (state.prv == PRV_M && mie);
-  reg_t enabled_interrupts = pending_interrupts & ~state.mideleg->read() & -m_enabled;
+  reg_t enabled_interrupts = pending_interrupts & ~state.mideleg->read(this) & -m_enabled;
   if (enabled_interrupts == 0) {
     // HS-ints have higher priority over VS-ints
-    const reg_t deleg_to_hs = state.mideleg->read() & ~state.hideleg->read();
-    const reg_t sie = get_field(state.sstatus->read(), MSTATUS_SIE);
+    const reg_t deleg_to_hs = state.mideleg->read(this) & ~state.hideleg->read(this);
+    const reg_t sie = get_field(state.sstatus->read(this), MSTATUS_SIE);
     const reg_t hs_enabled = state.v || state.prv < PRV_S || (state.prv == PRV_S && sie);
     enabled_interrupts = pending_interrupts & deleg_to_hs & -hs_enabled;
     if (state.v && enabled_interrupts == 0) {
       // VS-ints have least priority and can only be taken with virt enabled
-      const reg_t deleg_to_vs = state.hideleg->read();
+      const reg_t deleg_to_vs = state.hideleg->read(this);
       const reg_t vs_enabled = state.prv < PRV_S || (state.prv == PRV_S && sie);
       enabled_interrupts = pending_interrupts & deleg_to_vs & -vs_enabled;
     }
   }
 
-  const bool nmie = !(state.mnstatus && !get_field(state.mnstatus->read(), MNSTATUS_NMIE));
+  const bool nmie = !(state.mnstatus && !get_field(state.mnstatus->read(this), MNSTATUS_NMIE));
   if (!state.debug_mode && nmie && enabled_interrupts) {
     // nonstandard interrupts have highest priority
     if (enabled_interrupts >> (IRQ_M_EXT + 1))
@@ -816,7 +816,7 @@ void processor_t::enter_debug_mode(uint8_t cause)
   state.debug_mode = true;
   state.dcsr->write_cause_and_prv(cause, state.prv, state.v);
   set_privilege(PRV_M, false);
-  state.dpc->write(state.pc);
+  state.dpc->write(state.pc, this);
   state.pc = DEBUG_ROM_ENTRY;
   in_wfi = false;
 }
@@ -862,74 +862,74 @@ void processor_t::take_trap(trap_t& t, reg_t epc)
   bool curr_virt = state.v;
   bool interrupt = (bit & ((reg_t)1 << (max_xlen - 1))) != 0;
   if (interrupt) {
-    vsdeleg = (curr_virt && state.prv <= PRV_S) ? state.hideleg->read() : 0;
-    hsdeleg = (state.prv <= PRV_S) ? state.mideleg->read() : 0;
+    vsdeleg = (curr_virt && state.prv <= PRV_S) ? state.hideleg->read(this) : 0;
+    hsdeleg = (state.prv <= PRV_S) ? state.mideleg->read(this) : 0;
     bit &= ~((reg_t)1 << (max_xlen - 1));
   } else {
-    vsdeleg = (curr_virt && state.prv <= PRV_S) ? (state.medeleg->read() & state.hedeleg->read()) : 0;
-    hsdeleg = (state.prv <= PRV_S) ? state.medeleg->read() : 0;
+    vsdeleg = (curr_virt && state.prv <= PRV_S) ? (state.medeleg->read(this) & state.hedeleg->read(this)) : 0;
+    hsdeleg = (state.prv <= PRV_S) ? state.medeleg->read(this) : 0;
   }
   if (state.prv <= PRV_S && bit < max_xlen && ((vsdeleg >> bit) & 1)) {
     // Handle the trap in VS-mode
-    reg_t vector = (state.vstvec->read() & 1) && interrupt ? 4 * bit : 0;
-    state.pc = (state.vstvec->read() & ~(reg_t)1) + vector;
-    state.vscause->write((interrupt) ? (t.cause() - 1) : t.cause());
-    state.vsepc->write(epc);
-    state.vstval->write(t.get_tval());
+    reg_t vector = (state.vstvec->read(this) & 1) && interrupt ? 4 * bit : 0;
+    state.pc = (state.vstvec->read(this) & ~(reg_t)1) + vector;
+    state.vscause->write((interrupt) ? (t.cause() - 1) : t.cause(), this);
+    state.vsepc->write(epc, this);
+    state.vstval->write(t.get_tval(), this);
 
-    reg_t s = state.sstatus->read();
+    reg_t s = state.sstatus->read(this);
     s = set_field(s, MSTATUS_SPIE, get_field(s, MSTATUS_SIE));
     s = set_field(s, MSTATUS_SPP, state.prv);
     s = set_field(s, MSTATUS_SIE, 0);
-    state.sstatus->write(s);
+    state.sstatus->write(s, this);
     set_privilege(PRV_S, true);
   } else if (state.prv <= PRV_S && bit < max_xlen && ((hsdeleg >> bit) & 1)) {
     // Handle the trap in HS-mode
-    reg_t vector = (state.nonvirtual_stvec->read() & 1) && interrupt ? 4 * bit : 0;
-    state.pc = (state.nonvirtual_stvec->read() & ~(reg_t)1) + vector;
-    state.nonvirtual_scause->write(t.cause());
-    state.nonvirtual_sepc->write(epc);
-    state.nonvirtual_stval->write(t.get_tval());
-    state.htval->write(t.get_tval2());
-    state.htinst->write(t.get_tinst());
+    reg_t vector = (state.nonvirtual_stvec->read(this) & 1) && interrupt ? 4 * bit : 0;
+    state.pc = (state.nonvirtual_stvec->read(this) & ~(reg_t)1) + vector;
+    state.nonvirtual_scause->write(t.cause(), this);
+    state.nonvirtual_sepc->write(epc, this);
+    state.nonvirtual_stval->write(t.get_tval(), this);
+    state.htval->write(t.get_tval2(), this);
+    state.htinst->write(t.get_tinst(), this);
 
-    reg_t s = state.nonvirtual_sstatus->read();
+    reg_t s = state.nonvirtual_sstatus->read(this);
     s = set_field(s, MSTATUS_SPIE, get_field(s, MSTATUS_SIE));
     s = set_field(s, MSTATUS_SPP, state.prv);
     s = set_field(s, MSTATUS_SIE, 0);
-    state.nonvirtual_sstatus->write(s);
+    state.nonvirtual_sstatus->write(s, this);
     if (extension_enabled('H')) {
-      s = state.hstatus->read();
+      s = state.hstatus->read(this);
       if (curr_virt)
         s = set_field(s, HSTATUS_SPVP, state.prv);
       s = set_field(s, HSTATUS_SPV, curr_virt);
       s = set_field(s, HSTATUS_GVA, t.has_gva());
-      state.hstatus->write(s);
+      state.hstatus->write(s, this);
     }
     set_privilege(PRV_S, false);
   } else {
     // Handle the trap in M-mode
-    const reg_t vector = (state.mtvec->read() & 1) && interrupt ? 4 * bit : 0;
-    const reg_t trap_handler_address = (state.mtvec->read() & ~(reg_t)1) + vector;
+    const reg_t vector = (state.mtvec->read(this) & 1) && interrupt ? 4 * bit : 0;
+    const reg_t trap_handler_address = (state.mtvec->read(this) & ~(reg_t)1) + vector;
     // RNMI exception vector is implementation-defined.  Since we don't model
     // RNMI sources, the feature isn't very useful, so pick an invalid address.
     const reg_t rnmi_trap_handler_address = 0;
-    const bool nmie = !(state.mnstatus && !get_field(state.mnstatus->read(), MNSTATUS_NMIE));
+    const bool nmie = !(state.mnstatus && !get_field(state.mnstatus->read(this), MNSTATUS_NMIE));
     state.pc = !nmie ? rnmi_trap_handler_address : trap_handler_address;
-    state.mepc->write(epc);
-    state.mcause->write(t.cause());
-    state.mtval->write(t.get_tval());
-    state.mtval2->write(t.get_tval2());
-    state.mtinst->write(t.get_tinst());
+    state.mepc->write(epc, this);
+    state.mcause->write(t.cause(), this);
+    state.mtval->write(t.get_tval(), this);
+    state.mtval2->write(t.get_tval2(), this);
+    state.mtinst->write(t.get_tinst(), this);
 
-    reg_t s = state.mstatus->read();
+    reg_t s = state.mstatus->read(this);
     s = set_field(s, MSTATUS_MPIE, get_field(s, MSTATUS_MIE));
     s = set_field(s, MSTATUS_MPP, state.prv);
     s = set_field(s, MSTATUS_MIE, 0);
     s = set_field(s, MSTATUS_MPV, curr_virt);
     s = set_field(s, MSTATUS_GVA, t.has_gva());
-    state.mstatus->write(s);
-    if (state.mstatush) state.mstatush->write(s >> 32);  // log mstatush change
+    state.mstatus->write(s, this);
+    if (state.mstatush) state.mstatush->write(s >> 32, this);  // log mstatush change
     set_privilege(PRV_M, false);
   }
 }
@@ -1009,7 +1009,7 @@ void processor_t::put_csr(int which, reg_t val)
   val = zext_xlen(val);
   auto search = state.csrmap.find(which);
   if (search != state.csrmap.end()) {
-    search->second->write(val);
+    search->second->write(val, this);
     return;
   }
 }
@@ -1023,7 +1023,7 @@ reg_t processor_t::get_csr(int which, insn_t insn, bool write, bool peek)
   if (search != state.csrmap.end()) {
     if (!peek)
       search->second->verify_permissions(insn, write, this);
-    return search->second->read();
+    return search->second->read(this);
   }
   // If we get here, the CSR doesn't exist.  Unimplemented CSRs always throw
   // illegal-instruction exceptions, not virtual-instruction exceptions.
@@ -1160,7 +1160,7 @@ bool processor_t::load(reg_t addr, size_t len, uint8_t* bytes)
     case 0:
       if (len <= 4) {
         memset(bytes, 0, len);
-        bytes[0] = get_field(state.mip->read(), MIP_MSIP);
+        bytes[0] = get_field(state.mip->read(this), MIP_MSIP);
         return true;
       }
       break;
@@ -1175,7 +1175,7 @@ bool processor_t::store(reg_t addr, size_t len, const uint8_t* bytes)
   {
     case 0:
       if (len <= 4) {
-        state.mip->write_with_mask(MIP_MSIP, bytes[0] << IRQ_M_SOFT);
+        state.mip->write_with_mask(MIP_MSIP, bytes[0] << IRQ_M_SOFT, this);
         return true;
       }
       break;

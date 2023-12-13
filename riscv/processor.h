@@ -234,7 +234,7 @@ public:
   }
   bool extension_enabled(isa_extension_t ext) const {
     if (ext >= 'A' && ext <= 'Z')
-      return state.misa->extension_enabled(ext);
+      return state.misa->extension_enabled(ext, this);
     else
       return extension_enable_table[ext];
   }
@@ -338,7 +338,7 @@ private:
   static const size_t OPCODE_CACHE_SIZE = 8191;
   insn_desc_t opcode_cache[OPCODE_CACHE_SIZE];
 
-  void take_pending_interrupt() { take_interrupt(state.mip->read() & state.mie->read()); }
+  void take_pending_interrupt() { take_interrupt(state.mip->read(this) & state.mie->read(this)); }
   void take_interrupt(reg_t mask); // take first enabled interrupt in mask
   void take_trap(trap_t& t, reg_t epc); // take an exception
   void take_trigger_action(triggers::action_t action, reg_t breakpoint_tval, reg_t epc, bool virt);
@@ -367,7 +367,7 @@ public:
 
   reg_t n_pmp;
   reg_t lg_pmp_granularity;
-  reg_t pmp_tor_mask() { return -(reg_t(1) << (lg_pmp_granularity - PMP_SHIFT)); }
+  reg_t pmp_tor_mask() const { return -(reg_t(1) << (lg_pmp_granularity - PMP_SHIFT)); }
 
   vectorUnit_t VU;
   triggers::module_t TM;

@@ -121,7 +121,7 @@ static void commit_log_print_insn(processor_t *p, reg_t pc, insn_t insn)
                 (long)p->VU.vsew,
                 p->VU.vflmul < 1 ? "mf" : "m",
                 p->VU.vflmul < 1 ? (long)(1 / p->VU.vflmul) : (long)p->VU.vflmul,
-                (long)p->VU.vl->read());
+                (long)p->VU.vl->read(p));
         show_vec = true;
     }
 

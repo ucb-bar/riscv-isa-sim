@@ -46,7 +46,8 @@ bool clint_t::load(reg_t addr, size_t len, uint8_t* bytes)
     }
 
     const auto hart_id = (addr - MSIP_BASE) / sizeof(msip_t);
-    const msip_t res = sim->get_harts().count(hart_id) && (sim->get_harts().at(hart_id)->state.mip->read() & MIP_MSIP);
+    auto proc = sim->get_harts().at(hart_id);
+    const msip_t res = sim->get_harts().count(hart_id) && (proc->state.mip->read(proc) & MIP_MSIP);
     read_little_endian_reg(res, addr, len, bytes);
     return true;
   } else if (addr >= MTIMECMP_BASE && addr < MTIME_BASE) {

@@ -351,7 +351,7 @@ bool mmu_t::pmp_ok(reg_t addr, reg_t len, access_type type, reg_t mode)
     bool all_match = true;
     for (reg_t offset = 0; offset < len; offset += 1 << PMP_SHIFT) {
       reg_t cur_addr = addr + offset;
-      bool match = proc->state.pmpaddr[i]->match4(cur_addr);
+      bool match = proc->state.pmpaddr[i]->match4(cur_addr, proc);
       any_match |= match;
       all_match &= match;
     }
@@ -361,7 +361,7 @@ bool mmu_t::pmp_ok(reg_t addr, reg_t len, access_type type, reg_t mode)
       if (!all_match)
         return false;
 
-      return proc->state.pmpaddr[i]->access_ok(type, mode);
+      return proc->state.pmpaddr[i]->access_ok(type, mode, proc);
     }
   }
 
@@ -381,7 +381,7 @@ reg_t mmu_t::pmp_homogeneous(reg_t addr, reg_t len)
     return true;
 
   for (size_t i = 0; i < proc->n_pmp; i++)
-    if (proc->state.pmpaddr[i]->subset_match(addr, len))
+    if (proc->state.pmpaddr[i]->subset_match(addr, len, proc))
       return false;
 
   return true;

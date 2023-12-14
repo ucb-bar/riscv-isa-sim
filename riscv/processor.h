@@ -232,9 +232,10 @@ public:
   bool extension_enabled(unsigned char ext) const {
     return extension_enabled(isa_extension_t(ext));
   }
-  bool extension_enabled(isa_extension_t ext) {
+  bool extension_enabled(isa_extension_t ext) const {
+    processor_t* p = const_cast<processor_t*>(this);
     if (ext >= 'A' && ext <= 'Z')
-      return state.misa->extension_enabled(ext, this);
+      return state.misa->extension_enabled(ext, p);
     else
       return extension_enable_table[ext];
   }
@@ -244,9 +245,10 @@ public:
   bool extension_enabled_const(unsigned char ext) const {
     return extension_enabled_const(isa_extension_t(ext));
   }
-  bool extension_enabled_const(isa_extension_t ext) {
+  bool extension_enabled_const(isa_extension_t ext) const {
+    processor_t* p = const_cast<processor_t*>(this);
     if (ext >= 'A' && ext <= 'Z') {
-      return state.misa->extension_enabled_const(ext, this);
+      return state.misa->extension_enabled_const(ext, p);
     } else {
       assert(!extension_dynamic[ext]);
       extension_assumed_const[ext] = true;

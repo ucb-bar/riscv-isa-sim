@@ -33,7 +33,7 @@ inline int64_t mulh(int64_t a, int64_t b)
 {
   int negate = (a < 0) != (b < 0);
   uint64_t res = mulhu(a < 0 ? -a : a, b < 0 ? -b : b);
-  return negate ? ~res + (a * b == 0) : res;
+  return negate ? ~res + ((uint64_t)a * (uint64_t)b == 0) : res;
 }
 
 inline int64_t mulhsu(int64_t a, uint64_t b)

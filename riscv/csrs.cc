@@ -101,7 +101,7 @@ void pmpaddr_csr_t::verify_permissions(insn_t insn, bool write, processor_t* p) 
     throw trap_illegal_instruction(insn.bits());
 }
 
-reg_t pmpaddr_csr_t::read(const processor_t* p) const noexcept {
+reg_t pmpaddr_csr_t::read(processor_t* p) const noexcept {
   if ((cfg & PMP_A) >= PMP_NAPOT)
     return val | (~p->pmp_tor_mask() >> 1);
   return val & p->pmp_tor_mask();
@@ -230,7 +230,7 @@ void pmpcfg_csr_t::verify_permissions(insn_t insn, bool write, processor_t* p) c
     throw trap_illegal_instruction(insn.bits());
 }
 
-reg_t pmpcfg_csr_t::read(const processor_t* p) const noexcept {
+reg_t pmpcfg_csr_t::read(processor_t* p) const noexcept {
   reg_t cfg_res = 0;
   for (size_t i0 = (address - CSR_PMPCFG0) * 4, i = i0; i < i0 + proc->get_xlen() / 8 && i < state->max_pmp; i++)
     cfg_res |= reg_t(state->pmpaddr[i]->cfg) << (8 * (i - i0));
@@ -333,11 +333,11 @@ virtualized_csr_t::virtualized_csr_t(processor_t* const proc, csr_t_p orig, csr_
   virt_csr(virt) {
 }
 
-reg_t virtualized_csr_t::read(const processor_t* p) const noexcept {
+reg_t virtualized_csr_t::read(processor_t* p) const noexcept {
   return readvirt(state->v, p);
 }
 
-reg_t virtualized_csr_t::readvirt(bool virt, const processor_t* p) const noexcept {
+reg_t virtualized_csr_t::readvirt(bool virt, processor_t* p) const noexcept {
   return virt ? virt_csr->read(p) : orig_csr->read(p);
 }
 
@@ -355,7 +355,7 @@ epc_csr_t::epc_csr_t(processor_t* const proc, const reg_t addr):
   val(0) {
 }
 
-reg_t epc_csr_t::read(const processor_t* p) const noexcept {
+reg_t epc_csr_t::read(processor_t* p) const noexcept {
   return val & proc->pc_alignment_mask();
 }
 
@@ -370,7 +370,7 @@ tvec_csr_t::tvec_csr_t(processor_t* const proc, const reg_t addr):
   val(0) {
 }
 
-reg_t tvec_csr_t::read(const processor_t* p) const noexcept {
+reg_t tvec_csr_t::read(processor_t* p) const noexcept {
   return val;
 }
 
@@ -384,8 +384,8 @@ cause_csr_t::cause_csr_t(processor_t* const proc, const reg_t addr):
   basic_csr_t(proc, addr, 0) {
 }
 
-reg_t cause_csr_t::read(const processor_t* p) const noexcept {
-  reg_t val = basic_csr_t::read(const processor_t* p);
+reg_t cause_csr_t::read(processor_t* p) const noexcept {
+  reg_t val = basic_csr_t::read(p);
   // When reading, the interrupt bit needs to adjust to xlen. Spike does
   // not generally support dynamic xlen, but this code was (partly)
   // there since at least 2015 (ea58df8 and c4350ef).
@@ -454,7 +454,7 @@ namespace {
 // implement class vsstatus_csr_t
 vsstatus_csr_t::vsstatus_csr_t(processor_t* const proc, const reg_t addr):
   base_status_csr_t(proc, addr),
-  val(proc->get_state()->mstatus->read(p) & sstatus_read_mask) {
+  val(proc->get_state()->mstatus->read(proc) & sstatus_read_mask) {
 }
 
 bool vsstatus_csr_t::unlogged_write(const reg_t val, processor_t* p) noexcept {
@@ -544,7 +544,7 @@ rv32_low_csr_t::rv32_low_csr_t(processor_t* const proc, const reg_t addr, csr_t_
   orig(orig) {
 }
 
-reg_t rv32_low_csr_t::read(const processor_t* p) const noexcept {
+reg_t rv32_low_csr_t::read(processor_t* p) const noexcept {
   return orig->read(p) & 0xffffffffU;
 }
 
@@ -566,7 +566,7 @@ rv32_high_csr_t::rv32_high_csr_t(processor_t* const proc, const reg_t addr, csr_
   orig(orig) {
 }
 
-reg_t rv32_high_csr_t::read(const processor_t* p) const noexcept {
+reg_t rv32_high_csr_t::read(processor_t* p) const noexcept {
   return (orig->read(p) >> 32) & 0xffffffffU;
 }
 
@@ -589,7 +589,7 @@ sstatus_csr_t::sstatus_csr_t(processor_t* const proc, sstatus_proxy_csr_t_p orig
   virt_sstatus(virt) {
 }
 
-void sstatus_csr_t::dirty(const reg_t dirties) {
+void sstatus_csr_t::dirty(const reg_t dirties, processor_t* p) {
   // As an optimization, return early if already dirty.
   if ((orig_sstatus->read(p) & dirties) == dirties) {
     if (likely(!state->v || (virt_sstatus->read(p) & dirties) == dirties))
@@ -598,7 +598,7 @@ void sstatus_csr_t::dirty(const reg_t dirties) {
 
   // Catch problems like #823 where P-extension instructions were not
   // checking for mstatus.VS!=Off:
-  if (!enabled(dirties)) abort();
+  if (!enabled(dirties, p)) abort();
 
   orig_sstatus->write(orig_sstatus->read(p) | dirties, p);
   if (state->v) {
@@ -606,7 +606,7 @@ void sstatus_csr_t::dirty(const reg_t dirties) {
   }
 }
 
-bool sstatus_csr_t::enabled(const reg_t which) {
+bool sstatus_csr_t::enabled(const reg_t which, processor_t* p) {
   if ((orig_sstatus->read(p) & which) != 0) {
     if (!state->v || (virt_sstatus->read(p) & which) != 0)
       return true;
@@ -694,9 +694,9 @@ bool misa_csr_t::unlogged_write(const reg_t val, processor_t* p) noexcept {
   return basic_csr_t::unlogged_write(new_misa, p);
 }
 
-bool misa_csr_t::extension_enabled_const(unsigned char ext) const noexcept {
+bool misa_csr_t::extension_enabled_const(unsigned char ext, processor_t* p) const noexcept {
   assert(!(1 & (write_mask >> (ext - 'A'))));
-  return extension_enabled(ext);
+  return extension_enabled(ext, p);
 }
 
 // implement class mip_or_mie_csr_t
@@ -705,7 +705,7 @@ mip_or_mie_csr_t::mip_or_mie_csr_t(processor_t* const proc, const reg_t addr):
   val(0) {
 }
 
-reg_t mip_or_mie_csr_t::read(const processor_t* p) const noexcept {
+reg_t mip_or_mie_csr_t::read(processor_t* p) const noexcept {
   return val;
 }
 
@@ -715,7 +715,7 @@ void mip_or_mie_csr_t::write_with_mask(const reg_t mask, const reg_t val, proces
 }
 
 bool mip_or_mie_csr_t::unlogged_write(const reg_t val, processor_t* p) noexcept {
-  write_with_mask(write_mask(), val, p);
+  write_with_mask(write_mask(p), val, p);
   return false; // avoid double logging: already logged by write_with_mask()
 }
 
@@ -727,7 +727,7 @@ void mip_csr_t::backdoor_write_with_mask(const reg_t mask, const reg_t val) noex
   this->val = (this->val & ~mask) | (val & mask);
 }
 
-reg_t mip_csr_t::write_mask() const noexcept {
+reg_t mip_csr_t::write_mask(processor_t* p) const noexcept {
   // MIP_STIP is writable unless SSTC exists and STCE is set in MENVCFG
   const reg_t supervisor_ints = proc->extension_enabled('S') ? MIP_SSIP | ((state->menvcfg->read(p) &  MENVCFG_STCE) ? 0 : MIP_STIP) | MIP_SEIP : 0;
   const reg_t lscof_int = proc->extension_enabled(EXT_SSCOFPMF) ? MIP_LCOFIP : 0;
@@ -746,7 +746,7 @@ mie_csr_t::mie_csr_t(processor_t* const proc, const reg_t addr):
   mip_or_mie_csr_t(proc, addr) {
 }
 
-reg_t mie_csr_t::write_mask() const noexcept {
+reg_t mie_csr_t::write_mask(processor_t* p) const noexcept {
   const reg_t supervisor_ints = proc->extension_enabled('S') ? MIP_SSIP | MIP_STIP | MIP_SEIP : 0;
   const reg_t lscof_int = proc->extension_enabled(EXT_SSCOFPMF) ? MIP_LCOFIP : 0;
   const reg_t hypervisor_ints = proc->extension_enabled('H') ? MIP_HS_MASK : 0;
@@ -773,24 +773,24 @@ generic_int_accessor_t::generic_int_accessor_t(state_t* const state,
 }
 
 reg_t generic_int_accessor_t::ip_read(processor_t* p) const noexcept {
-  return (state->mip->read(p) & deleg_mask() & read_mask) >> shiftamt;
+  return (state->mip->read(p) & deleg_mask(p) & read_mask) >> shiftamt;
 }
 
 void generic_int_accessor_t::ip_write(const reg_t val, processor_t* p) noexcept {
-  const reg_t mask = deleg_mask() & ip_write_mask;
+  const reg_t mask = deleg_mask(p) & ip_write_mask;
   state->mip->write_with_mask(mask, val << shiftamt, p);
 }
 
 reg_t generic_int_accessor_t::ie_read(processor_t *p) const noexcept {
-  return (state->mie->read(p) & deleg_mask() & read_mask) >> shiftamt;
+  return (state->mie->read(p) & deleg_mask(p) & read_mask) >> shiftamt;
 }
 
 void generic_int_accessor_t::ie_write(const reg_t val, processor_t* p) noexcept {
-  const reg_t mask = deleg_mask() & ie_write_mask;
+  const reg_t mask = deleg_mask(p) & ie_write_mask;
   state->mie->write_with_mask(mask, val << shiftamt, p);
 }
 
-reg_t generic_int_accessor_t::deleg_mask() const {
+reg_t generic_int_accessor_t::deleg_mask(processor_t* p) const {
   const reg_t hideleg_mask = mask_hideleg ? state->hideleg->read(p) : (reg_t)~0;
   const reg_t mideleg_mask = mask_mideleg ? state->mideleg->read(p) : (reg_t)~0;
   return hideleg_mask & mideleg_mask;
@@ -802,7 +802,7 @@ mip_proxy_csr_t::mip_proxy_csr_t(processor_t* const proc, const reg_t addr, gene
   accr(accr) {
 }
 
-reg_t mip_proxy_csr_t::read(const processor_t* p) const noexcept {
+reg_t mip_proxy_csr_t::read(processor_t* p) const noexcept {
   return accr->ip_read(p);
 }
 
@@ -817,7 +817,7 @@ mie_proxy_csr_t::mie_proxy_csr_t(processor_t* const proc, const reg_t addr, gene
   accr(accr) {
 }
 
-reg_t mie_proxy_csr_t::read(const processor_t* p) const noexcept {
+reg_t mie_proxy_csr_t::read(processor_t* p) const noexcept {
   return accr->ie_read(p);
 }
 
@@ -831,8 +831,8 @@ mideleg_csr_t::mideleg_csr_t(processor_t* const proc, const reg_t addr):
   basic_csr_t(proc, addr, 0) {
 }
 
-reg_t mideleg_csr_t::read(const processor_t* p) const noexcept {
-  reg_t val = basic_csr_t::read(const processor_t* p);
+reg_t mideleg_csr_t::read(processor_t* p) const noexcept {
+  reg_t val = basic_csr_t::read(p);
   if (proc->extension_enabled('H')) return val | MIDELEG_FORCED_MASK;
   // No need to clear MIDELEG_FORCED_MASK because those bits can never
   // get set in val.
@@ -927,7 +927,7 @@ base_atp_csr_t::base_atp_csr_t(processor_t* const proc, const reg_t addr):
 }
 
 bool base_atp_csr_t::unlogged_write(const reg_t val, processor_t* p) noexcept {
-  const reg_t newval = proc->supports_impl(IMPL_MMU) ? compute_new_satp(val) : 0;
+  const reg_t newval = proc->supports_impl(IMPL_MMU) ? compute_new_satp(val, p) : 0;
   if (newval != read(p))
     proc->get_mmu()->flush_tlb();
   return basic_csr_t::unlogged_write(newval, p);
@@ -951,7 +951,7 @@ bool base_atp_csr_t::satp_valid(reg_t val) const noexcept {
   }
 }
 
-reg_t base_atp_csr_t::compute_new_satp(reg_t val) const noexcept {
+reg_t base_atp_csr_t::compute_new_satp(reg_t val, processor_t* p) const noexcept {
   reg_t rv64_ppn_mask = (reg_t(1) << (MAX_PADDR_BITS - PGSHIFT)) - 1;
 
   reg_t mode_mask = proc->get_xlen() == 32 ? SATP32_MODE : SATP64_MODE;
@@ -1010,12 +1010,12 @@ wide_counter_csr_t::wide_counter_csr_t(processor_t* const proc, const reg_t addr
   config_csr(config_csr) {
 }
 
-reg_t wide_counter_csr_t::read(const processor_t* p) const noexcept {
+reg_t wide_counter_csr_t::read(processor_t* p) const noexcept {
   return val;
 }
 
-void wide_counter_csr_t::bump(const reg_t howmuch) noexcept {
-  if (is_counting_enabled()) {
+void wide_counter_csr_t::bump(const reg_t howmuch, processor_t* p) noexcept {
+  if (is_counting_enabled(p)) {
     val += howmuch;  // to keep log reasonable size, don't log every bump
   }
   // Clear cached value
@@ -1029,7 +1029,7 @@ bool wide_counter_csr_t::unlogged_write(const reg_t val, processor_t* p) noexcep
   // unconditionally increments instret after executing an instruction.
   // Correct for this artifact by decrementing instret here.
   // Ensure that Smctrpmf hasn't disabled counting.
-  if (is_counting_enabled()) {
+  if (is_counting_enabled(p)) {
     this->val--;
   }
   return true;
@@ -1042,7 +1042,7 @@ reg_t wide_counter_csr_t::written_value(processor_t* p) const noexcept {
 
 // Returns true if counting is not inhibited by Smcntrpmf.
 // Note that minstretcfg / mcyclecfg / mhpmevent* share the same inhibit bits.
-bool wide_counter_csr_t::is_counting_enabled() const noexcept {
+bool wide_counter_csr_t::is_counting_enabled(processor_t* p) const noexcept {
   auto prv = state->prv_changed ? state->prev_prv : state->prv;
   auto v = state->v_changed ? state->v : state->prev_v;
   auto mask = MHPMEVENT_MINH;
@@ -1051,7 +1051,7 @@ bool wide_counter_csr_t::is_counting_enabled() const noexcept {
   } else if (prv == PRV_U) {
     mask = v ? MHPMEVENT_VUINH : MHPMEVENT_UINH;
   }
-  return (config_csr->read_prev() & mask) == 0;
+  return (config_csr->read_prev(p) & mask) == 0;
 }
 
 // implement class time_counter_csr_t
@@ -1060,7 +1060,7 @@ time_counter_csr_t::time_counter_csr_t(processor_t* const proc, const reg_t addr
   shadow_val(0) {
 }
 
-reg_t time_counter_csr_t::read(const processor_t* p) const noexcept {
+reg_t time_counter_csr_t::read(processor_t* p) const noexcept {
   // reading the time CSR in VS or VU mode returns the sum of the contents of
   // htimedelta and the actual value of time.
   if (state->v)
@@ -1069,7 +1069,7 @@ reg_t time_counter_csr_t::read(const processor_t* p) const noexcept {
     return shadow_val;
 }
 
-void time_counter_csr_t::sync(const reg_t val) noexcept {
+void time_counter_csr_t::sync(const reg_t val, processor_t* p) noexcept {
   shadow_val = val;
   if (proc->extension_enabled(EXT_SSTC)) {
     const reg_t mip_val = (shadow_val >= state->stimecmp->read(p) ? MIP_STIP : 0) |
@@ -1083,7 +1083,7 @@ proxy_csr_t::proxy_csr_t(processor_t* const proc, const reg_t addr, csr_t_p dele
   delegate(delegate) {
 }
 
-reg_t proxy_csr_t::read(const processor_t* p) const noexcept {
+reg_t proxy_csr_t::read(processor_t* p) const noexcept {
   return delegate->read(p);
 }
 
@@ -1097,11 +1097,11 @@ const_csr_t::const_csr_t(processor_t* const proc, const reg_t addr, reg_t val):
   val(val) {
 }
 
-reg_t const_csr_t::read(const processor_t* p) const noexcept {
+reg_t const_csr_t::read(processor_t* p) const noexcept {
   return val;
 }
 
-bool const_csr_t::unlogged_write(const reg_t UNUSED val) noexcept {
+bool const_csr_t::unlogged_write(const reg_t UNUSED val, processor_t* p) noexcept {
   return false;
 }
 
@@ -1109,7 +1109,7 @@ counter_proxy_csr_t::counter_proxy_csr_t(processor_t* const proc, const reg_t ad
   proxy_csr_t(proc, addr, delegate) {
 }
 
-bool counter_proxy_csr_t::myenable(csr_t_p counteren) const noexcept {
+bool counter_proxy_csr_t::myenable(csr_t_p counteren, processor_t* p) const noexcept {
   return 1 & (counteren->read(p) >> (address & 31));
 }
 
@@ -1118,9 +1118,9 @@ void counter_proxy_csr_t::verify_permissions(insn_t insn, bool write, processor_
 
   state_t* s = p->get_state();
 
-  const bool mctr_ok = (s->prv < PRV_M) ? myenable(s->mcounteren) : true;
-  const bool hctr_ok = s->v ? myenable(s->hcounteren) : true;
-  const bool sctr_ok = (proc->extension_enabled('S') && s->prv < PRV_S) ? myenable(s->scounteren) : true;
+  const bool mctr_ok = (s->prv < PRV_M) ? myenable(s->mcounteren, p) : true;
+  const bool hctr_ok = s->v ? myenable(s->hcounteren, p) : true;
+  const bool sctr_ok = (proc->extension_enabled('S') && s->prv < PRV_S) ? myenable(s->scounteren, p) : true;
 
   if (!mctr_ok)
     throw trap_illegal_instruction(insn.bits());
@@ -1161,8 +1161,8 @@ hideleg_csr_t::hideleg_csr_t(processor_t* const proc, const reg_t addr, csr_t_p 
   mideleg(mideleg) {
 }
 
-reg_t hideleg_csr_t::read(const processor_t* p) const noexcept {
-  return masked_csr_t::read(const processor_t* p) & mideleg->read(p);
+reg_t hideleg_csr_t::read(processor_t* p) const noexcept {
+  return masked_csr_t::read(p) & mideleg->read(p);
 };
 
 hgatp_csr_t::hgatp_csr_t(processor_t* const proc, const reg_t addr):
@@ -1211,7 +1211,7 @@ tdata1_csr_t::tdata1_csr_t(processor_t* const proc, const reg_t addr):
   csr_t(proc, addr) {
 }
 
-reg_t tdata1_csr_t::read(const processor_t* p) const noexcept {
+reg_t tdata1_csr_t::read(processor_t* p) const noexcept {
   return proc->TM.tdata1_read(state->tselect->read(p));
 }
 
@@ -1223,7 +1223,7 @@ tdata2_csr_t::tdata2_csr_t(processor_t* const proc, const reg_t addr):
   csr_t(proc, addr) {
 }
 
-reg_t tdata2_csr_t::read(const processor_t* p) const noexcept {
+reg_t tdata2_csr_t::read(processor_t* p) const noexcept {
   return proc->TM.tdata2_read(state->tselect->read(p));
 }
 
@@ -1235,7 +1235,7 @@ tdata3_csr_t::tdata3_csr_t(processor_t* const proc, const reg_t addr):
   csr_t(proc, addr) {
 }
 
-reg_t tdata3_csr_t::read(const processor_t* p) const noexcept {
+reg_t tdata3_csr_t::read(processor_t* p) const noexcept {
   return proc->TM.tdata3_read(state->tselect->read(p));
 }
 
@@ -1247,7 +1247,7 @@ tinfo_csr_t::tinfo_csr_t(processor_t* const proc, const reg_t addr) :
   csr_t(proc, addr) {
 }
 
-reg_t tinfo_csr_t::read(const processor_t* p) const noexcept {
+reg_t tinfo_csr_t::read(processor_t* p) const noexcept {
   return proc->TM.tinfo_read(state->tselect->read(p));
 }
 
@@ -1294,7 +1294,7 @@ void dcsr_csr_t::verify_permissions(insn_t insn, bool write, processor_t* p) con
     throw trap_illegal_instruction(insn.bits());
 }
 
-reg_t dcsr_csr_t::read(const processor_t* p) const noexcept {
+reg_t dcsr_csr_t::read(processor_t* p) const noexcept {
   reg_t result = 0;
   result = set_field(result, DCSR_XDEBUGVER, 1);
   result = set_field(result, DCSR_EBREAKM, ebreakm);
@@ -1325,7 +1325,7 @@ bool dcsr_csr_t::unlogged_write(const reg_t val, processor_t* p) noexcept {
   return true;
 }
 
-void dcsr_csr_t::write_cause_and_prv(uint8_t cause, reg_t prv, bool v) noexcept {
+void dcsr_csr_t::write_cause_and_prv(uint8_t cause, reg_t prv, bool v, processor_t* p) noexcept {
   this->cause = cause;
   this->prv = prv;
   this->v = v;
@@ -1377,13 +1377,13 @@ void composite_csr_t::verify_permissions(insn_t insn, bool write, processor_t* p
   upper_csr->verify_permissions(insn, write, p);
 }
 
-reg_t composite_csr_t::read(const processor_t* p) const noexcept {
+reg_t composite_csr_t::read(processor_t* p) const noexcept {
   return (upper_csr->read(p) << upper_lsb) | lower_csr->read(p);
 }
 
 bool composite_csr_t::unlogged_write(const reg_t val, processor_t* p) noexcept {
-  upper_csr->write(val >> upper_lsb);
-  lower_csr->write(val);
+  upper_csr->write(val >> upper_lsb, p);
+  lower_csr->write(val, p);
   return false;  // logging is done only by the underlying CSRs
 }
 
@@ -1399,7 +1399,7 @@ void seed_csr_t::verify_permissions(insn_t insn, bool write, processor_t* p) con
   csr_t::verify_permissions(insn, write, p);
 }
 
-reg_t seed_csr_t::read(const processor_t* p) const noexcept {
+reg_t seed_csr_t::read(processor_t* p) const noexcept {
   return proc->es.get_seed();
 }
 
@@ -1420,7 +1420,7 @@ void vector_csr_t::verify_permissions(insn_t insn, bool write, processor_t* p) c
   basic_csr_t::verify_permissions(insn, write, p);
 }
 
-void vector_csr_t::write_raw(const reg_t val) noexcept {
+void vector_csr_t::write_raw(const reg_t val, processor_t* p) noexcept {
   const bool success = basic_csr_t::unlogged_write(val, p);
   if (success)
     log_write(p);
@@ -1455,10 +1455,10 @@ hstateen_csr_t::hstateen_csr_t(processor_t* const proc, const reg_t addr, const 
   index(index) {
 }
 
-reg_t hstateen_csr_t::read(const processor_t* p) const noexcept {
+reg_t hstateen_csr_t::read(processor_t* p) const noexcept {
   // For every bit in an mstateen CSR that is zero (whether read-only zero or set to zero),
   // the same bit appears as read-only zero in the matching hstateen and sstateen CSRs
-  return masked_csr_t::read(const processor_t* p) & state->mstateen[index]->read(p);
+  return masked_csr_t::read(p) & state->mstateen[index]->read(p);
 }
 
 bool hstateen_csr_t::unlogged_write(const reg_t val, processor_t* p) noexcept {
@@ -1480,15 +1480,15 @@ sstateen_csr_t::sstateen_csr_t(processor_t* const proc, const reg_t addr, const 
   hstateen_csr_t(proc, addr, mask, init, index) {
 }
 
-reg_t sstateen_csr_t::read(const processor_t* p) const noexcept {
+reg_t sstateen_csr_t::read(processor_t* p) const noexcept {
   // For every bit in an mstateen CSR that is zero (whether read-only zero or set to zero),
   // the same bit appears as read-only zero in the matching hstateen and sstateen CSRs
   // For every bit in an hstateen CSR that is zero (whether read-only zero or set to zero),
   // the same bit appears as read-only zero in sstateen when accessed in VS-mode
   if (state->v)
-    return hstateen_csr_t::read(const processor_t* p) & state->hstateen[index]->read(p);
+    return hstateen_csr_t::read(p) & state->hstateen[index]->read(p);
   else
-    return hstateen_csr_t::read(const processor_t* p);
+    return hstateen_csr_t::read(p);
 }
 
 bool sstateen_csr_t::unlogged_write(const reg_t val, processor_t* p) noexcept {
@@ -1580,7 +1580,7 @@ void scountovf_csr_t::verify_permissions(insn_t insn, bool write, processor_t* p
   csr_t::verify_permissions(insn, write, p);
 }
 
-reg_t scountovf_csr_t::read(const processor_t* p) const noexcept {
+reg_t scountovf_csr_t::read(processor_t* p) const noexcept {
   reg_t val = 0;
   for (reg_t i = 3; i < N_HPMCOUNTERS + 3; ++i) {
     bool of = state->mevent[i - 3]->read(p) & MHPMEVENT_OF;
@@ -1652,7 +1652,7 @@ void sscsrind_reg_csr_t::verify_permissions(insn_t insn, bool write, processor_t
   if (insn.csr() == address)
     csr_t::verify_permissions(insn, write, p);
 
-  csr_t_p proxy_csr = get_reg();
+  csr_t_p proxy_csr = get_reg(p);
   if (proxy_csr == nullptr) {
     if (!state->v) {
       throw trap_illegal_instruction(insn.bits());
@@ -1664,8 +1664,8 @@ void sscsrind_reg_csr_t::verify_permissions(insn_t insn, bool write, processor_t
 }
 
 
-reg_t sscsrind_reg_csr_t::read(const processor_t* p) const noexcept {
-  csr_t_p target_csr = get_reg();
+reg_t sscsrind_reg_csr_t::read(processor_t* p) const noexcept {
+  csr_t_p target_csr = get_reg(p);
   if (target_csr != nullptr) {
     return target_csr->read(p);
   }
@@ -1673,15 +1673,15 @@ reg_t sscsrind_reg_csr_t::read(const processor_t* p) const noexcept {
 }
 
 bool sscsrind_reg_csr_t::unlogged_write(const reg_t val, processor_t* p) noexcept {
-  csr_t_p proxy_csr = get_reg();
+  csr_t_p proxy_csr = get_reg(p);
   if (proxy_csr != nullptr) {
-    proxy_csr->write(val);
+    proxy_csr->write(val, p);
   }
   return false;
 }
 
 // Returns the actual CSR that maps to value in *siselect or nullptr if no mapping exists
-csr_t_p sscsrind_reg_csr_t::get_reg() const noexcept {
+csr_t_p sscsrind_reg_csr_t::get_reg(processor_t* p) const noexcept {
   auto proxy = ireg_proxy;
   auto isel = iselect->read(p);
   auto it = proxy.find(isel);
@@ -1695,7 +1695,7 @@ void sscsrind_reg_csr_t::add_ireg_proxy(const reg_t iselect_value, csr_t_p csr) 
 smcntrpmf_csr_t::smcntrpmf_csr_t(processor_t* const proc, const reg_t addr, const reg_t mask, const reg_t init) : masked_csr_t(proc, addr, mask, init) {
 }
 
-reg_t smcntrpmf_csr_t::read_prev() const noexcept {
+reg_t smcntrpmf_csr_t::read_prev(processor_t* p) const noexcept {
   reg_t val = prev_val.value_or(read(p));
   return val;
 }

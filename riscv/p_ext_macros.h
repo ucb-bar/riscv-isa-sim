@@ -39,7 +39,7 @@
   }
 
 #define P_SET_OV(ov) \
-  if (ov) P.VU.vxsat->write(1);
+  if (ov) P.VU.vxsat->write(1, p);
 
 #define P_SAT(R, BIT) \
   if (R > INT##BIT##_MAX) { \

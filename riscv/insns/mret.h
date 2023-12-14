@@ -1,6 +1,6 @@
 require_privilege(PRV_M);
-set_pc_and_serialize(p->get_state()->mepc->read());
-reg_t s = STATE.mstatus->read();
+set_pc_and_serialize(p->get_state()->mepc->read(p));
+reg_t s = STATE.mstatus->read(p);
 reg_t prev_prv = get_field(s, MSTATUS_MPP);
 reg_t prev_virt = get_field(s, MSTATUS_MPV);
 if (prev_prv != PRV_M)

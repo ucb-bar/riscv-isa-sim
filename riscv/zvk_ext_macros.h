@@ -96,10 +96,10 @@
 #define require_element_groups_32x4 \
   do { \
     /* 'vstart' must be a multiple of EGS */ \
-    const reg_t vstart = P.VU.vstart->read(); \
+    const reg_t vstart = P.VU.vstart->read(p); \
     require(vstart % 4 == 0); \
     /* 'vl' must be a multiple of EGS */ \
-    const reg_t vl = P.VU.vl->read(); \
+    const reg_t vl = P.VU.vl->read(p); \
     require(vl % 4 == 0); \
   } while (0)
 
@@ -113,10 +113,10 @@
 #define require_element_groups_32x8 \
   do { \
     /* 'vstart' must be a multiple of EGS */ \
-    const reg_t vstart = P.VU.vstart->read(); \
+    const reg_t vstart = P.VU.vstart->read(p); \
     require(vstart % 8 == 0); \
     /* 'vl' must be a multiple of EGS */ \
-    const reg_t vl = P.VU.vl->read(); \
+    const reg_t vl = P.VU.vl->read(p); \
     require(vl % 8 == 0); \
   } while (0)
 
@@ -130,10 +130,10 @@
 #define require_element_groups_64x4 \
   do { \
     /* 'vstart' must be a multiple of EGS */ \
-    const reg_t vstart = P.VU.vstart->read(); \
+    const reg_t vstart = P.VU.vstart->read(p); \
     require(vstart % 4 == 0); \
     /* 'vl' must be a multiple of EGS */ \
-    const reg_t vl = P.VU.vl->read(); \
+    const reg_t vl = P.VU.vl->read(p); \
     require(vl % 4 == 0); \
   } while (0)
 
@@ -281,14 +281,14 @@
     const reg_t vd_num = insn.rd(); \
     const reg_t vs1_num = insn.rs1(); \
     const reg_t vs2_num = insn.rs2(); \
-    const reg_t vstart_eg = P.VU.vstart->read() / 4; \
-    const reg_t vl_eg = P.VU.vl->read() / 4; \
+    const reg_t vstart_eg = P.VU.vstart->read(p) / 4; \
+    const reg_t vl_eg = P.VU.vl->read(p) / 4; \
     do { PRELUDE } while (0); \
     for (reg_t idx_eg = vstart_eg; idx_eg < vl_eg; ++idx_eg) { \
       VV_VD_VS1_VS2_EGU32x4_PARAMS(vd_num, vs1_num, vs2_num, idx_eg); \
       EG_BODY \
     } \
-    P.VU.vstart->write(0); \
+    P.VU.vstart->write(0, p); \
   } while (0)
 
 // Processes all 32b*8 element groups available in the vector register
@@ -336,14 +336,14 @@
     const reg_t vd_num = insn.rd(); \
     const reg_t vs1_num = insn.rs1(); \
     const reg_t vs2_num = insn.rs2(); \
-    const reg_t vstart_eg = P.VU.vstart->read() / 8; \
-    const reg_t vl_eg = P.VU.vl->read() / 8; \
+    const reg_t vstart_eg = P.VU.vstart->read(p) / 8; \
+    const reg_t vl_eg = P.VU.vl->read(p) / 8; \
     do { PRELUDE } while (0); \
     for (reg_t idx_eg = vstart_eg; idx_eg < vl_eg; ++idx_eg) { \
       VV_VD_VS1_VS2_EGU32x8_PARAMS(vd_num, vs1_num, vs2_num, idx_eg); \
       EG_BODY \
     } \
-    P.VU.vstart->write(0); \
+    P.VU.vstart->write(0, p); \
   } while (0)
 
 // Processes all 32b*4 element groups available in the vector register
@@ -402,8 +402,8 @@
     const reg_t vd_num = insn.rd(); \
     const reg_t vs1_num = insn.rs1(); \
     const reg_t vs2_num = insn.rs2(); \
-    const reg_t vstart_eg = P.VU.vstart->read() / 4; \
-    const reg_t vl_eg = P.VU.vl->read() / 4; \
+    const reg_t vstart_eg = P.VU.vstart->read(p) / 4; \
+    const reg_t vl_eg = P.VU.vl->read(p) / 4; \
     do { PRELUDE } while (0); \
     if (vstart_eg < vl_eg) { \
       PRELOOP \
@@ -411,7 +411,7 @@
         EG_BODY \
       } \
     } \
-    P.VU.vstart->write(0); \
+    P.VU.vstart->write(0, p); \
   } while (0)
 
 // Processes all 32b*4 element groups available in the vector register
@@ -470,8 +470,8 @@
     require_no_vmask; \
     const reg_t vd_num = insn.rd(); \
     const reg_t vs2_num = insn.rs2(); \
-    const reg_t vstart_eg = P.VU.vstart->read() / 4; \
-    const reg_t vl_eg = P.VU.vl->read() / 4; \
+    const reg_t vstart_eg = P.VU.vstart->read(p) / 4; \
+    const reg_t vl_eg = P.VU.vl->read(p) / 4; \
     do { PRELUDE } while (0); \
     if (vstart_eg < vl_eg) { \
       PRELOOP \
@@ -479,7 +479,7 @@
         EG_BODY \
       } \
     } \
-    P.VU.vstart->write(0); \
+    P.VU.vstart->write(0, p); \
   } while (0)
 
 // Processes all 32b*4 element groups available in the vector registers
@@ -519,14 +519,14 @@
     require_no_vmask; \
     const reg_t vd_num = insn.rd(); \
     const reg_t vs2_num = insn.rs2(); \
-    const reg_t vstart_eg = P.VU.vstart->read() / 4; \
-    const reg_t vl_eg = P.VU.vl->read() / 4; \
+    const reg_t vstart_eg = P.VU.vstart->read(p) / 4; \
+    const reg_t vl_eg = P.VU.vl->read(p) / 4; \
     do { PRELUDE } while (0); \
     for (reg_t idx_eg = vstart_eg; idx_eg < vl_eg; ++idx_eg) { \
       VV_VD_VS2_EGU32x4_PARAMS(vd_num, vs2_num, idx_eg); \
       EG_BODY \
     } \
-    P.VU.vstart->write(0); \
+    P.VU.vstart->write(0, p); \
   } while (0)
 
 // Processes all 32b*4 element groups available in the vector registers
@@ -572,8 +572,8 @@
     const reg_t vd_num = insn.rd(); \
     const reg_t vs2_num = insn.rs2(); \
     const reg_t zimm5 = insn.v_zimm5(); \
-    const reg_t vstart_eg = P.VU.vstart->read() / 4; \
-    const reg_t vl_eg = P.VU.vl->read() / 4; \
+    const reg_t vstart_eg = P.VU.vstart->read(p) / 4; \
+    const reg_t vl_eg = P.VU.vl->read(p) / 4; \
     do { PRELUDE } while (0); \
     if (vstart_eg < vl_eg) { \
       PRELOOP \
@@ -582,7 +582,7 @@
         EG_BODY \
       } \
     } \
-    P.VU.vstart->write(0); \
+    P.VU.vstart->write(0, p); \
   } while (0)
 
 // Processes all 32b*8 element groups available in the vector registers
@@ -628,8 +628,8 @@
     const reg_t vd_num = insn.rd(); \
     const reg_t vs2_num = insn.rs2(); \
     const reg_t zimm5 = insn.v_zimm5(); \
-    const reg_t vstart_eg = P.VU.vstart->read() / 8; \
-    const reg_t vl_eg = P.VU.vl->read() / 8; \
+    const reg_t vstart_eg = P.VU.vstart->read(p) / 8; \
+    const reg_t vl_eg = P.VU.vl->read(p) / 8; \
     do { PRELUDE } while (0); \
     if (vstart_eg < vl_eg) { \
       PRELOOP \
@@ -638,7 +638,7 @@
         EG_BODY \
       } \
     } \
-    P.VU.vstart->write(0); \
+    P.VU.vstart->write(0, p); \
   } while (0)
 
 // Processes all 64b*4 element groups available in the vector registers
@@ -685,14 +685,14 @@
     const reg_t vd_num = insn.rd(); \
     const reg_t vs1_num = insn.rs1(); \
     const reg_t vs2_num = insn.rs2(); \
-    const reg_t vstart_eg = P.VU.vstart->read() / 4; \
-    const reg_t vl_eg = P.VU.vl->read() / 4; \
+    const reg_t vstart_eg = P.VU.vstart->read(p) / 4; \
+    const reg_t vl_eg = P.VU.vl->read(p) / 4; \
     do { PRELUDE } while (0); \
     for (reg_t idx_eg = vstart_eg; idx_eg < vl_eg; ++idx_eg) { \
       VV_VD_VS1_VS2_EGU64x4_PARAMS(vd_num, vs1_num, vs2_num, idx_eg); \
       EG_BODY \
     } \
-    P.VU.vstart->write(0); \
+    P.VU.vstart->write(0, p); \
   } while (0)
 
 

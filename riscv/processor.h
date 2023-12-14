@@ -232,7 +232,7 @@ public:
   bool extension_enabled(unsigned char ext) const {
     return extension_enabled(isa_extension_t(ext));
   }
-  bool extension_enabled(isa_extension_t ext) const {
+  bool extension_enabled(isa_extension_t ext) {
     if (ext >= 'A' && ext <= 'Z')
       return state.misa->extension_enabled(ext, this);
     else
@@ -244,9 +244,9 @@ public:
   bool extension_enabled_const(unsigned char ext) const {
     return extension_enabled_const(isa_extension_t(ext));
   }
-  bool extension_enabled_const(isa_extension_t ext) const {
+  bool extension_enabled_const(isa_extension_t ext) {
     if (ext >= 'A' && ext <= 'Z') {
-      return state.misa->extension_enabled_const(ext);
+      return state.misa->extension_enabled_const(ext, this);
     } else {
       assert(!extension_dynamic[ext]);
       extension_assumed_const[ext] = true;

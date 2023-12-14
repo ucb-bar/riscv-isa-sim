@@ -814,7 +814,7 @@ const char* processor_t::get_privilege_string()
 void processor_t::enter_debug_mode(uint8_t cause)
 {
   state.debug_mode = true;
-  state.dcsr->write_cause_and_prv(cause, state.prv, state.v);
+  state.dcsr->write_cause_and_prv(cause, state.prv, state.v, this);
   set_privilege(PRV_M, false);
   state.dpc->write(state.pc, this);
   state.pc = DEBUG_ROM_ENTRY;

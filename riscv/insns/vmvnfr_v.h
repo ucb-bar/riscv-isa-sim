@@ -6,7 +6,7 @@ const reg_t len = insn.rs1() + 1;
 require_align(vd, len);
 require_align(vs2, len);
 const reg_t size = len * P.VU.vlenb;
-const reg_t start = P.VU.vstart->read() * (P.VU.vsew >> 3);
+const reg_t start = P.VU.vstart->read(p) * (P.VU.vsew >> 3);
 
 //register needs one-by-one copy to keep commitlog correct
 if (vd != vs2 && start < size) {
@@ -24,4 +24,4 @@ if (vd != vs2 && start < size) {
   }
 }
 
-P.VU.vstart->write(0);
+P.VU.vstart->write(0, p);

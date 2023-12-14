@@ -4,7 +4,7 @@ require_fp;
 require((P.VU.vsew == e16 && p->extension_enabled(EXT_ZVFH)) ||
         (P.VU.vsew == e32 && p->extension_enabled('F')) ||
         (P.VU.vsew == e64 && p->extension_enabled('D')));
-require(STATE.frm->read() < 0x5);
+require(STATE.frm->read(p) < 0x5);
 
 reg_t rs2_num = insn.rs2();
 uint64_t vs2_0 = 0;
@@ -35,4 +35,4 @@ if (FLEN == 64) {
   WRITE_FRD(f32(vs2_0));
 }
 
-P.VU.vstart->write(0);
+P.VU.vstart->write(0, p);

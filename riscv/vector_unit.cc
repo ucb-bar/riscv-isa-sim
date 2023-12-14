@@ -23,14 +23,14 @@ void vectorUnit_t::vectorUnit_t::reset()
   assert(VCSR_VXSAT_SHIFT == 0);  // composite_csr_t assumes vxsat begins at bit 0
   csrmap[CSR_VCSR] = std::make_shared<composite_csr_t>(p, CSR_VCSR, vxrm, vxsat, VCSR_VXRM_SHIFT);
 
-  vtype->write_raw(0);
+  vtype->write_raw(0, p);
   set_vl(0, 0, 0, -1); // default to illegal configuration
 }
 
 reg_t vectorUnit_t::vectorUnit_t::set_vl(int rd, int rs1, reg_t reqVL, reg_t newType)
 {
   int new_vlmul = 0;
-  if (vtype->read() != newType) {
+  if (vtype->read(p) != newType) {
     vsew = 1 << (extract64(newType, 3, 3) + 3);
     new_vlmul = int8_t(extract64(newType, 0, 3) << 5) >> 5;
     vflmul = new_vlmul >= 0 ? 1 << new_vlmul : 1.0 / (1 << -new_vlmul);
@@ -44,26 +44,26 @@ reg_t vectorUnit_t::vectorUnit_t::set_vl(int rd, int rs1, reg_t reqVL, reg_t new
 
     if (vill) {
       vlmax = 0;
-      vtype->write_raw(UINT64_MAX << (p->get_xlen() - 1));
+      vtype->write_raw(UINT64_MAX << (p->get_xlen() - 1), p);
     } else {
-      vtype->write_raw(newType);
+      vtype->write_raw(newType, p);
     }
   }
 
   // set vl
   if (vlmax == 0) {
-    vl->write_raw(0);
+    vl->write_raw(0, p);
   } else if (rd == 0 && rs1 == 0) {
-    vl->write_raw(std::min(vl->read(), vlmax));
+    vl->write_raw(std::min(vl->read(p), vlmax), p);
   } else if (rd != 0 && rs1 == 0) {
-    vl->write_raw(vlmax);
+    vl->write_raw(vlmax, p);
   } else if (rs1 != 0) {
-    vl->write_raw(std::min(reqVL, vlmax));
+    vl->write_raw(std::min(reqVL, vlmax), p);
   }
 
-  vstart->write_raw(0);
+  vstart->write_raw(0, p);
   setvl_count++;
-  return vl->read();
+  return vl->read(p);
 }
 
 template<class T> T& vectorUnit_t::elt(reg_t vReg, reg_t n, bool UNUSED is_write) {

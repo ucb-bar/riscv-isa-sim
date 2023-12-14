@@ -342,10 +342,10 @@ void processor_t::step(size_t n)
       in_wfi = true;
     }
 
-    state.minstret->bump(instret);
+    state.minstret->bump(instret, this);
 
     // Model a hart whose CPI is 1.
-    state.mcycle->bump(instret);
+    state.mcycle->bump(instret, this);
 
     n -= instret;
   }

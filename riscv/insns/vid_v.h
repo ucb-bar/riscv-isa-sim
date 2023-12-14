@@ -6,7 +6,7 @@ reg_t rd_num = insn.rd();
 require_align(rd_num, P.VU.vflmul);
 require_vm;
 
-for (reg_t i = P.VU.vstart->read() ; i < P.VU.vl->read(); ++i) {
+for (reg_t i = P.VU.vstart->read(p) ; i < P.VU.vl->read(p); ++i) {
   VI_LOOP_ELEMENT_SKIP();
 
   switch (sew) {
@@ -25,4 +25,4 @@ for (reg_t i = P.VU.vstart->read() ; i < P.VU.vl->read(); ++i) {
   }
 }
 
-P.VU.vstart->write(0);
+P.VU.vstart->write(0, p);

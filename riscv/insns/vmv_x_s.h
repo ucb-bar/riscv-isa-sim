@@ -24,4 +24,4 @@ default:
 
 WRITE_RD(sext_xlen(res));
 
-P.VU.vstart->write(0);
+P.VU.vstart->write(0, p);

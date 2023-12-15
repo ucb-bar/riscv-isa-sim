@@ -1,0 +1,229 @@
+syntax = "proto3";
+
+
+message CSR {
+  uint64 msg_addr          = 1;
+  uint32 msg_csr_priv      = 2;
+  bool   msg_csr_read_only = 3;
+}
+
+message BasicCSR {
+  CSR    msg_csr = 1;
+  uint64 msg_val = 2;
+}
+
+message MisaCSR {
+  BasicCSR msg_basic_csr  = 1;
+  uint64   msg_max_isa    = 2;
+  uint64   msg_write_mask = 3;
+}
+
+message SatpCSR {
+  BasicCSR msg_nonvirt_satp_csr = 1;
+  BasicCSR msg_virt_satp_csr    = 2;
+}
+
+message VirtBasicCSR {
+  BasicCSR msg_nonvirt_csr = 1;
+  BasicCSR msg_virt_csr    = 2;
+}
+
+message BaseStatusCSR {
+  CSR    msg_csr           = 1;
+  bool   msg_has_page      = 2;
+  uint64 msg_sstatus_write_mask = 3;
+  uint64 msg_sstatus_read_mask  = 4;
+}
+
+message MstatusCSR {
+  BaseStatusCSR msg_base_status_csr = 1;
+  uint64        msg_val             = 2;
+}
+
+message SstatusProxyCSR {
+  BaseStatusCSR msg_base_status_csr = 1;
+  MstatusCSR    msg_mstatus_csr     = 2;
+}
+
+message VsstatusCSR {
+  BaseStatusCSR msg_base_status_csr = 1;
+  uint64        msg_val             = 2;
+}
+
+message SstatusCSR {
+  SstatusProxyCSR  msg_orig_sstatus = 1;
+  VsstatusCSR      msg_virt_sstatus = 2;
+}
+
+message MaskedCSR {
+  BasicCSR msg_basic_csr = 1;
+  uint64   msg_mask      = 2;
+}
+
+message OptionalUInt64 {
+  uint64 msg_val = 1;
+}
+
+message SmcntrpmfCSR {
+  MaskedCSR      msg_masked_csr = 1;
+  OptionalUInt64 msg_prev_val   = 2;
+}
+
+message WideCntrCSR {
+  CSR          msg_csr        = 1;
+  uint64       msg_val        = 2;
+  SmcntrpmfCSR msg_config_csr = 3;
+}
+
+message MedelegCSR {
+  BasicCSR msg_basic_csr = 1;
+  uint64   msg_hypervisor_exceptions = 2;
+}
+
+message HstateenCSR {
+  MaskedCSR  msg_masked_csr = 1;
+  uint32     msg_index      = 2;
+}
+
+message TimeProxyCSR {
+  CSR      msg_csr  = 1;
+  BasicCSR msg_time = 2;
+}
+
+message DCSR {
+  CSR    msg_csr      = 1;
+  uint32 msg_prv      = 2;
+  bool   msg_step     = 3;
+  bool   msg_ebreakm  = 4;
+  bool   msg_ebreaks  = 5;
+  bool   msg_ebreaku  = 6;
+  bool   msg_ebreakvs = 7;
+  bool   msg_ebreakvu = 8;
+  bool   msg_halt     = 9;
+  bool   msg_v        = 10;
+  uint32 msg_cause    = 11;
+}
+
+message PmpCSR {
+  BasicCSR  msg_basic_csr = 1;
+  uint32    msg_cfg       = 2;
+  uint64    msg_pmpidx    = 3;
+}
+
+message TimeCntrCSR {
+  CSR    msg_csr        = 1;
+  uint64 msg_shadow_val = 2;
+}
+
+message StimecmpCSR {
+  BasicCSR msg_basic_csr = 1;
+  uint64   msg_intr_mask = 2;
+}
+
+// enum StepEnum {
+//   STEP_NONE = 0;
+//   STEP_STEPPING = 1;
+//   STEP_STEPPED = 2;
+// }
+
+message HidelegCSR {
+  MaskedCSR msg_hideleg_csr = 1;
+  BasicCSR  msg_mideleg_csr = 2;
+}
+
+message McontextCSR {
+  CSR       msg_csr = 1;
+  MaskedCSR msg_delegate = 2;
+}
+
+message HenvcfgCSR {
+  MaskedCSR msg_henvcfg = 1;
+  MaskedCSR msg_menvcfg = 2;
+}
+
+message Float128 {
+  uint64 msg_0 = 1;
+  uint64 msg_1 = 2;
+}
+
+message ArchState {
+  uint64  msg_pc               = 1;
+  repeated uint64 msg_XPR      = 2;
+  repeated Float128 msg_FPR    = 3;
+  uint64       msg_prv         = 4;
+  uint64       msg_prev_prv    = 5;
+  bool         msg_prv_changed = 6;
+  bool         msg_v_changed   = 7;
+  bool         msg_v           = 8;
+  bool         msg_prev_v      = 9;
+  MisaCSR      msg_misa        = 10;
+  // MstatusCSR   msg_mstatus     = 11;
+  // CSR          msg_mstatush    = 12;
+  BasicCSR     msg_mepc        = 13;
+  BasicCSR     msg_mtval       = 14;
+  BasicCSR     msg_mtvec       = 15;
+  BasicCSR     msg_mcause      = 16;
+  WideCntrCSR  msg_minstret    = 17;
+  WideCntrCSR  msg_mcycle      = 18;
+  BasicCSR     msg_mie         = 19;
+  BasicCSR     msg_mip         = 20;
+  MedelegCSR   msg_medeleg     = 21;
+  // BasicCSR     msg_mideleg     = 22; // msg_hideleg
+  MaskedCSR    msg_mcounteren  = 23;
+  repeated BasicCSR msg_mevent = 24;
+  BasicCSR     msg_mnstatus    = 25;
+  BasicCSR     msg_mnepc       = 26;
+  MaskedCSR    msg_scounteren  = 27;
+  VirtBasicCSR msg_sepc        = 28;
+  VirtBasicCSR msg_stval       = 29;
+  VirtBasicCSR msg_stvec       = 30;
+  VirtBasicCSR msg_satp        = 31;
+  VirtBasicCSR msg_scause      = 32;
+  BasicCSR     msg_mtval2      = 33;
+  BasicCSR     msg_mtinst      = 34;
+  MaskedCSR    msg_hstatus     = 35;
+  HidelegCSR   msg_hideleg     = 36; // hideleg + mideleg
+  MaskedCSR    msg_hedeleg     = 37;
+  MaskedCSR    msg_hcounteren  = 38;
+  BasicCSR     msg_htval       = 39;
+  BasicCSR     msg_htinst      = 40;
+  BasicCSR     msg_hgatp       = 41;
+  SstatusCSR   msg_sstatus     = 42;
+  BasicCSR     msg_dpc         = 43;
+  DCSR         msg_dcsr        = 44;
+  BasicCSR     msg_tselect     = 45;
+  BasicCSR     msg_tdata2      = 46;
+  MaskedCSR    msg_scontext    = 47;
+  McontextCSR  msg_mcontext    = 48;
+  BasicCSR     msg_jvt         = 49;
+  bool         msg_debug_mode  = 50;
+  BasicCSR     msg_mseccfg     = 51;
+  repeated PmpCSR msg_pmpaddr  = 52;
+  MaskedCSR    msg_fflags      = 53;
+  MaskedCSR    msg_frm         = 54;
+  MaskedCSR    msg_senvcfg     = 55;
+  HenvcfgCSR   msg_henvcfg     = 56; // henvcfg + menvcfg
+  repeated MaskedCSR msg_mstateen = 57;
+  repeated HstateenCSR msg_sstateen = 58;
+  repeated HstateenCSR msg_hstateen = 59;
+  BasicCSR     msg_htimedelta  = 60;
+  BasicCSR     msg_time        = 61;
+  CSR          msg_time_proxy  = 62;
+  StimecmpCSR  msg_stimecmp    = 63;
+  StimecmpCSR  msg_vstimecmp   = 64;
+  bool         msg_serialized  = 65;
+  uint32       msg_single_step = 66;
+  uint64       msg_last_inst_priv = 67;
+  int32        msg_last_inst_xlen = 68;
+  int32        msg_last_inst_flen = 69;
+}
+
+message Page {
+  uint64 msg_ppn   = 1;
+  bytes  msg_bytes = 2;
+}
+
+message SimState {
+  repeated ArchState msg_arch_state = 1;
+  repeated Page      msg_sparse_mm  = 2;
+}

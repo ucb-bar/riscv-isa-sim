@@ -60,8 +60,10 @@ class mem_t : public abstract_mem_t {
  private:
   bool load_store(reg_t addr, size_t len, uint8_t* bytes, bool store);
 
-  std::map<reg_t, char*> sparse_memory_map;
   reg_t sz;
+
+ public:
+  std::map<reg_t, char*> sparse_memory_map;
 };
 
 class clint_t : public abstract_device_t {

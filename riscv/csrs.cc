@@ -1049,6 +1049,13 @@ bool wide_counter_csr_t::is_counting_enabled() const noexcept {
   return (config_csr->read_prev() & mask) == 0;
 }
 
+void wide_counter_csr_t::print() {
+  std::cout << "wide_counter_csr_t: csr/val/smcntrpm" << std::endl;
+  csr_t::print();
+  std::cout << "val: " << val << std::endl;
+  config_csr->print();
+}
+
 // implement class time_counter_csr_t
 time_counter_csr_t::time_counter_csr_t(processor_t* const proc, const reg_t addr):
   csr_t(proc, addr),

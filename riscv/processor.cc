@@ -22,6 +22,7 @@
 #include <string>
 #include <algorithm>
 
+
 #ifdef __GNUC__
 # pragma GCC diagnostic ignored "-Wunused-variable"
 #endif
@@ -593,6 +594,78 @@ void state_t::reset(processor_t* const proc, reg_t max_isa)
   last_inst_priv = 0;
   last_inst_xlen = 0;
   last_inst_flen = 0;
+}
+
+bool state_t::operator == (state_t& state) {
+  if (pc != state.pc) {
+    std::cerr << "PC mismatch " << std::hex
+              << "0x" << pc
+              << "0x" << state.pc << std::endl;;
+    return false;
+  }
+
+  for (int i = 0; i < NXPR; i++) {
+    if (XPR[i] != state.XPR[i]) {
+      std::cerr << "XPR[" << i << "]" << "mismatch" << std::endl;
+      return false;
+    }
+  }
+
+  for (int i = 0; i < NFPR; i++) {
+    auto lhs = FPR[i];
+    auto rhs = state.FPR[i];
+    if ((lhs.v[0] != rhs.v[0]) || (lhs.v[1] != rhs.v[1])) {
+      std::cerr << "FPR[" << i << "]" << "mismatch" << std::endl;
+      return false;
+    }
+  }
+
+  if (prv != state.prv) {
+    std::cerr << "prv mismatch" << std::endl;
+    return false;
+  }
+
+  if (prev_prv != state.prev_prv) {
+    std::cerr << "prev_prv mismatch" << std::endl;
+    return false;
+  }
+
+  if (prv_changed != state.prv_changed) {
+    std::cerr << "prv_changed mismatch" << std::endl;
+    return false;
+  }
+
+  if (v_changed != state.v_changed) {
+    std::cerr << "v_changed mismatch" << std::endl;
+    return false;
+  }
+
+  if (prev_v != state.prev_v) {
+    std::cerr << "prev_v mismatch" << std::endl;
+    return false;
+  }
+
+  // compare csr
+  for (auto& kv : csrmap) {
+    auto k       = kv.first;
+    auto lhs_csr = kv.second;
+
+    auto it = state.csrmap.find(k);
+    if (it == state.csrmap.end()) {
+      std::cerr << "Could not find: " << k << " in csrmap" << std::endl;
+      return false;
+    }
+    auto rhs_csr = (*it).second;
+    if (*lhs_csr == *rhs_csr) {
+      continue;
+    } else {
+      std::cerr << "Mismatch in CSR value: " << std::hex<< "0x" << k << std::endl;
+      lhs_csr->print();
+      rhs_csr->print();
+      return false;
+    }
+  }
+  return true;
 }
 
 void processor_t::set_debug(bool value)

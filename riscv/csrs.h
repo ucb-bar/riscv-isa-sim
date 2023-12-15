@@ -17,6 +17,13 @@
 #include <cassert>
 // For std::optional
 #include <optional>
+#include <iostream>
+
+#include <cereal/types/memory.hpp>
+#include <cereal/types/base_class.hpp>
+#include <cereal/archives/binary.hpp>
+#include <cereal/access.hpp>
+#include <cereal/types/polymorphic.hpp>
 
 class processor_t;
 struct state_t;
@@ -40,6 +47,10 @@ class csr_t {
 
   virtual ~csr_t();
 
+  virtual void print() {
+    std::cout << "csr_t: " << address << ", " << csr_priv << ",  " << csr_read_only << std::endl;
+  }
+
  protected:
   // Return value indicates success; false means no write actually occurred
   virtual bool unlogged_write(const reg_t val, processor_t* p) noexcept = 0;
@@ -55,14 +66,21 @@ class csr_t {
   virtual reg_t written_value(processor_t *p) const noexcept;
 
  public:
-  const reg_t address;
- private:
-  const unsigned csr_priv;
-  const bool csr_read_only;
+  reg_t address;
+ protected:
+  unsigned csr_priv;
+  bool csr_read_only;
 
   // For access to written_value() and unlogged_write():
   friend class rv32_high_csr_t;
   friend class rv32_low_csr_t;
+
+ private:
+  friend class cereal::access;
+  template<class Archive>
+  void serialize(Archive & archive) {
+    archive(address, csr_priv, csr_read_only);
+  }
 };
 
 typedef std::shared_ptr<csr_t> csr_t_p;
@@ -78,9 +96,27 @@ class basic_csr_t: public csr_t {
 
  protected:
   virtual bool unlogged_write(const reg_t val, processor_t* p) noexcept override;
- private:
+ protected:
   reg_t val;
+
+ private:
+  friend class cereal::access;
+  template<class Archive>
+  void serialize(Archive & archive) {
+    archive(val);
+    archive(cereal::virtual_base_class<csr_t>(this));
+  }
+
+  template<class Archive>
+  static void load_and_construct(Archive & archive, cereal::construct<basic_csr_t>& construct) {
+    reg_t val, addr, x, y;
+    archive(val);
+    archive(addr, x, y);
+    construct(addr, val);
+  }
 };
+
+CEREAL_REGISTER_TYPE_WITH_NAME(basic_csr_t, "basic_csr_t")
 
 class pmpaddr_csr_t: public csr_t {
  public:
@@ -123,6 +159,16 @@ class pmpaddr_csr_t: public csr_t {
   friend class pmpcfg_csr_t;  // so he can access cfg
   uint8_t cfg;
   const size_t pmpidx;
+
+ private:
+  friend class cereal::access;
+  template<class Archive>
+  void serialize(Archive & archive) {
+    archive(val);
+    archive(cfg);
+    archive(pmpidx);
+    archive(cereal::base_class<csr_t>(this));
+  }
 };
 
 typedef std::shared_ptr<pmpaddr_csr_t> pmpaddr_csr_t_p;
@@ -134,6 +180,13 @@ class pmpcfg_csr_t: public csr_t {
   virtual reg_t read(processor_t* p) const noexcept override;
  protected:
   virtual bool unlogged_write(const reg_t val, processor_t* p) noexcept override;
+
+ private:
+  friend class cereal::access;
+  template<class Archive>
+  void serialize(Archive & archive) {
+    archive(cereal::base_class<csr_t>(this));
+  }
 };
 
 class mseccfg_csr_t: public basic_csr_t {
@@ -143,8 +196,26 @@ class mseccfg_csr_t: public basic_csr_t {
   bool get_mml(processor_t* p) const noexcept;
   bool get_mmwp(processor_t* p) const noexcept;
   bool get_rlb(processor_t* p) const noexcept;
+  virtual void print() override {
+    std::cout << "mseccfg_csr_t: " << address << ", " << csr_priv << ",  "
+              << csr_read_only << ", " << val << std::endl;
+  }
  protected:
   virtual bool unlogged_write(const reg_t val, processor_t* p) noexcept override;
+
+ private:
+  friend class cereal::access;
+  template<class Archive>
+  void serialize(Archive & archive) {
+    archive(cereal::base_class<basic_csr_t>(this));
+  }
+
+  template<class Archive>
+  static void load_and_construct(Archive & ar, cereal::construct<mseccfg_csr_t> & construct ) {
+    basic_csr_t* b = new basic_csr_t(0, 0);
+    ar(cereal::base_class<basic_csr_t>(b));
+    construct(b->address);
+  }
 };
 
 typedef std::shared_ptr<mseccfg_csr_t> mseccfg_csr_t_p;
@@ -164,13 +235,36 @@ class virtualized_csr_t: public csr_t {
   virtual reg_t read(processor_t* p) const noexcept override;
   // Instead of using state.v, explicitly request original or virtual:
   reg_t readvirt(bool virt, processor_t* p) const noexcept;
- protected:
+  virtual void print() override {
+    std::cout << "virtualized_csr_t" << std::endl;
+    orig_csr->print();
+    virt_csr->print();
+  }
+ public:
   virtual bool unlogged_write(const reg_t val, processor_t* p) noexcept override;
   csr_t_p orig_csr;
   csr_t_p virt_csr;
+
+ private:
+  friend class cereal::access;
+  template<class Archive>
+  void serialize(Archive & archive) {
+    archive(orig_csr);
+    archive(virt_csr);
+/* archive(cereal::base_class<csr_t>(this)); */
+  }
+
+  template <class Archive>
+  static void load_and_construct(Archive & ar, cereal::construct<virtualized_csr_t> & construct ) {
+    csr_t_p orig, virt;
+    ar(orig, virt);
+    construct(orig, virt);
+  }
 };
 
 typedef std::shared_ptr<virtualized_csr_t> virtualized_csr_t_p;
+
+CEREAL_REGISTER_TYPE_WITH_NAME(virtualized_csr_t, "virtualized_csr_t")
 
 // For mepc, sepc, and vsepc
 class epc_csr_t: public csr_t {
@@ -496,15 +590,49 @@ class base_atp_csr_t: public basic_csr_t {
   virtual bool unlogged_write(const reg_t val, processor_t* p) noexcept override;
  private:
   reg_t compute_new_satp(reg_t val, processor_t* p) const noexcept;
+
+ private:
+  friend class cereal::access;
+  template<class Archive>
+  void serialize(Archive & archive) {
+    archive(cereal::base_class<basic_csr_t>(this));
+  }
+
+  template<class Archive>
+  static void load_and_construct(Archive & archive, cereal::construct<base_atp_csr_t> & construct ) {
+    basic_csr_t* b = new basic_csr_t(0, 0);
+    archive(cereal::base_class<basic_csr_t>(b));
+    construct(b->address);
+  }
 };
+
+typedef std::shared_ptr<base_atp_csr_t> base_atp_csr_t_p;
+
+CEREAL_REGISTER_TYPE_WITH_NAME(base_atp_csr_t, "base_atp_csr_t")
 
 class satp_csr_t: public base_atp_csr_t {
  public:
   satp_csr_t(const reg_t addr);
   virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const override;
+
+ private:
+  friend class cereal::access;
+  template<class Archive>
+  void serialize(Archive & archive) {
+    archive(cereal::base_class<base_atp_csr_t>(this));
+  }
+
+  template<class Archive>
+  static void load_and_construct(Archive & ar, cereal::construct<satp_csr_t> & construct ) {
+    base_atp_csr_t* b = new base_atp_csr_t(0);
+    ar(cereal::base_class<base_atp_csr_t>(b));
+    construct(b->address);
+  }
 };
 
 typedef std::shared_ptr<satp_csr_t> satp_csr_t_p;
+
+CEREAL_REGISTER_TYPE_WITH_NAME(satp_csr_t, "satp_csr_t")
 
 class virtualized_satp_csr_t: public virtualized_csr_t {
  public:
@@ -514,7 +642,26 @@ class virtualized_satp_csr_t: public virtualized_csr_t {
   virtual bool unlogged_write(const reg_t val, processor_t* p) noexcept override;
  private:
   satp_csr_t_p orig_satp;
+
+ private:
+  friend class cereal::access;
+  template<class Archive>
+  void serialize(Archive & archive) {
+    archive(orig_satp);
+    archive(cereal::base_class<virtualized_csr_t>(this));
+  }
+
+  template <class Archive>
+  static void load_and_construct(Archive & ar, cereal::construct<virtualized_satp_csr_t> & construct ) {
+    satp_csr_t_p satp;
+    virtualized_csr_t_p virt;
+    ar(satp);
+    ar(virt);
+    construct(satp, virt->virt_csr);
+  }
 };
+
+CEREAL_REGISTER_TYPE_WITH_NAME(virtualized_satp_csr_t, "virtualized_satp_csr_t")
 
 // Forward declaration
 class smcntrpmf_csr_t;

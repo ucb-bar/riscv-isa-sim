@@ -14,6 +14,9 @@
 #include <strings.h>
 #include <cinttypes>
 #include <type_traits>
+#include <vector>
+#include <cereal/archives/binary.hpp>
+#include <cereal/types/memory.hpp>
 
 typedef int64_t sreg_t;
 typedef uint64_t reg_t;
@@ -225,6 +228,13 @@ public:
   }
 private:
   T data[N];
+
+private:
+  friend class cereal::access;
+  template<class Archive>
+  void serialize(Archive & archive) {
+    archive(cereal::binary_data(data, sizeof(T) * N));
+  }
 };
 
 #define get_field(reg, mask) \

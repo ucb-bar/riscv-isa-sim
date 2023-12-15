@@ -16,6 +16,8 @@
 #include <string>
 #include <memory>
 #include <sys/types.h>
+#include <cereal/archives/binary.hpp>
+#include <cereal/types/vector.hpp>
 
 class mmu_t;
 class remote_bitbang_t;
@@ -151,6 +153,27 @@ public:
   // enumerate processors, which segfaults if procs hasn't been initialized
   // yet.
   debug_module_t debug_module;
+
+private:
+  friend class cereal::access;
+
+  template<class Archive>
+  void save(Archive & archive) const {
+    archive((int)procs.size());
+    for (int i = 0; i < (int)procs.size(); i++) {
+      archive(*procs[i]);
+    }
+  }
+
+  template<class Archive>
+  void load(Archive & archive) {
+    int nprocs;
+    archive(nprocs);
+
+    for (int i = 0; i < nprocs; i++) {
+      archive(*procs[i]);
+    }
+  }
 };
 
 extern volatile bool ctrlc_pressed;

@@ -215,7 +215,7 @@ class wait_for_interrupt_t {};
        throw wait_for_interrupt_t(); \
      } while (0)
 
-#define serialize() set_pc_and_serialize(npc)
+#define serialize_insn() set_pc_and_serialize(npc)
 
 /* Sentinel PC values to serialize simulator pipeline */
 #define PC_SERIALIZE_BEFORE 3

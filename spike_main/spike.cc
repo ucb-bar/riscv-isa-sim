@@ -22,10 +22,6 @@
 #include <sstream>
 #include "../VERSION"
 
-
-#include <cereal/archives/binary.hpp>
-#include <cereal/archives/xml.hpp>
-
 static void help(int exit_code = 1)
 {
   fprintf(stderr, "Spike RISC-V ISA Simulator " SPIKE_VERSION "\n\n");
@@ -559,33 +555,7 @@ int main(int argc, char** argv)
   s.configure_log(log, log_commits);
   s.set_histogram(histogram);
 
-  
-
-  int return_code;
-
-  {
-    std::ofstream os("out.cereal.xml");
-    cereal::XMLOutputArchive boa( os );
-/* std::ofstream os("out.cereal", std::ios::binary); */
-/* cereal::BinaryOutputArchive boa( os ); */
-    return_code = s.run();
-    boa( s );
-  }
-
-
-
-  sim_t s_2(&cfg, halted,
-      mems, plugin_device_factories, htif_args, dm_config, log_path, dtb_enabled, dtb_file,
-      socket,
-      cmd_file);
-  {
-    std::ifstream is("out.cereal.xml");
-    cereal::XMLInputArchive bia( is );
-/* std::ifstream is("out.cereal", std::ios::binary); */
-/* cereal::BinaryInputArchive bia( is ); */
-    bia(s_2);
-  }
-
+  auto return_code = s.run();
 
   for (auto& mem : mems)
     delete mem.second;

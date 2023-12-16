@@ -10,7 +10,6 @@
 #include <unordered_map>
 #include <map>
 #include <cassert>
-#include <iostream>
 #include "debug_rom_defines.h"
 #include "entropy_source.h"
 #include "csrs.h"
@@ -18,10 +17,6 @@
 #include "triggers.h"
 #include "../fesvr/memif.h"
 #include "vector_unit.h"
-
-#include <cereal/types/memory.hpp>
-#include <cereal/types/unordered_map.hpp>
-#include <cereal/archives/binary.hpp>
 
 #define N_HPMCOUNTERS 29
 
@@ -191,26 +186,6 @@ struct state_t
   reg_t last_inst_priv;
   int last_inst_xlen;
   int last_inst_flen;
-
-  friend class cereal::access;
-  template<class Archive>
-  void serialize(Archive & archive) {
-    archive(pc);
-/* archive(XPR); */
-    archive(mstatush);
-/* archive(cereal::binary_data(pmpaddr, sizeof(pmpaddr_csr_t_p) * max_pmp)); */
-    archive(mseccfg);
-    archive(satp);
-
-    std::cout << "pc: " << pc << std::endl;
-    std::cout << "XPR" << std::endl;
-    for (size_t i = 0; i < NXPR; i++) {
-      std::cout << i << ": " << XPR[i] << std::endl;
-    }
-    if (mstatush) mstatush->print();
-    mseccfg->print();
-    satp->print();
-  }
 };
 
 // this class represents one processor in a RISC-V machine.
@@ -398,13 +373,6 @@ public:
 
   vectorUnit_t VU;
   triggers::module_t TM;
-
-private:
-  friend class cereal::access;
-  template<class Archive>
-  void serialize(Archive & archive) {
-    archive(state);
-  }
 };
 
 #endif

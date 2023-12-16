@@ -19,6 +19,7 @@
 #include "vector_unit.h"
 
 #include "arch-state.pb.h"
+#include <google/protobuf/arena.h>
 
 #define N_HPMCOUNTERS 29
 
@@ -378,13 +379,32 @@ public:
 
 public:
   ArchState aproto;
+  google::protobuf::Arena* arena;
 
-  CSR gen_csr_proto(reg_t addr) {
-    CSR csr;
-    csr.set_msg_addr(addr);
-    csr.set_msg_csr_priv(get_field(addr, 0x300));
-    csr.set_msg_csr_read_only(get_field(addr, 0xC00) == 3);
+  CSR* gen_csr_proto(reg_t addr) {
+    CSR* csr = google::protobuf::Arena::Create<CSR>(arena);;
+    csr->set_msg_addr(addr);
+    csr->set_msg_csr_priv(get_field(addr, 0x300));
+    csr->set_msg_csr_read_only(get_field(addr, 0xC00) == 3);
     return csr;
+  }
+
+  BasicCSR* gen_basic_csr_proto(reg_t addr, reg_t init) {
+    BasicCSR* csr = google::protobuf::Arena::Create<BasicCSR>(arena);
+    csr->set_msg_addr(addr);
+    csr->set_msg_csr_priv(get_field(addr, 0x300));
+    csr->set_msg_csr_read_only(get_field(addr, 0xC00) == 3);
+    csr->set_msg_val(init);
+    return csr;
+  }
+
+  MisaCSR* gen_misa_csr_proto(misa_csr_t_p ptr) {
+    BasicCSR* b = gen_basic_csr_proto(ptr->address, ptr->val);
+    MisaCSR* misa = google::protobuf::Arena::Create<MisaCSR>(arena);
+    misa->set_allocated_msg_basic_csr(b);
+    misa->set_msg_max_isa(ptr->max_isa);
+    misa->set_msg_write_mask(ptr->write_mask);
+    return misa;
   }
 
   void serialize_proto(std::string& os) {
@@ -393,17 +413,47 @@ public:
     aproto.set_msg_pc(state.pc);
     std::cout << "pc: " << state.pc << std::endl;
 
-
     if (state.mstatush) {
-      CSR mstatush = gen_csr_proto(state.mstatush->address);
-      std::cout << mstatush.msg_addr() << ", " << mstatush.msg_csr_priv() << ",  " << mstatush.msg_csr_read_only() << std::endl;
-      aproto.set_allocated_msg_mstatush(&mstatush);
-      std::cout << "set_allocated_msg_mstatush done" << std::endl;
+      CSR* mstatush = gen_csr_proto(state.mstatush->address);
+      aproto.set_allocated_msg_mstatush(mstatush);
+      state.mstatush->print();
     } else {
       std::cout << "state.mstatush empty: " << state.mstatush << "/" << std::endl;
     }
 
+    if (state.misa) {
+      MisaCSR* misa = gen_misa_csr_proto(state.misa);
+      aproto.set_allocated_msg_misa(misa);
+      state.misa->print();
+    } else {
+      std::cout << "state.misaempty: " << state.misa << "/" << std::endl;
+    }
+
     aproto.SerializeToString(&os);
+
+    aproto.release_msg_mstatush();
+    aproto.release_msg_misa();
+  }
+
+  void set_csr_from_proto(csr_t& csr, const CSR& proto) {
+    csr.address       = proto.msg_addr();
+    csr.csr_priv      = proto.msg_csr_priv();
+    csr.csr_read_only = proto.msg_csr_read_only();
+    csr.print();
+  }
+
+  void set_basic_csr_from_proto(basic_csr_t& csr, const BasicCSR& proto) {
+    csr.address       = proto.msg_addr();
+    csr.csr_priv      = proto.msg_csr_priv();
+    csr.csr_read_only = proto.msg_csr_read_only();
+    csr.val           = proto.msg_val();
+  }
+
+  void set_misa_csr_from_proto(misa_csr_t& csr, const MisaCSR& proto) {
+    set_basic_csr_from_proto(csr, proto.msg_basic_csr());
+    csr.max_isa    = proto.msg_max_isa();
+    csr.write_mask = proto.msg_write_mask();
+    csr.print();
   }
 
   void deserialize_proto(std::string& is) {
@@ -414,12 +464,15 @@ public:
     std::cout << "pc: " << state.pc << std::endl;
 
     if (aproto.has_msg_mstatush()) {
-      state.mstatush->address       = aproto.msg_mstatush().msg_addr();
-      state.mstatush->csr_priv      = aproto.msg_mstatush().msg_csr_priv();
-      state.mstatush->csr_read_only = aproto.msg_mstatush().msg_csr_read_only();
-      state.mstatush->print();
+      set_csr_from_proto(*(state.mstatush), aproto.msg_mstatush());
     } else {
       std::cout << "state.mstatush empty: " << state.mstatush << "/" << std::endl;
+    }
+
+    if (aproto.has_msg_misa()) {
+      set_misa_csr_from_proto(*(state.misa), aproto.msg_misa());
+    } else {
+      std::cout << "state.misa empty: " << state.misa << "/" << std::endl;
     }
   }
 };

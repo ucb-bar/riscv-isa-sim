@@ -7,7 +7,21 @@ message CSR {
   bool   msg_csr_read_only = 3;
 }
 
+message BasicCSR {
+  uint64 msg_addr          = 1;
+  uint32 msg_csr_priv      = 2;
+  bool   msg_csr_read_only = 3;
+  uint64 msg_val           = 4;
+}
+
+message MisaCSR {
+  BasicCSR msg_basic_csr  = 1;
+  uint64   msg_max_isa    = 2;
+  uint64   msg_write_mask = 3;
+}
+
 message ArchState {
-  uint64 msg_pc       = 1;
-  CSR    msg_mstatush = 2;
+  uint64   msg_pc       = 1;
+  CSR      msg_mstatush = 2;
+  MisaCSR  msg_misa     = 3;
 }

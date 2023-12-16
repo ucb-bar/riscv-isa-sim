@@ -66,7 +66,7 @@ class csr_t {
 
 public:
   virtual void print() {
-    std::cout << "csr_t" << address << ", " << csr_priv << ", " << csr_read_only << std::endl;
+    std::cout << "csr_t: " << address << ", " << csr_priv << ", " << csr_read_only << std::endl;
   }
 };
 
@@ -83,8 +83,13 @@ class basic_csr_t: public csr_t {
 
  protected:
   virtual bool unlogged_write(const reg_t val, processor_t* p) noexcept override;
- private:
+ public:
   reg_t val;
+
+  virtual void print() override {
+    std::cout << "basic_csr_t: " << val << std::endl;
+    csr_t::print();
+  }
 };
 
 class pmpaddr_csr_t: public csr_t {
@@ -341,10 +346,15 @@ class misa_csr_t final: public basic_csr_t {
   bool extension_enabled_const(unsigned char ext, processor_t* p) const noexcept;
  protected:
   virtual bool unlogged_write(const reg_t val, processor_t* p) noexcept override;
- private:
-  const reg_t max_isa;
-  const reg_t write_mask;
+ public:
+  reg_t max_isa;
+  reg_t write_mask;
   reg_t dependency(const reg_t val, const char feature, const char depends_on) const noexcept;
+
+  void print() override {
+    std::cout << "misa: " << max_isa << ", " << write_mask << std::endl;
+    basic_csr_t::print();
+  }
 };
 
 typedef std::shared_ptr<misa_csr_t> misa_csr_t_p;

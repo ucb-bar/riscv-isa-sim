@@ -14,11 +14,21 @@
 #include <google/protobuf/wire_format.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
+extern PROTOBUF_INTERNAL_EXPORT_arch_2dstate_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_BasicCSR_arch_2dstate_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_arch_2dstate_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_CSR_arch_2dstate_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_arch_2dstate_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_MisaCSR_arch_2dstate_2eproto;
 class CSRDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<CSR> _instance;
 } _CSR_default_instance_;
+class BasicCSRDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<BasicCSR> _instance;
+} _BasicCSR_default_instance_;
+class MisaCSRDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<MisaCSR> _instance;
+} _MisaCSR_default_instance_;
 class ArchStateDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ArchState> _instance;
@@ -34,9 +44,24 @@ static void InitDefaultsscc_info_ArchState_arch_2dstate_2eproto() {
   ::ArchState::InitAsDefaultInstance();
 }
 
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_ArchState_arch_2dstate_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_ArchState_arch_2dstate_2eproto}, {
-      &scc_info_CSR_arch_2dstate_2eproto.base,}};
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_ArchState_arch_2dstate_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 2, 0, InitDefaultsscc_info_ArchState_arch_2dstate_2eproto}, {
+      &scc_info_CSR_arch_2dstate_2eproto.base,
+      &scc_info_MisaCSR_arch_2dstate_2eproto.base,}};
+
+static void InitDefaultsscc_info_BasicCSR_arch_2dstate_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::_BasicCSR_default_instance_;
+    new (ptr) ::BasicCSR();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::BasicCSR::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_BasicCSR_arch_2dstate_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_BasicCSR_arch_2dstate_2eproto}, {}};
 
 static void InitDefaultsscc_info_CSR_arch_2dstate_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -52,7 +77,22 @@ static void InitDefaultsscc_info_CSR_arch_2dstate_2eproto() {
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_CSR_arch_2dstate_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_CSR_arch_2dstate_2eproto}, {}};
 
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_arch_2dstate_2eproto[2];
+static void InitDefaultsscc_info_MisaCSR_arch_2dstate_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::_MisaCSR_default_instance_;
+    new (ptr) ::MisaCSR();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::MisaCSR::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_MisaCSR_arch_2dstate_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_MisaCSR_arch_2dstate_2eproto}, {
+      &scc_info_BasicCSR_arch_2dstate_2eproto.base,}};
+
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_arch_2dstate_2eproto[4];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_arch_2dstate_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_arch_2dstate_2eproto = nullptr;
 
@@ -66,42 +106,72 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_arch_2dstate_2eproto::offsets[
   PROTOBUF_FIELD_OFFSET(::CSR, msg_csr_priv_),
   PROTOBUF_FIELD_OFFSET(::CSR, msg_csr_read_only_),
   ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::BasicCSR, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::BasicCSR, msg_addr_),
+  PROTOBUF_FIELD_OFFSET(::BasicCSR, msg_csr_priv_),
+  PROTOBUF_FIELD_OFFSET(::BasicCSR, msg_csr_read_only_),
+  PROTOBUF_FIELD_OFFSET(::BasicCSR, msg_val_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::MisaCSR, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::MisaCSR, msg_basic_csr_),
+  PROTOBUF_FIELD_OFFSET(::MisaCSR, msg_max_isa_),
+  PROTOBUF_FIELD_OFFSET(::MisaCSR, msg_write_mask_),
+  ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::ArchState, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::ArchState, msg_pc_),
   PROTOBUF_FIELD_OFFSET(::ArchState, msg_mstatush_),
+  PROTOBUF_FIELD_OFFSET(::ArchState, msg_misa_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::CSR)},
-  { 8, -1, sizeof(::ArchState)},
+  { 8, -1, sizeof(::BasicCSR)},
+  { 17, -1, sizeof(::MisaCSR)},
+  { 25, -1, sizeof(::ArchState)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_CSR_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_BasicCSR_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_MisaCSR_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_ArchState_default_instance_),
 };
 
 const char descriptor_table_protodef_arch_2dstate_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\020arch-state.proto\"H\n\003CSR\022\020\n\010msg_addr\030\001 "
   "\001(\004\022\024\n\014msg_csr_priv\030\002 \001(\r\022\031\n\021msg_csr_rea"
-  "d_only\030\003 \001(\010\"7\n\tArchState\022\016\n\006msg_pc\030\001 \001("
-  "\004\022\032\n\014msg_mstatush\030\002 \001(\0132\004.CSRb\006proto3"
+  "d_only\030\003 \001(\010\"^\n\010BasicCSR\022\020\n\010msg_addr\030\001 \001"
+  "(\004\022\024\n\014msg_csr_priv\030\002 \001(\r\022\031\n\021msg_csr_read"
+  "_only\030\003 \001(\010\022\017\n\007msg_val\030\004 \001(\004\"X\n\007MisaCSR\022"
+  " \n\rmsg_basic_csr\030\001 \001(\0132\t.BasicCSR\022\023\n\013msg"
+  "_max_isa\030\002 \001(\004\022\026\n\016msg_write_mask\030\003 \001(\004\"S"
+  "\n\tArchState\022\016\n\006msg_pc\030\001 \001(\004\022\032\n\014msg_mstat"
+  "ush\030\002 \001(\0132\004.CSR\022\032\n\010msg_misa\030\003 \001(\0132\010.Misa"
+  "CSRb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_arch_2dstate_2eproto_deps[1] = {
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_arch_2dstate_2eproto_sccs[2] = {
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_arch_2dstate_2eproto_sccs[4] = {
   &scc_info_ArchState_arch_2dstate_2eproto.base,
+  &scc_info_BasicCSR_arch_2dstate_2eproto.base,
   &scc_info_CSR_arch_2dstate_2eproto.base,
+  &scc_info_MisaCSR_arch_2dstate_2eproto.base,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_arch_2dstate_2eproto_once;
 static bool descriptor_table_arch_2dstate_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_arch_2dstate_2eproto = {
-  &descriptor_table_arch_2dstate_2eproto_initialized, descriptor_table_protodef_arch_2dstate_2eproto, "arch-state.proto", 157,
-  &descriptor_table_arch_2dstate_2eproto_once, descriptor_table_arch_2dstate_2eproto_sccs, descriptor_table_arch_2dstate_2eproto_deps, 2, 0,
+  &descriptor_table_arch_2dstate_2eproto_initialized, descriptor_table_protodef_arch_2dstate_2eproto, "arch-state.proto", 371,
+  &descriptor_table_arch_2dstate_2eproto_once, descriptor_table_arch_2dstate_2eproto_sccs, descriptor_table_arch_2dstate_2eproto_deps, 4, 0,
   schemas, file_default_instances, TableStruct_arch_2dstate_2eproto::offsets,
-  file_level_metadata_arch_2dstate_2eproto, 2, file_level_enum_descriptors_arch_2dstate_2eproto, file_level_service_descriptors_arch_2dstate_2eproto,
+  file_level_metadata_arch_2dstate_2eproto, 4, file_level_enum_descriptors_arch_2dstate_2eproto, file_level_service_descriptors_arch_2dstate_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
@@ -347,18 +417,547 @@ void CSR::InternalSwap(CSR* other) {
 
 // ===================================================================
 
+void BasicCSR::InitAsDefaultInstance() {
+}
+class BasicCSR::_Internal {
+ public:
+};
+
+BasicCSR::BasicCSR()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:BasicCSR)
+}
+BasicCSR::BasicCSR(const BasicCSR& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::memcpy(&msg_addr_, &from.msg_addr_,
+    static_cast<size_t>(reinterpret_cast<char*>(&msg_val_) -
+    reinterpret_cast<char*>(&msg_addr_)) + sizeof(msg_val_));
+  // @@protoc_insertion_point(copy_constructor:BasicCSR)
+}
+
+void BasicCSR::SharedCtor() {
+  ::memset(&msg_addr_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&msg_val_) -
+      reinterpret_cast<char*>(&msg_addr_)) + sizeof(msg_val_));
+}
+
+BasicCSR::~BasicCSR() {
+  // @@protoc_insertion_point(destructor:BasicCSR)
+  SharedDtor();
+}
+
+void BasicCSR::SharedDtor() {
+}
+
+void BasicCSR::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const BasicCSR& BasicCSR::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_BasicCSR_arch_2dstate_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void BasicCSR::Clear() {
+// @@protoc_insertion_point(message_clear_start:BasicCSR)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&msg_addr_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&msg_val_) -
+      reinterpret_cast<char*>(&msg_addr_)) + sizeof(msg_val_));
+  _internal_metadata_.Clear();
+}
+
+const char* BasicCSR::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // uint64 msg_addr = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          msg_addr_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // uint32 msg_csr_priv = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+          msg_csr_priv_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // bool msg_csr_read_only = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
+          msg_csr_read_only_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // uint64 msg_val = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32)) {
+          msg_val_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* BasicCSR::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:BasicCSR)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint64 msg_addr = 1;
+  if (this->msg_addr() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(1, this->_internal_msg_addr(), target);
+  }
+
+  // uint32 msg_csr_priv = 2;
+  if (this->msg_csr_priv() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(2, this->_internal_msg_csr_priv(), target);
+  }
+
+  // bool msg_csr_read_only = 3;
+  if (this->msg_csr_read_only() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(3, this->_internal_msg_csr_read_only(), target);
+  }
+
+  // uint64 msg_val = 4;
+  if (this->msg_val() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(4, this->_internal_msg_val(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:BasicCSR)
+  return target;
+}
+
+size_t BasicCSR::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:BasicCSR)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // uint64 msg_addr = 1;
+  if (this->msg_addr() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
+        this->_internal_msg_addr());
+  }
+
+  // uint32 msg_csr_priv = 2;
+  if (this->msg_csr_priv() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+        this->_internal_msg_csr_priv());
+  }
+
+  // bool msg_csr_read_only = 3;
+  if (this->msg_csr_read_only() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // uint64 msg_val = 4;
+  if (this->msg_val() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
+        this->_internal_msg_val());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void BasicCSR::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:BasicCSR)
+  GOOGLE_DCHECK_NE(&from, this);
+  const BasicCSR* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<BasicCSR>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:BasicCSR)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:BasicCSR)
+    MergeFrom(*source);
+  }
+}
+
+void BasicCSR::MergeFrom(const BasicCSR& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:BasicCSR)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.msg_addr() != 0) {
+    _internal_set_msg_addr(from._internal_msg_addr());
+  }
+  if (from.msg_csr_priv() != 0) {
+    _internal_set_msg_csr_priv(from._internal_msg_csr_priv());
+  }
+  if (from.msg_csr_read_only() != 0) {
+    _internal_set_msg_csr_read_only(from._internal_msg_csr_read_only());
+  }
+  if (from.msg_val() != 0) {
+    _internal_set_msg_val(from._internal_msg_val());
+  }
+}
+
+void BasicCSR::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:BasicCSR)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void BasicCSR::CopyFrom(const BasicCSR& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:BasicCSR)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool BasicCSR::IsInitialized() const {
+  return true;
+}
+
+void BasicCSR::InternalSwap(BasicCSR* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(msg_addr_, other->msg_addr_);
+  swap(msg_csr_priv_, other->msg_csr_priv_);
+  swap(msg_csr_read_only_, other->msg_csr_read_only_);
+  swap(msg_val_, other->msg_val_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata BasicCSR::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void MisaCSR::InitAsDefaultInstance() {
+  ::_MisaCSR_default_instance_._instance.get_mutable()->msg_basic_csr_ = const_cast< ::BasicCSR*>(
+      ::BasicCSR::internal_default_instance());
+}
+class MisaCSR::_Internal {
+ public:
+  static const ::BasicCSR& msg_basic_csr(const MisaCSR* msg);
+};
+
+const ::BasicCSR&
+MisaCSR::_Internal::msg_basic_csr(const MisaCSR* msg) {
+  return *msg->msg_basic_csr_;
+}
+MisaCSR::MisaCSR()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:MisaCSR)
+}
+MisaCSR::MisaCSR(const MisaCSR& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from._internal_has_msg_basic_csr()) {
+    msg_basic_csr_ = new ::BasicCSR(*from.msg_basic_csr_);
+  } else {
+    msg_basic_csr_ = nullptr;
+  }
+  ::memcpy(&msg_max_isa_, &from.msg_max_isa_,
+    static_cast<size_t>(reinterpret_cast<char*>(&msg_write_mask_) -
+    reinterpret_cast<char*>(&msg_max_isa_)) + sizeof(msg_write_mask_));
+  // @@protoc_insertion_point(copy_constructor:MisaCSR)
+}
+
+void MisaCSR::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_MisaCSR_arch_2dstate_2eproto.base);
+  ::memset(&msg_basic_csr_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&msg_write_mask_) -
+      reinterpret_cast<char*>(&msg_basic_csr_)) + sizeof(msg_write_mask_));
+}
+
+MisaCSR::~MisaCSR() {
+  // @@protoc_insertion_point(destructor:MisaCSR)
+  SharedDtor();
+}
+
+void MisaCSR::SharedDtor() {
+  if (this != internal_default_instance()) delete msg_basic_csr_;
+}
+
+void MisaCSR::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const MisaCSR& MisaCSR::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_MisaCSR_arch_2dstate_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void MisaCSR::Clear() {
+// @@protoc_insertion_point(message_clear_start:MisaCSR)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArenaNoVirtual() == nullptr && msg_basic_csr_ != nullptr) {
+    delete msg_basic_csr_;
+  }
+  msg_basic_csr_ = nullptr;
+  ::memset(&msg_max_isa_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&msg_write_mask_) -
+      reinterpret_cast<char*>(&msg_max_isa_)) + sizeof(msg_write_mask_));
+  _internal_metadata_.Clear();
+}
+
+const char* MisaCSR::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // .BasicCSR msg_basic_csr = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_msg_basic_csr(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // uint64 msg_max_isa = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+          msg_max_isa_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // uint64 msg_write_mask = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
+          msg_write_mask_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* MisaCSR::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:MisaCSR)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .BasicCSR msg_basic_csr = 1;
+  if (this->has_msg_basic_csr()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        1, _Internal::msg_basic_csr(this), target, stream);
+  }
+
+  // uint64 msg_max_isa = 2;
+  if (this->msg_max_isa() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(2, this->_internal_msg_max_isa(), target);
+  }
+
+  // uint64 msg_write_mask = 3;
+  if (this->msg_write_mask() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(3, this->_internal_msg_write_mask(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:MisaCSR)
+  return target;
+}
+
+size_t MisaCSR::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:MisaCSR)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .BasicCSR msg_basic_csr = 1;
+  if (this->has_msg_basic_csr()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *msg_basic_csr_);
+  }
+
+  // uint64 msg_max_isa = 2;
+  if (this->msg_max_isa() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
+        this->_internal_msg_max_isa());
+  }
+
+  // uint64 msg_write_mask = 3;
+  if (this->msg_write_mask() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
+        this->_internal_msg_write_mask());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void MisaCSR::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:MisaCSR)
+  GOOGLE_DCHECK_NE(&from, this);
+  const MisaCSR* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<MisaCSR>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:MisaCSR)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:MisaCSR)
+    MergeFrom(*source);
+  }
+}
+
+void MisaCSR::MergeFrom(const MisaCSR& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:MisaCSR)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.has_msg_basic_csr()) {
+    _internal_mutable_msg_basic_csr()->::BasicCSR::MergeFrom(from._internal_msg_basic_csr());
+  }
+  if (from.msg_max_isa() != 0) {
+    _internal_set_msg_max_isa(from._internal_msg_max_isa());
+  }
+  if (from.msg_write_mask() != 0) {
+    _internal_set_msg_write_mask(from._internal_msg_write_mask());
+  }
+}
+
+void MisaCSR::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:MisaCSR)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void MisaCSR::CopyFrom(const MisaCSR& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:MisaCSR)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool MisaCSR::IsInitialized() const {
+  return true;
+}
+
+void MisaCSR::InternalSwap(MisaCSR* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(msg_basic_csr_, other->msg_basic_csr_);
+  swap(msg_max_isa_, other->msg_max_isa_);
+  swap(msg_write_mask_, other->msg_write_mask_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata MisaCSR::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
 void ArchState::InitAsDefaultInstance() {
   ::_ArchState_default_instance_._instance.get_mutable()->msg_mstatush_ = const_cast< ::CSR*>(
       ::CSR::internal_default_instance());
+  ::_ArchState_default_instance_._instance.get_mutable()->msg_misa_ = const_cast< ::MisaCSR*>(
+      ::MisaCSR::internal_default_instance());
 }
 class ArchState::_Internal {
  public:
   static const ::CSR& msg_mstatush(const ArchState* msg);
+  static const ::MisaCSR& msg_misa(const ArchState* msg);
 };
 
 const ::CSR&
 ArchState::_Internal::msg_mstatush(const ArchState* msg) {
   return *msg->msg_mstatush_;
+}
+const ::MisaCSR&
+ArchState::_Internal::msg_misa(const ArchState* msg) {
+  return *msg->msg_misa_;
 }
 ArchState::ArchState()
   : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
@@ -373,6 +972,11 @@ ArchState::ArchState(const ArchState& from)
     msg_mstatush_ = new ::CSR(*from.msg_mstatush_);
   } else {
     msg_mstatush_ = nullptr;
+  }
+  if (from._internal_has_msg_misa()) {
+    msg_misa_ = new ::MisaCSR(*from.msg_misa_);
+  } else {
+    msg_misa_ = nullptr;
   }
   msg_pc_ = from.msg_pc_;
   // @@protoc_insertion_point(copy_constructor:ArchState)
@@ -392,6 +996,7 @@ ArchState::~ArchState() {
 
 void ArchState::SharedDtor() {
   if (this != internal_default_instance()) delete msg_mstatush_;
+  if (this != internal_default_instance()) delete msg_misa_;
 }
 
 void ArchState::SetCachedSize(int size) const {
@@ -413,6 +1018,10 @@ void ArchState::Clear() {
     delete msg_mstatush_;
   }
   msg_mstatush_ = nullptr;
+  if (GetArenaNoVirtual() == nullptr && msg_misa_ != nullptr) {
+    delete msg_misa_;
+  }
+  msg_misa_ = nullptr;
   msg_pc_ = PROTOBUF_ULONGLONG(0);
   _internal_metadata_.Clear();
 }
@@ -435,6 +1044,13 @@ const char* ArchState::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_msg_mstatush(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // .MisaCSR msg_misa = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_msg_misa(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -478,6 +1094,14 @@ failure:
         2, _Internal::msg_mstatush(this), target, stream);
   }
 
+  // .MisaCSR msg_misa = 3;
+  if (this->has_msg_misa()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        3, _Internal::msg_misa(this), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target, stream);
@@ -499,6 +1123,13 @@ size_t ArchState::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *msg_mstatush_);
+  }
+
+  // .MisaCSR msg_misa = 3;
+  if (this->has_msg_misa()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *msg_misa_);
   }
 
   // uint64 msg_pc = 1;
@@ -542,6 +1173,9 @@ void ArchState::MergeFrom(const ArchState& from) {
   if (from.has_msg_mstatush()) {
     _internal_mutable_msg_mstatush()->::CSR::MergeFrom(from._internal_msg_mstatush());
   }
+  if (from.has_msg_misa()) {
+    _internal_mutable_msg_misa()->::MisaCSR::MergeFrom(from._internal_msg_misa());
+  }
   if (from.msg_pc() != 0) {
     _internal_set_msg_pc(from._internal_msg_pc());
   }
@@ -569,6 +1203,7 @@ void ArchState::InternalSwap(ArchState* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
   swap(msg_mstatush_, other->msg_mstatush_);
+  swap(msg_misa_, other->msg_misa_);
   swap(msg_pc_, other->msg_pc_);
 }
 
@@ -581,6 +1216,12 @@ void ArchState::InternalSwap(ArchState* other) {
 PROTOBUF_NAMESPACE_OPEN
 template<> PROTOBUF_NOINLINE ::CSR* Arena::CreateMaybeMessage< ::CSR >(Arena* arena) {
   return Arena::CreateInternal< ::CSR >(arena);
+}
+template<> PROTOBUF_NOINLINE ::BasicCSR* Arena::CreateMaybeMessage< ::BasicCSR >(Arena* arena) {
+  return Arena::CreateInternal< ::BasicCSR >(arena);
+}
+template<> PROTOBUF_NOINLINE ::MisaCSR* Arena::CreateMaybeMessage< ::MisaCSR >(Arena* arena) {
+  return Arena::CreateInternal< ::MisaCSR >(arena);
 }
 template<> PROTOBUF_NOINLINE ::ArchState* Arena::CreateMaybeMessage< ::ArchState >(Arena* arena) {
   return Arena::CreateInternal< ::ArchState >(arena);

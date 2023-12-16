@@ -1,5 +1,13 @@
 syntax = "proto3";
 
+
+message CSR {
+  uint64 msg_addr          = 1;
+  uint32 msg_csr_priv      = 2;
+  bool   msg_csr_read_only = 3;
+}
+
 message ArchState {
-  uint64 msg_pc = 1;
+  uint64 msg_pc       = 1;
+  CSR    msg_mstatush = 2;
 }

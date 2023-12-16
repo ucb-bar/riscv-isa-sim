@@ -17,6 +17,7 @@
 #include <cassert>
 // For std::optional
 #include <optional>
+#include <iostream>
 
 class processor_t;
 struct state_t;
@@ -55,14 +56,18 @@ class csr_t {
   virtual reg_t written_value(processor_t *p) const noexcept;
 
  public:
-  const reg_t address;
- private:
-  const unsigned csr_priv;
-  const bool csr_read_only;
+  reg_t address;
+  unsigned csr_priv;
+  bool csr_read_only;
 
   // For access to written_value() and unlogged_write():
   friend class rv32_high_csr_t;
   friend class rv32_low_csr_t;
+
+public:
+  virtual void print() {
+    std::cout << "csr_t" << address << ", " << csr_priv << ", " << csr_read_only << std::endl;
+  }
 };
 
 typedef std::shared_ptr<csr_t> csr_t_p;

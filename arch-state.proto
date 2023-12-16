@@ -1,5 +1,5 @@
 syntax = "proto3";
 
 message ArchState {
-  uint64 pc = 1;
+  uint64 msg_pc = 1;
 }

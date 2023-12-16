@@ -153,12 +153,12 @@ public:
   debug_module_t debug_module;
 
 public:
-  void serialize(std::string& os) {
-    procs[0]->serialize(os);
+  void serialize_proto(std::string& os) {
+    procs[0]->serialize_proto(os);
   }
 
-  void deserialize(std::string& is) {
-    procs[0]->deserialize(is);
+  void deserialize_proto(std::string& is) {
+    procs[0]->deserialize_proto(is);
   }
 };
 

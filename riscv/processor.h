@@ -407,6 +407,19 @@ public:
     return misa;
   }
 
+  SatpCSR* gen_satp_csr_proto(virtualized_csr_t_p csr) {
+    auto vsatp = std::dynamic_pointer_cast<basic_csr_t>(csr->virt_csr);
+    auto osatp = std::dynamic_pointer_cast<basic_csr_t>(csr->orig_csr);
+    BasicCSR* virt = gen_basic_csr_proto(vsatp->address, vsatp->val);
+    BasicCSR* orig = gen_basic_csr_proto(osatp->address, osatp->val);
+
+    SatpCSR* satp = google::protobuf::Arena::Create<SatpCSR>(arena);
+    satp->set_allocated_msg_nonvirt_satp_csr(orig);
+    satp->set_allocated_msg_virt_satp_csr(virt);
+
+    return satp;
+  }
+
   void serialize_proto(std::string& os) {
     std::cout << "serialize" << std::endl;
 
@@ -429,10 +442,20 @@ public:
       std::cout << "state.misaempty: " << state.misa << "/" << std::endl;
     }
 
+    if (state.satp) {
+      SatpCSR* satp = gen_satp_csr_proto(state.satp);
+      aproto.set_allocated_msg_satp(satp);
+      state.satp->print();
+      state.vsatp->print();
+    } else {
+      std::cout << "state.satpempty: " << state.satp << "/" << std::endl;
+    }
+
     aproto.SerializeToString(&os);
 
     aproto.release_msg_mstatush();
     aproto.release_msg_misa();
+    aproto.release_msg_satp();
   }
 
   void set_csr_from_proto(csr_t& csr, const CSR& proto) {
@@ -456,6 +479,14 @@ public:
     csr.print();
   }
 
+  void set_satp_csr_from_proto(virtualized_csr_t& satp, base_atp_csr_t& vsatp, const SatpCSR& proto) {
+    set_basic_csr_from_proto(*std::dynamic_pointer_cast<basic_csr_t>(satp.orig_csr), proto.msg_nonvirt_satp_csr());
+    set_basic_csr_from_proto(*std::dynamic_pointer_cast<basic_csr_t>(satp.virt_csr), proto.msg_virt_satp_csr());
+    set_basic_csr_from_proto(vsatp, proto.msg_virt_satp_csr());
+    satp.print();
+    vsatp.print();
+  }
+
   void deserialize_proto(std::string& is) {
     std::cout << "deserialize" << std::endl;
     aproto.ParseFromString(is);
@@ -473,6 +504,12 @@ public:
       set_misa_csr_from_proto(*(state.misa), aproto.msg_misa());
     } else {
       std::cout << "state.misa empty: " << state.misa << "/" << std::endl;
+    }
+
+    if (aproto.has_msg_satp()) {
+      set_satp_csr_from_proto(*(state.satp), *std::dynamic_pointer_cast<base_atp_csr_t>(state.vsatp), aproto.msg_satp());
+    } else {
+      std::cout << "state.satp empty: " << state.satp << "/" << std::endl;
     }
   }
 };

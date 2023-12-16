@@ -47,7 +47,7 @@ struct TableStruct_arch_2dstate_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[4]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[5]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -66,11 +66,15 @@ extern CSRDefaultTypeInternal _CSR_default_instance_;
 class MisaCSR;
 class MisaCSRDefaultTypeInternal;
 extern MisaCSRDefaultTypeInternal _MisaCSR_default_instance_;
+class SatpCSR;
+class SatpCSRDefaultTypeInternal;
+extern SatpCSRDefaultTypeInternal _SatpCSR_default_instance_;
 PROTOBUF_NAMESPACE_OPEN
 template<> ::ArchState* Arena::CreateMaybeMessage<::ArchState>(Arena*);
 template<> ::BasicCSR* Arena::CreateMaybeMessage<::BasicCSR>(Arena*);
 template<> ::CSR* Arena::CreateMaybeMessage<::CSR>(Arena*);
 template<> ::MisaCSR* Arena::CreateMaybeMessage<::MisaCSR>(Arena*);
+template<> ::SatpCSR* Arena::CreateMaybeMessage<::SatpCSR>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 
 // ===================================================================
@@ -542,6 +546,157 @@ class MisaCSR :
 };
 // -------------------------------------------------------------------
 
+class SatpCSR :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:SatpCSR) */ {
+ public:
+  SatpCSR();
+  virtual ~SatpCSR();
+
+  SatpCSR(const SatpCSR& from);
+  SatpCSR(SatpCSR&& from) noexcept
+    : SatpCSR() {
+    *this = ::std::move(from);
+  }
+
+  inline SatpCSR& operator=(const SatpCSR& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SatpCSR& operator=(SatpCSR&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const SatpCSR& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const SatpCSR* internal_default_instance() {
+    return reinterpret_cast<const SatpCSR*>(
+               &_SatpCSR_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(SatpCSR& a, SatpCSR& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SatpCSR* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline SatpCSR* New() const final {
+    return CreateMaybeMessage<SatpCSR>(nullptr);
+  }
+
+  SatpCSR* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SatpCSR>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const SatpCSR& from);
+  void MergeFrom(const SatpCSR& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SatpCSR* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "SatpCSR";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_arch_2dstate_2eproto);
+    return ::descriptor_table_arch_2dstate_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMsgNonvirtSatpCsrFieldNumber = 1,
+    kMsgVirtSatpCsrFieldNumber = 2,
+  };
+  // .BasicCSR msg_nonvirt_satp_csr = 1;
+  bool has_msg_nonvirt_satp_csr() const;
+  private:
+  bool _internal_has_msg_nonvirt_satp_csr() const;
+  public:
+  void clear_msg_nonvirt_satp_csr();
+  const ::BasicCSR& msg_nonvirt_satp_csr() const;
+  ::BasicCSR* release_msg_nonvirt_satp_csr();
+  ::BasicCSR* mutable_msg_nonvirt_satp_csr();
+  void set_allocated_msg_nonvirt_satp_csr(::BasicCSR* msg_nonvirt_satp_csr);
+  private:
+  const ::BasicCSR& _internal_msg_nonvirt_satp_csr() const;
+  ::BasicCSR* _internal_mutable_msg_nonvirt_satp_csr();
+  public:
+
+  // .BasicCSR msg_virt_satp_csr = 2;
+  bool has_msg_virt_satp_csr() const;
+  private:
+  bool _internal_has_msg_virt_satp_csr() const;
+  public:
+  void clear_msg_virt_satp_csr();
+  const ::BasicCSR& msg_virt_satp_csr() const;
+  ::BasicCSR* release_msg_virt_satp_csr();
+  ::BasicCSR* mutable_msg_virt_satp_csr();
+  void set_allocated_msg_virt_satp_csr(::BasicCSR* msg_virt_satp_csr);
+  private:
+  const ::BasicCSR& _internal_msg_virt_satp_csr() const;
+  ::BasicCSR* _internal_mutable_msg_virt_satp_csr();
+  public:
+
+  // @@protoc_insertion_point(class_scope:SatpCSR)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::BasicCSR* msg_nonvirt_satp_csr_;
+  ::BasicCSR* msg_virt_satp_csr_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_arch_2dstate_2eproto;
+};
+// -------------------------------------------------------------------
+
 class ArchState :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ArchState) */ {
  public:
@@ -584,7 +739,7 @@ class ArchState :
                &_ArchState_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    4;
 
   friend void swap(ArchState& a, ArchState& b) {
     a.Swap(&b);
@@ -650,6 +805,7 @@ class ArchState :
   enum : int {
     kMsgMstatushFieldNumber = 2,
     kMsgMisaFieldNumber = 3,
+    kMsgSatpFieldNumber = 4,
     kMsgPcFieldNumber = 1,
   };
   // .CSR msg_mstatush = 2;
@@ -682,6 +838,21 @@ class ArchState :
   ::MisaCSR* _internal_mutable_msg_misa();
   public:
 
+  // .SatpCSR msg_satp = 4;
+  bool has_msg_satp() const;
+  private:
+  bool _internal_has_msg_satp() const;
+  public:
+  void clear_msg_satp();
+  const ::SatpCSR& msg_satp() const;
+  ::SatpCSR* release_msg_satp();
+  ::SatpCSR* mutable_msg_satp();
+  void set_allocated_msg_satp(::SatpCSR* msg_satp);
+  private:
+  const ::SatpCSR& _internal_msg_satp() const;
+  ::SatpCSR* _internal_mutable_msg_satp();
+  public:
+
   // uint64 msg_pc = 1;
   void clear_msg_pc();
   ::PROTOBUF_NAMESPACE_ID::uint64 msg_pc() const;
@@ -698,6 +869,7 @@ class ArchState :
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
   ::CSR* msg_mstatush_;
   ::MisaCSR* msg_misa_;
+  ::SatpCSR* msg_satp_;
   ::PROTOBUF_NAMESPACE_ID::uint64 msg_pc_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_arch_2dstate_2eproto;
@@ -963,6 +1135,130 @@ inline void MisaCSR::set_msg_write_mask(::PROTOBUF_NAMESPACE_ID::uint64 value) {
 
 // -------------------------------------------------------------------
 
+// SatpCSR
+
+// .BasicCSR msg_nonvirt_satp_csr = 1;
+inline bool SatpCSR::_internal_has_msg_nonvirt_satp_csr() const {
+  return this != internal_default_instance() && msg_nonvirt_satp_csr_ != nullptr;
+}
+inline bool SatpCSR::has_msg_nonvirt_satp_csr() const {
+  return _internal_has_msg_nonvirt_satp_csr();
+}
+inline void SatpCSR::clear_msg_nonvirt_satp_csr() {
+  if (GetArenaNoVirtual() == nullptr && msg_nonvirt_satp_csr_ != nullptr) {
+    delete msg_nonvirt_satp_csr_;
+  }
+  msg_nonvirt_satp_csr_ = nullptr;
+}
+inline const ::BasicCSR& SatpCSR::_internal_msg_nonvirt_satp_csr() const {
+  const ::BasicCSR* p = msg_nonvirt_satp_csr_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::BasicCSR*>(
+      &::_BasicCSR_default_instance_);
+}
+inline const ::BasicCSR& SatpCSR::msg_nonvirt_satp_csr() const {
+  // @@protoc_insertion_point(field_get:SatpCSR.msg_nonvirt_satp_csr)
+  return _internal_msg_nonvirt_satp_csr();
+}
+inline ::BasicCSR* SatpCSR::release_msg_nonvirt_satp_csr() {
+  // @@protoc_insertion_point(field_release:SatpCSR.msg_nonvirt_satp_csr)
+  
+  ::BasicCSR* temp = msg_nonvirt_satp_csr_;
+  msg_nonvirt_satp_csr_ = nullptr;
+  return temp;
+}
+inline ::BasicCSR* SatpCSR::_internal_mutable_msg_nonvirt_satp_csr() {
+  
+  if (msg_nonvirt_satp_csr_ == nullptr) {
+    auto* p = CreateMaybeMessage<::BasicCSR>(GetArenaNoVirtual());
+    msg_nonvirt_satp_csr_ = p;
+  }
+  return msg_nonvirt_satp_csr_;
+}
+inline ::BasicCSR* SatpCSR::mutable_msg_nonvirt_satp_csr() {
+  // @@protoc_insertion_point(field_mutable:SatpCSR.msg_nonvirt_satp_csr)
+  return _internal_mutable_msg_nonvirt_satp_csr();
+}
+inline void SatpCSR::set_allocated_msg_nonvirt_satp_csr(::BasicCSR* msg_nonvirt_satp_csr) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_nonvirt_satp_csr_;
+  }
+  if (msg_nonvirt_satp_csr) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_nonvirt_satp_csr = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_nonvirt_satp_csr, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_nonvirt_satp_csr_ = msg_nonvirt_satp_csr;
+  // @@protoc_insertion_point(field_set_allocated:SatpCSR.msg_nonvirt_satp_csr)
+}
+
+// .BasicCSR msg_virt_satp_csr = 2;
+inline bool SatpCSR::_internal_has_msg_virt_satp_csr() const {
+  return this != internal_default_instance() && msg_virt_satp_csr_ != nullptr;
+}
+inline bool SatpCSR::has_msg_virt_satp_csr() const {
+  return _internal_has_msg_virt_satp_csr();
+}
+inline void SatpCSR::clear_msg_virt_satp_csr() {
+  if (GetArenaNoVirtual() == nullptr && msg_virt_satp_csr_ != nullptr) {
+    delete msg_virt_satp_csr_;
+  }
+  msg_virt_satp_csr_ = nullptr;
+}
+inline const ::BasicCSR& SatpCSR::_internal_msg_virt_satp_csr() const {
+  const ::BasicCSR* p = msg_virt_satp_csr_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::BasicCSR*>(
+      &::_BasicCSR_default_instance_);
+}
+inline const ::BasicCSR& SatpCSR::msg_virt_satp_csr() const {
+  // @@protoc_insertion_point(field_get:SatpCSR.msg_virt_satp_csr)
+  return _internal_msg_virt_satp_csr();
+}
+inline ::BasicCSR* SatpCSR::release_msg_virt_satp_csr() {
+  // @@protoc_insertion_point(field_release:SatpCSR.msg_virt_satp_csr)
+  
+  ::BasicCSR* temp = msg_virt_satp_csr_;
+  msg_virt_satp_csr_ = nullptr;
+  return temp;
+}
+inline ::BasicCSR* SatpCSR::_internal_mutable_msg_virt_satp_csr() {
+  
+  if (msg_virt_satp_csr_ == nullptr) {
+    auto* p = CreateMaybeMessage<::BasicCSR>(GetArenaNoVirtual());
+    msg_virt_satp_csr_ = p;
+  }
+  return msg_virt_satp_csr_;
+}
+inline ::BasicCSR* SatpCSR::mutable_msg_virt_satp_csr() {
+  // @@protoc_insertion_point(field_mutable:SatpCSR.msg_virt_satp_csr)
+  return _internal_mutable_msg_virt_satp_csr();
+}
+inline void SatpCSR::set_allocated_msg_virt_satp_csr(::BasicCSR* msg_virt_satp_csr) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_virt_satp_csr_;
+  }
+  if (msg_virt_satp_csr) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_virt_satp_csr = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_virt_satp_csr, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_virt_satp_csr_ = msg_virt_satp_csr;
+  // @@protoc_insertion_point(field_set_allocated:SatpCSR.msg_virt_satp_csr)
+}
+
+// -------------------------------------------------------------------
+
 // ArchState
 
 // uint64 msg_pc = 1;
@@ -1105,9 +1401,71 @@ inline void ArchState::set_allocated_msg_misa(::MisaCSR* msg_misa) {
   // @@protoc_insertion_point(field_set_allocated:ArchState.msg_misa)
 }
 
+// .SatpCSR msg_satp = 4;
+inline bool ArchState::_internal_has_msg_satp() const {
+  return this != internal_default_instance() && msg_satp_ != nullptr;
+}
+inline bool ArchState::has_msg_satp() const {
+  return _internal_has_msg_satp();
+}
+inline void ArchState::clear_msg_satp() {
+  if (GetArenaNoVirtual() == nullptr && msg_satp_ != nullptr) {
+    delete msg_satp_;
+  }
+  msg_satp_ = nullptr;
+}
+inline const ::SatpCSR& ArchState::_internal_msg_satp() const {
+  const ::SatpCSR* p = msg_satp_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::SatpCSR*>(
+      &::_SatpCSR_default_instance_);
+}
+inline const ::SatpCSR& ArchState::msg_satp() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_satp)
+  return _internal_msg_satp();
+}
+inline ::SatpCSR* ArchState::release_msg_satp() {
+  // @@protoc_insertion_point(field_release:ArchState.msg_satp)
+  
+  ::SatpCSR* temp = msg_satp_;
+  msg_satp_ = nullptr;
+  return temp;
+}
+inline ::SatpCSR* ArchState::_internal_mutable_msg_satp() {
+  
+  if (msg_satp_ == nullptr) {
+    auto* p = CreateMaybeMessage<::SatpCSR>(GetArenaNoVirtual());
+    msg_satp_ = p;
+  }
+  return msg_satp_;
+}
+inline ::SatpCSR* ArchState::mutable_msg_satp() {
+  // @@protoc_insertion_point(field_mutable:ArchState.msg_satp)
+  return _internal_mutable_msg_satp();
+}
+inline void ArchState::set_allocated_msg_satp(::SatpCSR* msg_satp) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_satp_;
+  }
+  if (msg_satp) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_satp = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_satp, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_satp_ = msg_satp;
+  // @@protoc_insertion_point(field_set_allocated:ArchState.msg_satp)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

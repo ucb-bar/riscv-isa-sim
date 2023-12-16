@@ -174,10 +174,16 @@ class virtualized_csr_t: public csr_t {
   virtual reg_t read(processor_t* p) const noexcept override;
   // Instead of using state.v, explicitly request original or virtual:
   reg_t readvirt(bool virt, processor_t* p) const noexcept;
- protected:
+ public:
   virtual bool unlogged_write(const reg_t val, processor_t* p) noexcept override;
   csr_t_p orig_csr;
   csr_t_p virt_csr;
+
+  virtual void print() override {
+    std::cout << "virtualized csr, orig/virt" << std::endl;
+    orig_csr->print();
+    virt_csr->print();
+  }
 };
 
 typedef std::shared_ptr<virtualized_csr_t> virtualized_csr_t_p;
@@ -529,6 +535,10 @@ class virtualized_satp_csr_t: public virtualized_csr_t {
   virtual bool unlogged_write(const reg_t val, processor_t* p) noexcept override;
  private:
   satp_csr_t_p orig_satp;
+
+  virtual void print() override {
+    orig_satp->print();
+  }
 };
 
 // Forward declaration

@@ -20,8 +20,14 @@ message MisaCSR {
   uint64   msg_write_mask = 3;
 }
 
+message SatpCSR {
+  BasicCSR msg_nonvirt_satp_csr = 1;
+  BasicCSR msg_virt_satp_csr    = 2;
+}
+
 message ArchState {
   uint64   msg_pc       = 1;
   CSR      msg_mstatush = 2;
   MisaCSR  msg_misa     = 3;
+  SatpCSR  msg_satp     = 4;
 }

@@ -124,7 +124,7 @@ all-link-flags := $(mcppbs-LDFLAGS) $(LDFLAGS)
 comma := ,
 LD            := $(CXX)
 LIBS          := @LIBS@ @BOOST_ASIO_LIB@ @BOOST_REGEX_LIB@
-LINK          := $(LD) -L. $(all-link-flags) -Wl,-rpath,$(install_libs_dir) $(patsubst -L%,-Wl$(comma)-rpath$(comma)%,$(filter -L%,$(LDFLAGS)))
+LINK          := $(LD) -L. $(all-link-flags) -Wl,-rpath,$(install_libs_dir) $(patsubst -L%,-Wl$(comma)-rpath$(comma)%,$(filter -L%,$(LDFLAGS))) -L$(PROTOBUF_PREFIX) -lproto
 
 # Library creation
 

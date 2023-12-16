@@ -151,6 +151,15 @@ public:
   // enumerate processors, which segfaults if procs hasn't been initialized
   // yet.
   debug_module_t debug_module;
+
+public:
+  void serialize(std::string& os) {
+    procs[0]->serialize(os);
+  }
+
+  void deserialize(std::string& is) {
+    procs[0]->deserialize(is);
+  }
 };
 
 extern volatile bool ctrlc_pressed;

@@ -557,6 +557,15 @@ int main(int argc, char** argv)
 
   auto return_code = s.run();
 
+  std::string proto_str;
+  s->serialize(proto_str);
+
+  sim_t s_2(&cfg, halted,
+      mems, plugin_device_factories, htif_args, dm_config, log_path, dtb_enabled, dtb_file,
+      socket,
+      cmd_file);
+  s_2->deserialize(proto_str);
+
   for (auto& mem : mems)
     delete mem.second;
 

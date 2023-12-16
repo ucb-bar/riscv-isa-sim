@@ -18,6 +18,8 @@
 #include "../fesvr/memif.h"
 #include "vector_unit.h"
 
+#include "../proto/arch-state.pb.h"
+
 #define N_HPMCOUNTERS 29
 
 class processor_t;
@@ -373,6 +375,21 @@ public:
 
   vectorUnit_t VU;
   triggers::module_t TM;
+
+public:
+  ArchState aproto;
+
+  void serialize(std::string& os) {
+    aproto.set_pc(state.pc);
+    aproto.SerializeToString(&os);
+    std::cout << "serialize: " << state.pc << std::endl;
+  }
+
+  void deserialize(std::string& is) {
+    aproto.ParseFromString(&is);
+    state.pc = aproto.pc();
+    std::cout << "deserialize: " << state.pc << std::endl;
+  }
 };
 
 #endif

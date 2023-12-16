@@ -388,27 +388,39 @@ public:
   }
 
   void serialize_proto(std::string& os) {
-    aproto.set_msg_pc(state.pc);
+    std::cout << "serialize" << std::endl;
 
-    CSR mstatush = gen_csr_proto(state.mstatush->address);
-    aproto.set_allocated_msg_mstatush(&mstatush);
+    aproto.set_msg_pc(state.pc);
+    std::cout << "pc: " << state.pc << std::endl;
+
+
+    if (state.mstatush) {
+      CSR mstatush = gen_csr_proto(state.mstatush->address);
+      std::cout << mstatush.msg_addr() << ", " << mstatush.msg_csr_priv() << ",  " << mstatush.msg_csr_read_only() << std::endl;
+      aproto.set_allocated_msg_mstatush(&mstatush);
+      std::cout << "set_allocated_msg_mstatush done" << std::endl;
+    } else {
+      std::cout << "state.mstatush empty: " << state.mstatush << "/" << std::endl;
+    }
 
     aproto.SerializeToString(&os);
-    std::cout << "serialize" << std::endl;
-    std::cout << "pc: " << state.pc << std::endl;
   }
 
   void deserialize_proto(std::string& is) {
+    std::cout << "deserialize" << std::endl;
     aproto.ParseFromString(is);
+
     state.pc = aproto.msg_pc();
+    std::cout << "pc: " << state.pc << std::endl;
+
     if (aproto.has_msg_mstatush()) {
       state.mstatush->address       = aproto.msg_mstatush().msg_addr();
       state.mstatush->csr_priv      = aproto.msg_mstatush().msg_csr_priv();
       state.mstatush->csr_read_only = aproto.msg_mstatush().msg_csr_read_only();
+      state.mstatush->print();
+    } else {
+      std::cout << "state.mstatush empty: " << state.mstatush << "/" << std::endl;
     }
-    std::cout << "deserialize" << std::endl;
-    std::cout << "pc: " << state.pc << std::endl;
-    state.mstatush->print();
   }
 };
 

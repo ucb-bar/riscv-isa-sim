@@ -560,15 +560,11 @@ int main(int argc, char** argv)
   std::string proto_str;
   s.serialize_proto(proto_str);
 
-  std::cout << "ser: " << proto_str << std::endl;
-
   sim_t s_2(&cfg, halted,
       mems, plugin_device_factories, htif_args, dm_config, log_path, dtb_enabled, dtb_file,
       socket,
       cmd_file);
   s_2.deserialize_proto(proto_str);
-
-  std::cout << "deser: " << s_2.get_core(0)->aproto.msg_pc() << std::endl;
 
   for (auto& mem : mems)
     delete mem.second;

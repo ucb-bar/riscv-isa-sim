@@ -416,30 +416,201 @@ public:
     SatpCSR* satp = google::protobuf::Arena::Create<SatpCSR>(arena);
     satp->set_allocated_msg_nonvirt_satp_csr(orig);
     satp->set_allocated_msg_virt_satp_csr(virt);
-
     return satp;
+  }
+
+  BaseStatusCSR* gen_base_status_csr_proto(reg_t addr, bool has_page, reg_t wm, reg_t rm) {
+    CSR* c = gen_csr_proto(addr);
+
+    BaseStatusCSR* b = google::protobuf::Arena::Create<BaseStatusCSR>(arena);
+    b->set_allocated_msg_csr(c);
+    b->set_msg_has_page(has_page);
+    b->set_msg_sstatus_write_mask(wm);
+    b->set_msg_sstatus_read_mask(rm);
+    return b;
+  }
+
+  MstatusCSR* gen_mstatus_csr_proto(mstatus_csr_t_p csr) {
+    BaseStatusCSR* base = gen_base_status_csr_proto(csr->address,
+                                                    csr->has_page,
+                                                    csr->sstatus_write_mask,
+                                                    csr->sstatus_read_mask);
+    MstatusCSR* m = google::protobuf::Arena::Create<MstatusCSR>(arena);
+    m->set_allocated_msg_base_status_csr(base);
+    m->set_msg_val(csr->val);
+    return m;
+  }
+
+  MaskedCSR* gen_masked_csr_proto(reg_t addr, reg_t val, reg_t mask) {
+    BasicCSR* b = gen_basic_csr_proto(addr, val);
+
+    MaskedCSR* m = google::protobuf::Arena::Create<MaskedCSR>(arena);
+    m->set_allocated_msg_basic_csr(b);
+    m->set_msg_mask(mask);
+    return m;
+  }
+
+  SmcntrpmfCSR* gen_smcntrpmf_csr_proto(smcntrpmf_csr_t_p csr) {
+    MaskedCSR* m = gen_masked_csr_proto(csr->address, csr->val, csr->mask);
+
+    SmcntrpmfCSR* s = google::protobuf::Arena::Create<SmcntrpmfCSR>(arena);
+    s->set_allocated_msg_masked_csr(m);
+    if (csr->prev_val.has_value()) {
+      s->set_msg_prev_val(csr->prev_val.value());
+    }
+    return s;
+  }
+
+  WideCntrCSR* gen_wide_cntr_csr_proto(wide_counter_csr_t_p csr) {
+    CSR* c = gen_csr_proto(csr->address);
+    SmcntrpmfCSR* s = gen_smcntrpmf_csr_proto(csr->config_csr);
+
+    WideCntrCSR* w = google::protobuf::Arena::Create<WideCntrCSR>(arena);
+    w->set_allocated_msg_csr(c);
+    w->set_msg_val(csr->val);
+    w->set_allocated_msg_config_csr(s);
+    return w;
+  }
+
+  MedelegCSR* get_medeleg_csr_proto(csr_t_p csr) {
+    auto medeleg = std::dynamic_pointer_cast<medeleg_csr_t>(csr);
+    BasicCSR* b = gen_basic_csr_proto(medeleg->address, medeleg->val);
+
+    MedelegCSR* m = google::protobuf::Arena::Create<MedelegCSR>(arena);
+    m->set_allocated_msg_basic_csr(b);
+    m->set_msg_hypervisor_exceptions(medeleg->hypervisor_exceptions);
+    return m;
   }
 
   void serialize_proto(std::string& os) {
     std::cout << "serialize" << std::endl;
 
     aproto.set_msg_pc(state.pc);
-    std::cout << "pc: " << state.pc << std::endl;
+    aproto.set_msg_prv(state.prv);
+    aproto.set_msg_prev_prv(state.prev_prv);
+    aproto.set_msg_prv_changed(state.prv_changed);
+    aproto.set_msg_v_changed(state.v_changed);
+    aproto.set_msg_v(state.v);
+    aproto.set_msg_prev_v(state.prev_v);
 
+    std::cout << " pc: " << state.pc
+              << " prv: " << state.prv
+              << " prev_prv: " << state.prev_prv
+              << " prv_changed: " << state.prv_changed 
+              << " v_changed: " << state.v_changed 
+              << " v: " << state.v 
+              << " prev_v: " << state.prev_v << std::endl;
+
+    if (state.misa) {
+      MisaCSR* misa_proto = gen_misa_csr_proto(state.misa);
+      aproto.set_allocated_msg_misa(misa_proto);
+      state.misa->print();
+    } else {
+      std::cout << "state.misa empty: " << state.misa << "/" << std::endl;
+    }
+
+    if (state.mstatus) {
+      MstatusCSR* mstatus_proto = gen_mstatus_csr_proto(state.mstatus);
+      aproto.set_allocated_msg_mstatus(mstatus_proto);
+      state.mstatus->print();
+    } else {
+      std::cout << "state.mstatus empty: " << state.mstatus << "/" << std::endl;
+    }
+
+    // FIXME
     if (state.mstatush) {
-      CSR* mstatush = gen_csr_proto(state.mstatush->address);
-      aproto.set_allocated_msg_mstatush(mstatush);
+      CSR* mstatush_proto = gen_csr_proto(state.mstatush->address);
+      aproto.set_allocated_msg_mstatush(mstatush_proto);
       state.mstatush->print();
     } else {
       std::cout << "state.mstatush empty: " << state.mstatush << "/" << std::endl;
     }
 
-    if (state.misa) {
-      MisaCSR* misa = gen_misa_csr_proto(state.misa);
-      aproto.set_allocated_msg_misa(misa);
-      state.misa->print();
+    if (state.mepc) {
+      auto mepc = std::dynamic_pointer_cast<epc_csr_t>(state.mepc);
+      BasicCSR* mepc_proto = gen_basic_csr_proto(mepc->address, mepc->val);
+      aproto.set_allocated_msg_mepc(mepc_proto);
+      mepc->print();
     } else {
-      std::cout << "state.misaempty: " << state.misa << "/" << std::endl;
+      std::cout << "state.mepc empty: " << state.mepc << "/" << std::endl;
+    }
+
+    if (state.mtval) {
+      auto mtval = std::dynamic_pointer_cast<basic_csr_t>(state.mtval);
+      BasicCSR* mtval_proto = gen_basic_csr_proto(mtval->address, mtval->val);
+      aproto.set_allocated_msg_mtval(mtval_proto);
+      mtval->print();
+    } else {
+      std::cout << "state.mtval empty: " << state.mtval << "/" << std::endl;
+    }
+
+    if (state.mtvec) {
+      auto mtvec = std::dynamic_pointer_cast<tvec_csr_t>(state.mtvec);
+      BasicCSR* mtvec_proto = gen_basic_csr_proto(mtvec->address, mtvec->val);
+      aproto.set_allocated_msg_mtvec(mtvec_proto);
+      mtvec->print();
+    } else {
+      std::cout << "state.mtvec empty: " << state.mtvec << "/" << std::endl;
+    }
+
+    if (state.mcause) {
+      auto mcause = std::dynamic_pointer_cast<cause_csr_t>(state.mcause);
+      BasicCSR* mcause_proto = gen_basic_csr_proto(mcause->address, mcause->val);
+      aproto.set_allocated_msg_mcause(mcause_proto);
+      mcause->print();
+    } else {
+      std::cout << "state.mcause empty: " << state.mcause << "/" << std::endl;
+    }
+
+    if (state.minstret) {
+      WideCntrCSR* minstret_proto = gen_wide_cntr_csr_proto(state.minstret);
+      aproto.set_allocated_msg_minstret(minstret_proto);
+      state.minstret->print();
+    } else {
+      std::cout << "state.minstret empty: " << state.minstret << "/" << std::endl;
+    }
+
+    if (state.mcycle) {
+      WideCntrCSR* mcycle_proto = gen_wide_cntr_csr_proto(state.mcycle);
+      aproto.set_allocated_msg_mcycle(mcycle_proto);
+      state.mcycle->print();
+    } else {
+      std::cout << "state.mcycle empty: " << state.mcycle << "/" << std::endl;
+    }
+
+    if (state.mie) {
+      BasicCSR* mie_proto = gen_basic_csr_proto(state.mie->address, state.mie->val);
+      aproto.set_allocated_msg_mie(mie_proto);
+      state.mie->print();
+    } else {
+      std::cout << "state.mie empty: " << state.mie << "/" << std::endl;
+    }
+
+    if (state.mip) {
+      BasicCSR* mip_proto = gen_basic_csr_proto(state.mip->address, state.mip->val);
+      aproto.set_allocated_msg_mip(mip_proto);
+      state.mip->print();
+    } else {
+      std::cout << "state.mip empty: " << state.mip << "/" << std::endl;
+    }
+
+    if (state.medeleg) {
+      MedelegCSR* medeleg_proto = get_medeleg_csr_proto(state.medeleg);
+      aproto.set_allocated_msg_medeleg(medeleg_proto);
+
+      auto medeleg = std::dynamic_pointer_cast<medeleg_csr_t>(state.medeleg);
+      medeleg->print();
+    } else {
+      std::cout << "state.medeleg empty: " << state.medeleg << "/" << std::endl;
+    }
+
+    if (state.mideleg) {
+      auto mideleg = std::dynamic_pointer_cast<mideleg_csr_t>(state.mideleg);
+      BasicCSR* mideleg_proto = gen_basic_csr_proto(mideleg->address, mideleg->val);
+      aproto.set_allocated_msg_mideleg(mideleg_proto);
+      mideleg->print();
+    } else {
+      std::cout << "state.mideleg empty: " << state.mideleg << "/" << std::endl;
     }
 
     if (state.satp) {
@@ -453,9 +624,18 @@ public:
 
     aproto.SerializeToString(&os);
 
-    aproto.release_msg_mstatush();
     aproto.release_msg_misa();
-    aproto.release_msg_satp();
+    aproto.release_msg_mstatus();
+    aproto.release_msg_mepc();
+    aproto.release_msg_mtval();
+    aproto.release_msg_mtvec();
+    aproto.release_msg_mcause();
+    aproto.release_msg_minstret();
+    aproto.release_msg_mcycle();
+    aproto.release_msg_mie();
+    aproto.release_msg_mip();
+    aproto.release_msg_medeleg();
+    aproto.release_msg_mideleg();
   }
 
   void set_csr_from_proto(csr_t& csr, const CSR& proto) {

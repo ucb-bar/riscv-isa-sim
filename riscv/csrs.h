@@ -196,8 +196,13 @@ class epc_csr_t: public csr_t {
   virtual reg_t read(processor_t* p) const noexcept override;
  protected:
   virtual bool unlogged_write(const reg_t val, processor_t* p) noexcept override;
- private:
+ public:
   reg_t val;
+
+  virtual void print() override {
+    std::cout << "epc_csr_t: " << val << std::endl;
+    csr_t::print();
+  }
 };
 
 // For mtvec, stvec, and vstvec
@@ -208,8 +213,13 @@ class tvec_csr_t: public csr_t {
   virtual reg_t read(processor_t* p) const noexcept override;
  protected:
   virtual bool unlogged_write(const reg_t val, processor_t* p) noexcept override;
- private:
+ public:
   reg_t val;
+
+  virtual void print() override {
+    std::cout << "tvec_csr_t: " << val << std::endl;
+    csr_t::print();
+  }
 };
 
 // For mcause, scause, and vscause
@@ -232,11 +242,23 @@ class base_status_csr_t: public csr_t {
  protected:
   reg_t adjust_sd(const reg_t val, processor_t* p) const noexcept;
   void maybe_flush_tlb(const reg_t newval, processor_t* p) noexcept;
-  const bool has_page;
-  const reg_t sstatus_write_mask;
-  const reg_t sstatus_read_mask;
+
+public:
+  bool has_page;
+  reg_t sstatus_write_mask;
+  reg_t sstatus_read_mask;
+
  private:
   reg_t compute_sstatus_write_mask(processor_t* p) const noexcept;
+
+ public:
+  virtual void print() override {
+    std::cout << "base_status_csr_t: "
+      << has_page << ", "
+      << sstatus_write_mask << ", "
+      << sstatus_read_mask << std::endl;
+    csr_t::print();
+  }
 };
 
 typedef std::shared_ptr<base_status_csr_t> base_status_csr_t_p;
@@ -269,9 +291,14 @@ class mstatus_csr_t final: public base_status_csr_t {
 
  protected:
   virtual bool unlogged_write(const reg_t val, processor_t* p) noexcept override;
- private:
+ public:
   reg_t compute_mstatus_initial_value(processor_t* const p) const noexcept;
   reg_t val;
+
+  virtual void print() override {
+    std::cout << "mstatus_csr_t: " << val << std::endl;
+    base_status_csr_t::print();
+  }
 };
 
 typedef std::shared_ptr<mstatus_csr_t> mstatus_csr_t_p;
@@ -374,9 +401,16 @@ class mip_or_mie_csr_t: public csr_t {
 
  protected:
   virtual bool unlogged_write(const reg_t val, processor_t* p) noexcept override final;
-  reg_t val;
  private:
   virtual reg_t write_mask(processor_t* p) const noexcept = 0;
+
+ public:
+  reg_t val;
+
+  virtual void print() override {
+    std::cout << "mip_or_mie_csr_t: " << val << std::endl;
+    csr_t::print();
+  }
 };
 
 // mip is special because some of the bits are driven by hardware pins
@@ -469,8 +503,13 @@ class medeleg_csr_t: public basic_csr_t {
   virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const override;
  protected:
   virtual bool unlogged_write(const reg_t val, processor_t* p) noexcept override;
- private:
-  const reg_t hypervisor_exceptions;
+ public:
+  reg_t hypervisor_exceptions;
+
+  virtual void print() override {
+    std::cout << "medeleg_csr_t: " << hypervisor_exceptions << std::endl;
+    basic_csr_t::print();
+  }
 };
 
 // For CSRs with certain bits hardwired
@@ -479,8 +518,13 @@ class masked_csr_t: public basic_csr_t {
   masked_csr_t(const reg_t addr, const reg_t mask, const reg_t init);
  protected:
   virtual bool unlogged_write(const reg_t val, processor_t* p) noexcept override;
- private:
-  const reg_t mask;
+ public:
+  reg_t mask;
+
+  virtual void print() override {
+    std::cout << "masked_csr_t: " << mask << std::endl;
+    basic_csr_t::print();
+  }
 };
 
 class envcfg_csr_t: public masked_csr_t {
@@ -557,10 +601,12 @@ class wide_counter_csr_t: public csr_t {
  protected:
   virtual bool unlogged_write(const reg_t val, processor_t* p) noexcept override;
   virtual reg_t written_value(processor_t* p) const noexcept override;
- private:
   bool is_counting_enabled(processor_t* p) const noexcept;
+ public:
   reg_t val;
   smcntrpmf_csr_t_p config_csr;
+
+  virtual void print() override;
 };
 
 typedef std::shared_ptr<wide_counter_csr_t> wide_counter_csr_t_p;
@@ -864,7 +910,14 @@ class smcntrpmf_csr_t : public masked_csr_t {
   void reset_prev() noexcept;
  protected:
   virtual bool unlogged_write(const reg_t val, processor_t* p) noexcept override;
- private:
+ public:
   std::optional<reg_t> prev_val;
+
+  virtual void print() override {
+/* std::cout << "smcntrpmf_csr_t: " << prev_val.value_or("None") << std::endl; */
+    std::cout << "smcntrpmf_csr_t: " << std::endl;
+    masked_csr_t::print();
+  }
 };
+
 #endif

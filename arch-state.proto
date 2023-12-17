@@ -25,9 +25,70 @@ message SatpCSR {
   BasicCSR msg_virt_satp_csr    = 2;
 }
 
+message BaseStatusCSR {
+  CSR    msg_csr           = 1;
+  bool   msg_has_page      = 2;
+  uint64 msg_sstatus_write_mask = 3;
+  uint64 msg_sstatus_read_mask  = 4;
+}
+
+message MstatusCSR {
+  BaseStatusCSR msg_base_status_csr = 1;
+  uint64        msg_val             = 2;
+}
+
+message MaskedCSR {
+  BasicCSR msg_basic_csr = 1;
+  uint64   msg_mask      = 2;
+}
+
+message SmcntrpmfCSR {
+  MaskedCSR       msg_masked_csr = 1;
+  uint64 msg_prev_val   = 2;
+}
+
+message WideCntrCSR {
+  CSR          msg_csr        = 1;
+  uint64       msg_val        = 2;
+  SmcntrpmfCSR msg_config_csr = 3;
+}
+
+message MedelegCSR {
+  BasicCSR msg_basic_csr = 1;
+  uint64   msg_hypervisor_exceptions = 2;
+}
+
 message ArchState {
-  uint64   msg_pc       = 1;
-  CSR      msg_mstatush = 2;
-  MisaCSR  msg_misa     = 3;
-  SatpCSR  msg_satp     = 4;
+  uint64  msg_pc          = 1;
+// XPR = 2;
+// FPR = 3;
+  uint64       msg_prv         = 4;
+  uint64       msg_prev_prv    = 5;
+  bool         msg_prv_changed = 6;
+  bool         msg_v_changed   = 7;
+  bool         msg_v           = 8;
+  bool         msg_prev_v      = 9;
+  MisaCSR      msg_misa        = 10;
+  MstatusCSR   msg_mstatus     = 11;
+  CSR          msg_mstatush    = 12;
+  BasicCSR     msg_mepc        = 13;
+  BasicCSR     msg_mtval       = 14;
+  BasicCSR     msg_mtvec       = 15;
+  BasicCSR     msg_mcause      = 16;
+  WideCntrCSR  msg_minstret    = 17;
+  WideCntrCSR  msg_mcycle      = 18;
+  BasicCSR     msg_mie         = 19;
+  BasicCSR     msg_mip         = 20;
+  MedelegCSR   msg_medeleg     = 21;
+  BasicCSR     msg_mideleg     = 22;
+  CSR          msg_mcounteren  = 23;
+  repeated CSR msg_mevent      = 24;
+  CSR          msg_mnstatus    = 25;
+  CSR          msg_mnepc       = 26;
+  CSR          msg_scounteren  = 27;
+  CSR          msg_sepc        = 28;
+  CSR          msg_stval       = 29;
+  CSR          msg_stvec       = 30;
+  SatpCSR      msg_satp        = 31;
+  CSR          msg_scause      = 32;
 }

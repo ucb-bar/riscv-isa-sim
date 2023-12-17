@@ -390,12 +390,11 @@ public:
   }
 
   BasicCSR* gen_basic_csr_proto(reg_t addr, reg_t init) {
-    BasicCSR* csr = google::protobuf::Arena::Create<BasicCSR>(arena);
-    csr->set_msg_addr(addr);
-    csr->set_msg_csr_priv(get_field(addr, 0x300));
-    csr->set_msg_csr_read_only(get_field(addr, 0xC00) == 3);
-    csr->set_msg_val(init);
-    return csr;
+    CSR* c = gen_csr_proto(addr);
+    BasicCSR* b = google::protobuf::Arena::Create<BasicCSR>(arena);
+    b->set_allocated_msg_csr(c);
+    b->set_msg_val(init);
+    return b;
   }
 
   MisaCSR* gen_misa_csr_proto(misa_csr_t_p ptr) {
@@ -456,7 +455,9 @@ public:
     SmcntrpmfCSR* s = google::protobuf::Arena::Create<SmcntrpmfCSR>(arena);
     s->set_allocated_msg_masked_csr(m);
     if (csr->prev_val.has_value()) {
-      s->set_msg_prev_val(csr->prev_val.value());
+      OptionalUInt64* o = google::protobuf::Arena::Create<OptionalUInt64>(arena);
+      o->set_msg_val(csr->prev_val.value());
+      s->set_allocated_msg_prev_val(o);
     }
     return s;
   }
@@ -636,19 +637,17 @@ public:
     aproto.release_msg_mip();
     aproto.release_msg_medeleg();
     aproto.release_msg_mideleg();
+    aproto.release_msg_satp();
   }
 
   void set_csr_from_proto(csr_t& csr, const CSR& proto) {
     csr.address       = proto.msg_addr();
     csr.csr_priv      = proto.msg_csr_priv();
     csr.csr_read_only = proto.msg_csr_read_only();
-    csr.print();
   }
 
   void set_basic_csr_from_proto(basic_csr_t& csr, const BasicCSR& proto) {
-    csr.address       = proto.msg_addr();
-    csr.csr_priv      = proto.msg_csr_priv();
-    csr.csr_read_only = proto.msg_csr_read_only();
+    set_csr_from_proto(csr, proto.msg_csr());
     csr.val           = proto.msg_val();
   }
 
@@ -656,38 +655,150 @@ public:
     set_basic_csr_from_proto(csr, proto.msg_basic_csr());
     csr.max_isa    = proto.msg_max_isa();
     csr.write_mask = proto.msg_write_mask();
-    csr.print();
+  }
+
+  void set_basestatus_csr_from_proto(base_status_csr_t& csr, const BaseStatusCSR& proto) {
+    set_csr_from_proto(csr, proto.msg_csr());
+    csr.has_page = proto.msg_has_page();
+    csr.sstatus_write_mask = proto.msg_sstatus_write_mask();
+    csr.sstatus_read_mask  = proto.msg_sstatus_read_mask();
+  }
+
+  void set_mstatus_csr_from_proto(mstatus_csr_t& csr, const MstatusCSR& proto) {
+    set_basestatus_csr_from_proto(csr, proto.msg_base_status_csr());
+    csr.val = proto.msg_val();
+  }
+
+  void set_mepc_csr_from_proto(epc_csr_t& csr, const BasicCSR& proto) {
+    set_csr_from_proto(csr, proto.msg_csr());
+    csr.val = proto.msg_val();
+  }
+
+  void set_mtval_csr_from_proto(basic_csr_t& csr, const BasicCSR& proto) {
+    set_basic_csr_from_proto(csr, proto);
+  }
+
+  void set_mtvec_csr_from_proto(tvec_csr_t& csr, const BasicCSR& proto) {
+    set_csr_from_proto(csr, proto.msg_csr());
+    csr.val = proto.msg_val();
+  }
+
+  void set_mcause_csr_from_proto(cause_csr_t& csr, const BasicCSR& proto) {
+    set_basic_csr_from_proto(csr, proto);
+  }
+
+  void set_masked_csr_from_proto(masked_csr_t& csr, const MaskedCSR& proto) {
+    set_basic_csr_from_proto(csr, proto.msg_basic_csr());
+    csr.mask = proto.msg_mask();
+  }
+
+  void set_smcntrpmf_csr_from_proto(smcntrpmf_csr_t& csr, const SmcntrpmfCSR& proto) {
+    set_masked_csr_from_proto(csr, proto.msg_masked_csr());
+    if (proto.has_msg_prev_val()) {
+      auto opt = proto.msg_prev_val();
+      csr.prev_val = opt.msg_val();
+    }
+  }
+
+  void set_widecntr_csr_from_proto(wide_counter_csr_t& csr, const WideCntrCSR& proto) {
+    set_csr_from_proto(csr, proto.msg_csr());
+    csr.val = proto.msg_val();
+    set_smcntrpmf_csr_from_proto(*(csr.config_csr), proto.msg_config_csr());
   }
 
   void set_satp_csr_from_proto(virtualized_csr_t& satp, base_atp_csr_t& vsatp, const SatpCSR& proto) {
     set_basic_csr_from_proto(*std::dynamic_pointer_cast<basic_csr_t>(satp.orig_csr), proto.msg_nonvirt_satp_csr());
     set_basic_csr_from_proto(*std::dynamic_pointer_cast<basic_csr_t>(satp.virt_csr), proto.msg_virt_satp_csr());
     set_basic_csr_from_proto(vsatp, proto.msg_virt_satp_csr());
-    satp.print();
-    vsatp.print();
   }
 
   void deserialize_proto(std::string& is) {
     std::cout << "deserialize" << std::endl;
     aproto.ParseFromString(is);
 
-    state.pc = aproto.msg_pc();
-    std::cout << "pc: " << state.pc << std::endl;
+    state.pc          = aproto.msg_pc();
+    state.prv         = aproto.msg_prv();
+    state.prev_prv    = aproto.msg_prev_prv();
+    state.prv_changed = aproto.msg_prv_changed();
+    state.v_changed   = aproto.msg_v_changed();
+    state.v           = aproto.msg_v();
+    state.prev_v      = aproto.msg_prev_v();
 
+    std::cout << " pc: " << state.pc
+              << " prv: " << state.prv
+              << " prev_prv: " << state.prev_prv
+              << " prv_changed: " << state.prv_changed 
+              << " v_changed: " << state.v_changed 
+              << " v: " << state.v 
+              << " prev_v: " << state.prev_v << std::endl;
+
+    if (aproto.has_msg_misa()) {
+      set_misa_csr_from_proto(*(state.misa), aproto.msg_misa());
+      state.misa->print();
+    } else {
+      std::cout << "state.misa empty: " << state.misa << "/" << std::endl;
+    }
+
+    if (aproto.has_msg_mstatus()) {
+      set_mstatus_csr_from_proto(*(state.mstatus), aproto.msg_mstatus());
+      state.mstatus->print();
+    } else {
+      std::cout << "state.mstatus empty: " << state.mstatus << "/" << std::endl;
+    }
+
+    // FIXME
     if (aproto.has_msg_mstatush()) {
       set_csr_from_proto(*(state.mstatush), aproto.msg_mstatush());
     } else {
       std::cout << "state.mstatush empty: " << state.mstatush << "/" << std::endl;
     }
 
-    if (aproto.has_msg_misa()) {
-      set_misa_csr_from_proto(*(state.misa), aproto.msg_misa());
+    if (aproto.has_msg_mepc()) {
+      auto mepc = std::dynamic_pointer_cast<epc_csr_t>(state.mepc);
+      set_mepc_csr_from_proto(*mepc, aproto.msg_mepc());
+      mepc->print();
     } else {
-      std::cout << "state.misa empty: " << state.misa << "/" << std::endl;
+      std::cout << "state.mepc empty: " << state.mepc << "/" << std::endl;
+    }
+
+    if (aproto.has_msg_mtval()) {
+      auto mtval = std::dynamic_pointer_cast<basic_csr_t>(state.mtval);
+      set_mtval_csr_from_proto(*mtval, aproto.msg_mtval());
+      mtval->print();
+    } else {
+      std::cout << "state.mtval empty: " << state.mtval << "/" << std::endl;
+    }
+
+    if (aproto.has_msg_mtvec()) {
+      auto mtvec = std::dynamic_pointer_cast<tvec_csr_t>(state.mtvec);
+      set_mtvec_csr_from_proto(*mtvec, aproto.msg_mtvec());
+      mtvec->print();
+    } else {
+      std::cout << "state.mtvec empty: " << state.mtvec << "/" << std::endl;
+    }
+
+    if (aproto.has_msg_mcause()) {
+      auto mcause = std::dynamic_pointer_cast<cause_csr_t>(state.mcause);
+      set_mcause_csr_from_proto(*mcause, aproto.msg_mcause());
+      mcause->print();
+    } else {
+      std::cout << "state.mcause empty: " << state.mcause << "/" << std::endl;
+    }
+
+    if (aproto.has_msg_minstret()) {
+      auto minstret = state.minstret;
+      set_widecntr_csr_from_proto(*minstret, aproto.msg_minstret());
+      minstret->print();
+    } else {
+      std::cout << "state.minstret empty: " << state.minstret << "/" << std::endl;
     }
 
     if (aproto.has_msg_satp()) {
-      set_satp_csr_from_proto(*(state.satp), *std::dynamic_pointer_cast<base_atp_csr_t>(state.vsatp), aproto.msg_satp());
+      auto vsatp = std::dynamic_pointer_cast<base_atp_csr_t>(state.vsatp);
+      auto satp  = state.satp;
+      set_satp_csr_from_proto(*satp, *vsatp, aproto.msg_satp());
+      satp->print();
+      vsatp->print();
     } else {
       std::cout << "state.satp empty: " << state.satp << "/" << std::endl;
     }

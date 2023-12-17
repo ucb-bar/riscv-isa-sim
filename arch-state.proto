@@ -8,10 +8,8 @@ message CSR {
 }
 
 message BasicCSR {
-  uint64 msg_addr          = 1;
-  uint32 msg_csr_priv      = 2;
-  bool   msg_csr_read_only = 3;
-  uint64 msg_val           = 4;
+  CSR    msg_csr = 1;
+  uint64 msg_val = 2;
 }
 
 message MisaCSR {
@@ -42,9 +40,13 @@ message MaskedCSR {
   uint64   msg_mask      = 2;
 }
 
+message OptionalUInt64 {
+  uint64 msg_val = 1;
+}
+
 message SmcntrpmfCSR {
-  MaskedCSR       msg_masked_csr = 1;
-  uint64 msg_prev_val   = 2;
+  MaskedCSR      msg_masked_csr = 1;
+  OptionalUInt64 msg_prev_val   = 2;
 }
 
 message WideCntrCSR {

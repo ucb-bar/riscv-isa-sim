@@ -23,8 +23,6 @@
 #include <algorithm>
 
 
-#include <google/protobuf/arena.h>
-
 #ifdef __GNUC__
 # pragma GCC diagnostic ignored "-Wunused-variable"
 #endif
@@ -78,7 +76,6 @@ processor_t::processor_t(const isa_parser_t *isa, const cfg_t *cfg,
   set_impl(IMPL_MMU_VMID, true);
 
   reset();
-  arena = new google::protobuf::Arena();
 }
 
 processor_t::~processor_t()

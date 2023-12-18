@@ -23,6 +23,11 @@ message SatpCSR {
   BasicCSR msg_virt_satp_csr    = 2;
 }
 
+message VirtBasicCSR {
+  BasicCSR msg_nonvirt_csr = 1;
+  BasicCSR msg_virt_csr    = 2;
+}
+
 message BaseStatusCSR {
   CSR    msg_csr           = 1;
   bool   msg_has_page      = 2;
@@ -83,14 +88,14 @@ message ArchState {
   BasicCSR     msg_mip         = 20;
   MedelegCSR   msg_medeleg     = 21;
   BasicCSR     msg_mideleg     = 22;
-  CSR          msg_mcounteren  = 23;
-  repeated CSR msg_mevent      = 24;
-  CSR          msg_mnstatus    = 25;
-  CSR          msg_mnepc       = 26;
-  CSR          msg_scounteren  = 27;
-  CSR          msg_sepc        = 28;
-  CSR          msg_stval       = 29;
-  CSR          msg_stvec       = 30;
-  SatpCSR      msg_satp        = 31;
+  MaskedCSR    msg_mcounteren  = 23;
+  repeated BasicCSR msg_mevent = 24;
+  BasicCSR     msg_mnstatus    = 25;
+  BasicCSR     msg_mnepc       = 26;
+  MaskedCSR    msg_scounteren  = 27;
+  VirtBasicCSR msg_sepc        = 28;
+  VirtBasicCSR msg_stval       = 29;
+  VirtBasicCSR msg_stvec       = 30;
+  VirtBasicCSR msg_satp        = 31;
   CSR          msg_scause      = 32;
 }

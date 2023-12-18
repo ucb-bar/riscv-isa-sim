@@ -22,8 +22,8 @@ extern PROTOBUF_INTERNAL_EXPORT_arch_2dstate_2eproto ::PROTOBUF_NAMESPACE_ID::in
 extern PROTOBUF_INTERNAL_EXPORT_arch_2dstate_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_MisaCSR_arch_2dstate_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_arch_2dstate_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_MstatusCSR_arch_2dstate_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_arch_2dstate_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_OptionalUInt64_arch_2dstate_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_arch_2dstate_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_SatpCSR_arch_2dstate_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_arch_2dstate_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_SmcntrpmfCSR_arch_2dstate_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_arch_2dstate_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_VirtBasicCSR_arch_2dstate_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_arch_2dstate_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_WideCntrCSR_arch_2dstate_2eproto;
 class CSRDefaultTypeInternal {
  public:
@@ -41,6 +41,10 @@ class SatpCSRDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<SatpCSR> _instance;
 } _SatpCSR_default_instance_;
+class VirtBasicCSRDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<VirtBasicCSR> _instance;
+} _VirtBasicCSR_default_instance_;
 class BaseStatusCSRDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<BaseStatusCSR> _instance;
@@ -84,15 +88,16 @@ static void InitDefaultsscc_info_ArchState_arch_2dstate_2eproto() {
   ::ArchState::InitAsDefaultInstance();
 }
 
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<7> scc_info_ArchState_arch_2dstate_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 7, 0, InitDefaultsscc_info_ArchState_arch_2dstate_2eproto}, {
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<8> scc_info_ArchState_arch_2dstate_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 8, 0, InitDefaultsscc_info_ArchState_arch_2dstate_2eproto}, {
       &scc_info_MisaCSR_arch_2dstate_2eproto.base,
       &scc_info_MstatusCSR_arch_2dstate_2eproto.base,
       &scc_info_CSR_arch_2dstate_2eproto.base,
       &scc_info_BasicCSR_arch_2dstate_2eproto.base,
       &scc_info_WideCntrCSR_arch_2dstate_2eproto.base,
       &scc_info_MedelegCSR_arch_2dstate_2eproto.base,
-      &scc_info_SatpCSR_arch_2dstate_2eproto.base,}};
+      &scc_info_MaskedCSR_arch_2dstate_2eproto.base,
+      &scc_info_VirtBasicCSR_arch_2dstate_2eproto.base,}};
 
 static void InitDefaultsscc_info_BaseStatusCSR_arch_2dstate_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -243,6 +248,21 @@ static void InitDefaultsscc_info_SmcntrpmfCSR_arch_2dstate_2eproto() {
       &scc_info_MaskedCSR_arch_2dstate_2eproto.base,
       &scc_info_OptionalUInt64_arch_2dstate_2eproto.base,}};
 
+static void InitDefaultsscc_info_VirtBasicCSR_arch_2dstate_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::_VirtBasicCSR_default_instance_;
+    new (ptr) ::VirtBasicCSR();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::VirtBasicCSR::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_VirtBasicCSR_arch_2dstate_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_VirtBasicCSR_arch_2dstate_2eproto}, {
+      &scc_info_BasicCSR_arch_2dstate_2eproto.base,}};
+
 static void InitDefaultsscc_info_WideCntrCSR_arch_2dstate_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -259,7 +279,7 @@ static void InitDefaultsscc_info_WideCntrCSR_arch_2dstate_2eproto() {
       &scc_info_CSR_arch_2dstate_2eproto.base,
       &scc_info_SmcntrpmfCSR_arch_2dstate_2eproto.base,}};
 
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_arch_2dstate_2eproto[12];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_arch_2dstate_2eproto[13];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_arch_2dstate_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_arch_2dstate_2eproto = nullptr;
 
@@ -294,6 +314,13 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_arch_2dstate_2eproto::offsets[
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::SatpCSR, msg_nonvirt_satp_csr_),
   PROTOBUF_FIELD_OFFSET(::SatpCSR, msg_virt_satp_csr_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::VirtBasicCSR, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::VirtBasicCSR, msg_nonvirt_csr_),
+  PROTOBUF_FIELD_OFFSET(::VirtBasicCSR, msg_virt_csr_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::BaseStatusCSR, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -386,14 +413,15 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 8, -1, sizeof(::BasicCSR)},
   { 15, -1, sizeof(::MisaCSR)},
   { 23, -1, sizeof(::SatpCSR)},
-  { 30, -1, sizeof(::BaseStatusCSR)},
-  { 39, -1, sizeof(::MstatusCSR)},
-  { 46, -1, sizeof(::MaskedCSR)},
-  { 53, -1, sizeof(::OptionalUInt64)},
-  { 59, -1, sizeof(::SmcntrpmfCSR)},
-  { 66, -1, sizeof(::WideCntrCSR)},
-  { 74, -1, sizeof(::MedelegCSR)},
-  { 81, -1, sizeof(::ArchState)},
+  { 30, -1, sizeof(::VirtBasicCSR)},
+  { 37, -1, sizeof(::BaseStatusCSR)},
+  { 46, -1, sizeof(::MstatusCSR)},
+  { 53, -1, sizeof(::MaskedCSR)},
+  { 60, -1, sizeof(::OptionalUInt64)},
+  { 66, -1, sizeof(::SmcntrpmfCSR)},
+  { 73, -1, sizeof(::WideCntrCSR)},
+  { 81, -1, sizeof(::MedelegCSR)},
+  { 88, -1, sizeof(::ArchState)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -401,6 +429,7 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_BasicCSR_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_MisaCSR_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_SatpCSR_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_VirtBasicCSR_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_BaseStatusCSR_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_MstatusCSR_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_MaskedCSR_default_instance_),
@@ -420,46 +449,49 @@ const char descriptor_table_protodef_arch_2dstate_2eproto[] PROTOBUF_SECTION_VAR
   "_isa\030\002 \001(\004\022\026\n\016msg_write_mask\030\003 \001(\004\"X\n\007Sa"
   "tpCSR\022\'\n\024msg_nonvirt_satp_csr\030\001 \001(\0132\t.Ba"
   "sicCSR\022$\n\021msg_virt_satp_csr\030\002 \001(\0132\t.Basi"
-  "cCSR\"{\n\rBaseStatusCSR\022\025\n\007msg_csr\030\001 \001(\0132\004"
-  ".CSR\022\024\n\014msg_has_page\030\002 \001(\010\022\036\n\026msg_sstatu"
-  "s_write_mask\030\003 \001(\004\022\035\n\025msg_sstatus_read_m"
-  "ask\030\004 \001(\004\"J\n\nMstatusCSR\022+\n\023msg_base_stat"
-  "us_csr\030\001 \001(\0132\016.BaseStatusCSR\022\017\n\007msg_val\030"
-  "\002 \001(\004\"\?\n\tMaskedCSR\022 \n\rmsg_basic_csr\030\001 \001("
-  "\0132\t.BasicCSR\022\020\n\010msg_mask\030\002 \001(\004\"!\n\016Option"
-  "alUInt64\022\017\n\007msg_val\030\001 \001(\004\"Y\n\014SmcntrpmfCS"
-  "R\022\"\n\016msg_masked_csr\030\001 \001(\0132\n.MaskedCSR\022%\n"
-  "\014msg_prev_val\030\002 \001(\0132\017.OptionalUInt64\"\\\n\013"
-  "WideCntrCSR\022\025\n\007msg_csr\030\001 \001(\0132\004.CSR\022\017\n\007ms"
-  "g_val\030\002 \001(\004\022%\n\016msg_config_csr\030\003 \001(\0132\r.Sm"
-  "cntrpmfCSR\"Q\n\nMedelegCSR\022 \n\rmsg_basic_cs"
-  "r\030\001 \001(\0132\t.BasicCSR\022!\n\031msg_hypervisor_exc"
-  "eptions\030\002 \001(\004\"\262\006\n\tArchState\022\016\n\006msg_pc\030\001 "
-  "\001(\004\022\017\n\007msg_prv\030\004 \001(\004\022\024\n\014msg_prev_prv\030\005 \001"
-  "(\004\022\027\n\017msg_prv_changed\030\006 \001(\010\022\025\n\rmsg_v_cha"
-  "nged\030\007 \001(\010\022\r\n\005msg_v\030\010 \001(\010\022\022\n\nmsg_prev_v\030"
-  "\t \001(\010\022\032\n\010msg_misa\030\n \001(\0132\010.MisaCSR\022 \n\013msg"
-  "_mstatus\030\013 \001(\0132\013.MstatusCSR\022\032\n\014msg_mstat"
-  "ush\030\014 \001(\0132\004.CSR\022\033\n\010msg_mepc\030\r \001(\0132\t.Basi"
-  "cCSR\022\034\n\tmsg_mtval\030\016 \001(\0132\t.BasicCSR\022\034\n\tms"
-  "g_mtvec\030\017 \001(\0132\t.BasicCSR\022\035\n\nmsg_mcause\030\020"
-  " \001(\0132\t.BasicCSR\022\"\n\014msg_minstret\030\021 \001(\0132\014."
-  "WideCntrCSR\022 \n\nmsg_mcycle\030\022 \001(\0132\014.WideCn"
-  "trCSR\022\032\n\007msg_mie\030\023 \001(\0132\t.BasicCSR\022\032\n\007msg"
-  "_mip\030\024 \001(\0132\t.BasicCSR\022 \n\013msg_medeleg\030\025 \001"
-  "(\0132\013.MedelegCSR\022\036\n\013msg_mideleg\030\026 \001(\0132\t.B"
-  "asicCSR\022\034\n\016msg_mcounteren\030\027 \001(\0132\004.CSR\022\030\n"
-  "\nmsg_mevent\030\030 \003(\0132\004.CSR\022\032\n\014msg_mnstatus\030"
-  "\031 \001(\0132\004.CSR\022\027\n\tmsg_mnepc\030\032 \001(\0132\004.CSR\022\034\n\016"
-  "msg_scounteren\030\033 \001(\0132\004.CSR\022\026\n\010msg_sepc\030\034"
-  " \001(\0132\004.CSR\022\027\n\tmsg_stval\030\035 \001(\0132\004.CSR\022\027\n\tm"
-  "sg_stvec\030\036 \001(\0132\004.CSR\022\032\n\010msg_satp\030\037 \001(\0132\010"
-  ".SatpCSR\022\030\n\nmsg_scause\030  \001(\0132\004.CSRb\006prot"
-  "o3"
+  "cCSR\"S\n\014VirtBasicCSR\022\"\n\017msg_nonvirt_csr\030"
+  "\001 \001(\0132\t.BasicCSR\022\037\n\014msg_virt_csr\030\002 \001(\0132\t"
+  ".BasicCSR\"{\n\rBaseStatusCSR\022\025\n\007msg_csr\030\001 "
+  "\001(\0132\004.CSR\022\024\n\014msg_has_page\030\002 \001(\010\022\036\n\026msg_s"
+  "status_write_mask\030\003 \001(\004\022\035\n\025msg_sstatus_r"
+  "ead_mask\030\004 \001(\004\"J\n\nMstatusCSR\022+\n\023msg_base"
+  "_status_csr\030\001 \001(\0132\016.BaseStatusCSR\022\017\n\007msg"
+  "_val\030\002 \001(\004\"\?\n\tMaskedCSR\022 \n\rmsg_basic_csr"
+  "\030\001 \001(\0132\t.BasicCSR\022\020\n\010msg_mask\030\002 \001(\004\"!\n\016O"
+  "ptionalUInt64\022\017\n\007msg_val\030\001 \001(\004\"Y\n\014Smcntr"
+  "pmfCSR\022\"\n\016msg_masked_csr\030\001 \001(\0132\n.MaskedC"
+  "SR\022%\n\014msg_prev_val\030\002 \001(\0132\017.OptionalUInt6"
+  "4\"\\\n\013WideCntrCSR\022\025\n\007msg_csr\030\001 \001(\0132\004.CSR\022"
+  "\017\n\007msg_val\030\002 \001(\004\022%\n\016msg_config_csr\030\003 \001(\013"
+  "2\r.SmcntrpmfCSR\"Q\n\nMedelegCSR\022 \n\rmsg_bas"
+  "ic_csr\030\001 \001(\0132\t.BasicCSR\022!\n\031msg_hyperviso"
+  "r_exceptions\030\002 \001(\004\"\355\006\n\tArchState\022\016\n\006msg_"
+  "pc\030\001 \001(\004\022\017\n\007msg_prv\030\004 \001(\004\022\024\n\014msg_prev_pr"
+  "v\030\005 \001(\004\022\027\n\017msg_prv_changed\030\006 \001(\010\022\025\n\rmsg_"
+  "v_changed\030\007 \001(\010\022\r\n\005msg_v\030\010 \001(\010\022\022\n\nmsg_pr"
+  "ev_v\030\t \001(\010\022\032\n\010msg_misa\030\n \001(\0132\010.MisaCSR\022 "
+  "\n\013msg_mstatus\030\013 \001(\0132\013.MstatusCSR\022\032\n\014msg_"
+  "mstatush\030\014 \001(\0132\004.CSR\022\033\n\010msg_mepc\030\r \001(\0132\t"
+  ".BasicCSR\022\034\n\tmsg_mtval\030\016 \001(\0132\t.BasicCSR\022"
+  "\034\n\tmsg_mtvec\030\017 \001(\0132\t.BasicCSR\022\035\n\nmsg_mca"
+  "use\030\020 \001(\0132\t.BasicCSR\022\"\n\014msg_minstret\030\021 \001"
+  "(\0132\014.WideCntrCSR\022 \n\nmsg_mcycle\030\022 \001(\0132\014.W"
+  "ideCntrCSR\022\032\n\007msg_mie\030\023 \001(\0132\t.BasicCSR\022\032"
+  "\n\007msg_mip\030\024 \001(\0132\t.BasicCSR\022 \n\013msg_medele"
+  "g\030\025 \001(\0132\013.MedelegCSR\022\036\n\013msg_mideleg\030\026 \001("
+  "\0132\t.BasicCSR\022\"\n\016msg_mcounteren\030\027 \001(\0132\n.M"
+  "askedCSR\022\035\n\nmsg_mevent\030\030 \003(\0132\t.BasicCSR\022"
+  "\037\n\014msg_mnstatus\030\031 \001(\0132\t.BasicCSR\022\034\n\tmsg_"
+  "mnepc\030\032 \001(\0132\t.BasicCSR\022\"\n\016msg_scounteren"
+  "\030\033 \001(\0132\n.MaskedCSR\022\037\n\010msg_sepc\030\034 \001(\0132\r.V"
+  "irtBasicCSR\022 \n\tmsg_stval\030\035 \001(\0132\r.VirtBas"
+  "icCSR\022 \n\tmsg_stvec\030\036 \001(\0132\r.VirtBasicCSR\022"
+  "\037\n\010msg_satp\030\037 \001(\0132\r.VirtBasicCSR\022\030\n\nmsg_"
+  "scause\030  \001(\0132\004.CSRb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_arch_2dstate_2eproto_deps[1] = {
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_arch_2dstate_2eproto_sccs[12] = {
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_arch_2dstate_2eproto_sccs[13] = {
   &scc_info_ArchState_arch_2dstate_2eproto.base,
   &scc_info_BaseStatusCSR_arch_2dstate_2eproto.base,
   &scc_info_BasicCSR_arch_2dstate_2eproto.base,
@@ -471,15 +503,16 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_arc
   &scc_info_OptionalUInt64_arch_2dstate_2eproto.base,
   &scc_info_SatpCSR_arch_2dstate_2eproto.base,
   &scc_info_SmcntrpmfCSR_arch_2dstate_2eproto.base,
+  &scc_info_VirtBasicCSR_arch_2dstate_2eproto.base,
   &scc_info_WideCntrCSR_arch_2dstate_2eproto.base,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_arch_2dstate_2eproto_once;
 static bool descriptor_table_arch_2dstate_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_arch_2dstate_2eproto = {
-  &descriptor_table_arch_2dstate_2eproto_initialized, descriptor_table_protodef_arch_2dstate_2eproto, "arch-state.proto", 1722,
-  &descriptor_table_arch_2dstate_2eproto_once, descriptor_table_arch_2dstate_2eproto_sccs, descriptor_table_arch_2dstate_2eproto_deps, 12, 0,
+  &descriptor_table_arch_2dstate_2eproto_initialized, descriptor_table_protodef_arch_2dstate_2eproto, "arch-state.proto", 1866,
+  &descriptor_table_arch_2dstate_2eproto_once, descriptor_table_arch_2dstate_2eproto_sccs, descriptor_table_arch_2dstate_2eproto_deps, 13, 0,
   schemas, file_default_instances, TableStruct_arch_2dstate_2eproto::offsets,
-  file_level_metadata_arch_2dstate_2eproto, 12, file_level_enum_descriptors_arch_2dstate_2eproto, file_level_service_descriptors_arch_2dstate_2eproto,
+  file_level_metadata_arch_2dstate_2eproto, 13, file_level_enum_descriptors_arch_2dstate_2eproto, file_level_service_descriptors_arch_2dstate_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
@@ -1460,6 +1493,255 @@ void SatpCSR::InternalSwap(SatpCSR* other) {
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata SatpCSR::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void VirtBasicCSR::InitAsDefaultInstance() {
+  ::_VirtBasicCSR_default_instance_._instance.get_mutable()->msg_nonvirt_csr_ = const_cast< ::BasicCSR*>(
+      ::BasicCSR::internal_default_instance());
+  ::_VirtBasicCSR_default_instance_._instance.get_mutable()->msg_virt_csr_ = const_cast< ::BasicCSR*>(
+      ::BasicCSR::internal_default_instance());
+}
+class VirtBasicCSR::_Internal {
+ public:
+  static const ::BasicCSR& msg_nonvirt_csr(const VirtBasicCSR* msg);
+  static const ::BasicCSR& msg_virt_csr(const VirtBasicCSR* msg);
+};
+
+const ::BasicCSR&
+VirtBasicCSR::_Internal::msg_nonvirt_csr(const VirtBasicCSR* msg) {
+  return *msg->msg_nonvirt_csr_;
+}
+const ::BasicCSR&
+VirtBasicCSR::_Internal::msg_virt_csr(const VirtBasicCSR* msg) {
+  return *msg->msg_virt_csr_;
+}
+VirtBasicCSR::VirtBasicCSR()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:VirtBasicCSR)
+}
+VirtBasicCSR::VirtBasicCSR(const VirtBasicCSR& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from._internal_has_msg_nonvirt_csr()) {
+    msg_nonvirt_csr_ = new ::BasicCSR(*from.msg_nonvirt_csr_);
+  } else {
+    msg_nonvirt_csr_ = nullptr;
+  }
+  if (from._internal_has_msg_virt_csr()) {
+    msg_virt_csr_ = new ::BasicCSR(*from.msg_virt_csr_);
+  } else {
+    msg_virt_csr_ = nullptr;
+  }
+  // @@protoc_insertion_point(copy_constructor:VirtBasicCSR)
+}
+
+void VirtBasicCSR::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_VirtBasicCSR_arch_2dstate_2eproto.base);
+  ::memset(&msg_nonvirt_csr_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&msg_virt_csr_) -
+      reinterpret_cast<char*>(&msg_nonvirt_csr_)) + sizeof(msg_virt_csr_));
+}
+
+VirtBasicCSR::~VirtBasicCSR() {
+  // @@protoc_insertion_point(destructor:VirtBasicCSR)
+  SharedDtor();
+}
+
+void VirtBasicCSR::SharedDtor() {
+  if (this != internal_default_instance()) delete msg_nonvirt_csr_;
+  if (this != internal_default_instance()) delete msg_virt_csr_;
+}
+
+void VirtBasicCSR::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const VirtBasicCSR& VirtBasicCSR::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_VirtBasicCSR_arch_2dstate_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void VirtBasicCSR::Clear() {
+// @@protoc_insertion_point(message_clear_start:VirtBasicCSR)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArenaNoVirtual() == nullptr && msg_nonvirt_csr_ != nullptr) {
+    delete msg_nonvirt_csr_;
+  }
+  msg_nonvirt_csr_ = nullptr;
+  if (GetArenaNoVirtual() == nullptr && msg_virt_csr_ != nullptr) {
+    delete msg_virt_csr_;
+  }
+  msg_virt_csr_ = nullptr;
+  _internal_metadata_.Clear();
+}
+
+const char* VirtBasicCSR::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // .BasicCSR msg_nonvirt_csr = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_msg_nonvirt_csr(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // .BasicCSR msg_virt_csr = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_msg_virt_csr(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* VirtBasicCSR::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:VirtBasicCSR)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .BasicCSR msg_nonvirt_csr = 1;
+  if (this->has_msg_nonvirt_csr()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        1, _Internal::msg_nonvirt_csr(this), target, stream);
+  }
+
+  // .BasicCSR msg_virt_csr = 2;
+  if (this->has_msg_virt_csr()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        2, _Internal::msg_virt_csr(this), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:VirtBasicCSR)
+  return target;
+}
+
+size_t VirtBasicCSR::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:VirtBasicCSR)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .BasicCSR msg_nonvirt_csr = 1;
+  if (this->has_msg_nonvirt_csr()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *msg_nonvirt_csr_);
+  }
+
+  // .BasicCSR msg_virt_csr = 2;
+  if (this->has_msg_virt_csr()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *msg_virt_csr_);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void VirtBasicCSR::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:VirtBasicCSR)
+  GOOGLE_DCHECK_NE(&from, this);
+  const VirtBasicCSR* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<VirtBasicCSR>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:VirtBasicCSR)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:VirtBasicCSR)
+    MergeFrom(*source);
+  }
+}
+
+void VirtBasicCSR::MergeFrom(const VirtBasicCSR& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:VirtBasicCSR)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.has_msg_nonvirt_csr()) {
+    _internal_mutable_msg_nonvirt_csr()->::BasicCSR::MergeFrom(from._internal_msg_nonvirt_csr());
+  }
+  if (from.has_msg_virt_csr()) {
+    _internal_mutable_msg_virt_csr()->::BasicCSR::MergeFrom(from._internal_msg_virt_csr());
+  }
+}
+
+void VirtBasicCSR::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:VirtBasicCSR)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void VirtBasicCSR::CopyFrom(const VirtBasicCSR& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:VirtBasicCSR)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool VirtBasicCSR::IsInitialized() const {
+  return true;
+}
+
+void VirtBasicCSR::InternalSwap(VirtBasicCSR* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(msg_nonvirt_csr_, other->msg_nonvirt_csr_);
+  swap(msg_virt_csr_, other->msg_virt_csr_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata VirtBasicCSR::GetMetadata() const {
   return GetMetadataStatic();
 }
 
@@ -3181,22 +3463,22 @@ void ArchState::InitAsDefaultInstance() {
       ::MedelegCSR::internal_default_instance());
   ::_ArchState_default_instance_._instance.get_mutable()->msg_mideleg_ = const_cast< ::BasicCSR*>(
       ::BasicCSR::internal_default_instance());
-  ::_ArchState_default_instance_._instance.get_mutable()->msg_mcounteren_ = const_cast< ::CSR*>(
-      ::CSR::internal_default_instance());
-  ::_ArchState_default_instance_._instance.get_mutable()->msg_mnstatus_ = const_cast< ::CSR*>(
-      ::CSR::internal_default_instance());
-  ::_ArchState_default_instance_._instance.get_mutable()->msg_mnepc_ = const_cast< ::CSR*>(
-      ::CSR::internal_default_instance());
-  ::_ArchState_default_instance_._instance.get_mutable()->msg_scounteren_ = const_cast< ::CSR*>(
-      ::CSR::internal_default_instance());
-  ::_ArchState_default_instance_._instance.get_mutable()->msg_sepc_ = const_cast< ::CSR*>(
-      ::CSR::internal_default_instance());
-  ::_ArchState_default_instance_._instance.get_mutable()->msg_stval_ = const_cast< ::CSR*>(
-      ::CSR::internal_default_instance());
-  ::_ArchState_default_instance_._instance.get_mutable()->msg_stvec_ = const_cast< ::CSR*>(
-      ::CSR::internal_default_instance());
-  ::_ArchState_default_instance_._instance.get_mutable()->msg_satp_ = const_cast< ::SatpCSR*>(
-      ::SatpCSR::internal_default_instance());
+  ::_ArchState_default_instance_._instance.get_mutable()->msg_mcounteren_ = const_cast< ::MaskedCSR*>(
+      ::MaskedCSR::internal_default_instance());
+  ::_ArchState_default_instance_._instance.get_mutable()->msg_mnstatus_ = const_cast< ::BasicCSR*>(
+      ::BasicCSR::internal_default_instance());
+  ::_ArchState_default_instance_._instance.get_mutable()->msg_mnepc_ = const_cast< ::BasicCSR*>(
+      ::BasicCSR::internal_default_instance());
+  ::_ArchState_default_instance_._instance.get_mutable()->msg_scounteren_ = const_cast< ::MaskedCSR*>(
+      ::MaskedCSR::internal_default_instance());
+  ::_ArchState_default_instance_._instance.get_mutable()->msg_sepc_ = const_cast< ::VirtBasicCSR*>(
+      ::VirtBasicCSR::internal_default_instance());
+  ::_ArchState_default_instance_._instance.get_mutable()->msg_stval_ = const_cast< ::VirtBasicCSR*>(
+      ::VirtBasicCSR::internal_default_instance());
+  ::_ArchState_default_instance_._instance.get_mutable()->msg_stvec_ = const_cast< ::VirtBasicCSR*>(
+      ::VirtBasicCSR::internal_default_instance());
+  ::_ArchState_default_instance_._instance.get_mutable()->msg_satp_ = const_cast< ::VirtBasicCSR*>(
+      ::VirtBasicCSR::internal_default_instance());
   ::_ArchState_default_instance_._instance.get_mutable()->msg_scause_ = const_cast< ::CSR*>(
       ::CSR::internal_default_instance());
 }
@@ -3215,14 +3497,14 @@ class ArchState::_Internal {
   static const ::BasicCSR& msg_mip(const ArchState* msg);
   static const ::MedelegCSR& msg_medeleg(const ArchState* msg);
   static const ::BasicCSR& msg_mideleg(const ArchState* msg);
-  static const ::CSR& msg_mcounteren(const ArchState* msg);
-  static const ::CSR& msg_mnstatus(const ArchState* msg);
-  static const ::CSR& msg_mnepc(const ArchState* msg);
-  static const ::CSR& msg_scounteren(const ArchState* msg);
-  static const ::CSR& msg_sepc(const ArchState* msg);
-  static const ::CSR& msg_stval(const ArchState* msg);
-  static const ::CSR& msg_stvec(const ArchState* msg);
-  static const ::SatpCSR& msg_satp(const ArchState* msg);
+  static const ::MaskedCSR& msg_mcounteren(const ArchState* msg);
+  static const ::BasicCSR& msg_mnstatus(const ArchState* msg);
+  static const ::BasicCSR& msg_mnepc(const ArchState* msg);
+  static const ::MaskedCSR& msg_scounteren(const ArchState* msg);
+  static const ::VirtBasicCSR& msg_sepc(const ArchState* msg);
+  static const ::VirtBasicCSR& msg_stval(const ArchState* msg);
+  static const ::VirtBasicCSR& msg_stvec(const ArchState* msg);
+  static const ::VirtBasicCSR& msg_satp(const ArchState* msg);
   static const ::CSR& msg_scause(const ArchState* msg);
 };
 
@@ -3278,35 +3560,35 @@ const ::BasicCSR&
 ArchState::_Internal::msg_mideleg(const ArchState* msg) {
   return *msg->msg_mideleg_;
 }
-const ::CSR&
+const ::MaskedCSR&
 ArchState::_Internal::msg_mcounteren(const ArchState* msg) {
   return *msg->msg_mcounteren_;
 }
-const ::CSR&
+const ::BasicCSR&
 ArchState::_Internal::msg_mnstatus(const ArchState* msg) {
   return *msg->msg_mnstatus_;
 }
-const ::CSR&
+const ::BasicCSR&
 ArchState::_Internal::msg_mnepc(const ArchState* msg) {
   return *msg->msg_mnepc_;
 }
-const ::CSR&
+const ::MaskedCSR&
 ArchState::_Internal::msg_scounteren(const ArchState* msg) {
   return *msg->msg_scounteren_;
 }
-const ::CSR&
+const ::VirtBasicCSR&
 ArchState::_Internal::msg_sepc(const ArchState* msg) {
   return *msg->msg_sepc_;
 }
-const ::CSR&
+const ::VirtBasicCSR&
 ArchState::_Internal::msg_stval(const ArchState* msg) {
   return *msg->msg_stval_;
 }
-const ::CSR&
+const ::VirtBasicCSR&
 ArchState::_Internal::msg_stvec(const ArchState* msg) {
   return *msg->msg_stvec_;
 }
-const ::SatpCSR&
+const ::VirtBasicCSR&
 ArchState::_Internal::msg_satp(const ArchState* msg) {
   return *msg->msg_satp_;
 }
@@ -3390,42 +3672,42 @@ ArchState::ArchState(const ArchState& from)
     msg_mideleg_ = nullptr;
   }
   if (from._internal_has_msg_mcounteren()) {
-    msg_mcounteren_ = new ::CSR(*from.msg_mcounteren_);
+    msg_mcounteren_ = new ::MaskedCSR(*from.msg_mcounteren_);
   } else {
     msg_mcounteren_ = nullptr;
   }
   if (from._internal_has_msg_mnstatus()) {
-    msg_mnstatus_ = new ::CSR(*from.msg_mnstatus_);
+    msg_mnstatus_ = new ::BasicCSR(*from.msg_mnstatus_);
   } else {
     msg_mnstatus_ = nullptr;
   }
   if (from._internal_has_msg_mnepc()) {
-    msg_mnepc_ = new ::CSR(*from.msg_mnepc_);
+    msg_mnepc_ = new ::BasicCSR(*from.msg_mnepc_);
   } else {
     msg_mnepc_ = nullptr;
   }
   if (from._internal_has_msg_scounteren()) {
-    msg_scounteren_ = new ::CSR(*from.msg_scounteren_);
+    msg_scounteren_ = new ::MaskedCSR(*from.msg_scounteren_);
   } else {
     msg_scounteren_ = nullptr;
   }
   if (from._internal_has_msg_sepc()) {
-    msg_sepc_ = new ::CSR(*from.msg_sepc_);
+    msg_sepc_ = new ::VirtBasicCSR(*from.msg_sepc_);
   } else {
     msg_sepc_ = nullptr;
   }
   if (from._internal_has_msg_stval()) {
-    msg_stval_ = new ::CSR(*from.msg_stval_);
+    msg_stval_ = new ::VirtBasicCSR(*from.msg_stval_);
   } else {
     msg_stval_ = nullptr;
   }
   if (from._internal_has_msg_stvec()) {
-    msg_stvec_ = new ::CSR(*from.msg_stvec_);
+    msg_stvec_ = new ::VirtBasicCSR(*from.msg_stvec_);
   } else {
     msg_stvec_ = nullptr;
   }
   if (from._internal_has_msg_satp()) {
-    msg_satp_ = new ::SatpCSR(*from.msg_satp_);
+    msg_satp_ = new ::VirtBasicCSR(*from.msg_satp_);
   } else {
     msg_satp_ = nullptr;
   }
@@ -3734,14 +4016,14 @@ const char* ArchState::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .CSR msg_mcounteren = 23;
+      // .MaskedCSR msg_mcounteren = 23;
       case 23:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 186)) {
           ptr = ctx->ParseMessage(_internal_mutable_msg_mcounteren(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // repeated .CSR msg_mevent = 24;
+      // repeated .BasicCSR msg_mevent = 24;
       case 24:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 194)) {
           ptr -= 2;
@@ -3753,49 +4035,49 @@ const char* ArchState::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<194>(ptr));
         } else goto handle_unusual;
         continue;
-      // .CSR msg_mnstatus = 25;
+      // .BasicCSR msg_mnstatus = 25;
       case 25:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 202)) {
           ptr = ctx->ParseMessage(_internal_mutable_msg_mnstatus(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .CSR msg_mnepc = 26;
+      // .BasicCSR msg_mnepc = 26;
       case 26:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 210)) {
           ptr = ctx->ParseMessage(_internal_mutable_msg_mnepc(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .CSR msg_scounteren = 27;
+      // .MaskedCSR msg_scounteren = 27;
       case 27:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 218)) {
           ptr = ctx->ParseMessage(_internal_mutable_msg_scounteren(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .CSR msg_sepc = 28;
+      // .VirtBasicCSR msg_sepc = 28;
       case 28:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 226)) {
           ptr = ctx->ParseMessage(_internal_mutable_msg_sepc(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .CSR msg_stval = 29;
+      // .VirtBasicCSR msg_stval = 29;
       case 29:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 234)) {
           ptr = ctx->ParseMessage(_internal_mutable_msg_stval(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .CSR msg_stvec = 30;
+      // .VirtBasicCSR msg_stvec = 30;
       case 30:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 242)) {
           ptr = ctx->ParseMessage(_internal_mutable_msg_stvec(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .SatpCSR msg_satp = 31;
+      // .VirtBasicCSR msg_satp = 31;
       case 31:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 250)) {
           ptr = ctx->ParseMessage(_internal_mutable_msg_satp(), ptr);
@@ -3981,7 +4263,7 @@ failure:
         22, _Internal::msg_mideleg(this), target, stream);
   }
 
-  // .CSR msg_mcounteren = 23;
+  // .MaskedCSR msg_mcounteren = 23;
   if (this->has_msg_mcounteren()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -3989,7 +4271,7 @@ failure:
         23, _Internal::msg_mcounteren(this), target, stream);
   }
 
-  // repeated .CSR msg_mevent = 24;
+  // repeated .BasicCSR msg_mevent = 24;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->_internal_msg_mevent_size()); i < n; i++) {
     target = stream->EnsureSpace(target);
@@ -3997,7 +4279,7 @@ failure:
       InternalWriteMessage(24, this->_internal_msg_mevent(i), target, stream);
   }
 
-  // .CSR msg_mnstatus = 25;
+  // .BasicCSR msg_mnstatus = 25;
   if (this->has_msg_mnstatus()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -4005,7 +4287,7 @@ failure:
         25, _Internal::msg_mnstatus(this), target, stream);
   }
 
-  // .CSR msg_mnepc = 26;
+  // .BasicCSR msg_mnepc = 26;
   if (this->has_msg_mnepc()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -4013,7 +4295,7 @@ failure:
         26, _Internal::msg_mnepc(this), target, stream);
   }
 
-  // .CSR msg_scounteren = 27;
+  // .MaskedCSR msg_scounteren = 27;
   if (this->has_msg_scounteren()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -4021,7 +4303,7 @@ failure:
         27, _Internal::msg_scounteren(this), target, stream);
   }
 
-  // .CSR msg_sepc = 28;
+  // .VirtBasicCSR msg_sepc = 28;
   if (this->has_msg_sepc()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -4029,7 +4311,7 @@ failure:
         28, _Internal::msg_sepc(this), target, stream);
   }
 
-  // .CSR msg_stval = 29;
+  // .VirtBasicCSR msg_stval = 29;
   if (this->has_msg_stval()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -4037,7 +4319,7 @@ failure:
         29, _Internal::msg_stval(this), target, stream);
   }
 
-  // .CSR msg_stvec = 30;
+  // .VirtBasicCSR msg_stvec = 30;
   if (this->has_msg_stvec()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -4045,7 +4327,7 @@ failure:
         30, _Internal::msg_stvec(this), target, stream);
   }
 
-  // .SatpCSR msg_satp = 31;
+  // .VirtBasicCSR msg_satp = 31;
   if (this->has_msg_satp()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -4077,7 +4359,7 @@ size_t ArchState::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .CSR msg_mevent = 24;
+  // repeated .BasicCSR msg_mevent = 24;
   total_size += 2UL * this->_internal_msg_mevent_size();
   for (const auto& msg : this->msg_mevent_) {
     total_size +=
@@ -4175,56 +4457,56 @@ size_t ArchState::ByteSizeLong() const {
         *msg_mideleg_);
   }
 
-  // .CSR msg_mcounteren = 23;
+  // .MaskedCSR msg_mcounteren = 23;
   if (this->has_msg_mcounteren()) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *msg_mcounteren_);
   }
 
-  // .CSR msg_mnstatus = 25;
+  // .BasicCSR msg_mnstatus = 25;
   if (this->has_msg_mnstatus()) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *msg_mnstatus_);
   }
 
-  // .CSR msg_mnepc = 26;
+  // .BasicCSR msg_mnepc = 26;
   if (this->has_msg_mnepc()) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *msg_mnepc_);
   }
 
-  // .CSR msg_scounteren = 27;
+  // .MaskedCSR msg_scounteren = 27;
   if (this->has_msg_scounteren()) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *msg_scounteren_);
   }
 
-  // .CSR msg_sepc = 28;
+  // .VirtBasicCSR msg_sepc = 28;
   if (this->has_msg_sepc()) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *msg_sepc_);
   }
 
-  // .CSR msg_stval = 29;
+  // .VirtBasicCSR msg_stval = 29;
   if (this->has_msg_stval()) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *msg_stval_);
   }
 
-  // .CSR msg_stvec = 30;
+  // .VirtBasicCSR msg_stvec = 30;
   if (this->has_msg_stvec()) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *msg_stvec_);
   }
 
-  // .SatpCSR msg_satp = 31;
+  // .VirtBasicCSR msg_satp = 31;
   if (this->has_msg_satp()) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -4351,28 +4633,28 @@ void ArchState::MergeFrom(const ArchState& from) {
     _internal_mutable_msg_mideleg()->::BasicCSR::MergeFrom(from._internal_msg_mideleg());
   }
   if (from.has_msg_mcounteren()) {
-    _internal_mutable_msg_mcounteren()->::CSR::MergeFrom(from._internal_msg_mcounteren());
+    _internal_mutable_msg_mcounteren()->::MaskedCSR::MergeFrom(from._internal_msg_mcounteren());
   }
   if (from.has_msg_mnstatus()) {
-    _internal_mutable_msg_mnstatus()->::CSR::MergeFrom(from._internal_msg_mnstatus());
+    _internal_mutable_msg_mnstatus()->::BasicCSR::MergeFrom(from._internal_msg_mnstatus());
   }
   if (from.has_msg_mnepc()) {
-    _internal_mutable_msg_mnepc()->::CSR::MergeFrom(from._internal_msg_mnepc());
+    _internal_mutable_msg_mnepc()->::BasicCSR::MergeFrom(from._internal_msg_mnepc());
   }
   if (from.has_msg_scounteren()) {
-    _internal_mutable_msg_scounteren()->::CSR::MergeFrom(from._internal_msg_scounteren());
+    _internal_mutable_msg_scounteren()->::MaskedCSR::MergeFrom(from._internal_msg_scounteren());
   }
   if (from.has_msg_sepc()) {
-    _internal_mutable_msg_sepc()->::CSR::MergeFrom(from._internal_msg_sepc());
+    _internal_mutable_msg_sepc()->::VirtBasicCSR::MergeFrom(from._internal_msg_sepc());
   }
   if (from.has_msg_stval()) {
-    _internal_mutable_msg_stval()->::CSR::MergeFrom(from._internal_msg_stval());
+    _internal_mutable_msg_stval()->::VirtBasicCSR::MergeFrom(from._internal_msg_stval());
   }
   if (from.has_msg_stvec()) {
-    _internal_mutable_msg_stvec()->::CSR::MergeFrom(from._internal_msg_stvec());
+    _internal_mutable_msg_stvec()->::VirtBasicCSR::MergeFrom(from._internal_msg_stvec());
   }
   if (from.has_msg_satp()) {
-    _internal_mutable_msg_satp()->::SatpCSR::MergeFrom(from._internal_msg_satp());
+    _internal_mutable_msg_satp()->::VirtBasicCSR::MergeFrom(from._internal_msg_satp());
   }
   if (from.has_msg_scause()) {
     _internal_mutable_msg_scause()->::CSR::MergeFrom(from._internal_msg_scause());
@@ -4471,6 +4753,9 @@ template<> PROTOBUF_NOINLINE ::MisaCSR* Arena::CreateMaybeMessage< ::MisaCSR >(A
 }
 template<> PROTOBUF_NOINLINE ::SatpCSR* Arena::CreateMaybeMessage< ::SatpCSR >(Arena* arena) {
   return Arena::CreateInternal< ::SatpCSR >(arena);
+}
+template<> PROTOBUF_NOINLINE ::VirtBasicCSR* Arena::CreateMaybeMessage< ::VirtBasicCSR >(Arena* arena) {
+  return Arena::CreateInternal< ::VirtBasicCSR >(arena);
 }
 template<> PROTOBUF_NOINLINE ::BaseStatusCSR* Arena::CreateMaybeMessage< ::BaseStatusCSR >(Arena* arena) {
   return Arena::CreateInternal< ::BaseStatusCSR >(arena);

@@ -47,7 +47,7 @@ struct TableStruct_arch_2dstate_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[12]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[13]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -87,6 +87,9 @@ extern SatpCSRDefaultTypeInternal _SatpCSR_default_instance_;
 class SmcntrpmfCSR;
 class SmcntrpmfCSRDefaultTypeInternal;
 extern SmcntrpmfCSRDefaultTypeInternal _SmcntrpmfCSR_default_instance_;
+class VirtBasicCSR;
+class VirtBasicCSRDefaultTypeInternal;
+extern VirtBasicCSRDefaultTypeInternal _VirtBasicCSR_default_instance_;
 class WideCntrCSR;
 class WideCntrCSRDefaultTypeInternal;
 extern WideCntrCSRDefaultTypeInternal _WideCntrCSR_default_instance_;
@@ -102,6 +105,7 @@ template<> ::MstatusCSR* Arena::CreateMaybeMessage<::MstatusCSR>(Arena*);
 template<> ::OptionalUInt64* Arena::CreateMaybeMessage<::OptionalUInt64>(Arena*);
 template<> ::SatpCSR* Arena::CreateMaybeMessage<::SatpCSR>(Arena*);
 template<> ::SmcntrpmfCSR* Arena::CreateMaybeMessage<::SmcntrpmfCSR>(Arena*);
+template<> ::VirtBasicCSR* Arena::CreateMaybeMessage<::VirtBasicCSR>(Arena*);
 template<> ::WideCntrCSR* Arena::CreateMaybeMessage<::WideCntrCSR>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 
@@ -709,6 +713,157 @@ class SatpCSR :
 };
 // -------------------------------------------------------------------
 
+class VirtBasicCSR :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:VirtBasicCSR) */ {
+ public:
+  VirtBasicCSR();
+  virtual ~VirtBasicCSR();
+
+  VirtBasicCSR(const VirtBasicCSR& from);
+  VirtBasicCSR(VirtBasicCSR&& from) noexcept
+    : VirtBasicCSR() {
+    *this = ::std::move(from);
+  }
+
+  inline VirtBasicCSR& operator=(const VirtBasicCSR& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline VirtBasicCSR& operator=(VirtBasicCSR&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const VirtBasicCSR& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const VirtBasicCSR* internal_default_instance() {
+    return reinterpret_cast<const VirtBasicCSR*>(
+               &_VirtBasicCSR_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(VirtBasicCSR& a, VirtBasicCSR& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(VirtBasicCSR* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline VirtBasicCSR* New() const final {
+    return CreateMaybeMessage<VirtBasicCSR>(nullptr);
+  }
+
+  VirtBasicCSR* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<VirtBasicCSR>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const VirtBasicCSR& from);
+  void MergeFrom(const VirtBasicCSR& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(VirtBasicCSR* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "VirtBasicCSR";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_arch_2dstate_2eproto);
+    return ::descriptor_table_arch_2dstate_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMsgNonvirtCsrFieldNumber = 1,
+    kMsgVirtCsrFieldNumber = 2,
+  };
+  // .BasicCSR msg_nonvirt_csr = 1;
+  bool has_msg_nonvirt_csr() const;
+  private:
+  bool _internal_has_msg_nonvirt_csr() const;
+  public:
+  void clear_msg_nonvirt_csr();
+  const ::BasicCSR& msg_nonvirt_csr() const;
+  ::BasicCSR* release_msg_nonvirt_csr();
+  ::BasicCSR* mutable_msg_nonvirt_csr();
+  void set_allocated_msg_nonvirt_csr(::BasicCSR* msg_nonvirt_csr);
+  private:
+  const ::BasicCSR& _internal_msg_nonvirt_csr() const;
+  ::BasicCSR* _internal_mutable_msg_nonvirt_csr();
+  public:
+
+  // .BasicCSR msg_virt_csr = 2;
+  bool has_msg_virt_csr() const;
+  private:
+  bool _internal_has_msg_virt_csr() const;
+  public:
+  void clear_msg_virt_csr();
+  const ::BasicCSR& msg_virt_csr() const;
+  ::BasicCSR* release_msg_virt_csr();
+  ::BasicCSR* mutable_msg_virt_csr();
+  void set_allocated_msg_virt_csr(::BasicCSR* msg_virt_csr);
+  private:
+  const ::BasicCSR& _internal_msg_virt_csr() const;
+  ::BasicCSR* _internal_mutable_msg_virt_csr();
+  public:
+
+  // @@protoc_insertion_point(class_scope:VirtBasicCSR)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::BasicCSR* msg_nonvirt_csr_;
+  ::BasicCSR* msg_virt_csr_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_arch_2dstate_2eproto;
+};
+// -------------------------------------------------------------------
+
 class BaseStatusCSR :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:BaseStatusCSR) */ {
  public:
@@ -751,7 +906,7 @@ class BaseStatusCSR :
                &_BaseStatusCSR_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    5;
 
   friend void swap(BaseStatusCSR& a, BaseStatusCSR& b) {
     a.Swap(&b);
@@ -918,7 +1073,7 @@ class MstatusCSR :
                &_MstatusCSR_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    6;
 
   friend void swap(MstatusCSR& a, MstatusCSR& b) {
     a.Swap(&b);
@@ -1063,7 +1218,7 @@ class MaskedCSR :
                &_MaskedCSR_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    7;
 
   friend void swap(MaskedCSR& a, MaskedCSR& b) {
     a.Swap(&b);
@@ -1208,7 +1363,7 @@ class OptionalUInt64 :
                &_OptionalUInt64_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    8;
 
   friend void swap(OptionalUInt64& a, OptionalUInt64& b) {
     a.Swap(&b);
@@ -1336,7 +1491,7 @@ class SmcntrpmfCSR :
                &_SmcntrpmfCSR_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    9;
 
   friend void swap(SmcntrpmfCSR& a, SmcntrpmfCSR& b) {
     a.Swap(&b);
@@ -1487,7 +1642,7 @@ class WideCntrCSR :
                &_WideCntrCSR_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    10;
 
   friend void swap(WideCntrCSR& a, WideCntrCSR& b) {
     a.Swap(&b);
@@ -1649,7 +1804,7 @@ class MedelegCSR :
                &_MedelegCSR_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    11;
 
   friend void swap(MedelegCSR& a, MedelegCSR& b) {
     a.Swap(&b);
@@ -1794,7 +1949,7 @@ class ArchState :
                &_ArchState_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    12;
 
   friend void swap(ArchState& a, ArchState& b) {
     a.Swap(&b);
@@ -1889,22 +2044,22 @@ class ArchState :
     kMsgVFieldNumber = 8,
     kMsgPrevVFieldNumber = 9,
   };
-  // repeated .CSR msg_mevent = 24;
+  // repeated .BasicCSR msg_mevent = 24;
   int msg_mevent_size() const;
   private:
   int _internal_msg_mevent_size() const;
   public:
   void clear_msg_mevent();
-  ::CSR* mutable_msg_mevent(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::CSR >*
+  ::BasicCSR* mutable_msg_mevent(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::BasicCSR >*
       mutable_msg_mevent();
   private:
-  const ::CSR& _internal_msg_mevent(int index) const;
-  ::CSR* _internal_add_msg_mevent();
+  const ::BasicCSR& _internal_msg_mevent(int index) const;
+  ::BasicCSR* _internal_add_msg_mevent();
   public:
-  const ::CSR& msg_mevent(int index) const;
-  ::CSR* add_msg_mevent();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::CSR >&
+  const ::BasicCSR& msg_mevent(int index) const;
+  ::BasicCSR* add_msg_mevent();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::BasicCSR >&
       msg_mevent() const;
 
   // .MisaCSR msg_misa = 10;
@@ -2102,124 +2257,124 @@ class ArchState :
   ::BasicCSR* _internal_mutable_msg_mideleg();
   public:
 
-  // .CSR msg_mcounteren = 23;
+  // .MaskedCSR msg_mcounteren = 23;
   bool has_msg_mcounteren() const;
   private:
   bool _internal_has_msg_mcounteren() const;
   public:
   void clear_msg_mcounteren();
-  const ::CSR& msg_mcounteren() const;
-  ::CSR* release_msg_mcounteren();
-  ::CSR* mutable_msg_mcounteren();
-  void set_allocated_msg_mcounteren(::CSR* msg_mcounteren);
+  const ::MaskedCSR& msg_mcounteren() const;
+  ::MaskedCSR* release_msg_mcounteren();
+  ::MaskedCSR* mutable_msg_mcounteren();
+  void set_allocated_msg_mcounteren(::MaskedCSR* msg_mcounteren);
   private:
-  const ::CSR& _internal_msg_mcounteren() const;
-  ::CSR* _internal_mutable_msg_mcounteren();
+  const ::MaskedCSR& _internal_msg_mcounteren() const;
+  ::MaskedCSR* _internal_mutable_msg_mcounteren();
   public:
 
-  // .CSR msg_mnstatus = 25;
+  // .BasicCSR msg_mnstatus = 25;
   bool has_msg_mnstatus() const;
   private:
   bool _internal_has_msg_mnstatus() const;
   public:
   void clear_msg_mnstatus();
-  const ::CSR& msg_mnstatus() const;
-  ::CSR* release_msg_mnstatus();
-  ::CSR* mutable_msg_mnstatus();
-  void set_allocated_msg_mnstatus(::CSR* msg_mnstatus);
+  const ::BasicCSR& msg_mnstatus() const;
+  ::BasicCSR* release_msg_mnstatus();
+  ::BasicCSR* mutable_msg_mnstatus();
+  void set_allocated_msg_mnstatus(::BasicCSR* msg_mnstatus);
   private:
-  const ::CSR& _internal_msg_mnstatus() const;
-  ::CSR* _internal_mutable_msg_mnstatus();
+  const ::BasicCSR& _internal_msg_mnstatus() const;
+  ::BasicCSR* _internal_mutable_msg_mnstatus();
   public:
 
-  // .CSR msg_mnepc = 26;
+  // .BasicCSR msg_mnepc = 26;
   bool has_msg_mnepc() const;
   private:
   bool _internal_has_msg_mnepc() const;
   public:
   void clear_msg_mnepc();
-  const ::CSR& msg_mnepc() const;
-  ::CSR* release_msg_mnepc();
-  ::CSR* mutable_msg_mnepc();
-  void set_allocated_msg_mnepc(::CSR* msg_mnepc);
+  const ::BasicCSR& msg_mnepc() const;
+  ::BasicCSR* release_msg_mnepc();
+  ::BasicCSR* mutable_msg_mnepc();
+  void set_allocated_msg_mnepc(::BasicCSR* msg_mnepc);
   private:
-  const ::CSR& _internal_msg_mnepc() const;
-  ::CSR* _internal_mutable_msg_mnepc();
+  const ::BasicCSR& _internal_msg_mnepc() const;
+  ::BasicCSR* _internal_mutable_msg_mnepc();
   public:
 
-  // .CSR msg_scounteren = 27;
+  // .MaskedCSR msg_scounteren = 27;
   bool has_msg_scounteren() const;
   private:
   bool _internal_has_msg_scounteren() const;
   public:
   void clear_msg_scounteren();
-  const ::CSR& msg_scounteren() const;
-  ::CSR* release_msg_scounteren();
-  ::CSR* mutable_msg_scounteren();
-  void set_allocated_msg_scounteren(::CSR* msg_scounteren);
+  const ::MaskedCSR& msg_scounteren() const;
+  ::MaskedCSR* release_msg_scounteren();
+  ::MaskedCSR* mutable_msg_scounteren();
+  void set_allocated_msg_scounteren(::MaskedCSR* msg_scounteren);
   private:
-  const ::CSR& _internal_msg_scounteren() const;
-  ::CSR* _internal_mutable_msg_scounteren();
+  const ::MaskedCSR& _internal_msg_scounteren() const;
+  ::MaskedCSR* _internal_mutable_msg_scounteren();
   public:
 
-  // .CSR msg_sepc = 28;
+  // .VirtBasicCSR msg_sepc = 28;
   bool has_msg_sepc() const;
   private:
   bool _internal_has_msg_sepc() const;
   public:
   void clear_msg_sepc();
-  const ::CSR& msg_sepc() const;
-  ::CSR* release_msg_sepc();
-  ::CSR* mutable_msg_sepc();
-  void set_allocated_msg_sepc(::CSR* msg_sepc);
+  const ::VirtBasicCSR& msg_sepc() const;
+  ::VirtBasicCSR* release_msg_sepc();
+  ::VirtBasicCSR* mutable_msg_sepc();
+  void set_allocated_msg_sepc(::VirtBasicCSR* msg_sepc);
   private:
-  const ::CSR& _internal_msg_sepc() const;
-  ::CSR* _internal_mutable_msg_sepc();
+  const ::VirtBasicCSR& _internal_msg_sepc() const;
+  ::VirtBasicCSR* _internal_mutable_msg_sepc();
   public:
 
-  // .CSR msg_stval = 29;
+  // .VirtBasicCSR msg_stval = 29;
   bool has_msg_stval() const;
   private:
   bool _internal_has_msg_stval() const;
   public:
   void clear_msg_stval();
-  const ::CSR& msg_stval() const;
-  ::CSR* release_msg_stval();
-  ::CSR* mutable_msg_stval();
-  void set_allocated_msg_stval(::CSR* msg_stval);
+  const ::VirtBasicCSR& msg_stval() const;
+  ::VirtBasicCSR* release_msg_stval();
+  ::VirtBasicCSR* mutable_msg_stval();
+  void set_allocated_msg_stval(::VirtBasicCSR* msg_stval);
   private:
-  const ::CSR& _internal_msg_stval() const;
-  ::CSR* _internal_mutable_msg_stval();
+  const ::VirtBasicCSR& _internal_msg_stval() const;
+  ::VirtBasicCSR* _internal_mutable_msg_stval();
   public:
 
-  // .CSR msg_stvec = 30;
+  // .VirtBasicCSR msg_stvec = 30;
   bool has_msg_stvec() const;
   private:
   bool _internal_has_msg_stvec() const;
   public:
   void clear_msg_stvec();
-  const ::CSR& msg_stvec() const;
-  ::CSR* release_msg_stvec();
-  ::CSR* mutable_msg_stvec();
-  void set_allocated_msg_stvec(::CSR* msg_stvec);
+  const ::VirtBasicCSR& msg_stvec() const;
+  ::VirtBasicCSR* release_msg_stvec();
+  ::VirtBasicCSR* mutable_msg_stvec();
+  void set_allocated_msg_stvec(::VirtBasicCSR* msg_stvec);
   private:
-  const ::CSR& _internal_msg_stvec() const;
-  ::CSR* _internal_mutable_msg_stvec();
+  const ::VirtBasicCSR& _internal_msg_stvec() const;
+  ::VirtBasicCSR* _internal_mutable_msg_stvec();
   public:
 
-  // .SatpCSR msg_satp = 31;
+  // .VirtBasicCSR msg_satp = 31;
   bool has_msg_satp() const;
   private:
   bool _internal_has_msg_satp() const;
   public:
   void clear_msg_satp();
-  const ::SatpCSR& msg_satp() const;
-  ::SatpCSR* release_msg_satp();
-  ::SatpCSR* mutable_msg_satp();
-  void set_allocated_msg_satp(::SatpCSR* msg_satp);
+  const ::VirtBasicCSR& msg_satp() const;
+  ::VirtBasicCSR* release_msg_satp();
+  ::VirtBasicCSR* mutable_msg_satp();
+  void set_allocated_msg_satp(::VirtBasicCSR* msg_satp);
   private:
-  const ::SatpCSR& _internal_msg_satp() const;
-  ::SatpCSR* _internal_mutable_msg_satp();
+  const ::VirtBasicCSR& _internal_msg_satp() const;
+  ::VirtBasicCSR* _internal_mutable_msg_satp();
   public:
 
   // .CSR msg_scause = 32;
@@ -2305,7 +2460,7 @@ class ArchState :
   class _Internal;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::CSR > msg_mevent_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::BasicCSR > msg_mevent_;
   ::MisaCSR* msg_misa_;
   ::MstatusCSR* msg_mstatus_;
   ::CSR* msg_mstatush_;
@@ -2319,14 +2474,14 @@ class ArchState :
   ::BasicCSR* msg_mip_;
   ::MedelegCSR* msg_medeleg_;
   ::BasicCSR* msg_mideleg_;
-  ::CSR* msg_mcounteren_;
-  ::CSR* msg_mnstatus_;
-  ::CSR* msg_mnepc_;
-  ::CSR* msg_scounteren_;
-  ::CSR* msg_sepc_;
-  ::CSR* msg_stval_;
-  ::CSR* msg_stvec_;
-  ::SatpCSR* msg_satp_;
+  ::MaskedCSR* msg_mcounteren_;
+  ::BasicCSR* msg_mnstatus_;
+  ::BasicCSR* msg_mnepc_;
+  ::MaskedCSR* msg_scounteren_;
+  ::VirtBasicCSR* msg_sepc_;
+  ::VirtBasicCSR* msg_stval_;
+  ::VirtBasicCSR* msg_stvec_;
+  ::VirtBasicCSR* msg_satp_;
   ::CSR* msg_scause_;
   ::PROTOBUF_NAMESPACE_ID::uint64 msg_pc_;
   ::PROTOBUF_NAMESPACE_ID::uint64 msg_prv_;
@@ -2719,6 +2874,130 @@ inline void SatpCSR::set_allocated_msg_virt_satp_csr(::BasicCSR* msg_virt_satp_c
   }
   msg_virt_satp_csr_ = msg_virt_satp_csr;
   // @@protoc_insertion_point(field_set_allocated:SatpCSR.msg_virt_satp_csr)
+}
+
+// -------------------------------------------------------------------
+
+// VirtBasicCSR
+
+// .BasicCSR msg_nonvirt_csr = 1;
+inline bool VirtBasicCSR::_internal_has_msg_nonvirt_csr() const {
+  return this != internal_default_instance() && msg_nonvirt_csr_ != nullptr;
+}
+inline bool VirtBasicCSR::has_msg_nonvirt_csr() const {
+  return _internal_has_msg_nonvirt_csr();
+}
+inline void VirtBasicCSR::clear_msg_nonvirt_csr() {
+  if (GetArenaNoVirtual() == nullptr && msg_nonvirt_csr_ != nullptr) {
+    delete msg_nonvirt_csr_;
+  }
+  msg_nonvirt_csr_ = nullptr;
+}
+inline const ::BasicCSR& VirtBasicCSR::_internal_msg_nonvirt_csr() const {
+  const ::BasicCSR* p = msg_nonvirt_csr_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::BasicCSR*>(
+      &::_BasicCSR_default_instance_);
+}
+inline const ::BasicCSR& VirtBasicCSR::msg_nonvirt_csr() const {
+  // @@protoc_insertion_point(field_get:VirtBasicCSR.msg_nonvirt_csr)
+  return _internal_msg_nonvirt_csr();
+}
+inline ::BasicCSR* VirtBasicCSR::release_msg_nonvirt_csr() {
+  // @@protoc_insertion_point(field_release:VirtBasicCSR.msg_nonvirt_csr)
+  
+  ::BasicCSR* temp = msg_nonvirt_csr_;
+  msg_nonvirt_csr_ = nullptr;
+  return temp;
+}
+inline ::BasicCSR* VirtBasicCSR::_internal_mutable_msg_nonvirt_csr() {
+  
+  if (msg_nonvirt_csr_ == nullptr) {
+    auto* p = CreateMaybeMessage<::BasicCSR>(GetArenaNoVirtual());
+    msg_nonvirt_csr_ = p;
+  }
+  return msg_nonvirt_csr_;
+}
+inline ::BasicCSR* VirtBasicCSR::mutable_msg_nonvirt_csr() {
+  // @@protoc_insertion_point(field_mutable:VirtBasicCSR.msg_nonvirt_csr)
+  return _internal_mutable_msg_nonvirt_csr();
+}
+inline void VirtBasicCSR::set_allocated_msg_nonvirt_csr(::BasicCSR* msg_nonvirt_csr) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_nonvirt_csr_;
+  }
+  if (msg_nonvirt_csr) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_nonvirt_csr = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_nonvirt_csr, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_nonvirt_csr_ = msg_nonvirt_csr;
+  // @@protoc_insertion_point(field_set_allocated:VirtBasicCSR.msg_nonvirt_csr)
+}
+
+// .BasicCSR msg_virt_csr = 2;
+inline bool VirtBasicCSR::_internal_has_msg_virt_csr() const {
+  return this != internal_default_instance() && msg_virt_csr_ != nullptr;
+}
+inline bool VirtBasicCSR::has_msg_virt_csr() const {
+  return _internal_has_msg_virt_csr();
+}
+inline void VirtBasicCSR::clear_msg_virt_csr() {
+  if (GetArenaNoVirtual() == nullptr && msg_virt_csr_ != nullptr) {
+    delete msg_virt_csr_;
+  }
+  msg_virt_csr_ = nullptr;
+}
+inline const ::BasicCSR& VirtBasicCSR::_internal_msg_virt_csr() const {
+  const ::BasicCSR* p = msg_virt_csr_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::BasicCSR*>(
+      &::_BasicCSR_default_instance_);
+}
+inline const ::BasicCSR& VirtBasicCSR::msg_virt_csr() const {
+  // @@protoc_insertion_point(field_get:VirtBasicCSR.msg_virt_csr)
+  return _internal_msg_virt_csr();
+}
+inline ::BasicCSR* VirtBasicCSR::release_msg_virt_csr() {
+  // @@protoc_insertion_point(field_release:VirtBasicCSR.msg_virt_csr)
+  
+  ::BasicCSR* temp = msg_virt_csr_;
+  msg_virt_csr_ = nullptr;
+  return temp;
+}
+inline ::BasicCSR* VirtBasicCSR::_internal_mutable_msg_virt_csr() {
+  
+  if (msg_virt_csr_ == nullptr) {
+    auto* p = CreateMaybeMessage<::BasicCSR>(GetArenaNoVirtual());
+    msg_virt_csr_ = p;
+  }
+  return msg_virt_csr_;
+}
+inline ::BasicCSR* VirtBasicCSR::mutable_msg_virt_csr() {
+  // @@protoc_insertion_point(field_mutable:VirtBasicCSR.msg_virt_csr)
+  return _internal_mutable_msg_virt_csr();
+}
+inline void VirtBasicCSR::set_allocated_msg_virt_csr(::BasicCSR* msg_virt_csr) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_virt_csr_;
+  }
+  if (msg_virt_csr) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_virt_csr = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_virt_csr, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_virt_csr_ = msg_virt_csr;
+  // @@protoc_insertion_point(field_set_allocated:VirtBasicCSR.msg_virt_csr)
 }
 
 // -------------------------------------------------------------------
@@ -4313,7 +4592,7 @@ inline void ArchState::set_allocated_msg_mideleg(::BasicCSR* msg_mideleg) {
   // @@protoc_insertion_point(field_set_allocated:ArchState.msg_mideleg)
 }
 
-// .CSR msg_mcounteren = 23;
+// .MaskedCSR msg_mcounteren = 23;
 inline bool ArchState::_internal_has_msg_mcounteren() const {
   return this != internal_default_instance() && msg_mcounteren_ != nullptr;
 }
@@ -4326,35 +4605,35 @@ inline void ArchState::clear_msg_mcounteren() {
   }
   msg_mcounteren_ = nullptr;
 }
-inline const ::CSR& ArchState::_internal_msg_mcounteren() const {
-  const ::CSR* p = msg_mcounteren_;
-  return p != nullptr ? *p : *reinterpret_cast<const ::CSR*>(
-      &::_CSR_default_instance_);
+inline const ::MaskedCSR& ArchState::_internal_msg_mcounteren() const {
+  const ::MaskedCSR* p = msg_mcounteren_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::MaskedCSR*>(
+      &::_MaskedCSR_default_instance_);
 }
-inline const ::CSR& ArchState::msg_mcounteren() const {
+inline const ::MaskedCSR& ArchState::msg_mcounteren() const {
   // @@protoc_insertion_point(field_get:ArchState.msg_mcounteren)
   return _internal_msg_mcounteren();
 }
-inline ::CSR* ArchState::release_msg_mcounteren() {
+inline ::MaskedCSR* ArchState::release_msg_mcounteren() {
   // @@protoc_insertion_point(field_release:ArchState.msg_mcounteren)
   
-  ::CSR* temp = msg_mcounteren_;
+  ::MaskedCSR* temp = msg_mcounteren_;
   msg_mcounteren_ = nullptr;
   return temp;
 }
-inline ::CSR* ArchState::_internal_mutable_msg_mcounteren() {
+inline ::MaskedCSR* ArchState::_internal_mutable_msg_mcounteren() {
   
   if (msg_mcounteren_ == nullptr) {
-    auto* p = CreateMaybeMessage<::CSR>(GetArenaNoVirtual());
+    auto* p = CreateMaybeMessage<::MaskedCSR>(GetArenaNoVirtual());
     msg_mcounteren_ = p;
   }
   return msg_mcounteren_;
 }
-inline ::CSR* ArchState::mutable_msg_mcounteren() {
+inline ::MaskedCSR* ArchState::mutable_msg_mcounteren() {
   // @@protoc_insertion_point(field_mutable:ArchState.msg_mcounteren)
   return _internal_mutable_msg_mcounteren();
 }
-inline void ArchState::set_allocated_msg_mcounteren(::CSR* msg_mcounteren) {
+inline void ArchState::set_allocated_msg_mcounteren(::MaskedCSR* msg_mcounteren) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == nullptr) {
     delete msg_mcounteren_;
@@ -4373,7 +4652,7 @@ inline void ArchState::set_allocated_msg_mcounteren(::CSR* msg_mcounteren) {
   // @@protoc_insertion_point(field_set_allocated:ArchState.msg_mcounteren)
 }
 
-// repeated .CSR msg_mevent = 24;
+// repeated .BasicCSR msg_mevent = 24;
 inline int ArchState::_internal_msg_mevent_size() const {
   return msg_mevent_.size();
 }
@@ -4383,36 +4662,36 @@ inline int ArchState::msg_mevent_size() const {
 inline void ArchState::clear_msg_mevent() {
   msg_mevent_.Clear();
 }
-inline ::CSR* ArchState::mutable_msg_mevent(int index) {
+inline ::BasicCSR* ArchState::mutable_msg_mevent(int index) {
   // @@protoc_insertion_point(field_mutable:ArchState.msg_mevent)
   return msg_mevent_.Mutable(index);
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::CSR >*
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::BasicCSR >*
 ArchState::mutable_msg_mevent() {
   // @@protoc_insertion_point(field_mutable_list:ArchState.msg_mevent)
   return &msg_mevent_;
 }
-inline const ::CSR& ArchState::_internal_msg_mevent(int index) const {
+inline const ::BasicCSR& ArchState::_internal_msg_mevent(int index) const {
   return msg_mevent_.Get(index);
 }
-inline const ::CSR& ArchState::msg_mevent(int index) const {
+inline const ::BasicCSR& ArchState::msg_mevent(int index) const {
   // @@protoc_insertion_point(field_get:ArchState.msg_mevent)
   return _internal_msg_mevent(index);
 }
-inline ::CSR* ArchState::_internal_add_msg_mevent() {
+inline ::BasicCSR* ArchState::_internal_add_msg_mevent() {
   return msg_mevent_.Add();
 }
-inline ::CSR* ArchState::add_msg_mevent() {
+inline ::BasicCSR* ArchState::add_msg_mevent() {
   // @@protoc_insertion_point(field_add:ArchState.msg_mevent)
   return _internal_add_msg_mevent();
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::CSR >&
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::BasicCSR >&
 ArchState::msg_mevent() const {
   // @@protoc_insertion_point(field_list:ArchState.msg_mevent)
   return msg_mevent_;
 }
 
-// .CSR msg_mnstatus = 25;
+// .BasicCSR msg_mnstatus = 25;
 inline bool ArchState::_internal_has_msg_mnstatus() const {
   return this != internal_default_instance() && msg_mnstatus_ != nullptr;
 }
@@ -4425,35 +4704,35 @@ inline void ArchState::clear_msg_mnstatus() {
   }
   msg_mnstatus_ = nullptr;
 }
-inline const ::CSR& ArchState::_internal_msg_mnstatus() const {
-  const ::CSR* p = msg_mnstatus_;
-  return p != nullptr ? *p : *reinterpret_cast<const ::CSR*>(
-      &::_CSR_default_instance_);
+inline const ::BasicCSR& ArchState::_internal_msg_mnstatus() const {
+  const ::BasicCSR* p = msg_mnstatus_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::BasicCSR*>(
+      &::_BasicCSR_default_instance_);
 }
-inline const ::CSR& ArchState::msg_mnstatus() const {
+inline const ::BasicCSR& ArchState::msg_mnstatus() const {
   // @@protoc_insertion_point(field_get:ArchState.msg_mnstatus)
   return _internal_msg_mnstatus();
 }
-inline ::CSR* ArchState::release_msg_mnstatus() {
+inline ::BasicCSR* ArchState::release_msg_mnstatus() {
   // @@protoc_insertion_point(field_release:ArchState.msg_mnstatus)
   
-  ::CSR* temp = msg_mnstatus_;
+  ::BasicCSR* temp = msg_mnstatus_;
   msg_mnstatus_ = nullptr;
   return temp;
 }
-inline ::CSR* ArchState::_internal_mutable_msg_mnstatus() {
+inline ::BasicCSR* ArchState::_internal_mutable_msg_mnstatus() {
   
   if (msg_mnstatus_ == nullptr) {
-    auto* p = CreateMaybeMessage<::CSR>(GetArenaNoVirtual());
+    auto* p = CreateMaybeMessage<::BasicCSR>(GetArenaNoVirtual());
     msg_mnstatus_ = p;
   }
   return msg_mnstatus_;
 }
-inline ::CSR* ArchState::mutable_msg_mnstatus() {
+inline ::BasicCSR* ArchState::mutable_msg_mnstatus() {
   // @@protoc_insertion_point(field_mutable:ArchState.msg_mnstatus)
   return _internal_mutable_msg_mnstatus();
 }
-inline void ArchState::set_allocated_msg_mnstatus(::CSR* msg_mnstatus) {
+inline void ArchState::set_allocated_msg_mnstatus(::BasicCSR* msg_mnstatus) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == nullptr) {
     delete msg_mnstatus_;
@@ -4472,7 +4751,7 @@ inline void ArchState::set_allocated_msg_mnstatus(::CSR* msg_mnstatus) {
   // @@protoc_insertion_point(field_set_allocated:ArchState.msg_mnstatus)
 }
 
-// .CSR msg_mnepc = 26;
+// .BasicCSR msg_mnepc = 26;
 inline bool ArchState::_internal_has_msg_mnepc() const {
   return this != internal_default_instance() && msg_mnepc_ != nullptr;
 }
@@ -4485,35 +4764,35 @@ inline void ArchState::clear_msg_mnepc() {
   }
   msg_mnepc_ = nullptr;
 }
-inline const ::CSR& ArchState::_internal_msg_mnepc() const {
-  const ::CSR* p = msg_mnepc_;
-  return p != nullptr ? *p : *reinterpret_cast<const ::CSR*>(
-      &::_CSR_default_instance_);
+inline const ::BasicCSR& ArchState::_internal_msg_mnepc() const {
+  const ::BasicCSR* p = msg_mnepc_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::BasicCSR*>(
+      &::_BasicCSR_default_instance_);
 }
-inline const ::CSR& ArchState::msg_mnepc() const {
+inline const ::BasicCSR& ArchState::msg_mnepc() const {
   // @@protoc_insertion_point(field_get:ArchState.msg_mnepc)
   return _internal_msg_mnepc();
 }
-inline ::CSR* ArchState::release_msg_mnepc() {
+inline ::BasicCSR* ArchState::release_msg_mnepc() {
   // @@protoc_insertion_point(field_release:ArchState.msg_mnepc)
   
-  ::CSR* temp = msg_mnepc_;
+  ::BasicCSR* temp = msg_mnepc_;
   msg_mnepc_ = nullptr;
   return temp;
 }
-inline ::CSR* ArchState::_internal_mutable_msg_mnepc() {
+inline ::BasicCSR* ArchState::_internal_mutable_msg_mnepc() {
   
   if (msg_mnepc_ == nullptr) {
-    auto* p = CreateMaybeMessage<::CSR>(GetArenaNoVirtual());
+    auto* p = CreateMaybeMessage<::BasicCSR>(GetArenaNoVirtual());
     msg_mnepc_ = p;
   }
   return msg_mnepc_;
 }
-inline ::CSR* ArchState::mutable_msg_mnepc() {
+inline ::BasicCSR* ArchState::mutable_msg_mnepc() {
   // @@protoc_insertion_point(field_mutable:ArchState.msg_mnepc)
   return _internal_mutable_msg_mnepc();
 }
-inline void ArchState::set_allocated_msg_mnepc(::CSR* msg_mnepc) {
+inline void ArchState::set_allocated_msg_mnepc(::BasicCSR* msg_mnepc) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == nullptr) {
     delete msg_mnepc_;
@@ -4532,7 +4811,7 @@ inline void ArchState::set_allocated_msg_mnepc(::CSR* msg_mnepc) {
   // @@protoc_insertion_point(field_set_allocated:ArchState.msg_mnepc)
 }
 
-// .CSR msg_scounteren = 27;
+// .MaskedCSR msg_scounteren = 27;
 inline bool ArchState::_internal_has_msg_scounteren() const {
   return this != internal_default_instance() && msg_scounteren_ != nullptr;
 }
@@ -4545,35 +4824,35 @@ inline void ArchState::clear_msg_scounteren() {
   }
   msg_scounteren_ = nullptr;
 }
-inline const ::CSR& ArchState::_internal_msg_scounteren() const {
-  const ::CSR* p = msg_scounteren_;
-  return p != nullptr ? *p : *reinterpret_cast<const ::CSR*>(
-      &::_CSR_default_instance_);
+inline const ::MaskedCSR& ArchState::_internal_msg_scounteren() const {
+  const ::MaskedCSR* p = msg_scounteren_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::MaskedCSR*>(
+      &::_MaskedCSR_default_instance_);
 }
-inline const ::CSR& ArchState::msg_scounteren() const {
+inline const ::MaskedCSR& ArchState::msg_scounteren() const {
   // @@protoc_insertion_point(field_get:ArchState.msg_scounteren)
   return _internal_msg_scounteren();
 }
-inline ::CSR* ArchState::release_msg_scounteren() {
+inline ::MaskedCSR* ArchState::release_msg_scounteren() {
   // @@protoc_insertion_point(field_release:ArchState.msg_scounteren)
   
-  ::CSR* temp = msg_scounteren_;
+  ::MaskedCSR* temp = msg_scounteren_;
   msg_scounteren_ = nullptr;
   return temp;
 }
-inline ::CSR* ArchState::_internal_mutable_msg_scounteren() {
+inline ::MaskedCSR* ArchState::_internal_mutable_msg_scounteren() {
   
   if (msg_scounteren_ == nullptr) {
-    auto* p = CreateMaybeMessage<::CSR>(GetArenaNoVirtual());
+    auto* p = CreateMaybeMessage<::MaskedCSR>(GetArenaNoVirtual());
     msg_scounteren_ = p;
   }
   return msg_scounteren_;
 }
-inline ::CSR* ArchState::mutable_msg_scounteren() {
+inline ::MaskedCSR* ArchState::mutable_msg_scounteren() {
   // @@protoc_insertion_point(field_mutable:ArchState.msg_scounteren)
   return _internal_mutable_msg_scounteren();
 }
-inline void ArchState::set_allocated_msg_scounteren(::CSR* msg_scounteren) {
+inline void ArchState::set_allocated_msg_scounteren(::MaskedCSR* msg_scounteren) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == nullptr) {
     delete msg_scounteren_;
@@ -4592,7 +4871,7 @@ inline void ArchState::set_allocated_msg_scounteren(::CSR* msg_scounteren) {
   // @@protoc_insertion_point(field_set_allocated:ArchState.msg_scounteren)
 }
 
-// .CSR msg_sepc = 28;
+// .VirtBasicCSR msg_sepc = 28;
 inline bool ArchState::_internal_has_msg_sepc() const {
   return this != internal_default_instance() && msg_sepc_ != nullptr;
 }
@@ -4605,35 +4884,35 @@ inline void ArchState::clear_msg_sepc() {
   }
   msg_sepc_ = nullptr;
 }
-inline const ::CSR& ArchState::_internal_msg_sepc() const {
-  const ::CSR* p = msg_sepc_;
-  return p != nullptr ? *p : *reinterpret_cast<const ::CSR*>(
-      &::_CSR_default_instance_);
+inline const ::VirtBasicCSR& ArchState::_internal_msg_sepc() const {
+  const ::VirtBasicCSR* p = msg_sepc_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::VirtBasicCSR*>(
+      &::_VirtBasicCSR_default_instance_);
 }
-inline const ::CSR& ArchState::msg_sepc() const {
+inline const ::VirtBasicCSR& ArchState::msg_sepc() const {
   // @@protoc_insertion_point(field_get:ArchState.msg_sepc)
   return _internal_msg_sepc();
 }
-inline ::CSR* ArchState::release_msg_sepc() {
+inline ::VirtBasicCSR* ArchState::release_msg_sepc() {
   // @@protoc_insertion_point(field_release:ArchState.msg_sepc)
   
-  ::CSR* temp = msg_sepc_;
+  ::VirtBasicCSR* temp = msg_sepc_;
   msg_sepc_ = nullptr;
   return temp;
 }
-inline ::CSR* ArchState::_internal_mutable_msg_sepc() {
+inline ::VirtBasicCSR* ArchState::_internal_mutable_msg_sepc() {
   
   if (msg_sepc_ == nullptr) {
-    auto* p = CreateMaybeMessage<::CSR>(GetArenaNoVirtual());
+    auto* p = CreateMaybeMessage<::VirtBasicCSR>(GetArenaNoVirtual());
     msg_sepc_ = p;
   }
   return msg_sepc_;
 }
-inline ::CSR* ArchState::mutable_msg_sepc() {
+inline ::VirtBasicCSR* ArchState::mutable_msg_sepc() {
   // @@protoc_insertion_point(field_mutable:ArchState.msg_sepc)
   return _internal_mutable_msg_sepc();
 }
-inline void ArchState::set_allocated_msg_sepc(::CSR* msg_sepc) {
+inline void ArchState::set_allocated_msg_sepc(::VirtBasicCSR* msg_sepc) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == nullptr) {
     delete msg_sepc_;
@@ -4652,7 +4931,7 @@ inline void ArchState::set_allocated_msg_sepc(::CSR* msg_sepc) {
   // @@protoc_insertion_point(field_set_allocated:ArchState.msg_sepc)
 }
 
-// .CSR msg_stval = 29;
+// .VirtBasicCSR msg_stval = 29;
 inline bool ArchState::_internal_has_msg_stval() const {
   return this != internal_default_instance() && msg_stval_ != nullptr;
 }
@@ -4665,35 +4944,35 @@ inline void ArchState::clear_msg_stval() {
   }
   msg_stval_ = nullptr;
 }
-inline const ::CSR& ArchState::_internal_msg_stval() const {
-  const ::CSR* p = msg_stval_;
-  return p != nullptr ? *p : *reinterpret_cast<const ::CSR*>(
-      &::_CSR_default_instance_);
+inline const ::VirtBasicCSR& ArchState::_internal_msg_stval() const {
+  const ::VirtBasicCSR* p = msg_stval_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::VirtBasicCSR*>(
+      &::_VirtBasicCSR_default_instance_);
 }
-inline const ::CSR& ArchState::msg_stval() const {
+inline const ::VirtBasicCSR& ArchState::msg_stval() const {
   // @@protoc_insertion_point(field_get:ArchState.msg_stval)
   return _internal_msg_stval();
 }
-inline ::CSR* ArchState::release_msg_stval() {
+inline ::VirtBasicCSR* ArchState::release_msg_stval() {
   // @@protoc_insertion_point(field_release:ArchState.msg_stval)
   
-  ::CSR* temp = msg_stval_;
+  ::VirtBasicCSR* temp = msg_stval_;
   msg_stval_ = nullptr;
   return temp;
 }
-inline ::CSR* ArchState::_internal_mutable_msg_stval() {
+inline ::VirtBasicCSR* ArchState::_internal_mutable_msg_stval() {
   
   if (msg_stval_ == nullptr) {
-    auto* p = CreateMaybeMessage<::CSR>(GetArenaNoVirtual());
+    auto* p = CreateMaybeMessage<::VirtBasicCSR>(GetArenaNoVirtual());
     msg_stval_ = p;
   }
   return msg_stval_;
 }
-inline ::CSR* ArchState::mutable_msg_stval() {
+inline ::VirtBasicCSR* ArchState::mutable_msg_stval() {
   // @@protoc_insertion_point(field_mutable:ArchState.msg_stval)
   return _internal_mutable_msg_stval();
 }
-inline void ArchState::set_allocated_msg_stval(::CSR* msg_stval) {
+inline void ArchState::set_allocated_msg_stval(::VirtBasicCSR* msg_stval) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == nullptr) {
     delete msg_stval_;
@@ -4712,7 +4991,7 @@ inline void ArchState::set_allocated_msg_stval(::CSR* msg_stval) {
   // @@protoc_insertion_point(field_set_allocated:ArchState.msg_stval)
 }
 
-// .CSR msg_stvec = 30;
+// .VirtBasicCSR msg_stvec = 30;
 inline bool ArchState::_internal_has_msg_stvec() const {
   return this != internal_default_instance() && msg_stvec_ != nullptr;
 }
@@ -4725,35 +5004,35 @@ inline void ArchState::clear_msg_stvec() {
   }
   msg_stvec_ = nullptr;
 }
-inline const ::CSR& ArchState::_internal_msg_stvec() const {
-  const ::CSR* p = msg_stvec_;
-  return p != nullptr ? *p : *reinterpret_cast<const ::CSR*>(
-      &::_CSR_default_instance_);
+inline const ::VirtBasicCSR& ArchState::_internal_msg_stvec() const {
+  const ::VirtBasicCSR* p = msg_stvec_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::VirtBasicCSR*>(
+      &::_VirtBasicCSR_default_instance_);
 }
-inline const ::CSR& ArchState::msg_stvec() const {
+inline const ::VirtBasicCSR& ArchState::msg_stvec() const {
   // @@protoc_insertion_point(field_get:ArchState.msg_stvec)
   return _internal_msg_stvec();
 }
-inline ::CSR* ArchState::release_msg_stvec() {
+inline ::VirtBasicCSR* ArchState::release_msg_stvec() {
   // @@protoc_insertion_point(field_release:ArchState.msg_stvec)
   
-  ::CSR* temp = msg_stvec_;
+  ::VirtBasicCSR* temp = msg_stvec_;
   msg_stvec_ = nullptr;
   return temp;
 }
-inline ::CSR* ArchState::_internal_mutable_msg_stvec() {
+inline ::VirtBasicCSR* ArchState::_internal_mutable_msg_stvec() {
   
   if (msg_stvec_ == nullptr) {
-    auto* p = CreateMaybeMessage<::CSR>(GetArenaNoVirtual());
+    auto* p = CreateMaybeMessage<::VirtBasicCSR>(GetArenaNoVirtual());
     msg_stvec_ = p;
   }
   return msg_stvec_;
 }
-inline ::CSR* ArchState::mutable_msg_stvec() {
+inline ::VirtBasicCSR* ArchState::mutable_msg_stvec() {
   // @@protoc_insertion_point(field_mutable:ArchState.msg_stvec)
   return _internal_mutable_msg_stvec();
 }
-inline void ArchState::set_allocated_msg_stvec(::CSR* msg_stvec) {
+inline void ArchState::set_allocated_msg_stvec(::VirtBasicCSR* msg_stvec) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == nullptr) {
     delete msg_stvec_;
@@ -4772,7 +5051,7 @@ inline void ArchState::set_allocated_msg_stvec(::CSR* msg_stvec) {
   // @@protoc_insertion_point(field_set_allocated:ArchState.msg_stvec)
 }
 
-// .SatpCSR msg_satp = 31;
+// .VirtBasicCSR msg_satp = 31;
 inline bool ArchState::_internal_has_msg_satp() const {
   return this != internal_default_instance() && msg_satp_ != nullptr;
 }
@@ -4785,35 +5064,35 @@ inline void ArchState::clear_msg_satp() {
   }
   msg_satp_ = nullptr;
 }
-inline const ::SatpCSR& ArchState::_internal_msg_satp() const {
-  const ::SatpCSR* p = msg_satp_;
-  return p != nullptr ? *p : *reinterpret_cast<const ::SatpCSR*>(
-      &::_SatpCSR_default_instance_);
+inline const ::VirtBasicCSR& ArchState::_internal_msg_satp() const {
+  const ::VirtBasicCSR* p = msg_satp_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::VirtBasicCSR*>(
+      &::_VirtBasicCSR_default_instance_);
 }
-inline const ::SatpCSR& ArchState::msg_satp() const {
+inline const ::VirtBasicCSR& ArchState::msg_satp() const {
   // @@protoc_insertion_point(field_get:ArchState.msg_satp)
   return _internal_msg_satp();
 }
-inline ::SatpCSR* ArchState::release_msg_satp() {
+inline ::VirtBasicCSR* ArchState::release_msg_satp() {
   // @@protoc_insertion_point(field_release:ArchState.msg_satp)
   
-  ::SatpCSR* temp = msg_satp_;
+  ::VirtBasicCSR* temp = msg_satp_;
   msg_satp_ = nullptr;
   return temp;
 }
-inline ::SatpCSR* ArchState::_internal_mutable_msg_satp() {
+inline ::VirtBasicCSR* ArchState::_internal_mutable_msg_satp() {
   
   if (msg_satp_ == nullptr) {
-    auto* p = CreateMaybeMessage<::SatpCSR>(GetArenaNoVirtual());
+    auto* p = CreateMaybeMessage<::VirtBasicCSR>(GetArenaNoVirtual());
     msg_satp_ = p;
   }
   return msg_satp_;
 }
-inline ::SatpCSR* ArchState::mutable_msg_satp() {
+inline ::VirtBasicCSR* ArchState::mutable_msg_satp() {
   // @@protoc_insertion_point(field_mutable:ArchState.msg_satp)
   return _internal_mutable_msg_satp();
 }
-inline void ArchState::set_allocated_msg_satp(::SatpCSR* msg_satp) {
+inline void ArchState::set_allocated_msg_satp(::VirtBasicCSR* msg_satp) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == nullptr) {
     delete msg_satp_;
@@ -4895,6 +5174,8 @@ inline void ArchState::set_allocated_msg_scause(::CSR* msg_scause) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

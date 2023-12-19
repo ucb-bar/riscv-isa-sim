@@ -533,6 +533,7 @@ public:
   DCSR* gen_dcsr_csr_proto(dcsr_csr_t_p csr) {
     CSR* c = gen_csr_proto(csr->address);
     DCSR* d = google::protobuf::Arena::Create<DCSR>(arena);
+    d->set_allocated_msg_csr(c);
     d->set_msg_prv     (csr->prv);
     d->set_msg_step    (csr->step);
     d->set_msg_ebreakm (csr->ebreakm);

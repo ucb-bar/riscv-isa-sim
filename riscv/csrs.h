@@ -857,6 +857,20 @@ class dcsr_csr_t: public csr_t {
           (v == csr.v) &&
           (cause == csr.cause);
   }
+
+  virtual void print() override {
+    std::cout << prv << ", "
+              << step << ", "
+              << ebreakm << ", "
+              << ebreaks << ", "
+              << ebreaku << ", "
+              << ebreakvs << ", "
+              << ebreakvu << ", "
+              << halt << ", "
+              << v << ", "
+              << cause << std::endl;
+    csr_t::print();
+  }
 };
 
 typedef std::shared_ptr<dcsr_csr_t> dcsr_csr_t_p;

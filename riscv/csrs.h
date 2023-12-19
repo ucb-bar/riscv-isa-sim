@@ -550,7 +550,7 @@ class henvcfg_csr_t final: public envcfg_csr_t {
 
   virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const override;
 
- private:
+ public:
   csr_t_p menvcfg;
 };
 
@@ -623,7 +623,7 @@ class time_counter_csr_t: public csr_t {
 
  protected:
   virtual bool unlogged_write(const reg_t UNUSED val, processor_t* p) noexcept override { return false; };
- private:
+ public:
   reg_t shadow_val;
 };
 
@@ -636,7 +636,7 @@ class proxy_csr_t: public csr_t {
   virtual reg_t read(processor_t* p) const noexcept override;
  protected:
   bool unlogged_write(const reg_t val, processor_t* p) noexcept override;
- private:
+ public:
   csr_t_p delegate;
 };
 
@@ -856,7 +856,7 @@ class stimecmp_csr_t: public basic_csr_t {
 
  protected:
   virtual bool unlogged_write(const reg_t val, processor_t* p) noexcept override;
- private:
+ public:
   reg_t intr_mask;
 };
 

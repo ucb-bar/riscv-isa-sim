@@ -80,12 +80,14 @@ message MedelegCSR {
   uint64   msg_hypervisor_exceptions = 2;
 }
 
-message SstatusCSR {
-}
-
 message HstateenCSR {
   MaskedCSR  msg_masked_csr = 1;
   uint32     msg_index      = 2;
+}
+
+message TimeProxyCSR {
+  CSR      msg_csr  = 1;
+  BasicCSR msg_time = 2;
 }
 
 message DCSR {
@@ -118,11 +120,11 @@ message StimecmpCSR {
   uint64   msg_intr_mask = 2;
 }
 
-enum StepEnum {
-  STEP_NONE = 0;
-  STEP_STEPPING = 1;
-  STEP_STEPPED = 2;
-}
+// enum StepEnum {
+//   STEP_NONE = 0;
+//   STEP_STEPPING = 1;
+//   STEP_STEPPED = 2;
+// }
 
 message HidelegCSR {
   MaskedCSR msg_hideleg_csr = 1;
@@ -139,13 +141,15 @@ message HenvcfgCSR {
   MaskedCSR msg_menvcfg = 2;
 }
 
-// CSR       csr
-// MaskedCSR delegate
+message Float128 {
+  uint64 msg_0 = 1;
+  uint64 msg_1 = 2;
+}
 
 message ArchState {
-  uint64  msg_pc          = 1;
-// XPR = 2;
-// FPR = 3;
+  uint64  msg_pc               = 1;
+  repeated uint64 msg_XPR      = 2;
+  repeated Float128 msg_FPR    = 3;
   uint64       msg_prv         = 4;
   uint64       msg_prev_prv    = 5;
   bool         msg_prv_changed = 6;
@@ -202,13 +206,13 @@ message ArchState {
   repeated MaskedCSR msg_mstateen = 57;
   repeated HstateenCSR msg_sstateen = 58;
   repeated HstateenCSR msg_hstateen = 59;
-  BasicCSR msg_htimedelta      = 60;
-  TimeCntrCSR  msg_time        = 61;
-  ???          msg_time_proxy  = 62;
+  BasicCSR     msg_htimedelta  = 60;
+  BasicCSR     msg_time        = 61;
+  CSR          msg_time_proxy  = 62;
   StimecmpCSR  msg_stimecmp    = 63;
   StimecmpCSR  msg_vstimecmp   = 64;
   bool         msg_serialized  = 65;
-  StepEnum     msg_single_step = 66;
+  uint32       msg_single_step = 66;
   uint64       msg_last_inst_priv = 67;
   int32        msg_last_inst_xlen = 68;
   int32        msg_last_inst_flen = 69;

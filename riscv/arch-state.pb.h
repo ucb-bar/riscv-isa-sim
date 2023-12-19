@@ -47,7 +47,7 @@ struct TableStruct_arch_2dstate_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[13]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[26]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -66,9 +66,27 @@ extern BasicCSRDefaultTypeInternal _BasicCSR_default_instance_;
 class CSR;
 class CSRDefaultTypeInternal;
 extern CSRDefaultTypeInternal _CSR_default_instance_;
+class DCSR;
+class DCSRDefaultTypeInternal;
+extern DCSRDefaultTypeInternal _DCSR_default_instance_;
+class Float128;
+class Float128DefaultTypeInternal;
+extern Float128DefaultTypeInternal _Float128_default_instance_;
+class HenvcfgCSR;
+class HenvcfgCSRDefaultTypeInternal;
+extern HenvcfgCSRDefaultTypeInternal _HenvcfgCSR_default_instance_;
+class HidelegCSR;
+class HidelegCSRDefaultTypeInternal;
+extern HidelegCSRDefaultTypeInternal _HidelegCSR_default_instance_;
+class HstateenCSR;
+class HstateenCSRDefaultTypeInternal;
+extern HstateenCSRDefaultTypeInternal _HstateenCSR_default_instance_;
 class MaskedCSR;
 class MaskedCSRDefaultTypeInternal;
 extern MaskedCSRDefaultTypeInternal _MaskedCSR_default_instance_;
+class McontextCSR;
+class McontextCSRDefaultTypeInternal;
+extern McontextCSRDefaultTypeInternal _McontextCSR_default_instance_;
 class MedelegCSR;
 class MedelegCSRDefaultTypeInternal;
 extern MedelegCSRDefaultTypeInternal _MedelegCSR_default_instance_;
@@ -81,15 +99,36 @@ extern MstatusCSRDefaultTypeInternal _MstatusCSR_default_instance_;
 class OptionalUInt64;
 class OptionalUInt64DefaultTypeInternal;
 extern OptionalUInt64DefaultTypeInternal _OptionalUInt64_default_instance_;
+class PmpCSR;
+class PmpCSRDefaultTypeInternal;
+extern PmpCSRDefaultTypeInternal _PmpCSR_default_instance_;
 class SatpCSR;
 class SatpCSRDefaultTypeInternal;
 extern SatpCSRDefaultTypeInternal _SatpCSR_default_instance_;
 class SmcntrpmfCSR;
 class SmcntrpmfCSRDefaultTypeInternal;
 extern SmcntrpmfCSRDefaultTypeInternal _SmcntrpmfCSR_default_instance_;
+class SstatusCSR;
+class SstatusCSRDefaultTypeInternal;
+extern SstatusCSRDefaultTypeInternal _SstatusCSR_default_instance_;
+class SstatusProxyCSR;
+class SstatusProxyCSRDefaultTypeInternal;
+extern SstatusProxyCSRDefaultTypeInternal _SstatusProxyCSR_default_instance_;
+class StimecmpCSR;
+class StimecmpCSRDefaultTypeInternal;
+extern StimecmpCSRDefaultTypeInternal _StimecmpCSR_default_instance_;
+class TimeCntrCSR;
+class TimeCntrCSRDefaultTypeInternal;
+extern TimeCntrCSRDefaultTypeInternal _TimeCntrCSR_default_instance_;
+class TimeProxyCSR;
+class TimeProxyCSRDefaultTypeInternal;
+extern TimeProxyCSRDefaultTypeInternal _TimeProxyCSR_default_instance_;
 class VirtBasicCSR;
 class VirtBasicCSRDefaultTypeInternal;
 extern VirtBasicCSRDefaultTypeInternal _VirtBasicCSR_default_instance_;
+class VsstatusCSR;
+class VsstatusCSRDefaultTypeInternal;
+extern VsstatusCSRDefaultTypeInternal _VsstatusCSR_default_instance_;
 class WideCntrCSR;
 class WideCntrCSRDefaultTypeInternal;
 extern WideCntrCSRDefaultTypeInternal _WideCntrCSR_default_instance_;
@@ -98,14 +137,27 @@ template<> ::ArchState* Arena::CreateMaybeMessage<::ArchState>(Arena*);
 template<> ::BaseStatusCSR* Arena::CreateMaybeMessage<::BaseStatusCSR>(Arena*);
 template<> ::BasicCSR* Arena::CreateMaybeMessage<::BasicCSR>(Arena*);
 template<> ::CSR* Arena::CreateMaybeMessage<::CSR>(Arena*);
+template<> ::DCSR* Arena::CreateMaybeMessage<::DCSR>(Arena*);
+template<> ::Float128* Arena::CreateMaybeMessage<::Float128>(Arena*);
+template<> ::HenvcfgCSR* Arena::CreateMaybeMessage<::HenvcfgCSR>(Arena*);
+template<> ::HidelegCSR* Arena::CreateMaybeMessage<::HidelegCSR>(Arena*);
+template<> ::HstateenCSR* Arena::CreateMaybeMessage<::HstateenCSR>(Arena*);
 template<> ::MaskedCSR* Arena::CreateMaybeMessage<::MaskedCSR>(Arena*);
+template<> ::McontextCSR* Arena::CreateMaybeMessage<::McontextCSR>(Arena*);
 template<> ::MedelegCSR* Arena::CreateMaybeMessage<::MedelegCSR>(Arena*);
 template<> ::MisaCSR* Arena::CreateMaybeMessage<::MisaCSR>(Arena*);
 template<> ::MstatusCSR* Arena::CreateMaybeMessage<::MstatusCSR>(Arena*);
 template<> ::OptionalUInt64* Arena::CreateMaybeMessage<::OptionalUInt64>(Arena*);
+template<> ::PmpCSR* Arena::CreateMaybeMessage<::PmpCSR>(Arena*);
 template<> ::SatpCSR* Arena::CreateMaybeMessage<::SatpCSR>(Arena*);
 template<> ::SmcntrpmfCSR* Arena::CreateMaybeMessage<::SmcntrpmfCSR>(Arena*);
+template<> ::SstatusCSR* Arena::CreateMaybeMessage<::SstatusCSR>(Arena*);
+template<> ::SstatusProxyCSR* Arena::CreateMaybeMessage<::SstatusProxyCSR>(Arena*);
+template<> ::StimecmpCSR* Arena::CreateMaybeMessage<::StimecmpCSR>(Arena*);
+template<> ::TimeCntrCSR* Arena::CreateMaybeMessage<::TimeCntrCSR>(Arena*);
+template<> ::TimeProxyCSR* Arena::CreateMaybeMessage<::TimeProxyCSR>(Arena*);
 template<> ::VirtBasicCSR* Arena::CreateMaybeMessage<::VirtBasicCSR>(Arena*);
+template<> ::VsstatusCSR* Arena::CreateMaybeMessage<::VsstatusCSR>(Arena*);
 template<> ::WideCntrCSR* Arena::CreateMaybeMessage<::WideCntrCSR>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 
@@ -1176,6 +1228,453 @@ class MstatusCSR :
 };
 // -------------------------------------------------------------------
 
+class SstatusProxyCSR :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:SstatusProxyCSR) */ {
+ public:
+  SstatusProxyCSR();
+  virtual ~SstatusProxyCSR();
+
+  SstatusProxyCSR(const SstatusProxyCSR& from);
+  SstatusProxyCSR(SstatusProxyCSR&& from) noexcept
+    : SstatusProxyCSR() {
+    *this = ::std::move(from);
+  }
+
+  inline SstatusProxyCSR& operator=(const SstatusProxyCSR& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SstatusProxyCSR& operator=(SstatusProxyCSR&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const SstatusProxyCSR& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const SstatusProxyCSR* internal_default_instance() {
+    return reinterpret_cast<const SstatusProxyCSR*>(
+               &_SstatusProxyCSR_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    7;
+
+  friend void swap(SstatusProxyCSR& a, SstatusProxyCSR& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SstatusProxyCSR* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline SstatusProxyCSR* New() const final {
+    return CreateMaybeMessage<SstatusProxyCSR>(nullptr);
+  }
+
+  SstatusProxyCSR* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SstatusProxyCSR>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const SstatusProxyCSR& from);
+  void MergeFrom(const SstatusProxyCSR& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SstatusProxyCSR* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "SstatusProxyCSR";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_arch_2dstate_2eproto);
+    return ::descriptor_table_arch_2dstate_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMsgBaseStatusCsrFieldNumber = 1,
+    kMsgMstatusCsrFieldNumber = 2,
+  };
+  // .BaseStatusCSR msg_base_status_csr = 1;
+  bool has_msg_base_status_csr() const;
+  private:
+  bool _internal_has_msg_base_status_csr() const;
+  public:
+  void clear_msg_base_status_csr();
+  const ::BaseStatusCSR& msg_base_status_csr() const;
+  ::BaseStatusCSR* release_msg_base_status_csr();
+  ::BaseStatusCSR* mutable_msg_base_status_csr();
+  void set_allocated_msg_base_status_csr(::BaseStatusCSR* msg_base_status_csr);
+  private:
+  const ::BaseStatusCSR& _internal_msg_base_status_csr() const;
+  ::BaseStatusCSR* _internal_mutable_msg_base_status_csr();
+  public:
+
+  // .MstatusCSR msg_mstatus_csr = 2;
+  bool has_msg_mstatus_csr() const;
+  private:
+  bool _internal_has_msg_mstatus_csr() const;
+  public:
+  void clear_msg_mstatus_csr();
+  const ::MstatusCSR& msg_mstatus_csr() const;
+  ::MstatusCSR* release_msg_mstatus_csr();
+  ::MstatusCSR* mutable_msg_mstatus_csr();
+  void set_allocated_msg_mstatus_csr(::MstatusCSR* msg_mstatus_csr);
+  private:
+  const ::MstatusCSR& _internal_msg_mstatus_csr() const;
+  ::MstatusCSR* _internal_mutable_msg_mstatus_csr();
+  public:
+
+  // @@protoc_insertion_point(class_scope:SstatusProxyCSR)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::BaseStatusCSR* msg_base_status_csr_;
+  ::MstatusCSR* msg_mstatus_csr_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_arch_2dstate_2eproto;
+};
+// -------------------------------------------------------------------
+
+class VsstatusCSR :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:VsstatusCSR) */ {
+ public:
+  VsstatusCSR();
+  virtual ~VsstatusCSR();
+
+  VsstatusCSR(const VsstatusCSR& from);
+  VsstatusCSR(VsstatusCSR&& from) noexcept
+    : VsstatusCSR() {
+    *this = ::std::move(from);
+  }
+
+  inline VsstatusCSR& operator=(const VsstatusCSR& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline VsstatusCSR& operator=(VsstatusCSR&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const VsstatusCSR& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const VsstatusCSR* internal_default_instance() {
+    return reinterpret_cast<const VsstatusCSR*>(
+               &_VsstatusCSR_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    8;
+
+  friend void swap(VsstatusCSR& a, VsstatusCSR& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(VsstatusCSR* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline VsstatusCSR* New() const final {
+    return CreateMaybeMessage<VsstatusCSR>(nullptr);
+  }
+
+  VsstatusCSR* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<VsstatusCSR>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const VsstatusCSR& from);
+  void MergeFrom(const VsstatusCSR& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(VsstatusCSR* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "VsstatusCSR";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_arch_2dstate_2eproto);
+    return ::descriptor_table_arch_2dstate_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMsgBaseStatusCsrFieldNumber = 1,
+    kMsgValFieldNumber = 2,
+  };
+  // .BaseStatusCSR msg_base_status_csr = 1;
+  bool has_msg_base_status_csr() const;
+  private:
+  bool _internal_has_msg_base_status_csr() const;
+  public:
+  void clear_msg_base_status_csr();
+  const ::BaseStatusCSR& msg_base_status_csr() const;
+  ::BaseStatusCSR* release_msg_base_status_csr();
+  ::BaseStatusCSR* mutable_msg_base_status_csr();
+  void set_allocated_msg_base_status_csr(::BaseStatusCSR* msg_base_status_csr);
+  private:
+  const ::BaseStatusCSR& _internal_msg_base_status_csr() const;
+  ::BaseStatusCSR* _internal_mutable_msg_base_status_csr();
+  public:
+
+  // uint64 msg_val = 2;
+  void clear_msg_val();
+  ::PROTOBUF_NAMESPACE_ID::uint64 msg_val() const;
+  void set_msg_val(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint64 _internal_msg_val() const;
+  void _internal_set_msg_val(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:VsstatusCSR)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::BaseStatusCSR* msg_base_status_csr_;
+  ::PROTOBUF_NAMESPACE_ID::uint64 msg_val_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_arch_2dstate_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SstatusCSR :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:SstatusCSR) */ {
+ public:
+  SstatusCSR();
+  virtual ~SstatusCSR();
+
+  SstatusCSR(const SstatusCSR& from);
+  SstatusCSR(SstatusCSR&& from) noexcept
+    : SstatusCSR() {
+    *this = ::std::move(from);
+  }
+
+  inline SstatusCSR& operator=(const SstatusCSR& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SstatusCSR& operator=(SstatusCSR&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const SstatusCSR& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const SstatusCSR* internal_default_instance() {
+    return reinterpret_cast<const SstatusCSR*>(
+               &_SstatusCSR_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    9;
+
+  friend void swap(SstatusCSR& a, SstatusCSR& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SstatusCSR* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline SstatusCSR* New() const final {
+    return CreateMaybeMessage<SstatusCSR>(nullptr);
+  }
+
+  SstatusCSR* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SstatusCSR>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const SstatusCSR& from);
+  void MergeFrom(const SstatusCSR& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SstatusCSR* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "SstatusCSR";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_arch_2dstate_2eproto);
+    return ::descriptor_table_arch_2dstate_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMsgOrigSstatusFieldNumber = 1,
+    kMsgVirtSstatusFieldNumber = 2,
+  };
+  // .SstatusProxyCSR msg_orig_sstatus = 1;
+  bool has_msg_orig_sstatus() const;
+  private:
+  bool _internal_has_msg_orig_sstatus() const;
+  public:
+  void clear_msg_orig_sstatus();
+  const ::SstatusProxyCSR& msg_orig_sstatus() const;
+  ::SstatusProxyCSR* release_msg_orig_sstatus();
+  ::SstatusProxyCSR* mutable_msg_orig_sstatus();
+  void set_allocated_msg_orig_sstatus(::SstatusProxyCSR* msg_orig_sstatus);
+  private:
+  const ::SstatusProxyCSR& _internal_msg_orig_sstatus() const;
+  ::SstatusProxyCSR* _internal_mutable_msg_orig_sstatus();
+  public:
+
+  // .VsstatusCSR msg_virt_sstatus = 2;
+  bool has_msg_virt_sstatus() const;
+  private:
+  bool _internal_has_msg_virt_sstatus() const;
+  public:
+  void clear_msg_virt_sstatus();
+  const ::VsstatusCSR& msg_virt_sstatus() const;
+  ::VsstatusCSR* release_msg_virt_sstatus();
+  ::VsstatusCSR* mutable_msg_virt_sstatus();
+  void set_allocated_msg_virt_sstatus(::VsstatusCSR* msg_virt_sstatus);
+  private:
+  const ::VsstatusCSR& _internal_msg_virt_sstatus() const;
+  ::VsstatusCSR* _internal_mutable_msg_virt_sstatus();
+  public:
+
+  // @@protoc_insertion_point(class_scope:SstatusCSR)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::SstatusProxyCSR* msg_orig_sstatus_;
+  ::VsstatusCSR* msg_virt_sstatus_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_arch_2dstate_2eproto;
+};
+// -------------------------------------------------------------------
+
 class MaskedCSR :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:MaskedCSR) */ {
  public:
@@ -1218,7 +1717,7 @@ class MaskedCSR :
                &_MaskedCSR_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    10;
 
   friend void swap(MaskedCSR& a, MaskedCSR& b) {
     a.Swap(&b);
@@ -1363,7 +1862,7 @@ class OptionalUInt64 :
                &_OptionalUInt64_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    11;
 
   friend void swap(OptionalUInt64& a, OptionalUInt64& b) {
     a.Swap(&b);
@@ -1491,7 +1990,7 @@ class SmcntrpmfCSR :
                &_SmcntrpmfCSR_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    12;
 
   friend void swap(SmcntrpmfCSR& a, SmcntrpmfCSR& b) {
     a.Swap(&b);
@@ -1642,7 +2141,7 @@ class WideCntrCSR :
                &_WideCntrCSR_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    13;
 
   friend void swap(WideCntrCSR& a, WideCntrCSR& b) {
     a.Swap(&b);
@@ -1804,7 +2303,7 @@ class MedelegCSR :
                &_MedelegCSR_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    14;
 
   friend void swap(MedelegCSR& a, MedelegCSR& b) {
     a.Swap(&b);
@@ -1907,6 +2406,1584 @@ class MedelegCSR :
 };
 // -------------------------------------------------------------------
 
+class HstateenCSR :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:HstateenCSR) */ {
+ public:
+  HstateenCSR();
+  virtual ~HstateenCSR();
+
+  HstateenCSR(const HstateenCSR& from);
+  HstateenCSR(HstateenCSR&& from) noexcept
+    : HstateenCSR() {
+    *this = ::std::move(from);
+  }
+
+  inline HstateenCSR& operator=(const HstateenCSR& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline HstateenCSR& operator=(HstateenCSR&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const HstateenCSR& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const HstateenCSR* internal_default_instance() {
+    return reinterpret_cast<const HstateenCSR*>(
+               &_HstateenCSR_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    15;
+
+  friend void swap(HstateenCSR& a, HstateenCSR& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(HstateenCSR* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline HstateenCSR* New() const final {
+    return CreateMaybeMessage<HstateenCSR>(nullptr);
+  }
+
+  HstateenCSR* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<HstateenCSR>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const HstateenCSR& from);
+  void MergeFrom(const HstateenCSR& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(HstateenCSR* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "HstateenCSR";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_arch_2dstate_2eproto);
+    return ::descriptor_table_arch_2dstate_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMsgMaskedCsrFieldNumber = 1,
+    kMsgIndexFieldNumber = 2,
+  };
+  // .MaskedCSR msg_masked_csr = 1;
+  bool has_msg_masked_csr() const;
+  private:
+  bool _internal_has_msg_masked_csr() const;
+  public:
+  void clear_msg_masked_csr();
+  const ::MaskedCSR& msg_masked_csr() const;
+  ::MaskedCSR* release_msg_masked_csr();
+  ::MaskedCSR* mutable_msg_masked_csr();
+  void set_allocated_msg_masked_csr(::MaskedCSR* msg_masked_csr);
+  private:
+  const ::MaskedCSR& _internal_msg_masked_csr() const;
+  ::MaskedCSR* _internal_mutable_msg_masked_csr();
+  public:
+
+  // uint32 msg_index = 2;
+  void clear_msg_index();
+  ::PROTOBUF_NAMESPACE_ID::uint32 msg_index() const;
+  void set_msg_index(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_msg_index() const;
+  void _internal_set_msg_index(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:HstateenCSR)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::MaskedCSR* msg_masked_csr_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 msg_index_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_arch_2dstate_2eproto;
+};
+// -------------------------------------------------------------------
+
+class TimeProxyCSR :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:TimeProxyCSR) */ {
+ public:
+  TimeProxyCSR();
+  virtual ~TimeProxyCSR();
+
+  TimeProxyCSR(const TimeProxyCSR& from);
+  TimeProxyCSR(TimeProxyCSR&& from) noexcept
+    : TimeProxyCSR() {
+    *this = ::std::move(from);
+  }
+
+  inline TimeProxyCSR& operator=(const TimeProxyCSR& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline TimeProxyCSR& operator=(TimeProxyCSR&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const TimeProxyCSR& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const TimeProxyCSR* internal_default_instance() {
+    return reinterpret_cast<const TimeProxyCSR*>(
+               &_TimeProxyCSR_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    16;
+
+  friend void swap(TimeProxyCSR& a, TimeProxyCSR& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(TimeProxyCSR* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline TimeProxyCSR* New() const final {
+    return CreateMaybeMessage<TimeProxyCSR>(nullptr);
+  }
+
+  TimeProxyCSR* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<TimeProxyCSR>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const TimeProxyCSR& from);
+  void MergeFrom(const TimeProxyCSR& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(TimeProxyCSR* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "TimeProxyCSR";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_arch_2dstate_2eproto);
+    return ::descriptor_table_arch_2dstate_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMsgCsrFieldNumber = 1,
+    kMsgTimeFieldNumber = 2,
+  };
+  // .CSR msg_csr = 1;
+  bool has_msg_csr() const;
+  private:
+  bool _internal_has_msg_csr() const;
+  public:
+  void clear_msg_csr();
+  const ::CSR& msg_csr() const;
+  ::CSR* release_msg_csr();
+  ::CSR* mutable_msg_csr();
+  void set_allocated_msg_csr(::CSR* msg_csr);
+  private:
+  const ::CSR& _internal_msg_csr() const;
+  ::CSR* _internal_mutable_msg_csr();
+  public:
+
+  // .BasicCSR msg_time = 2;
+  bool has_msg_time() const;
+  private:
+  bool _internal_has_msg_time() const;
+  public:
+  void clear_msg_time();
+  const ::BasicCSR& msg_time() const;
+  ::BasicCSR* release_msg_time();
+  ::BasicCSR* mutable_msg_time();
+  void set_allocated_msg_time(::BasicCSR* msg_time);
+  private:
+  const ::BasicCSR& _internal_msg_time() const;
+  ::BasicCSR* _internal_mutable_msg_time();
+  public:
+
+  // @@protoc_insertion_point(class_scope:TimeProxyCSR)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::CSR* msg_csr_;
+  ::BasicCSR* msg_time_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_arch_2dstate_2eproto;
+};
+// -------------------------------------------------------------------
+
+class DCSR :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:DCSR) */ {
+ public:
+  DCSR();
+  virtual ~DCSR();
+
+  DCSR(const DCSR& from);
+  DCSR(DCSR&& from) noexcept
+    : DCSR() {
+    *this = ::std::move(from);
+  }
+
+  inline DCSR& operator=(const DCSR& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline DCSR& operator=(DCSR&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const DCSR& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const DCSR* internal_default_instance() {
+    return reinterpret_cast<const DCSR*>(
+               &_DCSR_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    17;
+
+  friend void swap(DCSR& a, DCSR& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(DCSR* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline DCSR* New() const final {
+    return CreateMaybeMessage<DCSR>(nullptr);
+  }
+
+  DCSR* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<DCSR>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const DCSR& from);
+  void MergeFrom(const DCSR& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(DCSR* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "DCSR";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_arch_2dstate_2eproto);
+    return ::descriptor_table_arch_2dstate_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMsgCsrFieldNumber = 1,
+    kMsgPrvFieldNumber = 2,
+    kMsgStepFieldNumber = 3,
+    kMsgEbreakmFieldNumber = 4,
+    kMsgEbreaksFieldNumber = 5,
+    kMsgEbreakuFieldNumber = 6,
+    kMsgEbreakvsFieldNumber = 7,
+    kMsgEbreakvuFieldNumber = 8,
+    kMsgHaltFieldNumber = 9,
+    kMsgVFieldNumber = 10,
+    kMsgCauseFieldNumber = 11,
+  };
+  // .CSR msg_csr = 1;
+  bool has_msg_csr() const;
+  private:
+  bool _internal_has_msg_csr() const;
+  public:
+  void clear_msg_csr();
+  const ::CSR& msg_csr() const;
+  ::CSR* release_msg_csr();
+  ::CSR* mutable_msg_csr();
+  void set_allocated_msg_csr(::CSR* msg_csr);
+  private:
+  const ::CSR& _internal_msg_csr() const;
+  ::CSR* _internal_mutable_msg_csr();
+  public:
+
+  // uint32 msg_prv = 2;
+  void clear_msg_prv();
+  ::PROTOBUF_NAMESPACE_ID::uint32 msg_prv() const;
+  void set_msg_prv(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_msg_prv() const;
+  void _internal_set_msg_prv(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // bool msg_step = 3;
+  void clear_msg_step();
+  bool msg_step() const;
+  void set_msg_step(bool value);
+  private:
+  bool _internal_msg_step() const;
+  void _internal_set_msg_step(bool value);
+  public:
+
+  // bool msg_ebreakm = 4;
+  void clear_msg_ebreakm();
+  bool msg_ebreakm() const;
+  void set_msg_ebreakm(bool value);
+  private:
+  bool _internal_msg_ebreakm() const;
+  void _internal_set_msg_ebreakm(bool value);
+  public:
+
+  // bool msg_ebreaks = 5;
+  void clear_msg_ebreaks();
+  bool msg_ebreaks() const;
+  void set_msg_ebreaks(bool value);
+  private:
+  bool _internal_msg_ebreaks() const;
+  void _internal_set_msg_ebreaks(bool value);
+  public:
+
+  // bool msg_ebreaku = 6;
+  void clear_msg_ebreaku();
+  bool msg_ebreaku() const;
+  void set_msg_ebreaku(bool value);
+  private:
+  bool _internal_msg_ebreaku() const;
+  void _internal_set_msg_ebreaku(bool value);
+  public:
+
+  // bool msg_ebreakvs = 7;
+  void clear_msg_ebreakvs();
+  bool msg_ebreakvs() const;
+  void set_msg_ebreakvs(bool value);
+  private:
+  bool _internal_msg_ebreakvs() const;
+  void _internal_set_msg_ebreakvs(bool value);
+  public:
+
+  // bool msg_ebreakvu = 8;
+  void clear_msg_ebreakvu();
+  bool msg_ebreakvu() const;
+  void set_msg_ebreakvu(bool value);
+  private:
+  bool _internal_msg_ebreakvu() const;
+  void _internal_set_msg_ebreakvu(bool value);
+  public:
+
+  // bool msg_halt = 9;
+  void clear_msg_halt();
+  bool msg_halt() const;
+  void set_msg_halt(bool value);
+  private:
+  bool _internal_msg_halt() const;
+  void _internal_set_msg_halt(bool value);
+  public:
+
+  // bool msg_v = 10;
+  void clear_msg_v();
+  bool msg_v() const;
+  void set_msg_v(bool value);
+  private:
+  bool _internal_msg_v() const;
+  void _internal_set_msg_v(bool value);
+  public:
+
+  // uint32 msg_cause = 11;
+  void clear_msg_cause();
+  ::PROTOBUF_NAMESPACE_ID::uint32 msg_cause() const;
+  void set_msg_cause(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_msg_cause() const;
+  void _internal_set_msg_cause(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:DCSR)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::CSR* msg_csr_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 msg_prv_;
+  bool msg_step_;
+  bool msg_ebreakm_;
+  bool msg_ebreaks_;
+  bool msg_ebreaku_;
+  bool msg_ebreakvs_;
+  bool msg_ebreakvu_;
+  bool msg_halt_;
+  bool msg_v_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 msg_cause_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_arch_2dstate_2eproto;
+};
+// -------------------------------------------------------------------
+
+class PmpCSR :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:PmpCSR) */ {
+ public:
+  PmpCSR();
+  virtual ~PmpCSR();
+
+  PmpCSR(const PmpCSR& from);
+  PmpCSR(PmpCSR&& from) noexcept
+    : PmpCSR() {
+    *this = ::std::move(from);
+  }
+
+  inline PmpCSR& operator=(const PmpCSR& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PmpCSR& operator=(PmpCSR&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const PmpCSR& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const PmpCSR* internal_default_instance() {
+    return reinterpret_cast<const PmpCSR*>(
+               &_PmpCSR_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    18;
+
+  friend void swap(PmpCSR& a, PmpCSR& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(PmpCSR* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline PmpCSR* New() const final {
+    return CreateMaybeMessage<PmpCSR>(nullptr);
+  }
+
+  PmpCSR* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<PmpCSR>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const PmpCSR& from);
+  void MergeFrom(const PmpCSR& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(PmpCSR* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "PmpCSR";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_arch_2dstate_2eproto);
+    return ::descriptor_table_arch_2dstate_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMsgBasicCsrFieldNumber = 1,
+    kMsgPmpidxFieldNumber = 3,
+    kMsgCfgFieldNumber = 2,
+  };
+  // .BasicCSR msg_basic_csr = 1;
+  bool has_msg_basic_csr() const;
+  private:
+  bool _internal_has_msg_basic_csr() const;
+  public:
+  void clear_msg_basic_csr();
+  const ::BasicCSR& msg_basic_csr() const;
+  ::BasicCSR* release_msg_basic_csr();
+  ::BasicCSR* mutable_msg_basic_csr();
+  void set_allocated_msg_basic_csr(::BasicCSR* msg_basic_csr);
+  private:
+  const ::BasicCSR& _internal_msg_basic_csr() const;
+  ::BasicCSR* _internal_mutable_msg_basic_csr();
+  public:
+
+  // uint64 msg_pmpidx = 3;
+  void clear_msg_pmpidx();
+  ::PROTOBUF_NAMESPACE_ID::uint64 msg_pmpidx() const;
+  void set_msg_pmpidx(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint64 _internal_msg_pmpidx() const;
+  void _internal_set_msg_pmpidx(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  public:
+
+  // uint32 msg_cfg = 2;
+  void clear_msg_cfg();
+  ::PROTOBUF_NAMESPACE_ID::uint32 msg_cfg() const;
+  void set_msg_cfg(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_msg_cfg() const;
+  void _internal_set_msg_cfg(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:PmpCSR)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::BasicCSR* msg_basic_csr_;
+  ::PROTOBUF_NAMESPACE_ID::uint64 msg_pmpidx_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 msg_cfg_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_arch_2dstate_2eproto;
+};
+// -------------------------------------------------------------------
+
+class TimeCntrCSR :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:TimeCntrCSR) */ {
+ public:
+  TimeCntrCSR();
+  virtual ~TimeCntrCSR();
+
+  TimeCntrCSR(const TimeCntrCSR& from);
+  TimeCntrCSR(TimeCntrCSR&& from) noexcept
+    : TimeCntrCSR() {
+    *this = ::std::move(from);
+  }
+
+  inline TimeCntrCSR& operator=(const TimeCntrCSR& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline TimeCntrCSR& operator=(TimeCntrCSR&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const TimeCntrCSR& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const TimeCntrCSR* internal_default_instance() {
+    return reinterpret_cast<const TimeCntrCSR*>(
+               &_TimeCntrCSR_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    19;
+
+  friend void swap(TimeCntrCSR& a, TimeCntrCSR& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(TimeCntrCSR* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline TimeCntrCSR* New() const final {
+    return CreateMaybeMessage<TimeCntrCSR>(nullptr);
+  }
+
+  TimeCntrCSR* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<TimeCntrCSR>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const TimeCntrCSR& from);
+  void MergeFrom(const TimeCntrCSR& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(TimeCntrCSR* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "TimeCntrCSR";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_arch_2dstate_2eproto);
+    return ::descriptor_table_arch_2dstate_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMsgCsrFieldNumber = 1,
+    kMsgShadowValFieldNumber = 2,
+  };
+  // .CSR msg_csr = 1;
+  bool has_msg_csr() const;
+  private:
+  bool _internal_has_msg_csr() const;
+  public:
+  void clear_msg_csr();
+  const ::CSR& msg_csr() const;
+  ::CSR* release_msg_csr();
+  ::CSR* mutable_msg_csr();
+  void set_allocated_msg_csr(::CSR* msg_csr);
+  private:
+  const ::CSR& _internal_msg_csr() const;
+  ::CSR* _internal_mutable_msg_csr();
+  public:
+
+  // uint64 msg_shadow_val = 2;
+  void clear_msg_shadow_val();
+  ::PROTOBUF_NAMESPACE_ID::uint64 msg_shadow_val() const;
+  void set_msg_shadow_val(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint64 _internal_msg_shadow_val() const;
+  void _internal_set_msg_shadow_val(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:TimeCntrCSR)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::CSR* msg_csr_;
+  ::PROTOBUF_NAMESPACE_ID::uint64 msg_shadow_val_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_arch_2dstate_2eproto;
+};
+// -------------------------------------------------------------------
+
+class StimecmpCSR :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:StimecmpCSR) */ {
+ public:
+  StimecmpCSR();
+  virtual ~StimecmpCSR();
+
+  StimecmpCSR(const StimecmpCSR& from);
+  StimecmpCSR(StimecmpCSR&& from) noexcept
+    : StimecmpCSR() {
+    *this = ::std::move(from);
+  }
+
+  inline StimecmpCSR& operator=(const StimecmpCSR& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline StimecmpCSR& operator=(StimecmpCSR&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const StimecmpCSR& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const StimecmpCSR* internal_default_instance() {
+    return reinterpret_cast<const StimecmpCSR*>(
+               &_StimecmpCSR_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    20;
+
+  friend void swap(StimecmpCSR& a, StimecmpCSR& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(StimecmpCSR* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline StimecmpCSR* New() const final {
+    return CreateMaybeMessage<StimecmpCSR>(nullptr);
+  }
+
+  StimecmpCSR* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<StimecmpCSR>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const StimecmpCSR& from);
+  void MergeFrom(const StimecmpCSR& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(StimecmpCSR* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "StimecmpCSR";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_arch_2dstate_2eproto);
+    return ::descriptor_table_arch_2dstate_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMsgBasicCsrFieldNumber = 1,
+    kMsgIntrMaskFieldNumber = 2,
+  };
+  // .BasicCSR msg_basic_csr = 1;
+  bool has_msg_basic_csr() const;
+  private:
+  bool _internal_has_msg_basic_csr() const;
+  public:
+  void clear_msg_basic_csr();
+  const ::BasicCSR& msg_basic_csr() const;
+  ::BasicCSR* release_msg_basic_csr();
+  ::BasicCSR* mutable_msg_basic_csr();
+  void set_allocated_msg_basic_csr(::BasicCSR* msg_basic_csr);
+  private:
+  const ::BasicCSR& _internal_msg_basic_csr() const;
+  ::BasicCSR* _internal_mutable_msg_basic_csr();
+  public:
+
+  // uint64 msg_intr_mask = 2;
+  void clear_msg_intr_mask();
+  ::PROTOBUF_NAMESPACE_ID::uint64 msg_intr_mask() const;
+  void set_msg_intr_mask(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint64 _internal_msg_intr_mask() const;
+  void _internal_set_msg_intr_mask(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:StimecmpCSR)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::BasicCSR* msg_basic_csr_;
+  ::PROTOBUF_NAMESPACE_ID::uint64 msg_intr_mask_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_arch_2dstate_2eproto;
+};
+// -------------------------------------------------------------------
+
+class HidelegCSR :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:HidelegCSR) */ {
+ public:
+  HidelegCSR();
+  virtual ~HidelegCSR();
+
+  HidelegCSR(const HidelegCSR& from);
+  HidelegCSR(HidelegCSR&& from) noexcept
+    : HidelegCSR() {
+    *this = ::std::move(from);
+  }
+
+  inline HidelegCSR& operator=(const HidelegCSR& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline HidelegCSR& operator=(HidelegCSR&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const HidelegCSR& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const HidelegCSR* internal_default_instance() {
+    return reinterpret_cast<const HidelegCSR*>(
+               &_HidelegCSR_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    21;
+
+  friend void swap(HidelegCSR& a, HidelegCSR& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(HidelegCSR* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline HidelegCSR* New() const final {
+    return CreateMaybeMessage<HidelegCSR>(nullptr);
+  }
+
+  HidelegCSR* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<HidelegCSR>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const HidelegCSR& from);
+  void MergeFrom(const HidelegCSR& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(HidelegCSR* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "HidelegCSR";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_arch_2dstate_2eproto);
+    return ::descriptor_table_arch_2dstate_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMsgHidelegCsrFieldNumber = 1,
+    kMsgMidelegCsrFieldNumber = 2,
+  };
+  // .MaskedCSR msg_hideleg_csr = 1;
+  bool has_msg_hideleg_csr() const;
+  private:
+  bool _internal_has_msg_hideleg_csr() const;
+  public:
+  void clear_msg_hideleg_csr();
+  const ::MaskedCSR& msg_hideleg_csr() const;
+  ::MaskedCSR* release_msg_hideleg_csr();
+  ::MaskedCSR* mutable_msg_hideleg_csr();
+  void set_allocated_msg_hideleg_csr(::MaskedCSR* msg_hideleg_csr);
+  private:
+  const ::MaskedCSR& _internal_msg_hideleg_csr() const;
+  ::MaskedCSR* _internal_mutable_msg_hideleg_csr();
+  public:
+
+  // .BasicCSR msg_mideleg_csr = 2;
+  bool has_msg_mideleg_csr() const;
+  private:
+  bool _internal_has_msg_mideleg_csr() const;
+  public:
+  void clear_msg_mideleg_csr();
+  const ::BasicCSR& msg_mideleg_csr() const;
+  ::BasicCSR* release_msg_mideleg_csr();
+  ::BasicCSR* mutable_msg_mideleg_csr();
+  void set_allocated_msg_mideleg_csr(::BasicCSR* msg_mideleg_csr);
+  private:
+  const ::BasicCSR& _internal_msg_mideleg_csr() const;
+  ::BasicCSR* _internal_mutable_msg_mideleg_csr();
+  public:
+
+  // @@protoc_insertion_point(class_scope:HidelegCSR)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::MaskedCSR* msg_hideleg_csr_;
+  ::BasicCSR* msg_mideleg_csr_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_arch_2dstate_2eproto;
+};
+// -------------------------------------------------------------------
+
+class McontextCSR :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:McontextCSR) */ {
+ public:
+  McontextCSR();
+  virtual ~McontextCSR();
+
+  McontextCSR(const McontextCSR& from);
+  McontextCSR(McontextCSR&& from) noexcept
+    : McontextCSR() {
+    *this = ::std::move(from);
+  }
+
+  inline McontextCSR& operator=(const McontextCSR& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline McontextCSR& operator=(McontextCSR&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const McontextCSR& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const McontextCSR* internal_default_instance() {
+    return reinterpret_cast<const McontextCSR*>(
+               &_McontextCSR_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    22;
+
+  friend void swap(McontextCSR& a, McontextCSR& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(McontextCSR* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline McontextCSR* New() const final {
+    return CreateMaybeMessage<McontextCSR>(nullptr);
+  }
+
+  McontextCSR* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<McontextCSR>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const McontextCSR& from);
+  void MergeFrom(const McontextCSR& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(McontextCSR* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "McontextCSR";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_arch_2dstate_2eproto);
+    return ::descriptor_table_arch_2dstate_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMsgCsrFieldNumber = 1,
+    kMsgDelegateFieldNumber = 2,
+  };
+  // .CSR msg_csr = 1;
+  bool has_msg_csr() const;
+  private:
+  bool _internal_has_msg_csr() const;
+  public:
+  void clear_msg_csr();
+  const ::CSR& msg_csr() const;
+  ::CSR* release_msg_csr();
+  ::CSR* mutable_msg_csr();
+  void set_allocated_msg_csr(::CSR* msg_csr);
+  private:
+  const ::CSR& _internal_msg_csr() const;
+  ::CSR* _internal_mutable_msg_csr();
+  public:
+
+  // .MaskedCSR msg_delegate = 2;
+  bool has_msg_delegate() const;
+  private:
+  bool _internal_has_msg_delegate() const;
+  public:
+  void clear_msg_delegate();
+  const ::MaskedCSR& msg_delegate() const;
+  ::MaskedCSR* release_msg_delegate();
+  ::MaskedCSR* mutable_msg_delegate();
+  void set_allocated_msg_delegate(::MaskedCSR* msg_delegate);
+  private:
+  const ::MaskedCSR& _internal_msg_delegate() const;
+  ::MaskedCSR* _internal_mutable_msg_delegate();
+  public:
+
+  // @@protoc_insertion_point(class_scope:McontextCSR)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::CSR* msg_csr_;
+  ::MaskedCSR* msg_delegate_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_arch_2dstate_2eproto;
+};
+// -------------------------------------------------------------------
+
+class HenvcfgCSR :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:HenvcfgCSR) */ {
+ public:
+  HenvcfgCSR();
+  virtual ~HenvcfgCSR();
+
+  HenvcfgCSR(const HenvcfgCSR& from);
+  HenvcfgCSR(HenvcfgCSR&& from) noexcept
+    : HenvcfgCSR() {
+    *this = ::std::move(from);
+  }
+
+  inline HenvcfgCSR& operator=(const HenvcfgCSR& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline HenvcfgCSR& operator=(HenvcfgCSR&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const HenvcfgCSR& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const HenvcfgCSR* internal_default_instance() {
+    return reinterpret_cast<const HenvcfgCSR*>(
+               &_HenvcfgCSR_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    23;
+
+  friend void swap(HenvcfgCSR& a, HenvcfgCSR& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(HenvcfgCSR* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline HenvcfgCSR* New() const final {
+    return CreateMaybeMessage<HenvcfgCSR>(nullptr);
+  }
+
+  HenvcfgCSR* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<HenvcfgCSR>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const HenvcfgCSR& from);
+  void MergeFrom(const HenvcfgCSR& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(HenvcfgCSR* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "HenvcfgCSR";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_arch_2dstate_2eproto);
+    return ::descriptor_table_arch_2dstate_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMsgHenvcfgFieldNumber = 1,
+    kMsgMenvcfgFieldNumber = 2,
+  };
+  // .MaskedCSR msg_henvcfg = 1;
+  bool has_msg_henvcfg() const;
+  private:
+  bool _internal_has_msg_henvcfg() const;
+  public:
+  void clear_msg_henvcfg();
+  const ::MaskedCSR& msg_henvcfg() const;
+  ::MaskedCSR* release_msg_henvcfg();
+  ::MaskedCSR* mutable_msg_henvcfg();
+  void set_allocated_msg_henvcfg(::MaskedCSR* msg_henvcfg);
+  private:
+  const ::MaskedCSR& _internal_msg_henvcfg() const;
+  ::MaskedCSR* _internal_mutable_msg_henvcfg();
+  public:
+
+  // .MaskedCSR msg_menvcfg = 2;
+  bool has_msg_menvcfg() const;
+  private:
+  bool _internal_has_msg_menvcfg() const;
+  public:
+  void clear_msg_menvcfg();
+  const ::MaskedCSR& msg_menvcfg() const;
+  ::MaskedCSR* release_msg_menvcfg();
+  ::MaskedCSR* mutable_msg_menvcfg();
+  void set_allocated_msg_menvcfg(::MaskedCSR* msg_menvcfg);
+  private:
+  const ::MaskedCSR& _internal_msg_menvcfg() const;
+  ::MaskedCSR* _internal_mutable_msg_menvcfg();
+  public:
+
+  // @@protoc_insertion_point(class_scope:HenvcfgCSR)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::MaskedCSR* msg_henvcfg_;
+  ::MaskedCSR* msg_menvcfg_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_arch_2dstate_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Float128 :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Float128) */ {
+ public:
+  Float128();
+  virtual ~Float128();
+
+  Float128(const Float128& from);
+  Float128(Float128&& from) noexcept
+    : Float128() {
+    *this = ::std::move(from);
+  }
+
+  inline Float128& operator=(const Float128& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Float128& operator=(Float128&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const Float128& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const Float128* internal_default_instance() {
+    return reinterpret_cast<const Float128*>(
+               &_Float128_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    24;
+
+  friend void swap(Float128& a, Float128& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Float128* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Float128* New() const final {
+    return CreateMaybeMessage<Float128>(nullptr);
+  }
+
+  Float128* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Float128>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const Float128& from);
+  void MergeFrom(const Float128& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Float128* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Float128";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_arch_2dstate_2eproto);
+    return ::descriptor_table_arch_2dstate_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMsg0FieldNumber = 1,
+    kMsg1FieldNumber = 2,
+  };
+  // uint64 msg_0 = 1;
+  void clear_msg_0();
+  ::PROTOBUF_NAMESPACE_ID::uint64 msg_0() const;
+  void set_msg_0(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint64 _internal_msg_0() const;
+  void _internal_set_msg_0(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  public:
+
+  // uint64 msg_1 = 2;
+  void clear_msg_1();
+  ::PROTOBUF_NAMESPACE_ID::uint64 msg_1() const;
+  void set_msg_1(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint64 _internal_msg_1() const;
+  void _internal_set_msg_1(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Float128)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::uint64 msg_0_;
+  ::PROTOBUF_NAMESPACE_ID::uint64 msg_1_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_arch_2dstate_2eproto;
+};
+// -------------------------------------------------------------------
+
 class ArchState :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ArchState) */ {
  public:
@@ -1949,7 +4026,7 @@ class ArchState :
                &_ArchState_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    25;
 
   friend void swap(ArchState& a, ArchState& b) {
     a.Swap(&b);
@@ -2013,10 +4090,14 @@ class ArchState :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kMsgXPRFieldNumber = 2,
+    kMsgFPRFieldNumber = 3,
     kMsgMeventFieldNumber = 24,
+    kMsgPmpaddrFieldNumber = 52,
+    kMsgMstateenFieldNumber = 57,
+    kMsgSstateenFieldNumber = 58,
+    kMsgHstateenFieldNumber = 59,
     kMsgMisaFieldNumber = 10,
-    kMsgMstatusFieldNumber = 11,
-    kMsgMstatushFieldNumber = 12,
     kMsgMepcFieldNumber = 13,
     kMsgMtvalFieldNumber = 14,
     kMsgMtvecFieldNumber = 15,
@@ -2026,7 +4107,6 @@ class ArchState :
     kMsgMieFieldNumber = 19,
     kMsgMipFieldNumber = 20,
     kMsgMedelegFieldNumber = 21,
-    kMsgMidelegFieldNumber = 22,
     kMsgMcounterenFieldNumber = 23,
     kMsgMnstatusFieldNumber = 25,
     kMsgMnepcFieldNumber = 26,
@@ -2036,6 +4116,33 @@ class ArchState :
     kMsgStvecFieldNumber = 30,
     kMsgSatpFieldNumber = 31,
     kMsgScauseFieldNumber = 32,
+    kMsgMtval2FieldNumber = 33,
+    kMsgMtinstFieldNumber = 34,
+    kMsgHstatusFieldNumber = 35,
+    kMsgHidelegFieldNumber = 36,
+    kMsgHedelegFieldNumber = 37,
+    kMsgHcounterenFieldNumber = 38,
+    kMsgHtvalFieldNumber = 39,
+    kMsgHtinstFieldNumber = 40,
+    kMsgHgatpFieldNumber = 41,
+    kMsgSstatusFieldNumber = 42,
+    kMsgDpcFieldNumber = 43,
+    kMsgDcsrFieldNumber = 44,
+    kMsgTselectFieldNumber = 45,
+    kMsgTdata2FieldNumber = 46,
+    kMsgScontextFieldNumber = 47,
+    kMsgMcontextFieldNumber = 48,
+    kMsgJvtFieldNumber = 49,
+    kMsgMseccfgFieldNumber = 51,
+    kMsgFflagsFieldNumber = 53,
+    kMsgFrmFieldNumber = 54,
+    kMsgSenvcfgFieldNumber = 55,
+    kMsgHenvcfgFieldNumber = 56,
+    kMsgHtimedeltaFieldNumber = 60,
+    kMsgTimeFieldNumber = 61,
+    kMsgTimeProxyFieldNumber = 62,
+    kMsgStimecmpFieldNumber = 63,
+    kMsgVstimecmpFieldNumber = 64,
     kMsgPcFieldNumber = 1,
     kMsgPrvFieldNumber = 4,
     kMsgPrevPrvFieldNumber = 5,
@@ -2043,7 +4150,53 @@ class ArchState :
     kMsgVChangedFieldNumber = 7,
     kMsgVFieldNumber = 8,
     kMsgPrevVFieldNumber = 9,
+    kMsgDebugModeFieldNumber = 50,
+    kMsgSerializedFieldNumber = 65,
+    kMsgLastInstPrivFieldNumber = 67,
+    kMsgSingleStepFieldNumber = 66,
+    kMsgLastInstXlenFieldNumber = 68,
+    kMsgLastInstFlenFieldNumber = 69,
   };
+  // repeated uint64 msg_XPR = 2;
+  int msg_xpr_size() const;
+  private:
+  int _internal_msg_xpr_size() const;
+  public:
+  void clear_msg_xpr();
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint64 _internal_msg_xpr(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint64 >&
+      _internal_msg_xpr() const;
+  void _internal_add_msg_xpr(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint64 >*
+      _internal_mutable_msg_xpr();
+  public:
+  ::PROTOBUF_NAMESPACE_ID::uint64 msg_xpr(int index) const;
+  void set_msg_xpr(int index, ::PROTOBUF_NAMESPACE_ID::uint64 value);
+  void add_msg_xpr(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint64 >&
+      msg_xpr() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint64 >*
+      mutable_msg_xpr();
+
+  // repeated .Float128 msg_FPR = 3;
+  int msg_fpr_size() const;
+  private:
+  int _internal_msg_fpr_size() const;
+  public:
+  void clear_msg_fpr();
+  ::Float128* mutable_msg_fpr(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Float128 >*
+      mutable_msg_fpr();
+  private:
+  const ::Float128& _internal_msg_fpr(int index) const;
+  ::Float128* _internal_add_msg_fpr();
+  public:
+  const ::Float128& msg_fpr(int index) const;
+  ::Float128* add_msg_fpr();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Float128 >&
+      msg_fpr() const;
+
   // repeated .BasicCSR msg_mevent = 24;
   int msg_mevent_size() const;
   private:
@@ -2062,6 +4215,78 @@ class ArchState :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::BasicCSR >&
       msg_mevent() const;
 
+  // repeated .PmpCSR msg_pmpaddr = 52;
+  int msg_pmpaddr_size() const;
+  private:
+  int _internal_msg_pmpaddr_size() const;
+  public:
+  void clear_msg_pmpaddr();
+  ::PmpCSR* mutable_msg_pmpaddr(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::PmpCSR >*
+      mutable_msg_pmpaddr();
+  private:
+  const ::PmpCSR& _internal_msg_pmpaddr(int index) const;
+  ::PmpCSR* _internal_add_msg_pmpaddr();
+  public:
+  const ::PmpCSR& msg_pmpaddr(int index) const;
+  ::PmpCSR* add_msg_pmpaddr();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::PmpCSR >&
+      msg_pmpaddr() const;
+
+  // repeated .MaskedCSR msg_mstateen = 57;
+  int msg_mstateen_size() const;
+  private:
+  int _internal_msg_mstateen_size() const;
+  public:
+  void clear_msg_mstateen();
+  ::MaskedCSR* mutable_msg_mstateen(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::MaskedCSR >*
+      mutable_msg_mstateen();
+  private:
+  const ::MaskedCSR& _internal_msg_mstateen(int index) const;
+  ::MaskedCSR* _internal_add_msg_mstateen();
+  public:
+  const ::MaskedCSR& msg_mstateen(int index) const;
+  ::MaskedCSR* add_msg_mstateen();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::MaskedCSR >&
+      msg_mstateen() const;
+
+  // repeated .HstateenCSR msg_sstateen = 58;
+  int msg_sstateen_size() const;
+  private:
+  int _internal_msg_sstateen_size() const;
+  public:
+  void clear_msg_sstateen();
+  ::HstateenCSR* mutable_msg_sstateen(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::HstateenCSR >*
+      mutable_msg_sstateen();
+  private:
+  const ::HstateenCSR& _internal_msg_sstateen(int index) const;
+  ::HstateenCSR* _internal_add_msg_sstateen();
+  public:
+  const ::HstateenCSR& msg_sstateen(int index) const;
+  ::HstateenCSR* add_msg_sstateen();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::HstateenCSR >&
+      msg_sstateen() const;
+
+  // repeated .HstateenCSR msg_hstateen = 59;
+  int msg_hstateen_size() const;
+  private:
+  int _internal_msg_hstateen_size() const;
+  public:
+  void clear_msg_hstateen();
+  ::HstateenCSR* mutable_msg_hstateen(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::HstateenCSR >*
+      mutable_msg_hstateen();
+  private:
+  const ::HstateenCSR& _internal_msg_hstateen(int index) const;
+  ::HstateenCSR* _internal_add_msg_hstateen();
+  public:
+  const ::HstateenCSR& msg_hstateen(int index) const;
+  ::HstateenCSR* add_msg_hstateen();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::HstateenCSR >&
+      msg_hstateen() const;
+
   // .MisaCSR msg_misa = 10;
   bool has_msg_misa() const;
   private:
@@ -2075,36 +4300,6 @@ class ArchState :
   private:
   const ::MisaCSR& _internal_msg_misa() const;
   ::MisaCSR* _internal_mutable_msg_misa();
-  public:
-
-  // .MstatusCSR msg_mstatus = 11;
-  bool has_msg_mstatus() const;
-  private:
-  bool _internal_has_msg_mstatus() const;
-  public:
-  void clear_msg_mstatus();
-  const ::MstatusCSR& msg_mstatus() const;
-  ::MstatusCSR* release_msg_mstatus();
-  ::MstatusCSR* mutable_msg_mstatus();
-  void set_allocated_msg_mstatus(::MstatusCSR* msg_mstatus);
-  private:
-  const ::MstatusCSR& _internal_msg_mstatus() const;
-  ::MstatusCSR* _internal_mutable_msg_mstatus();
-  public:
-
-  // .CSR msg_mstatush = 12;
-  bool has_msg_mstatush() const;
-  private:
-  bool _internal_has_msg_mstatush() const;
-  public:
-  void clear_msg_mstatush();
-  const ::CSR& msg_mstatush() const;
-  ::CSR* release_msg_mstatush();
-  ::CSR* mutable_msg_mstatush();
-  void set_allocated_msg_mstatush(::CSR* msg_mstatush);
-  private:
-  const ::CSR& _internal_msg_mstatush() const;
-  ::CSR* _internal_mutable_msg_mstatush();
   public:
 
   // .BasicCSR msg_mepc = 13;
@@ -2242,21 +4437,6 @@ class ArchState :
   ::MedelegCSR* _internal_mutable_msg_medeleg();
   public:
 
-  // .BasicCSR msg_mideleg = 22;
-  bool has_msg_mideleg() const;
-  private:
-  bool _internal_has_msg_mideleg() const;
-  public:
-  void clear_msg_mideleg();
-  const ::BasicCSR& msg_mideleg() const;
-  ::BasicCSR* release_msg_mideleg();
-  ::BasicCSR* mutable_msg_mideleg();
-  void set_allocated_msg_mideleg(::BasicCSR* msg_mideleg);
-  private:
-  const ::BasicCSR& _internal_msg_mideleg() const;
-  ::BasicCSR* _internal_mutable_msg_mideleg();
-  public:
-
   // .MaskedCSR msg_mcounteren = 23;
   bool has_msg_mcounteren() const;
   private:
@@ -2377,19 +4557,424 @@ class ArchState :
   ::VirtBasicCSR* _internal_mutable_msg_satp();
   public:
 
-  // .CSR msg_scause = 32;
+  // .VirtBasicCSR msg_scause = 32;
   bool has_msg_scause() const;
   private:
   bool _internal_has_msg_scause() const;
   public:
   void clear_msg_scause();
-  const ::CSR& msg_scause() const;
-  ::CSR* release_msg_scause();
-  ::CSR* mutable_msg_scause();
-  void set_allocated_msg_scause(::CSR* msg_scause);
+  const ::VirtBasicCSR& msg_scause() const;
+  ::VirtBasicCSR* release_msg_scause();
+  ::VirtBasicCSR* mutable_msg_scause();
+  void set_allocated_msg_scause(::VirtBasicCSR* msg_scause);
   private:
-  const ::CSR& _internal_msg_scause() const;
-  ::CSR* _internal_mutable_msg_scause();
+  const ::VirtBasicCSR& _internal_msg_scause() const;
+  ::VirtBasicCSR* _internal_mutable_msg_scause();
+  public:
+
+  // .BasicCSR msg_mtval2 = 33;
+  bool has_msg_mtval2() const;
+  private:
+  bool _internal_has_msg_mtval2() const;
+  public:
+  void clear_msg_mtval2();
+  const ::BasicCSR& msg_mtval2() const;
+  ::BasicCSR* release_msg_mtval2();
+  ::BasicCSR* mutable_msg_mtval2();
+  void set_allocated_msg_mtval2(::BasicCSR* msg_mtval2);
+  private:
+  const ::BasicCSR& _internal_msg_mtval2() const;
+  ::BasicCSR* _internal_mutable_msg_mtval2();
+  public:
+
+  // .BasicCSR msg_mtinst = 34;
+  bool has_msg_mtinst() const;
+  private:
+  bool _internal_has_msg_mtinst() const;
+  public:
+  void clear_msg_mtinst();
+  const ::BasicCSR& msg_mtinst() const;
+  ::BasicCSR* release_msg_mtinst();
+  ::BasicCSR* mutable_msg_mtinst();
+  void set_allocated_msg_mtinst(::BasicCSR* msg_mtinst);
+  private:
+  const ::BasicCSR& _internal_msg_mtinst() const;
+  ::BasicCSR* _internal_mutable_msg_mtinst();
+  public:
+
+  // .MaskedCSR msg_hstatus = 35;
+  bool has_msg_hstatus() const;
+  private:
+  bool _internal_has_msg_hstatus() const;
+  public:
+  void clear_msg_hstatus();
+  const ::MaskedCSR& msg_hstatus() const;
+  ::MaskedCSR* release_msg_hstatus();
+  ::MaskedCSR* mutable_msg_hstatus();
+  void set_allocated_msg_hstatus(::MaskedCSR* msg_hstatus);
+  private:
+  const ::MaskedCSR& _internal_msg_hstatus() const;
+  ::MaskedCSR* _internal_mutable_msg_hstatus();
+  public:
+
+  // .HidelegCSR msg_hideleg = 36;
+  bool has_msg_hideleg() const;
+  private:
+  bool _internal_has_msg_hideleg() const;
+  public:
+  void clear_msg_hideleg();
+  const ::HidelegCSR& msg_hideleg() const;
+  ::HidelegCSR* release_msg_hideleg();
+  ::HidelegCSR* mutable_msg_hideleg();
+  void set_allocated_msg_hideleg(::HidelegCSR* msg_hideleg);
+  private:
+  const ::HidelegCSR& _internal_msg_hideleg() const;
+  ::HidelegCSR* _internal_mutable_msg_hideleg();
+  public:
+
+  // .MaskedCSR msg_hedeleg = 37;
+  bool has_msg_hedeleg() const;
+  private:
+  bool _internal_has_msg_hedeleg() const;
+  public:
+  void clear_msg_hedeleg();
+  const ::MaskedCSR& msg_hedeleg() const;
+  ::MaskedCSR* release_msg_hedeleg();
+  ::MaskedCSR* mutable_msg_hedeleg();
+  void set_allocated_msg_hedeleg(::MaskedCSR* msg_hedeleg);
+  private:
+  const ::MaskedCSR& _internal_msg_hedeleg() const;
+  ::MaskedCSR* _internal_mutable_msg_hedeleg();
+  public:
+
+  // .MaskedCSR msg_hcounteren = 38;
+  bool has_msg_hcounteren() const;
+  private:
+  bool _internal_has_msg_hcounteren() const;
+  public:
+  void clear_msg_hcounteren();
+  const ::MaskedCSR& msg_hcounteren() const;
+  ::MaskedCSR* release_msg_hcounteren();
+  ::MaskedCSR* mutable_msg_hcounteren();
+  void set_allocated_msg_hcounteren(::MaskedCSR* msg_hcounteren);
+  private:
+  const ::MaskedCSR& _internal_msg_hcounteren() const;
+  ::MaskedCSR* _internal_mutable_msg_hcounteren();
+  public:
+
+  // .BasicCSR msg_htval = 39;
+  bool has_msg_htval() const;
+  private:
+  bool _internal_has_msg_htval() const;
+  public:
+  void clear_msg_htval();
+  const ::BasicCSR& msg_htval() const;
+  ::BasicCSR* release_msg_htval();
+  ::BasicCSR* mutable_msg_htval();
+  void set_allocated_msg_htval(::BasicCSR* msg_htval);
+  private:
+  const ::BasicCSR& _internal_msg_htval() const;
+  ::BasicCSR* _internal_mutable_msg_htval();
+  public:
+
+  // .BasicCSR msg_htinst = 40;
+  bool has_msg_htinst() const;
+  private:
+  bool _internal_has_msg_htinst() const;
+  public:
+  void clear_msg_htinst();
+  const ::BasicCSR& msg_htinst() const;
+  ::BasicCSR* release_msg_htinst();
+  ::BasicCSR* mutable_msg_htinst();
+  void set_allocated_msg_htinst(::BasicCSR* msg_htinst);
+  private:
+  const ::BasicCSR& _internal_msg_htinst() const;
+  ::BasicCSR* _internal_mutable_msg_htinst();
+  public:
+
+  // .BasicCSR msg_hgatp = 41;
+  bool has_msg_hgatp() const;
+  private:
+  bool _internal_has_msg_hgatp() const;
+  public:
+  void clear_msg_hgatp();
+  const ::BasicCSR& msg_hgatp() const;
+  ::BasicCSR* release_msg_hgatp();
+  ::BasicCSR* mutable_msg_hgatp();
+  void set_allocated_msg_hgatp(::BasicCSR* msg_hgatp);
+  private:
+  const ::BasicCSR& _internal_msg_hgatp() const;
+  ::BasicCSR* _internal_mutable_msg_hgatp();
+  public:
+
+  // .SstatusCSR msg_sstatus = 42;
+  bool has_msg_sstatus() const;
+  private:
+  bool _internal_has_msg_sstatus() const;
+  public:
+  void clear_msg_sstatus();
+  const ::SstatusCSR& msg_sstatus() const;
+  ::SstatusCSR* release_msg_sstatus();
+  ::SstatusCSR* mutable_msg_sstatus();
+  void set_allocated_msg_sstatus(::SstatusCSR* msg_sstatus);
+  private:
+  const ::SstatusCSR& _internal_msg_sstatus() const;
+  ::SstatusCSR* _internal_mutable_msg_sstatus();
+  public:
+
+  // .BasicCSR msg_dpc = 43;
+  bool has_msg_dpc() const;
+  private:
+  bool _internal_has_msg_dpc() const;
+  public:
+  void clear_msg_dpc();
+  const ::BasicCSR& msg_dpc() const;
+  ::BasicCSR* release_msg_dpc();
+  ::BasicCSR* mutable_msg_dpc();
+  void set_allocated_msg_dpc(::BasicCSR* msg_dpc);
+  private:
+  const ::BasicCSR& _internal_msg_dpc() const;
+  ::BasicCSR* _internal_mutable_msg_dpc();
+  public:
+
+  // .DCSR msg_dcsr = 44;
+  bool has_msg_dcsr() const;
+  private:
+  bool _internal_has_msg_dcsr() const;
+  public:
+  void clear_msg_dcsr();
+  const ::DCSR& msg_dcsr() const;
+  ::DCSR* release_msg_dcsr();
+  ::DCSR* mutable_msg_dcsr();
+  void set_allocated_msg_dcsr(::DCSR* msg_dcsr);
+  private:
+  const ::DCSR& _internal_msg_dcsr() const;
+  ::DCSR* _internal_mutable_msg_dcsr();
+  public:
+
+  // .BasicCSR msg_tselect = 45;
+  bool has_msg_tselect() const;
+  private:
+  bool _internal_has_msg_tselect() const;
+  public:
+  void clear_msg_tselect();
+  const ::BasicCSR& msg_tselect() const;
+  ::BasicCSR* release_msg_tselect();
+  ::BasicCSR* mutable_msg_tselect();
+  void set_allocated_msg_tselect(::BasicCSR* msg_tselect);
+  private:
+  const ::BasicCSR& _internal_msg_tselect() const;
+  ::BasicCSR* _internal_mutable_msg_tselect();
+  public:
+
+  // .BasicCSR msg_tdata2 = 46;
+  bool has_msg_tdata2() const;
+  private:
+  bool _internal_has_msg_tdata2() const;
+  public:
+  void clear_msg_tdata2();
+  const ::BasicCSR& msg_tdata2() const;
+  ::BasicCSR* release_msg_tdata2();
+  ::BasicCSR* mutable_msg_tdata2();
+  void set_allocated_msg_tdata2(::BasicCSR* msg_tdata2);
+  private:
+  const ::BasicCSR& _internal_msg_tdata2() const;
+  ::BasicCSR* _internal_mutable_msg_tdata2();
+  public:
+
+  // .MaskedCSR msg_scontext = 47;
+  bool has_msg_scontext() const;
+  private:
+  bool _internal_has_msg_scontext() const;
+  public:
+  void clear_msg_scontext();
+  const ::MaskedCSR& msg_scontext() const;
+  ::MaskedCSR* release_msg_scontext();
+  ::MaskedCSR* mutable_msg_scontext();
+  void set_allocated_msg_scontext(::MaskedCSR* msg_scontext);
+  private:
+  const ::MaskedCSR& _internal_msg_scontext() const;
+  ::MaskedCSR* _internal_mutable_msg_scontext();
+  public:
+
+  // .McontextCSR msg_mcontext = 48;
+  bool has_msg_mcontext() const;
+  private:
+  bool _internal_has_msg_mcontext() const;
+  public:
+  void clear_msg_mcontext();
+  const ::McontextCSR& msg_mcontext() const;
+  ::McontextCSR* release_msg_mcontext();
+  ::McontextCSR* mutable_msg_mcontext();
+  void set_allocated_msg_mcontext(::McontextCSR* msg_mcontext);
+  private:
+  const ::McontextCSR& _internal_msg_mcontext() const;
+  ::McontextCSR* _internal_mutable_msg_mcontext();
+  public:
+
+  // .BasicCSR msg_jvt = 49;
+  bool has_msg_jvt() const;
+  private:
+  bool _internal_has_msg_jvt() const;
+  public:
+  void clear_msg_jvt();
+  const ::BasicCSR& msg_jvt() const;
+  ::BasicCSR* release_msg_jvt();
+  ::BasicCSR* mutable_msg_jvt();
+  void set_allocated_msg_jvt(::BasicCSR* msg_jvt);
+  private:
+  const ::BasicCSR& _internal_msg_jvt() const;
+  ::BasicCSR* _internal_mutable_msg_jvt();
+  public:
+
+  // .BasicCSR msg_mseccfg = 51;
+  bool has_msg_mseccfg() const;
+  private:
+  bool _internal_has_msg_mseccfg() const;
+  public:
+  void clear_msg_mseccfg();
+  const ::BasicCSR& msg_mseccfg() const;
+  ::BasicCSR* release_msg_mseccfg();
+  ::BasicCSR* mutable_msg_mseccfg();
+  void set_allocated_msg_mseccfg(::BasicCSR* msg_mseccfg);
+  private:
+  const ::BasicCSR& _internal_msg_mseccfg() const;
+  ::BasicCSR* _internal_mutable_msg_mseccfg();
+  public:
+
+  // .MaskedCSR msg_fflags = 53;
+  bool has_msg_fflags() const;
+  private:
+  bool _internal_has_msg_fflags() const;
+  public:
+  void clear_msg_fflags();
+  const ::MaskedCSR& msg_fflags() const;
+  ::MaskedCSR* release_msg_fflags();
+  ::MaskedCSR* mutable_msg_fflags();
+  void set_allocated_msg_fflags(::MaskedCSR* msg_fflags);
+  private:
+  const ::MaskedCSR& _internal_msg_fflags() const;
+  ::MaskedCSR* _internal_mutable_msg_fflags();
+  public:
+
+  // .MaskedCSR msg_frm = 54;
+  bool has_msg_frm() const;
+  private:
+  bool _internal_has_msg_frm() const;
+  public:
+  void clear_msg_frm();
+  const ::MaskedCSR& msg_frm() const;
+  ::MaskedCSR* release_msg_frm();
+  ::MaskedCSR* mutable_msg_frm();
+  void set_allocated_msg_frm(::MaskedCSR* msg_frm);
+  private:
+  const ::MaskedCSR& _internal_msg_frm() const;
+  ::MaskedCSR* _internal_mutable_msg_frm();
+  public:
+
+  // .MaskedCSR msg_senvcfg = 55;
+  bool has_msg_senvcfg() const;
+  private:
+  bool _internal_has_msg_senvcfg() const;
+  public:
+  void clear_msg_senvcfg();
+  const ::MaskedCSR& msg_senvcfg() const;
+  ::MaskedCSR* release_msg_senvcfg();
+  ::MaskedCSR* mutable_msg_senvcfg();
+  void set_allocated_msg_senvcfg(::MaskedCSR* msg_senvcfg);
+  private:
+  const ::MaskedCSR& _internal_msg_senvcfg() const;
+  ::MaskedCSR* _internal_mutable_msg_senvcfg();
+  public:
+
+  // .HenvcfgCSR msg_henvcfg = 56;
+  bool has_msg_henvcfg() const;
+  private:
+  bool _internal_has_msg_henvcfg() const;
+  public:
+  void clear_msg_henvcfg();
+  const ::HenvcfgCSR& msg_henvcfg() const;
+  ::HenvcfgCSR* release_msg_henvcfg();
+  ::HenvcfgCSR* mutable_msg_henvcfg();
+  void set_allocated_msg_henvcfg(::HenvcfgCSR* msg_henvcfg);
+  private:
+  const ::HenvcfgCSR& _internal_msg_henvcfg() const;
+  ::HenvcfgCSR* _internal_mutable_msg_henvcfg();
+  public:
+
+  // .BasicCSR msg_htimedelta = 60;
+  bool has_msg_htimedelta() const;
+  private:
+  bool _internal_has_msg_htimedelta() const;
+  public:
+  void clear_msg_htimedelta();
+  const ::BasicCSR& msg_htimedelta() const;
+  ::BasicCSR* release_msg_htimedelta();
+  ::BasicCSR* mutable_msg_htimedelta();
+  void set_allocated_msg_htimedelta(::BasicCSR* msg_htimedelta);
+  private:
+  const ::BasicCSR& _internal_msg_htimedelta() const;
+  ::BasicCSR* _internal_mutable_msg_htimedelta();
+  public:
+
+  // .BasicCSR msg_time = 61;
+  bool has_msg_time() const;
+  private:
+  bool _internal_has_msg_time() const;
+  public:
+  void clear_msg_time();
+  const ::BasicCSR& msg_time() const;
+  ::BasicCSR* release_msg_time();
+  ::BasicCSR* mutable_msg_time();
+  void set_allocated_msg_time(::BasicCSR* msg_time);
+  private:
+  const ::BasicCSR& _internal_msg_time() const;
+  ::BasicCSR* _internal_mutable_msg_time();
+  public:
+
+  // .CSR msg_time_proxy = 62;
+  bool has_msg_time_proxy() const;
+  private:
+  bool _internal_has_msg_time_proxy() const;
+  public:
+  void clear_msg_time_proxy();
+  const ::CSR& msg_time_proxy() const;
+  ::CSR* release_msg_time_proxy();
+  ::CSR* mutable_msg_time_proxy();
+  void set_allocated_msg_time_proxy(::CSR* msg_time_proxy);
+  private:
+  const ::CSR& _internal_msg_time_proxy() const;
+  ::CSR* _internal_mutable_msg_time_proxy();
+  public:
+
+  // .StimecmpCSR msg_stimecmp = 63;
+  bool has_msg_stimecmp() const;
+  private:
+  bool _internal_has_msg_stimecmp() const;
+  public:
+  void clear_msg_stimecmp();
+  const ::StimecmpCSR& msg_stimecmp() const;
+  ::StimecmpCSR* release_msg_stimecmp();
+  ::StimecmpCSR* mutable_msg_stimecmp();
+  void set_allocated_msg_stimecmp(::StimecmpCSR* msg_stimecmp);
+  private:
+  const ::StimecmpCSR& _internal_msg_stimecmp() const;
+  ::StimecmpCSR* _internal_mutable_msg_stimecmp();
+  public:
+
+  // .StimecmpCSR msg_vstimecmp = 64;
+  bool has_msg_vstimecmp() const;
+  private:
+  bool _internal_has_msg_vstimecmp() const;
+  public:
+  void clear_msg_vstimecmp();
+  const ::StimecmpCSR& msg_vstimecmp() const;
+  ::StimecmpCSR* release_msg_vstimecmp();
+  ::StimecmpCSR* mutable_msg_vstimecmp();
+  void set_allocated_msg_vstimecmp(::StimecmpCSR* msg_vstimecmp);
+  private:
+  const ::StimecmpCSR& _internal_msg_vstimecmp() const;
+  ::StimecmpCSR* _internal_mutable_msg_vstimecmp();
   public:
 
   // uint64 msg_pc = 1;
@@ -2455,15 +5040,74 @@ class ArchState :
   void _internal_set_msg_prev_v(bool value);
   public:
 
+  // bool msg_debug_mode = 50;
+  void clear_msg_debug_mode();
+  bool msg_debug_mode() const;
+  void set_msg_debug_mode(bool value);
+  private:
+  bool _internal_msg_debug_mode() const;
+  void _internal_set_msg_debug_mode(bool value);
+  public:
+
+  // bool msg_serialized = 65;
+  void clear_msg_serialized();
+  bool msg_serialized() const;
+  void set_msg_serialized(bool value);
+  private:
+  bool _internal_msg_serialized() const;
+  void _internal_set_msg_serialized(bool value);
+  public:
+
+  // uint64 msg_last_inst_priv = 67;
+  void clear_msg_last_inst_priv();
+  ::PROTOBUF_NAMESPACE_ID::uint64 msg_last_inst_priv() const;
+  void set_msg_last_inst_priv(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint64 _internal_msg_last_inst_priv() const;
+  void _internal_set_msg_last_inst_priv(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  public:
+
+  // uint32 msg_single_step = 66;
+  void clear_msg_single_step();
+  ::PROTOBUF_NAMESPACE_ID::uint32 msg_single_step() const;
+  void set_msg_single_step(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_msg_single_step() const;
+  void _internal_set_msg_single_step(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // int32 msg_last_inst_xlen = 68;
+  void clear_msg_last_inst_xlen();
+  ::PROTOBUF_NAMESPACE_ID::int32 msg_last_inst_xlen() const;
+  void set_msg_last_inst_xlen(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_msg_last_inst_xlen() const;
+  void _internal_set_msg_last_inst_xlen(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 msg_last_inst_flen = 69;
+  void clear_msg_last_inst_flen();
+  ::PROTOBUF_NAMESPACE_ID::int32 msg_last_inst_flen() const;
+  void set_msg_last_inst_flen(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_msg_last_inst_flen() const;
+  void _internal_set_msg_last_inst_flen(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
   // @@protoc_insertion_point(class_scope:ArchState)
  private:
   class _Internal;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint64 > msg_xpr_;
+  mutable std::atomic<int> _msg_xpr_cached_byte_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Float128 > msg_fpr_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::BasicCSR > msg_mevent_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::PmpCSR > msg_pmpaddr_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::MaskedCSR > msg_mstateen_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::HstateenCSR > msg_sstateen_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::HstateenCSR > msg_hstateen_;
   ::MisaCSR* msg_misa_;
-  ::MstatusCSR* msg_mstatus_;
-  ::CSR* msg_mstatush_;
   ::BasicCSR* msg_mepc_;
   ::BasicCSR* msg_mtval_;
   ::BasicCSR* msg_mtvec_;
@@ -2473,7 +5117,6 @@ class ArchState :
   ::BasicCSR* msg_mie_;
   ::BasicCSR* msg_mip_;
   ::MedelegCSR* msg_medeleg_;
-  ::BasicCSR* msg_mideleg_;
   ::MaskedCSR* msg_mcounteren_;
   ::BasicCSR* msg_mnstatus_;
   ::BasicCSR* msg_mnepc_;
@@ -2482,7 +5125,34 @@ class ArchState :
   ::VirtBasicCSR* msg_stval_;
   ::VirtBasicCSR* msg_stvec_;
   ::VirtBasicCSR* msg_satp_;
-  ::CSR* msg_scause_;
+  ::VirtBasicCSR* msg_scause_;
+  ::BasicCSR* msg_mtval2_;
+  ::BasicCSR* msg_mtinst_;
+  ::MaskedCSR* msg_hstatus_;
+  ::HidelegCSR* msg_hideleg_;
+  ::MaskedCSR* msg_hedeleg_;
+  ::MaskedCSR* msg_hcounteren_;
+  ::BasicCSR* msg_htval_;
+  ::BasicCSR* msg_htinst_;
+  ::BasicCSR* msg_hgatp_;
+  ::SstatusCSR* msg_sstatus_;
+  ::BasicCSR* msg_dpc_;
+  ::DCSR* msg_dcsr_;
+  ::BasicCSR* msg_tselect_;
+  ::BasicCSR* msg_tdata2_;
+  ::MaskedCSR* msg_scontext_;
+  ::McontextCSR* msg_mcontext_;
+  ::BasicCSR* msg_jvt_;
+  ::BasicCSR* msg_mseccfg_;
+  ::MaskedCSR* msg_fflags_;
+  ::MaskedCSR* msg_frm_;
+  ::MaskedCSR* msg_senvcfg_;
+  ::HenvcfgCSR* msg_henvcfg_;
+  ::BasicCSR* msg_htimedelta_;
+  ::BasicCSR* msg_time_;
+  ::CSR* msg_time_proxy_;
+  ::StimecmpCSR* msg_stimecmp_;
+  ::StimecmpCSR* msg_vstimecmp_;
   ::PROTOBUF_NAMESPACE_ID::uint64 msg_pc_;
   ::PROTOBUF_NAMESPACE_ID::uint64 msg_prv_;
   ::PROTOBUF_NAMESPACE_ID::uint64 msg_prev_prv_;
@@ -2490,6 +5160,12 @@ class ArchState :
   bool msg_v_changed_;
   bool msg_v_;
   bool msg_prev_v_;
+  bool msg_debug_mode_;
+  bool msg_serialized_;
+  ::PROTOBUF_NAMESPACE_ID::uint64 msg_last_inst_priv_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 msg_single_step_;
+  ::PROTOBUF_NAMESPACE_ID::int32 msg_last_inst_xlen_;
+  ::PROTOBUF_NAMESPACE_ID::int32 msg_last_inst_flen_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_arch_2dstate_2eproto;
 };
@@ -3210,6 +5886,338 @@ inline void MstatusCSR::set_msg_val(::PROTOBUF_NAMESPACE_ID::uint64 value) {
 
 // -------------------------------------------------------------------
 
+// SstatusProxyCSR
+
+// .BaseStatusCSR msg_base_status_csr = 1;
+inline bool SstatusProxyCSR::_internal_has_msg_base_status_csr() const {
+  return this != internal_default_instance() && msg_base_status_csr_ != nullptr;
+}
+inline bool SstatusProxyCSR::has_msg_base_status_csr() const {
+  return _internal_has_msg_base_status_csr();
+}
+inline void SstatusProxyCSR::clear_msg_base_status_csr() {
+  if (GetArenaNoVirtual() == nullptr && msg_base_status_csr_ != nullptr) {
+    delete msg_base_status_csr_;
+  }
+  msg_base_status_csr_ = nullptr;
+}
+inline const ::BaseStatusCSR& SstatusProxyCSR::_internal_msg_base_status_csr() const {
+  const ::BaseStatusCSR* p = msg_base_status_csr_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::BaseStatusCSR*>(
+      &::_BaseStatusCSR_default_instance_);
+}
+inline const ::BaseStatusCSR& SstatusProxyCSR::msg_base_status_csr() const {
+  // @@protoc_insertion_point(field_get:SstatusProxyCSR.msg_base_status_csr)
+  return _internal_msg_base_status_csr();
+}
+inline ::BaseStatusCSR* SstatusProxyCSR::release_msg_base_status_csr() {
+  // @@protoc_insertion_point(field_release:SstatusProxyCSR.msg_base_status_csr)
+  
+  ::BaseStatusCSR* temp = msg_base_status_csr_;
+  msg_base_status_csr_ = nullptr;
+  return temp;
+}
+inline ::BaseStatusCSR* SstatusProxyCSR::_internal_mutable_msg_base_status_csr() {
+  
+  if (msg_base_status_csr_ == nullptr) {
+    auto* p = CreateMaybeMessage<::BaseStatusCSR>(GetArenaNoVirtual());
+    msg_base_status_csr_ = p;
+  }
+  return msg_base_status_csr_;
+}
+inline ::BaseStatusCSR* SstatusProxyCSR::mutable_msg_base_status_csr() {
+  // @@protoc_insertion_point(field_mutable:SstatusProxyCSR.msg_base_status_csr)
+  return _internal_mutable_msg_base_status_csr();
+}
+inline void SstatusProxyCSR::set_allocated_msg_base_status_csr(::BaseStatusCSR* msg_base_status_csr) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_base_status_csr_;
+  }
+  if (msg_base_status_csr) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_base_status_csr = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_base_status_csr, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_base_status_csr_ = msg_base_status_csr;
+  // @@protoc_insertion_point(field_set_allocated:SstatusProxyCSR.msg_base_status_csr)
+}
+
+// .MstatusCSR msg_mstatus_csr = 2;
+inline bool SstatusProxyCSR::_internal_has_msg_mstatus_csr() const {
+  return this != internal_default_instance() && msg_mstatus_csr_ != nullptr;
+}
+inline bool SstatusProxyCSR::has_msg_mstatus_csr() const {
+  return _internal_has_msg_mstatus_csr();
+}
+inline void SstatusProxyCSR::clear_msg_mstatus_csr() {
+  if (GetArenaNoVirtual() == nullptr && msg_mstatus_csr_ != nullptr) {
+    delete msg_mstatus_csr_;
+  }
+  msg_mstatus_csr_ = nullptr;
+}
+inline const ::MstatusCSR& SstatusProxyCSR::_internal_msg_mstatus_csr() const {
+  const ::MstatusCSR* p = msg_mstatus_csr_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::MstatusCSR*>(
+      &::_MstatusCSR_default_instance_);
+}
+inline const ::MstatusCSR& SstatusProxyCSR::msg_mstatus_csr() const {
+  // @@protoc_insertion_point(field_get:SstatusProxyCSR.msg_mstatus_csr)
+  return _internal_msg_mstatus_csr();
+}
+inline ::MstatusCSR* SstatusProxyCSR::release_msg_mstatus_csr() {
+  // @@protoc_insertion_point(field_release:SstatusProxyCSR.msg_mstatus_csr)
+  
+  ::MstatusCSR* temp = msg_mstatus_csr_;
+  msg_mstatus_csr_ = nullptr;
+  return temp;
+}
+inline ::MstatusCSR* SstatusProxyCSR::_internal_mutable_msg_mstatus_csr() {
+  
+  if (msg_mstatus_csr_ == nullptr) {
+    auto* p = CreateMaybeMessage<::MstatusCSR>(GetArenaNoVirtual());
+    msg_mstatus_csr_ = p;
+  }
+  return msg_mstatus_csr_;
+}
+inline ::MstatusCSR* SstatusProxyCSR::mutable_msg_mstatus_csr() {
+  // @@protoc_insertion_point(field_mutable:SstatusProxyCSR.msg_mstatus_csr)
+  return _internal_mutable_msg_mstatus_csr();
+}
+inline void SstatusProxyCSR::set_allocated_msg_mstatus_csr(::MstatusCSR* msg_mstatus_csr) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_mstatus_csr_;
+  }
+  if (msg_mstatus_csr) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_mstatus_csr = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_mstatus_csr, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_mstatus_csr_ = msg_mstatus_csr;
+  // @@protoc_insertion_point(field_set_allocated:SstatusProxyCSR.msg_mstatus_csr)
+}
+
+// -------------------------------------------------------------------
+
+// VsstatusCSR
+
+// .BaseStatusCSR msg_base_status_csr = 1;
+inline bool VsstatusCSR::_internal_has_msg_base_status_csr() const {
+  return this != internal_default_instance() && msg_base_status_csr_ != nullptr;
+}
+inline bool VsstatusCSR::has_msg_base_status_csr() const {
+  return _internal_has_msg_base_status_csr();
+}
+inline void VsstatusCSR::clear_msg_base_status_csr() {
+  if (GetArenaNoVirtual() == nullptr && msg_base_status_csr_ != nullptr) {
+    delete msg_base_status_csr_;
+  }
+  msg_base_status_csr_ = nullptr;
+}
+inline const ::BaseStatusCSR& VsstatusCSR::_internal_msg_base_status_csr() const {
+  const ::BaseStatusCSR* p = msg_base_status_csr_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::BaseStatusCSR*>(
+      &::_BaseStatusCSR_default_instance_);
+}
+inline const ::BaseStatusCSR& VsstatusCSR::msg_base_status_csr() const {
+  // @@protoc_insertion_point(field_get:VsstatusCSR.msg_base_status_csr)
+  return _internal_msg_base_status_csr();
+}
+inline ::BaseStatusCSR* VsstatusCSR::release_msg_base_status_csr() {
+  // @@protoc_insertion_point(field_release:VsstatusCSR.msg_base_status_csr)
+  
+  ::BaseStatusCSR* temp = msg_base_status_csr_;
+  msg_base_status_csr_ = nullptr;
+  return temp;
+}
+inline ::BaseStatusCSR* VsstatusCSR::_internal_mutable_msg_base_status_csr() {
+  
+  if (msg_base_status_csr_ == nullptr) {
+    auto* p = CreateMaybeMessage<::BaseStatusCSR>(GetArenaNoVirtual());
+    msg_base_status_csr_ = p;
+  }
+  return msg_base_status_csr_;
+}
+inline ::BaseStatusCSR* VsstatusCSR::mutable_msg_base_status_csr() {
+  // @@protoc_insertion_point(field_mutable:VsstatusCSR.msg_base_status_csr)
+  return _internal_mutable_msg_base_status_csr();
+}
+inline void VsstatusCSR::set_allocated_msg_base_status_csr(::BaseStatusCSR* msg_base_status_csr) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_base_status_csr_;
+  }
+  if (msg_base_status_csr) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_base_status_csr = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_base_status_csr, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_base_status_csr_ = msg_base_status_csr;
+  // @@protoc_insertion_point(field_set_allocated:VsstatusCSR.msg_base_status_csr)
+}
+
+// uint64 msg_val = 2;
+inline void VsstatusCSR::clear_msg_val() {
+  msg_val_ = PROTOBUF_ULONGLONG(0);
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 VsstatusCSR::_internal_msg_val() const {
+  return msg_val_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 VsstatusCSR::msg_val() const {
+  // @@protoc_insertion_point(field_get:VsstatusCSR.msg_val)
+  return _internal_msg_val();
+}
+inline void VsstatusCSR::_internal_set_msg_val(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  
+  msg_val_ = value;
+}
+inline void VsstatusCSR::set_msg_val(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  _internal_set_msg_val(value);
+  // @@protoc_insertion_point(field_set:VsstatusCSR.msg_val)
+}
+
+// -------------------------------------------------------------------
+
+// SstatusCSR
+
+// .SstatusProxyCSR msg_orig_sstatus = 1;
+inline bool SstatusCSR::_internal_has_msg_orig_sstatus() const {
+  return this != internal_default_instance() && msg_orig_sstatus_ != nullptr;
+}
+inline bool SstatusCSR::has_msg_orig_sstatus() const {
+  return _internal_has_msg_orig_sstatus();
+}
+inline void SstatusCSR::clear_msg_orig_sstatus() {
+  if (GetArenaNoVirtual() == nullptr && msg_orig_sstatus_ != nullptr) {
+    delete msg_orig_sstatus_;
+  }
+  msg_orig_sstatus_ = nullptr;
+}
+inline const ::SstatusProxyCSR& SstatusCSR::_internal_msg_orig_sstatus() const {
+  const ::SstatusProxyCSR* p = msg_orig_sstatus_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::SstatusProxyCSR*>(
+      &::_SstatusProxyCSR_default_instance_);
+}
+inline const ::SstatusProxyCSR& SstatusCSR::msg_orig_sstatus() const {
+  // @@protoc_insertion_point(field_get:SstatusCSR.msg_orig_sstatus)
+  return _internal_msg_orig_sstatus();
+}
+inline ::SstatusProxyCSR* SstatusCSR::release_msg_orig_sstatus() {
+  // @@protoc_insertion_point(field_release:SstatusCSR.msg_orig_sstatus)
+  
+  ::SstatusProxyCSR* temp = msg_orig_sstatus_;
+  msg_orig_sstatus_ = nullptr;
+  return temp;
+}
+inline ::SstatusProxyCSR* SstatusCSR::_internal_mutable_msg_orig_sstatus() {
+  
+  if (msg_orig_sstatus_ == nullptr) {
+    auto* p = CreateMaybeMessage<::SstatusProxyCSR>(GetArenaNoVirtual());
+    msg_orig_sstatus_ = p;
+  }
+  return msg_orig_sstatus_;
+}
+inline ::SstatusProxyCSR* SstatusCSR::mutable_msg_orig_sstatus() {
+  // @@protoc_insertion_point(field_mutable:SstatusCSR.msg_orig_sstatus)
+  return _internal_mutable_msg_orig_sstatus();
+}
+inline void SstatusCSR::set_allocated_msg_orig_sstatus(::SstatusProxyCSR* msg_orig_sstatus) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_orig_sstatus_;
+  }
+  if (msg_orig_sstatus) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_orig_sstatus = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_orig_sstatus, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_orig_sstatus_ = msg_orig_sstatus;
+  // @@protoc_insertion_point(field_set_allocated:SstatusCSR.msg_orig_sstatus)
+}
+
+// .VsstatusCSR msg_virt_sstatus = 2;
+inline bool SstatusCSR::_internal_has_msg_virt_sstatus() const {
+  return this != internal_default_instance() && msg_virt_sstatus_ != nullptr;
+}
+inline bool SstatusCSR::has_msg_virt_sstatus() const {
+  return _internal_has_msg_virt_sstatus();
+}
+inline void SstatusCSR::clear_msg_virt_sstatus() {
+  if (GetArenaNoVirtual() == nullptr && msg_virt_sstatus_ != nullptr) {
+    delete msg_virt_sstatus_;
+  }
+  msg_virt_sstatus_ = nullptr;
+}
+inline const ::VsstatusCSR& SstatusCSR::_internal_msg_virt_sstatus() const {
+  const ::VsstatusCSR* p = msg_virt_sstatus_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::VsstatusCSR*>(
+      &::_VsstatusCSR_default_instance_);
+}
+inline const ::VsstatusCSR& SstatusCSR::msg_virt_sstatus() const {
+  // @@protoc_insertion_point(field_get:SstatusCSR.msg_virt_sstatus)
+  return _internal_msg_virt_sstatus();
+}
+inline ::VsstatusCSR* SstatusCSR::release_msg_virt_sstatus() {
+  // @@protoc_insertion_point(field_release:SstatusCSR.msg_virt_sstatus)
+  
+  ::VsstatusCSR* temp = msg_virt_sstatus_;
+  msg_virt_sstatus_ = nullptr;
+  return temp;
+}
+inline ::VsstatusCSR* SstatusCSR::_internal_mutable_msg_virt_sstatus() {
+  
+  if (msg_virt_sstatus_ == nullptr) {
+    auto* p = CreateMaybeMessage<::VsstatusCSR>(GetArenaNoVirtual());
+    msg_virt_sstatus_ = p;
+  }
+  return msg_virt_sstatus_;
+}
+inline ::VsstatusCSR* SstatusCSR::mutable_msg_virt_sstatus() {
+  // @@protoc_insertion_point(field_mutable:SstatusCSR.msg_virt_sstatus)
+  return _internal_mutable_msg_virt_sstatus();
+}
+inline void SstatusCSR::set_allocated_msg_virt_sstatus(::VsstatusCSR* msg_virt_sstatus) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_virt_sstatus_;
+  }
+  if (msg_virt_sstatus) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_virt_sstatus = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_virt_sstatus, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_virt_sstatus_ = msg_virt_sstatus;
+  // @@protoc_insertion_point(field_set_allocated:SstatusCSR.msg_virt_sstatus)
+}
+
+// -------------------------------------------------------------------
+
 // MaskedCSR
 
 // .BasicCSR msg_basic_csr = 1;
@@ -3670,6 +6678,1166 @@ inline void MedelegCSR::set_msg_hypervisor_exceptions(::PROTOBUF_NAMESPACE_ID::u
 
 // -------------------------------------------------------------------
 
+// HstateenCSR
+
+// .MaskedCSR msg_masked_csr = 1;
+inline bool HstateenCSR::_internal_has_msg_masked_csr() const {
+  return this != internal_default_instance() && msg_masked_csr_ != nullptr;
+}
+inline bool HstateenCSR::has_msg_masked_csr() const {
+  return _internal_has_msg_masked_csr();
+}
+inline void HstateenCSR::clear_msg_masked_csr() {
+  if (GetArenaNoVirtual() == nullptr && msg_masked_csr_ != nullptr) {
+    delete msg_masked_csr_;
+  }
+  msg_masked_csr_ = nullptr;
+}
+inline const ::MaskedCSR& HstateenCSR::_internal_msg_masked_csr() const {
+  const ::MaskedCSR* p = msg_masked_csr_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::MaskedCSR*>(
+      &::_MaskedCSR_default_instance_);
+}
+inline const ::MaskedCSR& HstateenCSR::msg_masked_csr() const {
+  // @@protoc_insertion_point(field_get:HstateenCSR.msg_masked_csr)
+  return _internal_msg_masked_csr();
+}
+inline ::MaskedCSR* HstateenCSR::release_msg_masked_csr() {
+  // @@protoc_insertion_point(field_release:HstateenCSR.msg_masked_csr)
+  
+  ::MaskedCSR* temp = msg_masked_csr_;
+  msg_masked_csr_ = nullptr;
+  return temp;
+}
+inline ::MaskedCSR* HstateenCSR::_internal_mutable_msg_masked_csr() {
+  
+  if (msg_masked_csr_ == nullptr) {
+    auto* p = CreateMaybeMessage<::MaskedCSR>(GetArenaNoVirtual());
+    msg_masked_csr_ = p;
+  }
+  return msg_masked_csr_;
+}
+inline ::MaskedCSR* HstateenCSR::mutable_msg_masked_csr() {
+  // @@protoc_insertion_point(field_mutable:HstateenCSR.msg_masked_csr)
+  return _internal_mutable_msg_masked_csr();
+}
+inline void HstateenCSR::set_allocated_msg_masked_csr(::MaskedCSR* msg_masked_csr) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_masked_csr_;
+  }
+  if (msg_masked_csr) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_masked_csr = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_masked_csr, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_masked_csr_ = msg_masked_csr;
+  // @@protoc_insertion_point(field_set_allocated:HstateenCSR.msg_masked_csr)
+}
+
+// uint32 msg_index = 2;
+inline void HstateenCSR::clear_msg_index() {
+  msg_index_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 HstateenCSR::_internal_msg_index() const {
+  return msg_index_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 HstateenCSR::msg_index() const {
+  // @@protoc_insertion_point(field_get:HstateenCSR.msg_index)
+  return _internal_msg_index();
+}
+inline void HstateenCSR::_internal_set_msg_index(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  msg_index_ = value;
+}
+inline void HstateenCSR::set_msg_index(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_msg_index(value);
+  // @@protoc_insertion_point(field_set:HstateenCSR.msg_index)
+}
+
+// -------------------------------------------------------------------
+
+// TimeProxyCSR
+
+// .CSR msg_csr = 1;
+inline bool TimeProxyCSR::_internal_has_msg_csr() const {
+  return this != internal_default_instance() && msg_csr_ != nullptr;
+}
+inline bool TimeProxyCSR::has_msg_csr() const {
+  return _internal_has_msg_csr();
+}
+inline void TimeProxyCSR::clear_msg_csr() {
+  if (GetArenaNoVirtual() == nullptr && msg_csr_ != nullptr) {
+    delete msg_csr_;
+  }
+  msg_csr_ = nullptr;
+}
+inline const ::CSR& TimeProxyCSR::_internal_msg_csr() const {
+  const ::CSR* p = msg_csr_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::CSR*>(
+      &::_CSR_default_instance_);
+}
+inline const ::CSR& TimeProxyCSR::msg_csr() const {
+  // @@protoc_insertion_point(field_get:TimeProxyCSR.msg_csr)
+  return _internal_msg_csr();
+}
+inline ::CSR* TimeProxyCSR::release_msg_csr() {
+  // @@protoc_insertion_point(field_release:TimeProxyCSR.msg_csr)
+  
+  ::CSR* temp = msg_csr_;
+  msg_csr_ = nullptr;
+  return temp;
+}
+inline ::CSR* TimeProxyCSR::_internal_mutable_msg_csr() {
+  
+  if (msg_csr_ == nullptr) {
+    auto* p = CreateMaybeMessage<::CSR>(GetArenaNoVirtual());
+    msg_csr_ = p;
+  }
+  return msg_csr_;
+}
+inline ::CSR* TimeProxyCSR::mutable_msg_csr() {
+  // @@protoc_insertion_point(field_mutable:TimeProxyCSR.msg_csr)
+  return _internal_mutable_msg_csr();
+}
+inline void TimeProxyCSR::set_allocated_msg_csr(::CSR* msg_csr) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_csr_;
+  }
+  if (msg_csr) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_csr = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_csr, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_csr_ = msg_csr;
+  // @@protoc_insertion_point(field_set_allocated:TimeProxyCSR.msg_csr)
+}
+
+// .BasicCSR msg_time = 2;
+inline bool TimeProxyCSR::_internal_has_msg_time() const {
+  return this != internal_default_instance() && msg_time_ != nullptr;
+}
+inline bool TimeProxyCSR::has_msg_time() const {
+  return _internal_has_msg_time();
+}
+inline void TimeProxyCSR::clear_msg_time() {
+  if (GetArenaNoVirtual() == nullptr && msg_time_ != nullptr) {
+    delete msg_time_;
+  }
+  msg_time_ = nullptr;
+}
+inline const ::BasicCSR& TimeProxyCSR::_internal_msg_time() const {
+  const ::BasicCSR* p = msg_time_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::BasicCSR*>(
+      &::_BasicCSR_default_instance_);
+}
+inline const ::BasicCSR& TimeProxyCSR::msg_time() const {
+  // @@protoc_insertion_point(field_get:TimeProxyCSR.msg_time)
+  return _internal_msg_time();
+}
+inline ::BasicCSR* TimeProxyCSR::release_msg_time() {
+  // @@protoc_insertion_point(field_release:TimeProxyCSR.msg_time)
+  
+  ::BasicCSR* temp = msg_time_;
+  msg_time_ = nullptr;
+  return temp;
+}
+inline ::BasicCSR* TimeProxyCSR::_internal_mutable_msg_time() {
+  
+  if (msg_time_ == nullptr) {
+    auto* p = CreateMaybeMessage<::BasicCSR>(GetArenaNoVirtual());
+    msg_time_ = p;
+  }
+  return msg_time_;
+}
+inline ::BasicCSR* TimeProxyCSR::mutable_msg_time() {
+  // @@protoc_insertion_point(field_mutable:TimeProxyCSR.msg_time)
+  return _internal_mutable_msg_time();
+}
+inline void TimeProxyCSR::set_allocated_msg_time(::BasicCSR* msg_time) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_time_;
+  }
+  if (msg_time) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_time = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_time, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_time_ = msg_time;
+  // @@protoc_insertion_point(field_set_allocated:TimeProxyCSR.msg_time)
+}
+
+// -------------------------------------------------------------------
+
+// DCSR
+
+// .CSR msg_csr = 1;
+inline bool DCSR::_internal_has_msg_csr() const {
+  return this != internal_default_instance() && msg_csr_ != nullptr;
+}
+inline bool DCSR::has_msg_csr() const {
+  return _internal_has_msg_csr();
+}
+inline void DCSR::clear_msg_csr() {
+  if (GetArenaNoVirtual() == nullptr && msg_csr_ != nullptr) {
+    delete msg_csr_;
+  }
+  msg_csr_ = nullptr;
+}
+inline const ::CSR& DCSR::_internal_msg_csr() const {
+  const ::CSR* p = msg_csr_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::CSR*>(
+      &::_CSR_default_instance_);
+}
+inline const ::CSR& DCSR::msg_csr() const {
+  // @@protoc_insertion_point(field_get:DCSR.msg_csr)
+  return _internal_msg_csr();
+}
+inline ::CSR* DCSR::release_msg_csr() {
+  // @@protoc_insertion_point(field_release:DCSR.msg_csr)
+  
+  ::CSR* temp = msg_csr_;
+  msg_csr_ = nullptr;
+  return temp;
+}
+inline ::CSR* DCSR::_internal_mutable_msg_csr() {
+  
+  if (msg_csr_ == nullptr) {
+    auto* p = CreateMaybeMessage<::CSR>(GetArenaNoVirtual());
+    msg_csr_ = p;
+  }
+  return msg_csr_;
+}
+inline ::CSR* DCSR::mutable_msg_csr() {
+  // @@protoc_insertion_point(field_mutable:DCSR.msg_csr)
+  return _internal_mutable_msg_csr();
+}
+inline void DCSR::set_allocated_msg_csr(::CSR* msg_csr) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_csr_;
+  }
+  if (msg_csr) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_csr = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_csr, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_csr_ = msg_csr;
+  // @@protoc_insertion_point(field_set_allocated:DCSR.msg_csr)
+}
+
+// uint32 msg_prv = 2;
+inline void DCSR::clear_msg_prv() {
+  msg_prv_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 DCSR::_internal_msg_prv() const {
+  return msg_prv_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 DCSR::msg_prv() const {
+  // @@protoc_insertion_point(field_get:DCSR.msg_prv)
+  return _internal_msg_prv();
+}
+inline void DCSR::_internal_set_msg_prv(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  msg_prv_ = value;
+}
+inline void DCSR::set_msg_prv(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_msg_prv(value);
+  // @@protoc_insertion_point(field_set:DCSR.msg_prv)
+}
+
+// bool msg_step = 3;
+inline void DCSR::clear_msg_step() {
+  msg_step_ = false;
+}
+inline bool DCSR::_internal_msg_step() const {
+  return msg_step_;
+}
+inline bool DCSR::msg_step() const {
+  // @@protoc_insertion_point(field_get:DCSR.msg_step)
+  return _internal_msg_step();
+}
+inline void DCSR::_internal_set_msg_step(bool value) {
+  
+  msg_step_ = value;
+}
+inline void DCSR::set_msg_step(bool value) {
+  _internal_set_msg_step(value);
+  // @@protoc_insertion_point(field_set:DCSR.msg_step)
+}
+
+// bool msg_ebreakm = 4;
+inline void DCSR::clear_msg_ebreakm() {
+  msg_ebreakm_ = false;
+}
+inline bool DCSR::_internal_msg_ebreakm() const {
+  return msg_ebreakm_;
+}
+inline bool DCSR::msg_ebreakm() const {
+  // @@protoc_insertion_point(field_get:DCSR.msg_ebreakm)
+  return _internal_msg_ebreakm();
+}
+inline void DCSR::_internal_set_msg_ebreakm(bool value) {
+  
+  msg_ebreakm_ = value;
+}
+inline void DCSR::set_msg_ebreakm(bool value) {
+  _internal_set_msg_ebreakm(value);
+  // @@protoc_insertion_point(field_set:DCSR.msg_ebreakm)
+}
+
+// bool msg_ebreaks = 5;
+inline void DCSR::clear_msg_ebreaks() {
+  msg_ebreaks_ = false;
+}
+inline bool DCSR::_internal_msg_ebreaks() const {
+  return msg_ebreaks_;
+}
+inline bool DCSR::msg_ebreaks() const {
+  // @@protoc_insertion_point(field_get:DCSR.msg_ebreaks)
+  return _internal_msg_ebreaks();
+}
+inline void DCSR::_internal_set_msg_ebreaks(bool value) {
+  
+  msg_ebreaks_ = value;
+}
+inline void DCSR::set_msg_ebreaks(bool value) {
+  _internal_set_msg_ebreaks(value);
+  // @@protoc_insertion_point(field_set:DCSR.msg_ebreaks)
+}
+
+// bool msg_ebreaku = 6;
+inline void DCSR::clear_msg_ebreaku() {
+  msg_ebreaku_ = false;
+}
+inline bool DCSR::_internal_msg_ebreaku() const {
+  return msg_ebreaku_;
+}
+inline bool DCSR::msg_ebreaku() const {
+  // @@protoc_insertion_point(field_get:DCSR.msg_ebreaku)
+  return _internal_msg_ebreaku();
+}
+inline void DCSR::_internal_set_msg_ebreaku(bool value) {
+  
+  msg_ebreaku_ = value;
+}
+inline void DCSR::set_msg_ebreaku(bool value) {
+  _internal_set_msg_ebreaku(value);
+  // @@protoc_insertion_point(field_set:DCSR.msg_ebreaku)
+}
+
+// bool msg_ebreakvs = 7;
+inline void DCSR::clear_msg_ebreakvs() {
+  msg_ebreakvs_ = false;
+}
+inline bool DCSR::_internal_msg_ebreakvs() const {
+  return msg_ebreakvs_;
+}
+inline bool DCSR::msg_ebreakvs() const {
+  // @@protoc_insertion_point(field_get:DCSR.msg_ebreakvs)
+  return _internal_msg_ebreakvs();
+}
+inline void DCSR::_internal_set_msg_ebreakvs(bool value) {
+  
+  msg_ebreakvs_ = value;
+}
+inline void DCSR::set_msg_ebreakvs(bool value) {
+  _internal_set_msg_ebreakvs(value);
+  // @@protoc_insertion_point(field_set:DCSR.msg_ebreakvs)
+}
+
+// bool msg_ebreakvu = 8;
+inline void DCSR::clear_msg_ebreakvu() {
+  msg_ebreakvu_ = false;
+}
+inline bool DCSR::_internal_msg_ebreakvu() const {
+  return msg_ebreakvu_;
+}
+inline bool DCSR::msg_ebreakvu() const {
+  // @@protoc_insertion_point(field_get:DCSR.msg_ebreakvu)
+  return _internal_msg_ebreakvu();
+}
+inline void DCSR::_internal_set_msg_ebreakvu(bool value) {
+  
+  msg_ebreakvu_ = value;
+}
+inline void DCSR::set_msg_ebreakvu(bool value) {
+  _internal_set_msg_ebreakvu(value);
+  // @@protoc_insertion_point(field_set:DCSR.msg_ebreakvu)
+}
+
+// bool msg_halt = 9;
+inline void DCSR::clear_msg_halt() {
+  msg_halt_ = false;
+}
+inline bool DCSR::_internal_msg_halt() const {
+  return msg_halt_;
+}
+inline bool DCSR::msg_halt() const {
+  // @@protoc_insertion_point(field_get:DCSR.msg_halt)
+  return _internal_msg_halt();
+}
+inline void DCSR::_internal_set_msg_halt(bool value) {
+  
+  msg_halt_ = value;
+}
+inline void DCSR::set_msg_halt(bool value) {
+  _internal_set_msg_halt(value);
+  // @@protoc_insertion_point(field_set:DCSR.msg_halt)
+}
+
+// bool msg_v = 10;
+inline void DCSR::clear_msg_v() {
+  msg_v_ = false;
+}
+inline bool DCSR::_internal_msg_v() const {
+  return msg_v_;
+}
+inline bool DCSR::msg_v() const {
+  // @@protoc_insertion_point(field_get:DCSR.msg_v)
+  return _internal_msg_v();
+}
+inline void DCSR::_internal_set_msg_v(bool value) {
+  
+  msg_v_ = value;
+}
+inline void DCSR::set_msg_v(bool value) {
+  _internal_set_msg_v(value);
+  // @@protoc_insertion_point(field_set:DCSR.msg_v)
+}
+
+// uint32 msg_cause = 11;
+inline void DCSR::clear_msg_cause() {
+  msg_cause_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 DCSR::_internal_msg_cause() const {
+  return msg_cause_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 DCSR::msg_cause() const {
+  // @@protoc_insertion_point(field_get:DCSR.msg_cause)
+  return _internal_msg_cause();
+}
+inline void DCSR::_internal_set_msg_cause(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  msg_cause_ = value;
+}
+inline void DCSR::set_msg_cause(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_msg_cause(value);
+  // @@protoc_insertion_point(field_set:DCSR.msg_cause)
+}
+
+// -------------------------------------------------------------------
+
+// PmpCSR
+
+// .BasicCSR msg_basic_csr = 1;
+inline bool PmpCSR::_internal_has_msg_basic_csr() const {
+  return this != internal_default_instance() && msg_basic_csr_ != nullptr;
+}
+inline bool PmpCSR::has_msg_basic_csr() const {
+  return _internal_has_msg_basic_csr();
+}
+inline void PmpCSR::clear_msg_basic_csr() {
+  if (GetArenaNoVirtual() == nullptr && msg_basic_csr_ != nullptr) {
+    delete msg_basic_csr_;
+  }
+  msg_basic_csr_ = nullptr;
+}
+inline const ::BasicCSR& PmpCSR::_internal_msg_basic_csr() const {
+  const ::BasicCSR* p = msg_basic_csr_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::BasicCSR*>(
+      &::_BasicCSR_default_instance_);
+}
+inline const ::BasicCSR& PmpCSR::msg_basic_csr() const {
+  // @@protoc_insertion_point(field_get:PmpCSR.msg_basic_csr)
+  return _internal_msg_basic_csr();
+}
+inline ::BasicCSR* PmpCSR::release_msg_basic_csr() {
+  // @@protoc_insertion_point(field_release:PmpCSR.msg_basic_csr)
+  
+  ::BasicCSR* temp = msg_basic_csr_;
+  msg_basic_csr_ = nullptr;
+  return temp;
+}
+inline ::BasicCSR* PmpCSR::_internal_mutable_msg_basic_csr() {
+  
+  if (msg_basic_csr_ == nullptr) {
+    auto* p = CreateMaybeMessage<::BasicCSR>(GetArenaNoVirtual());
+    msg_basic_csr_ = p;
+  }
+  return msg_basic_csr_;
+}
+inline ::BasicCSR* PmpCSR::mutable_msg_basic_csr() {
+  // @@protoc_insertion_point(field_mutable:PmpCSR.msg_basic_csr)
+  return _internal_mutable_msg_basic_csr();
+}
+inline void PmpCSR::set_allocated_msg_basic_csr(::BasicCSR* msg_basic_csr) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_basic_csr_;
+  }
+  if (msg_basic_csr) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_basic_csr = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_basic_csr, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_basic_csr_ = msg_basic_csr;
+  // @@protoc_insertion_point(field_set_allocated:PmpCSR.msg_basic_csr)
+}
+
+// uint32 msg_cfg = 2;
+inline void PmpCSR::clear_msg_cfg() {
+  msg_cfg_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 PmpCSR::_internal_msg_cfg() const {
+  return msg_cfg_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 PmpCSR::msg_cfg() const {
+  // @@protoc_insertion_point(field_get:PmpCSR.msg_cfg)
+  return _internal_msg_cfg();
+}
+inline void PmpCSR::_internal_set_msg_cfg(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  msg_cfg_ = value;
+}
+inline void PmpCSR::set_msg_cfg(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_msg_cfg(value);
+  // @@protoc_insertion_point(field_set:PmpCSR.msg_cfg)
+}
+
+// uint64 msg_pmpidx = 3;
+inline void PmpCSR::clear_msg_pmpidx() {
+  msg_pmpidx_ = PROTOBUF_ULONGLONG(0);
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 PmpCSR::_internal_msg_pmpidx() const {
+  return msg_pmpidx_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 PmpCSR::msg_pmpidx() const {
+  // @@protoc_insertion_point(field_get:PmpCSR.msg_pmpidx)
+  return _internal_msg_pmpidx();
+}
+inline void PmpCSR::_internal_set_msg_pmpidx(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  
+  msg_pmpidx_ = value;
+}
+inline void PmpCSR::set_msg_pmpidx(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  _internal_set_msg_pmpidx(value);
+  // @@protoc_insertion_point(field_set:PmpCSR.msg_pmpidx)
+}
+
+// -------------------------------------------------------------------
+
+// TimeCntrCSR
+
+// .CSR msg_csr = 1;
+inline bool TimeCntrCSR::_internal_has_msg_csr() const {
+  return this != internal_default_instance() && msg_csr_ != nullptr;
+}
+inline bool TimeCntrCSR::has_msg_csr() const {
+  return _internal_has_msg_csr();
+}
+inline void TimeCntrCSR::clear_msg_csr() {
+  if (GetArenaNoVirtual() == nullptr && msg_csr_ != nullptr) {
+    delete msg_csr_;
+  }
+  msg_csr_ = nullptr;
+}
+inline const ::CSR& TimeCntrCSR::_internal_msg_csr() const {
+  const ::CSR* p = msg_csr_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::CSR*>(
+      &::_CSR_default_instance_);
+}
+inline const ::CSR& TimeCntrCSR::msg_csr() const {
+  // @@protoc_insertion_point(field_get:TimeCntrCSR.msg_csr)
+  return _internal_msg_csr();
+}
+inline ::CSR* TimeCntrCSR::release_msg_csr() {
+  // @@protoc_insertion_point(field_release:TimeCntrCSR.msg_csr)
+  
+  ::CSR* temp = msg_csr_;
+  msg_csr_ = nullptr;
+  return temp;
+}
+inline ::CSR* TimeCntrCSR::_internal_mutable_msg_csr() {
+  
+  if (msg_csr_ == nullptr) {
+    auto* p = CreateMaybeMessage<::CSR>(GetArenaNoVirtual());
+    msg_csr_ = p;
+  }
+  return msg_csr_;
+}
+inline ::CSR* TimeCntrCSR::mutable_msg_csr() {
+  // @@protoc_insertion_point(field_mutable:TimeCntrCSR.msg_csr)
+  return _internal_mutable_msg_csr();
+}
+inline void TimeCntrCSR::set_allocated_msg_csr(::CSR* msg_csr) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_csr_;
+  }
+  if (msg_csr) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_csr = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_csr, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_csr_ = msg_csr;
+  // @@protoc_insertion_point(field_set_allocated:TimeCntrCSR.msg_csr)
+}
+
+// uint64 msg_shadow_val = 2;
+inline void TimeCntrCSR::clear_msg_shadow_val() {
+  msg_shadow_val_ = PROTOBUF_ULONGLONG(0);
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 TimeCntrCSR::_internal_msg_shadow_val() const {
+  return msg_shadow_val_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 TimeCntrCSR::msg_shadow_val() const {
+  // @@protoc_insertion_point(field_get:TimeCntrCSR.msg_shadow_val)
+  return _internal_msg_shadow_val();
+}
+inline void TimeCntrCSR::_internal_set_msg_shadow_val(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  
+  msg_shadow_val_ = value;
+}
+inline void TimeCntrCSR::set_msg_shadow_val(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  _internal_set_msg_shadow_val(value);
+  // @@protoc_insertion_point(field_set:TimeCntrCSR.msg_shadow_val)
+}
+
+// -------------------------------------------------------------------
+
+// StimecmpCSR
+
+// .BasicCSR msg_basic_csr = 1;
+inline bool StimecmpCSR::_internal_has_msg_basic_csr() const {
+  return this != internal_default_instance() && msg_basic_csr_ != nullptr;
+}
+inline bool StimecmpCSR::has_msg_basic_csr() const {
+  return _internal_has_msg_basic_csr();
+}
+inline void StimecmpCSR::clear_msg_basic_csr() {
+  if (GetArenaNoVirtual() == nullptr && msg_basic_csr_ != nullptr) {
+    delete msg_basic_csr_;
+  }
+  msg_basic_csr_ = nullptr;
+}
+inline const ::BasicCSR& StimecmpCSR::_internal_msg_basic_csr() const {
+  const ::BasicCSR* p = msg_basic_csr_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::BasicCSR*>(
+      &::_BasicCSR_default_instance_);
+}
+inline const ::BasicCSR& StimecmpCSR::msg_basic_csr() const {
+  // @@protoc_insertion_point(field_get:StimecmpCSR.msg_basic_csr)
+  return _internal_msg_basic_csr();
+}
+inline ::BasicCSR* StimecmpCSR::release_msg_basic_csr() {
+  // @@protoc_insertion_point(field_release:StimecmpCSR.msg_basic_csr)
+  
+  ::BasicCSR* temp = msg_basic_csr_;
+  msg_basic_csr_ = nullptr;
+  return temp;
+}
+inline ::BasicCSR* StimecmpCSR::_internal_mutable_msg_basic_csr() {
+  
+  if (msg_basic_csr_ == nullptr) {
+    auto* p = CreateMaybeMessage<::BasicCSR>(GetArenaNoVirtual());
+    msg_basic_csr_ = p;
+  }
+  return msg_basic_csr_;
+}
+inline ::BasicCSR* StimecmpCSR::mutable_msg_basic_csr() {
+  // @@protoc_insertion_point(field_mutable:StimecmpCSR.msg_basic_csr)
+  return _internal_mutable_msg_basic_csr();
+}
+inline void StimecmpCSR::set_allocated_msg_basic_csr(::BasicCSR* msg_basic_csr) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_basic_csr_;
+  }
+  if (msg_basic_csr) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_basic_csr = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_basic_csr, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_basic_csr_ = msg_basic_csr;
+  // @@protoc_insertion_point(field_set_allocated:StimecmpCSR.msg_basic_csr)
+}
+
+// uint64 msg_intr_mask = 2;
+inline void StimecmpCSR::clear_msg_intr_mask() {
+  msg_intr_mask_ = PROTOBUF_ULONGLONG(0);
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 StimecmpCSR::_internal_msg_intr_mask() const {
+  return msg_intr_mask_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 StimecmpCSR::msg_intr_mask() const {
+  // @@protoc_insertion_point(field_get:StimecmpCSR.msg_intr_mask)
+  return _internal_msg_intr_mask();
+}
+inline void StimecmpCSR::_internal_set_msg_intr_mask(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  
+  msg_intr_mask_ = value;
+}
+inline void StimecmpCSR::set_msg_intr_mask(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  _internal_set_msg_intr_mask(value);
+  // @@protoc_insertion_point(field_set:StimecmpCSR.msg_intr_mask)
+}
+
+// -------------------------------------------------------------------
+
+// HidelegCSR
+
+// .MaskedCSR msg_hideleg_csr = 1;
+inline bool HidelegCSR::_internal_has_msg_hideleg_csr() const {
+  return this != internal_default_instance() && msg_hideleg_csr_ != nullptr;
+}
+inline bool HidelegCSR::has_msg_hideleg_csr() const {
+  return _internal_has_msg_hideleg_csr();
+}
+inline void HidelegCSR::clear_msg_hideleg_csr() {
+  if (GetArenaNoVirtual() == nullptr && msg_hideleg_csr_ != nullptr) {
+    delete msg_hideleg_csr_;
+  }
+  msg_hideleg_csr_ = nullptr;
+}
+inline const ::MaskedCSR& HidelegCSR::_internal_msg_hideleg_csr() const {
+  const ::MaskedCSR* p = msg_hideleg_csr_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::MaskedCSR*>(
+      &::_MaskedCSR_default_instance_);
+}
+inline const ::MaskedCSR& HidelegCSR::msg_hideleg_csr() const {
+  // @@protoc_insertion_point(field_get:HidelegCSR.msg_hideleg_csr)
+  return _internal_msg_hideleg_csr();
+}
+inline ::MaskedCSR* HidelegCSR::release_msg_hideleg_csr() {
+  // @@protoc_insertion_point(field_release:HidelegCSR.msg_hideleg_csr)
+  
+  ::MaskedCSR* temp = msg_hideleg_csr_;
+  msg_hideleg_csr_ = nullptr;
+  return temp;
+}
+inline ::MaskedCSR* HidelegCSR::_internal_mutable_msg_hideleg_csr() {
+  
+  if (msg_hideleg_csr_ == nullptr) {
+    auto* p = CreateMaybeMessage<::MaskedCSR>(GetArenaNoVirtual());
+    msg_hideleg_csr_ = p;
+  }
+  return msg_hideleg_csr_;
+}
+inline ::MaskedCSR* HidelegCSR::mutable_msg_hideleg_csr() {
+  // @@protoc_insertion_point(field_mutable:HidelegCSR.msg_hideleg_csr)
+  return _internal_mutable_msg_hideleg_csr();
+}
+inline void HidelegCSR::set_allocated_msg_hideleg_csr(::MaskedCSR* msg_hideleg_csr) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_hideleg_csr_;
+  }
+  if (msg_hideleg_csr) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_hideleg_csr = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_hideleg_csr, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_hideleg_csr_ = msg_hideleg_csr;
+  // @@protoc_insertion_point(field_set_allocated:HidelegCSR.msg_hideleg_csr)
+}
+
+// .BasicCSR msg_mideleg_csr = 2;
+inline bool HidelegCSR::_internal_has_msg_mideleg_csr() const {
+  return this != internal_default_instance() && msg_mideleg_csr_ != nullptr;
+}
+inline bool HidelegCSR::has_msg_mideleg_csr() const {
+  return _internal_has_msg_mideleg_csr();
+}
+inline void HidelegCSR::clear_msg_mideleg_csr() {
+  if (GetArenaNoVirtual() == nullptr && msg_mideleg_csr_ != nullptr) {
+    delete msg_mideleg_csr_;
+  }
+  msg_mideleg_csr_ = nullptr;
+}
+inline const ::BasicCSR& HidelegCSR::_internal_msg_mideleg_csr() const {
+  const ::BasicCSR* p = msg_mideleg_csr_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::BasicCSR*>(
+      &::_BasicCSR_default_instance_);
+}
+inline const ::BasicCSR& HidelegCSR::msg_mideleg_csr() const {
+  // @@protoc_insertion_point(field_get:HidelegCSR.msg_mideleg_csr)
+  return _internal_msg_mideleg_csr();
+}
+inline ::BasicCSR* HidelegCSR::release_msg_mideleg_csr() {
+  // @@protoc_insertion_point(field_release:HidelegCSR.msg_mideleg_csr)
+  
+  ::BasicCSR* temp = msg_mideleg_csr_;
+  msg_mideleg_csr_ = nullptr;
+  return temp;
+}
+inline ::BasicCSR* HidelegCSR::_internal_mutable_msg_mideleg_csr() {
+  
+  if (msg_mideleg_csr_ == nullptr) {
+    auto* p = CreateMaybeMessage<::BasicCSR>(GetArenaNoVirtual());
+    msg_mideleg_csr_ = p;
+  }
+  return msg_mideleg_csr_;
+}
+inline ::BasicCSR* HidelegCSR::mutable_msg_mideleg_csr() {
+  // @@protoc_insertion_point(field_mutable:HidelegCSR.msg_mideleg_csr)
+  return _internal_mutable_msg_mideleg_csr();
+}
+inline void HidelegCSR::set_allocated_msg_mideleg_csr(::BasicCSR* msg_mideleg_csr) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_mideleg_csr_;
+  }
+  if (msg_mideleg_csr) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_mideleg_csr = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_mideleg_csr, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_mideleg_csr_ = msg_mideleg_csr;
+  // @@protoc_insertion_point(field_set_allocated:HidelegCSR.msg_mideleg_csr)
+}
+
+// -------------------------------------------------------------------
+
+// McontextCSR
+
+// .CSR msg_csr = 1;
+inline bool McontextCSR::_internal_has_msg_csr() const {
+  return this != internal_default_instance() && msg_csr_ != nullptr;
+}
+inline bool McontextCSR::has_msg_csr() const {
+  return _internal_has_msg_csr();
+}
+inline void McontextCSR::clear_msg_csr() {
+  if (GetArenaNoVirtual() == nullptr && msg_csr_ != nullptr) {
+    delete msg_csr_;
+  }
+  msg_csr_ = nullptr;
+}
+inline const ::CSR& McontextCSR::_internal_msg_csr() const {
+  const ::CSR* p = msg_csr_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::CSR*>(
+      &::_CSR_default_instance_);
+}
+inline const ::CSR& McontextCSR::msg_csr() const {
+  // @@protoc_insertion_point(field_get:McontextCSR.msg_csr)
+  return _internal_msg_csr();
+}
+inline ::CSR* McontextCSR::release_msg_csr() {
+  // @@protoc_insertion_point(field_release:McontextCSR.msg_csr)
+  
+  ::CSR* temp = msg_csr_;
+  msg_csr_ = nullptr;
+  return temp;
+}
+inline ::CSR* McontextCSR::_internal_mutable_msg_csr() {
+  
+  if (msg_csr_ == nullptr) {
+    auto* p = CreateMaybeMessage<::CSR>(GetArenaNoVirtual());
+    msg_csr_ = p;
+  }
+  return msg_csr_;
+}
+inline ::CSR* McontextCSR::mutable_msg_csr() {
+  // @@protoc_insertion_point(field_mutable:McontextCSR.msg_csr)
+  return _internal_mutable_msg_csr();
+}
+inline void McontextCSR::set_allocated_msg_csr(::CSR* msg_csr) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_csr_;
+  }
+  if (msg_csr) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_csr = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_csr, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_csr_ = msg_csr;
+  // @@protoc_insertion_point(field_set_allocated:McontextCSR.msg_csr)
+}
+
+// .MaskedCSR msg_delegate = 2;
+inline bool McontextCSR::_internal_has_msg_delegate() const {
+  return this != internal_default_instance() && msg_delegate_ != nullptr;
+}
+inline bool McontextCSR::has_msg_delegate() const {
+  return _internal_has_msg_delegate();
+}
+inline void McontextCSR::clear_msg_delegate() {
+  if (GetArenaNoVirtual() == nullptr && msg_delegate_ != nullptr) {
+    delete msg_delegate_;
+  }
+  msg_delegate_ = nullptr;
+}
+inline const ::MaskedCSR& McontextCSR::_internal_msg_delegate() const {
+  const ::MaskedCSR* p = msg_delegate_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::MaskedCSR*>(
+      &::_MaskedCSR_default_instance_);
+}
+inline const ::MaskedCSR& McontextCSR::msg_delegate() const {
+  // @@protoc_insertion_point(field_get:McontextCSR.msg_delegate)
+  return _internal_msg_delegate();
+}
+inline ::MaskedCSR* McontextCSR::release_msg_delegate() {
+  // @@protoc_insertion_point(field_release:McontextCSR.msg_delegate)
+  
+  ::MaskedCSR* temp = msg_delegate_;
+  msg_delegate_ = nullptr;
+  return temp;
+}
+inline ::MaskedCSR* McontextCSR::_internal_mutable_msg_delegate() {
+  
+  if (msg_delegate_ == nullptr) {
+    auto* p = CreateMaybeMessage<::MaskedCSR>(GetArenaNoVirtual());
+    msg_delegate_ = p;
+  }
+  return msg_delegate_;
+}
+inline ::MaskedCSR* McontextCSR::mutable_msg_delegate() {
+  // @@protoc_insertion_point(field_mutable:McontextCSR.msg_delegate)
+  return _internal_mutable_msg_delegate();
+}
+inline void McontextCSR::set_allocated_msg_delegate(::MaskedCSR* msg_delegate) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_delegate_;
+  }
+  if (msg_delegate) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_delegate = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_delegate, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_delegate_ = msg_delegate;
+  // @@protoc_insertion_point(field_set_allocated:McontextCSR.msg_delegate)
+}
+
+// -------------------------------------------------------------------
+
+// HenvcfgCSR
+
+// .MaskedCSR msg_henvcfg = 1;
+inline bool HenvcfgCSR::_internal_has_msg_henvcfg() const {
+  return this != internal_default_instance() && msg_henvcfg_ != nullptr;
+}
+inline bool HenvcfgCSR::has_msg_henvcfg() const {
+  return _internal_has_msg_henvcfg();
+}
+inline void HenvcfgCSR::clear_msg_henvcfg() {
+  if (GetArenaNoVirtual() == nullptr && msg_henvcfg_ != nullptr) {
+    delete msg_henvcfg_;
+  }
+  msg_henvcfg_ = nullptr;
+}
+inline const ::MaskedCSR& HenvcfgCSR::_internal_msg_henvcfg() const {
+  const ::MaskedCSR* p = msg_henvcfg_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::MaskedCSR*>(
+      &::_MaskedCSR_default_instance_);
+}
+inline const ::MaskedCSR& HenvcfgCSR::msg_henvcfg() const {
+  // @@protoc_insertion_point(field_get:HenvcfgCSR.msg_henvcfg)
+  return _internal_msg_henvcfg();
+}
+inline ::MaskedCSR* HenvcfgCSR::release_msg_henvcfg() {
+  // @@protoc_insertion_point(field_release:HenvcfgCSR.msg_henvcfg)
+  
+  ::MaskedCSR* temp = msg_henvcfg_;
+  msg_henvcfg_ = nullptr;
+  return temp;
+}
+inline ::MaskedCSR* HenvcfgCSR::_internal_mutable_msg_henvcfg() {
+  
+  if (msg_henvcfg_ == nullptr) {
+    auto* p = CreateMaybeMessage<::MaskedCSR>(GetArenaNoVirtual());
+    msg_henvcfg_ = p;
+  }
+  return msg_henvcfg_;
+}
+inline ::MaskedCSR* HenvcfgCSR::mutable_msg_henvcfg() {
+  // @@protoc_insertion_point(field_mutable:HenvcfgCSR.msg_henvcfg)
+  return _internal_mutable_msg_henvcfg();
+}
+inline void HenvcfgCSR::set_allocated_msg_henvcfg(::MaskedCSR* msg_henvcfg) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_henvcfg_;
+  }
+  if (msg_henvcfg) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_henvcfg = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_henvcfg, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_henvcfg_ = msg_henvcfg;
+  // @@protoc_insertion_point(field_set_allocated:HenvcfgCSR.msg_henvcfg)
+}
+
+// .MaskedCSR msg_menvcfg = 2;
+inline bool HenvcfgCSR::_internal_has_msg_menvcfg() const {
+  return this != internal_default_instance() && msg_menvcfg_ != nullptr;
+}
+inline bool HenvcfgCSR::has_msg_menvcfg() const {
+  return _internal_has_msg_menvcfg();
+}
+inline void HenvcfgCSR::clear_msg_menvcfg() {
+  if (GetArenaNoVirtual() == nullptr && msg_menvcfg_ != nullptr) {
+    delete msg_menvcfg_;
+  }
+  msg_menvcfg_ = nullptr;
+}
+inline const ::MaskedCSR& HenvcfgCSR::_internal_msg_menvcfg() const {
+  const ::MaskedCSR* p = msg_menvcfg_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::MaskedCSR*>(
+      &::_MaskedCSR_default_instance_);
+}
+inline const ::MaskedCSR& HenvcfgCSR::msg_menvcfg() const {
+  // @@protoc_insertion_point(field_get:HenvcfgCSR.msg_menvcfg)
+  return _internal_msg_menvcfg();
+}
+inline ::MaskedCSR* HenvcfgCSR::release_msg_menvcfg() {
+  // @@protoc_insertion_point(field_release:HenvcfgCSR.msg_menvcfg)
+  
+  ::MaskedCSR* temp = msg_menvcfg_;
+  msg_menvcfg_ = nullptr;
+  return temp;
+}
+inline ::MaskedCSR* HenvcfgCSR::_internal_mutable_msg_menvcfg() {
+  
+  if (msg_menvcfg_ == nullptr) {
+    auto* p = CreateMaybeMessage<::MaskedCSR>(GetArenaNoVirtual());
+    msg_menvcfg_ = p;
+  }
+  return msg_menvcfg_;
+}
+inline ::MaskedCSR* HenvcfgCSR::mutable_msg_menvcfg() {
+  // @@protoc_insertion_point(field_mutable:HenvcfgCSR.msg_menvcfg)
+  return _internal_mutable_msg_menvcfg();
+}
+inline void HenvcfgCSR::set_allocated_msg_menvcfg(::MaskedCSR* msg_menvcfg) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_menvcfg_;
+  }
+  if (msg_menvcfg) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_menvcfg = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_menvcfg, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_menvcfg_ = msg_menvcfg;
+  // @@protoc_insertion_point(field_set_allocated:HenvcfgCSR.msg_menvcfg)
+}
+
+// -------------------------------------------------------------------
+
+// Float128
+
+// uint64 msg_0 = 1;
+inline void Float128::clear_msg_0() {
+  msg_0_ = PROTOBUF_ULONGLONG(0);
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 Float128::_internal_msg_0() const {
+  return msg_0_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 Float128::msg_0() const {
+  // @@protoc_insertion_point(field_get:Float128.msg_0)
+  return _internal_msg_0();
+}
+inline void Float128::_internal_set_msg_0(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  
+  msg_0_ = value;
+}
+inline void Float128::set_msg_0(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  _internal_set_msg_0(value);
+  // @@protoc_insertion_point(field_set:Float128.msg_0)
+}
+
+// uint64 msg_1 = 2;
+inline void Float128::clear_msg_1() {
+  msg_1_ = PROTOBUF_ULONGLONG(0);
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 Float128::_internal_msg_1() const {
+  return msg_1_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 Float128::msg_1() const {
+  // @@protoc_insertion_point(field_get:Float128.msg_1)
+  return _internal_msg_1();
+}
+inline void Float128::_internal_set_msg_1(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  
+  msg_1_ = value;
+}
+inline void Float128::set_msg_1(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  _internal_set_msg_1(value);
+  // @@protoc_insertion_point(field_set:Float128.msg_1)
+}
+
+// -------------------------------------------------------------------
+
 // ArchState
 
 // uint64 msg_pc = 1;
@@ -3690,6 +7858,92 @@ inline void ArchState::_internal_set_msg_pc(::PROTOBUF_NAMESPACE_ID::uint64 valu
 inline void ArchState::set_msg_pc(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   _internal_set_msg_pc(value);
   // @@protoc_insertion_point(field_set:ArchState.msg_pc)
+}
+
+// repeated uint64 msg_XPR = 2;
+inline int ArchState::_internal_msg_xpr_size() const {
+  return msg_xpr_.size();
+}
+inline int ArchState::msg_xpr_size() const {
+  return _internal_msg_xpr_size();
+}
+inline void ArchState::clear_msg_xpr() {
+  msg_xpr_.Clear();
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 ArchState::_internal_msg_xpr(int index) const {
+  return msg_xpr_.Get(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 ArchState::msg_xpr(int index) const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_XPR)
+  return _internal_msg_xpr(index);
+}
+inline void ArchState::set_msg_xpr(int index, ::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  msg_xpr_.Set(index, value);
+  // @@protoc_insertion_point(field_set:ArchState.msg_XPR)
+}
+inline void ArchState::_internal_add_msg_xpr(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  msg_xpr_.Add(value);
+}
+inline void ArchState::add_msg_xpr(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  _internal_add_msg_xpr(value);
+  // @@protoc_insertion_point(field_add:ArchState.msg_XPR)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint64 >&
+ArchState::_internal_msg_xpr() const {
+  return msg_xpr_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint64 >&
+ArchState::msg_xpr() const {
+  // @@protoc_insertion_point(field_list:ArchState.msg_XPR)
+  return _internal_msg_xpr();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint64 >*
+ArchState::_internal_mutable_msg_xpr() {
+  return &msg_xpr_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint64 >*
+ArchState::mutable_msg_xpr() {
+  // @@protoc_insertion_point(field_mutable_list:ArchState.msg_XPR)
+  return _internal_mutable_msg_xpr();
+}
+
+// repeated .Float128 msg_FPR = 3;
+inline int ArchState::_internal_msg_fpr_size() const {
+  return msg_fpr_.size();
+}
+inline int ArchState::msg_fpr_size() const {
+  return _internal_msg_fpr_size();
+}
+inline void ArchState::clear_msg_fpr() {
+  msg_fpr_.Clear();
+}
+inline ::Float128* ArchState::mutable_msg_fpr(int index) {
+  // @@protoc_insertion_point(field_mutable:ArchState.msg_FPR)
+  return msg_fpr_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Float128 >*
+ArchState::mutable_msg_fpr() {
+  // @@protoc_insertion_point(field_mutable_list:ArchState.msg_FPR)
+  return &msg_fpr_;
+}
+inline const ::Float128& ArchState::_internal_msg_fpr(int index) const {
+  return msg_fpr_.Get(index);
+}
+inline const ::Float128& ArchState::msg_fpr(int index) const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_FPR)
+  return _internal_msg_fpr(index);
+}
+inline ::Float128* ArchState::_internal_add_msg_fpr() {
+  return msg_fpr_.Add();
+}
+inline ::Float128* ArchState::add_msg_fpr() {
+  // @@protoc_insertion_point(field_add:ArchState.msg_FPR)
+  return _internal_add_msg_fpr();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Float128 >&
+ArchState::msg_fpr() const {
+  // @@protoc_insertion_point(field_list:ArchState.msg_FPR)
+  return msg_fpr_;
 }
 
 // uint64 msg_prv = 4;
@@ -3870,126 +8124,6 @@ inline void ArchState::set_allocated_msg_misa(::MisaCSR* msg_misa) {
   }
   msg_misa_ = msg_misa;
   // @@protoc_insertion_point(field_set_allocated:ArchState.msg_misa)
-}
-
-// .MstatusCSR msg_mstatus = 11;
-inline bool ArchState::_internal_has_msg_mstatus() const {
-  return this != internal_default_instance() && msg_mstatus_ != nullptr;
-}
-inline bool ArchState::has_msg_mstatus() const {
-  return _internal_has_msg_mstatus();
-}
-inline void ArchState::clear_msg_mstatus() {
-  if (GetArenaNoVirtual() == nullptr && msg_mstatus_ != nullptr) {
-    delete msg_mstatus_;
-  }
-  msg_mstatus_ = nullptr;
-}
-inline const ::MstatusCSR& ArchState::_internal_msg_mstatus() const {
-  const ::MstatusCSR* p = msg_mstatus_;
-  return p != nullptr ? *p : *reinterpret_cast<const ::MstatusCSR*>(
-      &::_MstatusCSR_default_instance_);
-}
-inline const ::MstatusCSR& ArchState::msg_mstatus() const {
-  // @@protoc_insertion_point(field_get:ArchState.msg_mstatus)
-  return _internal_msg_mstatus();
-}
-inline ::MstatusCSR* ArchState::release_msg_mstatus() {
-  // @@protoc_insertion_point(field_release:ArchState.msg_mstatus)
-  
-  ::MstatusCSR* temp = msg_mstatus_;
-  msg_mstatus_ = nullptr;
-  return temp;
-}
-inline ::MstatusCSR* ArchState::_internal_mutable_msg_mstatus() {
-  
-  if (msg_mstatus_ == nullptr) {
-    auto* p = CreateMaybeMessage<::MstatusCSR>(GetArenaNoVirtual());
-    msg_mstatus_ = p;
-  }
-  return msg_mstatus_;
-}
-inline ::MstatusCSR* ArchState::mutable_msg_mstatus() {
-  // @@protoc_insertion_point(field_mutable:ArchState.msg_mstatus)
-  return _internal_mutable_msg_mstatus();
-}
-inline void ArchState::set_allocated_msg_mstatus(::MstatusCSR* msg_mstatus) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
-  if (message_arena == nullptr) {
-    delete msg_mstatus_;
-  }
-  if (msg_mstatus) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
-    if (message_arena != submessage_arena) {
-      msg_mstatus = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, msg_mstatus, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  msg_mstatus_ = msg_mstatus;
-  // @@protoc_insertion_point(field_set_allocated:ArchState.msg_mstatus)
-}
-
-// .CSR msg_mstatush = 12;
-inline bool ArchState::_internal_has_msg_mstatush() const {
-  return this != internal_default_instance() && msg_mstatush_ != nullptr;
-}
-inline bool ArchState::has_msg_mstatush() const {
-  return _internal_has_msg_mstatush();
-}
-inline void ArchState::clear_msg_mstatush() {
-  if (GetArenaNoVirtual() == nullptr && msg_mstatush_ != nullptr) {
-    delete msg_mstatush_;
-  }
-  msg_mstatush_ = nullptr;
-}
-inline const ::CSR& ArchState::_internal_msg_mstatush() const {
-  const ::CSR* p = msg_mstatush_;
-  return p != nullptr ? *p : *reinterpret_cast<const ::CSR*>(
-      &::_CSR_default_instance_);
-}
-inline const ::CSR& ArchState::msg_mstatush() const {
-  // @@protoc_insertion_point(field_get:ArchState.msg_mstatush)
-  return _internal_msg_mstatush();
-}
-inline ::CSR* ArchState::release_msg_mstatush() {
-  // @@protoc_insertion_point(field_release:ArchState.msg_mstatush)
-  
-  ::CSR* temp = msg_mstatush_;
-  msg_mstatush_ = nullptr;
-  return temp;
-}
-inline ::CSR* ArchState::_internal_mutable_msg_mstatush() {
-  
-  if (msg_mstatush_ == nullptr) {
-    auto* p = CreateMaybeMessage<::CSR>(GetArenaNoVirtual());
-    msg_mstatush_ = p;
-  }
-  return msg_mstatush_;
-}
-inline ::CSR* ArchState::mutable_msg_mstatush() {
-  // @@protoc_insertion_point(field_mutable:ArchState.msg_mstatush)
-  return _internal_mutable_msg_mstatush();
-}
-inline void ArchState::set_allocated_msg_mstatush(::CSR* msg_mstatush) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
-  if (message_arena == nullptr) {
-    delete msg_mstatush_;
-  }
-  if (msg_mstatush) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
-    if (message_arena != submessage_arena) {
-      msg_mstatush = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, msg_mstatush, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  msg_mstatush_ = msg_mstatush;
-  // @@protoc_insertion_point(field_set_allocated:ArchState.msg_mstatush)
 }
 
 // .BasicCSR msg_mepc = 13;
@@ -4532,66 +8666,6 @@ inline void ArchState::set_allocated_msg_medeleg(::MedelegCSR* msg_medeleg) {
   // @@protoc_insertion_point(field_set_allocated:ArchState.msg_medeleg)
 }
 
-// .BasicCSR msg_mideleg = 22;
-inline bool ArchState::_internal_has_msg_mideleg() const {
-  return this != internal_default_instance() && msg_mideleg_ != nullptr;
-}
-inline bool ArchState::has_msg_mideleg() const {
-  return _internal_has_msg_mideleg();
-}
-inline void ArchState::clear_msg_mideleg() {
-  if (GetArenaNoVirtual() == nullptr && msg_mideleg_ != nullptr) {
-    delete msg_mideleg_;
-  }
-  msg_mideleg_ = nullptr;
-}
-inline const ::BasicCSR& ArchState::_internal_msg_mideleg() const {
-  const ::BasicCSR* p = msg_mideleg_;
-  return p != nullptr ? *p : *reinterpret_cast<const ::BasicCSR*>(
-      &::_BasicCSR_default_instance_);
-}
-inline const ::BasicCSR& ArchState::msg_mideleg() const {
-  // @@protoc_insertion_point(field_get:ArchState.msg_mideleg)
-  return _internal_msg_mideleg();
-}
-inline ::BasicCSR* ArchState::release_msg_mideleg() {
-  // @@protoc_insertion_point(field_release:ArchState.msg_mideleg)
-  
-  ::BasicCSR* temp = msg_mideleg_;
-  msg_mideleg_ = nullptr;
-  return temp;
-}
-inline ::BasicCSR* ArchState::_internal_mutable_msg_mideleg() {
-  
-  if (msg_mideleg_ == nullptr) {
-    auto* p = CreateMaybeMessage<::BasicCSR>(GetArenaNoVirtual());
-    msg_mideleg_ = p;
-  }
-  return msg_mideleg_;
-}
-inline ::BasicCSR* ArchState::mutable_msg_mideleg() {
-  // @@protoc_insertion_point(field_mutable:ArchState.msg_mideleg)
-  return _internal_mutable_msg_mideleg();
-}
-inline void ArchState::set_allocated_msg_mideleg(::BasicCSR* msg_mideleg) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
-  if (message_arena == nullptr) {
-    delete msg_mideleg_;
-  }
-  if (msg_mideleg) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
-    if (message_arena != submessage_arena) {
-      msg_mideleg = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, msg_mideleg, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  msg_mideleg_ = msg_mideleg;
-  // @@protoc_insertion_point(field_set_allocated:ArchState.msg_mideleg)
-}
-
 // .MaskedCSR msg_mcounteren = 23;
 inline bool ArchState::_internal_has_msg_mcounteren() const {
   return this != internal_default_instance() && msg_mcounteren_ != nullptr;
@@ -5111,7 +9185,7 @@ inline void ArchState::set_allocated_msg_satp(::VirtBasicCSR* msg_satp) {
   // @@protoc_insertion_point(field_set_allocated:ArchState.msg_satp)
 }
 
-// .CSR msg_scause = 32;
+// .VirtBasicCSR msg_scause = 32;
 inline bool ArchState::_internal_has_msg_scause() const {
   return this != internal_default_instance() && msg_scause_ != nullptr;
 }
@@ -5124,35 +9198,35 @@ inline void ArchState::clear_msg_scause() {
   }
   msg_scause_ = nullptr;
 }
-inline const ::CSR& ArchState::_internal_msg_scause() const {
-  const ::CSR* p = msg_scause_;
-  return p != nullptr ? *p : *reinterpret_cast<const ::CSR*>(
-      &::_CSR_default_instance_);
+inline const ::VirtBasicCSR& ArchState::_internal_msg_scause() const {
+  const ::VirtBasicCSR* p = msg_scause_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::VirtBasicCSR*>(
+      &::_VirtBasicCSR_default_instance_);
 }
-inline const ::CSR& ArchState::msg_scause() const {
+inline const ::VirtBasicCSR& ArchState::msg_scause() const {
   // @@protoc_insertion_point(field_get:ArchState.msg_scause)
   return _internal_msg_scause();
 }
-inline ::CSR* ArchState::release_msg_scause() {
+inline ::VirtBasicCSR* ArchState::release_msg_scause() {
   // @@protoc_insertion_point(field_release:ArchState.msg_scause)
   
-  ::CSR* temp = msg_scause_;
+  ::VirtBasicCSR* temp = msg_scause_;
   msg_scause_ = nullptr;
   return temp;
 }
-inline ::CSR* ArchState::_internal_mutable_msg_scause() {
+inline ::VirtBasicCSR* ArchState::_internal_mutable_msg_scause() {
   
   if (msg_scause_ == nullptr) {
-    auto* p = CreateMaybeMessage<::CSR>(GetArenaNoVirtual());
+    auto* p = CreateMaybeMessage<::VirtBasicCSR>(GetArenaNoVirtual());
     msg_scause_ = p;
   }
   return msg_scause_;
 }
-inline ::CSR* ArchState::mutable_msg_scause() {
+inline ::VirtBasicCSR* ArchState::mutable_msg_scause() {
   // @@protoc_insertion_point(field_mutable:ArchState.msg_scause)
   return _internal_mutable_msg_scause();
 }
-inline void ArchState::set_allocated_msg_scause(::CSR* msg_scause) {
+inline void ArchState::set_allocated_msg_scause(::VirtBasicCSR* msg_scause) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == nullptr) {
     delete msg_scause_;
@@ -5171,9 +9245,1931 @@ inline void ArchState::set_allocated_msg_scause(::CSR* msg_scause) {
   // @@protoc_insertion_point(field_set_allocated:ArchState.msg_scause)
 }
 
+// .BasicCSR msg_mtval2 = 33;
+inline bool ArchState::_internal_has_msg_mtval2() const {
+  return this != internal_default_instance() && msg_mtval2_ != nullptr;
+}
+inline bool ArchState::has_msg_mtval2() const {
+  return _internal_has_msg_mtval2();
+}
+inline void ArchState::clear_msg_mtval2() {
+  if (GetArenaNoVirtual() == nullptr && msg_mtval2_ != nullptr) {
+    delete msg_mtval2_;
+  }
+  msg_mtval2_ = nullptr;
+}
+inline const ::BasicCSR& ArchState::_internal_msg_mtval2() const {
+  const ::BasicCSR* p = msg_mtval2_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::BasicCSR*>(
+      &::_BasicCSR_default_instance_);
+}
+inline const ::BasicCSR& ArchState::msg_mtval2() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_mtval2)
+  return _internal_msg_mtval2();
+}
+inline ::BasicCSR* ArchState::release_msg_mtval2() {
+  // @@protoc_insertion_point(field_release:ArchState.msg_mtval2)
+  
+  ::BasicCSR* temp = msg_mtval2_;
+  msg_mtval2_ = nullptr;
+  return temp;
+}
+inline ::BasicCSR* ArchState::_internal_mutable_msg_mtval2() {
+  
+  if (msg_mtval2_ == nullptr) {
+    auto* p = CreateMaybeMessage<::BasicCSR>(GetArenaNoVirtual());
+    msg_mtval2_ = p;
+  }
+  return msg_mtval2_;
+}
+inline ::BasicCSR* ArchState::mutable_msg_mtval2() {
+  // @@protoc_insertion_point(field_mutable:ArchState.msg_mtval2)
+  return _internal_mutable_msg_mtval2();
+}
+inline void ArchState::set_allocated_msg_mtval2(::BasicCSR* msg_mtval2) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_mtval2_;
+  }
+  if (msg_mtval2) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_mtval2 = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_mtval2, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_mtval2_ = msg_mtval2;
+  // @@protoc_insertion_point(field_set_allocated:ArchState.msg_mtval2)
+}
+
+// .BasicCSR msg_mtinst = 34;
+inline bool ArchState::_internal_has_msg_mtinst() const {
+  return this != internal_default_instance() && msg_mtinst_ != nullptr;
+}
+inline bool ArchState::has_msg_mtinst() const {
+  return _internal_has_msg_mtinst();
+}
+inline void ArchState::clear_msg_mtinst() {
+  if (GetArenaNoVirtual() == nullptr && msg_mtinst_ != nullptr) {
+    delete msg_mtinst_;
+  }
+  msg_mtinst_ = nullptr;
+}
+inline const ::BasicCSR& ArchState::_internal_msg_mtinst() const {
+  const ::BasicCSR* p = msg_mtinst_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::BasicCSR*>(
+      &::_BasicCSR_default_instance_);
+}
+inline const ::BasicCSR& ArchState::msg_mtinst() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_mtinst)
+  return _internal_msg_mtinst();
+}
+inline ::BasicCSR* ArchState::release_msg_mtinst() {
+  // @@protoc_insertion_point(field_release:ArchState.msg_mtinst)
+  
+  ::BasicCSR* temp = msg_mtinst_;
+  msg_mtinst_ = nullptr;
+  return temp;
+}
+inline ::BasicCSR* ArchState::_internal_mutable_msg_mtinst() {
+  
+  if (msg_mtinst_ == nullptr) {
+    auto* p = CreateMaybeMessage<::BasicCSR>(GetArenaNoVirtual());
+    msg_mtinst_ = p;
+  }
+  return msg_mtinst_;
+}
+inline ::BasicCSR* ArchState::mutable_msg_mtinst() {
+  // @@protoc_insertion_point(field_mutable:ArchState.msg_mtinst)
+  return _internal_mutable_msg_mtinst();
+}
+inline void ArchState::set_allocated_msg_mtinst(::BasicCSR* msg_mtinst) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_mtinst_;
+  }
+  if (msg_mtinst) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_mtinst = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_mtinst, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_mtinst_ = msg_mtinst;
+  // @@protoc_insertion_point(field_set_allocated:ArchState.msg_mtinst)
+}
+
+// .MaskedCSR msg_hstatus = 35;
+inline bool ArchState::_internal_has_msg_hstatus() const {
+  return this != internal_default_instance() && msg_hstatus_ != nullptr;
+}
+inline bool ArchState::has_msg_hstatus() const {
+  return _internal_has_msg_hstatus();
+}
+inline void ArchState::clear_msg_hstatus() {
+  if (GetArenaNoVirtual() == nullptr && msg_hstatus_ != nullptr) {
+    delete msg_hstatus_;
+  }
+  msg_hstatus_ = nullptr;
+}
+inline const ::MaskedCSR& ArchState::_internal_msg_hstatus() const {
+  const ::MaskedCSR* p = msg_hstatus_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::MaskedCSR*>(
+      &::_MaskedCSR_default_instance_);
+}
+inline const ::MaskedCSR& ArchState::msg_hstatus() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_hstatus)
+  return _internal_msg_hstatus();
+}
+inline ::MaskedCSR* ArchState::release_msg_hstatus() {
+  // @@protoc_insertion_point(field_release:ArchState.msg_hstatus)
+  
+  ::MaskedCSR* temp = msg_hstatus_;
+  msg_hstatus_ = nullptr;
+  return temp;
+}
+inline ::MaskedCSR* ArchState::_internal_mutable_msg_hstatus() {
+  
+  if (msg_hstatus_ == nullptr) {
+    auto* p = CreateMaybeMessage<::MaskedCSR>(GetArenaNoVirtual());
+    msg_hstatus_ = p;
+  }
+  return msg_hstatus_;
+}
+inline ::MaskedCSR* ArchState::mutable_msg_hstatus() {
+  // @@protoc_insertion_point(field_mutable:ArchState.msg_hstatus)
+  return _internal_mutable_msg_hstatus();
+}
+inline void ArchState::set_allocated_msg_hstatus(::MaskedCSR* msg_hstatus) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_hstatus_;
+  }
+  if (msg_hstatus) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_hstatus = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_hstatus, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_hstatus_ = msg_hstatus;
+  // @@protoc_insertion_point(field_set_allocated:ArchState.msg_hstatus)
+}
+
+// .HidelegCSR msg_hideleg = 36;
+inline bool ArchState::_internal_has_msg_hideleg() const {
+  return this != internal_default_instance() && msg_hideleg_ != nullptr;
+}
+inline bool ArchState::has_msg_hideleg() const {
+  return _internal_has_msg_hideleg();
+}
+inline void ArchState::clear_msg_hideleg() {
+  if (GetArenaNoVirtual() == nullptr && msg_hideleg_ != nullptr) {
+    delete msg_hideleg_;
+  }
+  msg_hideleg_ = nullptr;
+}
+inline const ::HidelegCSR& ArchState::_internal_msg_hideleg() const {
+  const ::HidelegCSR* p = msg_hideleg_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::HidelegCSR*>(
+      &::_HidelegCSR_default_instance_);
+}
+inline const ::HidelegCSR& ArchState::msg_hideleg() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_hideleg)
+  return _internal_msg_hideleg();
+}
+inline ::HidelegCSR* ArchState::release_msg_hideleg() {
+  // @@protoc_insertion_point(field_release:ArchState.msg_hideleg)
+  
+  ::HidelegCSR* temp = msg_hideleg_;
+  msg_hideleg_ = nullptr;
+  return temp;
+}
+inline ::HidelegCSR* ArchState::_internal_mutable_msg_hideleg() {
+  
+  if (msg_hideleg_ == nullptr) {
+    auto* p = CreateMaybeMessage<::HidelegCSR>(GetArenaNoVirtual());
+    msg_hideleg_ = p;
+  }
+  return msg_hideleg_;
+}
+inline ::HidelegCSR* ArchState::mutable_msg_hideleg() {
+  // @@protoc_insertion_point(field_mutable:ArchState.msg_hideleg)
+  return _internal_mutable_msg_hideleg();
+}
+inline void ArchState::set_allocated_msg_hideleg(::HidelegCSR* msg_hideleg) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_hideleg_;
+  }
+  if (msg_hideleg) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_hideleg = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_hideleg, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_hideleg_ = msg_hideleg;
+  // @@protoc_insertion_point(field_set_allocated:ArchState.msg_hideleg)
+}
+
+// .MaskedCSR msg_hedeleg = 37;
+inline bool ArchState::_internal_has_msg_hedeleg() const {
+  return this != internal_default_instance() && msg_hedeleg_ != nullptr;
+}
+inline bool ArchState::has_msg_hedeleg() const {
+  return _internal_has_msg_hedeleg();
+}
+inline void ArchState::clear_msg_hedeleg() {
+  if (GetArenaNoVirtual() == nullptr && msg_hedeleg_ != nullptr) {
+    delete msg_hedeleg_;
+  }
+  msg_hedeleg_ = nullptr;
+}
+inline const ::MaskedCSR& ArchState::_internal_msg_hedeleg() const {
+  const ::MaskedCSR* p = msg_hedeleg_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::MaskedCSR*>(
+      &::_MaskedCSR_default_instance_);
+}
+inline const ::MaskedCSR& ArchState::msg_hedeleg() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_hedeleg)
+  return _internal_msg_hedeleg();
+}
+inline ::MaskedCSR* ArchState::release_msg_hedeleg() {
+  // @@protoc_insertion_point(field_release:ArchState.msg_hedeleg)
+  
+  ::MaskedCSR* temp = msg_hedeleg_;
+  msg_hedeleg_ = nullptr;
+  return temp;
+}
+inline ::MaskedCSR* ArchState::_internal_mutable_msg_hedeleg() {
+  
+  if (msg_hedeleg_ == nullptr) {
+    auto* p = CreateMaybeMessage<::MaskedCSR>(GetArenaNoVirtual());
+    msg_hedeleg_ = p;
+  }
+  return msg_hedeleg_;
+}
+inline ::MaskedCSR* ArchState::mutable_msg_hedeleg() {
+  // @@protoc_insertion_point(field_mutable:ArchState.msg_hedeleg)
+  return _internal_mutable_msg_hedeleg();
+}
+inline void ArchState::set_allocated_msg_hedeleg(::MaskedCSR* msg_hedeleg) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_hedeleg_;
+  }
+  if (msg_hedeleg) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_hedeleg = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_hedeleg, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_hedeleg_ = msg_hedeleg;
+  // @@protoc_insertion_point(field_set_allocated:ArchState.msg_hedeleg)
+}
+
+// .MaskedCSR msg_hcounteren = 38;
+inline bool ArchState::_internal_has_msg_hcounteren() const {
+  return this != internal_default_instance() && msg_hcounteren_ != nullptr;
+}
+inline bool ArchState::has_msg_hcounteren() const {
+  return _internal_has_msg_hcounteren();
+}
+inline void ArchState::clear_msg_hcounteren() {
+  if (GetArenaNoVirtual() == nullptr && msg_hcounteren_ != nullptr) {
+    delete msg_hcounteren_;
+  }
+  msg_hcounteren_ = nullptr;
+}
+inline const ::MaskedCSR& ArchState::_internal_msg_hcounteren() const {
+  const ::MaskedCSR* p = msg_hcounteren_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::MaskedCSR*>(
+      &::_MaskedCSR_default_instance_);
+}
+inline const ::MaskedCSR& ArchState::msg_hcounteren() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_hcounteren)
+  return _internal_msg_hcounteren();
+}
+inline ::MaskedCSR* ArchState::release_msg_hcounteren() {
+  // @@protoc_insertion_point(field_release:ArchState.msg_hcounteren)
+  
+  ::MaskedCSR* temp = msg_hcounteren_;
+  msg_hcounteren_ = nullptr;
+  return temp;
+}
+inline ::MaskedCSR* ArchState::_internal_mutable_msg_hcounteren() {
+  
+  if (msg_hcounteren_ == nullptr) {
+    auto* p = CreateMaybeMessage<::MaskedCSR>(GetArenaNoVirtual());
+    msg_hcounteren_ = p;
+  }
+  return msg_hcounteren_;
+}
+inline ::MaskedCSR* ArchState::mutable_msg_hcounteren() {
+  // @@protoc_insertion_point(field_mutable:ArchState.msg_hcounteren)
+  return _internal_mutable_msg_hcounteren();
+}
+inline void ArchState::set_allocated_msg_hcounteren(::MaskedCSR* msg_hcounteren) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_hcounteren_;
+  }
+  if (msg_hcounteren) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_hcounteren = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_hcounteren, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_hcounteren_ = msg_hcounteren;
+  // @@protoc_insertion_point(field_set_allocated:ArchState.msg_hcounteren)
+}
+
+// .BasicCSR msg_htval = 39;
+inline bool ArchState::_internal_has_msg_htval() const {
+  return this != internal_default_instance() && msg_htval_ != nullptr;
+}
+inline bool ArchState::has_msg_htval() const {
+  return _internal_has_msg_htval();
+}
+inline void ArchState::clear_msg_htval() {
+  if (GetArenaNoVirtual() == nullptr && msg_htval_ != nullptr) {
+    delete msg_htval_;
+  }
+  msg_htval_ = nullptr;
+}
+inline const ::BasicCSR& ArchState::_internal_msg_htval() const {
+  const ::BasicCSR* p = msg_htval_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::BasicCSR*>(
+      &::_BasicCSR_default_instance_);
+}
+inline const ::BasicCSR& ArchState::msg_htval() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_htval)
+  return _internal_msg_htval();
+}
+inline ::BasicCSR* ArchState::release_msg_htval() {
+  // @@protoc_insertion_point(field_release:ArchState.msg_htval)
+  
+  ::BasicCSR* temp = msg_htval_;
+  msg_htval_ = nullptr;
+  return temp;
+}
+inline ::BasicCSR* ArchState::_internal_mutable_msg_htval() {
+  
+  if (msg_htval_ == nullptr) {
+    auto* p = CreateMaybeMessage<::BasicCSR>(GetArenaNoVirtual());
+    msg_htval_ = p;
+  }
+  return msg_htval_;
+}
+inline ::BasicCSR* ArchState::mutable_msg_htval() {
+  // @@protoc_insertion_point(field_mutable:ArchState.msg_htval)
+  return _internal_mutable_msg_htval();
+}
+inline void ArchState::set_allocated_msg_htval(::BasicCSR* msg_htval) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_htval_;
+  }
+  if (msg_htval) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_htval = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_htval, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_htval_ = msg_htval;
+  // @@protoc_insertion_point(field_set_allocated:ArchState.msg_htval)
+}
+
+// .BasicCSR msg_htinst = 40;
+inline bool ArchState::_internal_has_msg_htinst() const {
+  return this != internal_default_instance() && msg_htinst_ != nullptr;
+}
+inline bool ArchState::has_msg_htinst() const {
+  return _internal_has_msg_htinst();
+}
+inline void ArchState::clear_msg_htinst() {
+  if (GetArenaNoVirtual() == nullptr && msg_htinst_ != nullptr) {
+    delete msg_htinst_;
+  }
+  msg_htinst_ = nullptr;
+}
+inline const ::BasicCSR& ArchState::_internal_msg_htinst() const {
+  const ::BasicCSR* p = msg_htinst_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::BasicCSR*>(
+      &::_BasicCSR_default_instance_);
+}
+inline const ::BasicCSR& ArchState::msg_htinst() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_htinst)
+  return _internal_msg_htinst();
+}
+inline ::BasicCSR* ArchState::release_msg_htinst() {
+  // @@protoc_insertion_point(field_release:ArchState.msg_htinst)
+  
+  ::BasicCSR* temp = msg_htinst_;
+  msg_htinst_ = nullptr;
+  return temp;
+}
+inline ::BasicCSR* ArchState::_internal_mutable_msg_htinst() {
+  
+  if (msg_htinst_ == nullptr) {
+    auto* p = CreateMaybeMessage<::BasicCSR>(GetArenaNoVirtual());
+    msg_htinst_ = p;
+  }
+  return msg_htinst_;
+}
+inline ::BasicCSR* ArchState::mutable_msg_htinst() {
+  // @@protoc_insertion_point(field_mutable:ArchState.msg_htinst)
+  return _internal_mutable_msg_htinst();
+}
+inline void ArchState::set_allocated_msg_htinst(::BasicCSR* msg_htinst) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_htinst_;
+  }
+  if (msg_htinst) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_htinst = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_htinst, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_htinst_ = msg_htinst;
+  // @@protoc_insertion_point(field_set_allocated:ArchState.msg_htinst)
+}
+
+// .BasicCSR msg_hgatp = 41;
+inline bool ArchState::_internal_has_msg_hgatp() const {
+  return this != internal_default_instance() && msg_hgatp_ != nullptr;
+}
+inline bool ArchState::has_msg_hgatp() const {
+  return _internal_has_msg_hgatp();
+}
+inline void ArchState::clear_msg_hgatp() {
+  if (GetArenaNoVirtual() == nullptr && msg_hgatp_ != nullptr) {
+    delete msg_hgatp_;
+  }
+  msg_hgatp_ = nullptr;
+}
+inline const ::BasicCSR& ArchState::_internal_msg_hgatp() const {
+  const ::BasicCSR* p = msg_hgatp_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::BasicCSR*>(
+      &::_BasicCSR_default_instance_);
+}
+inline const ::BasicCSR& ArchState::msg_hgatp() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_hgatp)
+  return _internal_msg_hgatp();
+}
+inline ::BasicCSR* ArchState::release_msg_hgatp() {
+  // @@protoc_insertion_point(field_release:ArchState.msg_hgatp)
+  
+  ::BasicCSR* temp = msg_hgatp_;
+  msg_hgatp_ = nullptr;
+  return temp;
+}
+inline ::BasicCSR* ArchState::_internal_mutable_msg_hgatp() {
+  
+  if (msg_hgatp_ == nullptr) {
+    auto* p = CreateMaybeMessage<::BasicCSR>(GetArenaNoVirtual());
+    msg_hgatp_ = p;
+  }
+  return msg_hgatp_;
+}
+inline ::BasicCSR* ArchState::mutable_msg_hgatp() {
+  // @@protoc_insertion_point(field_mutable:ArchState.msg_hgatp)
+  return _internal_mutable_msg_hgatp();
+}
+inline void ArchState::set_allocated_msg_hgatp(::BasicCSR* msg_hgatp) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_hgatp_;
+  }
+  if (msg_hgatp) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_hgatp = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_hgatp, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_hgatp_ = msg_hgatp;
+  // @@protoc_insertion_point(field_set_allocated:ArchState.msg_hgatp)
+}
+
+// .SstatusCSR msg_sstatus = 42;
+inline bool ArchState::_internal_has_msg_sstatus() const {
+  return this != internal_default_instance() && msg_sstatus_ != nullptr;
+}
+inline bool ArchState::has_msg_sstatus() const {
+  return _internal_has_msg_sstatus();
+}
+inline void ArchState::clear_msg_sstatus() {
+  if (GetArenaNoVirtual() == nullptr && msg_sstatus_ != nullptr) {
+    delete msg_sstatus_;
+  }
+  msg_sstatus_ = nullptr;
+}
+inline const ::SstatusCSR& ArchState::_internal_msg_sstatus() const {
+  const ::SstatusCSR* p = msg_sstatus_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::SstatusCSR*>(
+      &::_SstatusCSR_default_instance_);
+}
+inline const ::SstatusCSR& ArchState::msg_sstatus() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_sstatus)
+  return _internal_msg_sstatus();
+}
+inline ::SstatusCSR* ArchState::release_msg_sstatus() {
+  // @@protoc_insertion_point(field_release:ArchState.msg_sstatus)
+  
+  ::SstatusCSR* temp = msg_sstatus_;
+  msg_sstatus_ = nullptr;
+  return temp;
+}
+inline ::SstatusCSR* ArchState::_internal_mutable_msg_sstatus() {
+  
+  if (msg_sstatus_ == nullptr) {
+    auto* p = CreateMaybeMessage<::SstatusCSR>(GetArenaNoVirtual());
+    msg_sstatus_ = p;
+  }
+  return msg_sstatus_;
+}
+inline ::SstatusCSR* ArchState::mutable_msg_sstatus() {
+  // @@protoc_insertion_point(field_mutable:ArchState.msg_sstatus)
+  return _internal_mutable_msg_sstatus();
+}
+inline void ArchState::set_allocated_msg_sstatus(::SstatusCSR* msg_sstatus) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_sstatus_;
+  }
+  if (msg_sstatus) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_sstatus = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_sstatus, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_sstatus_ = msg_sstatus;
+  // @@protoc_insertion_point(field_set_allocated:ArchState.msg_sstatus)
+}
+
+// .BasicCSR msg_dpc = 43;
+inline bool ArchState::_internal_has_msg_dpc() const {
+  return this != internal_default_instance() && msg_dpc_ != nullptr;
+}
+inline bool ArchState::has_msg_dpc() const {
+  return _internal_has_msg_dpc();
+}
+inline void ArchState::clear_msg_dpc() {
+  if (GetArenaNoVirtual() == nullptr && msg_dpc_ != nullptr) {
+    delete msg_dpc_;
+  }
+  msg_dpc_ = nullptr;
+}
+inline const ::BasicCSR& ArchState::_internal_msg_dpc() const {
+  const ::BasicCSR* p = msg_dpc_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::BasicCSR*>(
+      &::_BasicCSR_default_instance_);
+}
+inline const ::BasicCSR& ArchState::msg_dpc() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_dpc)
+  return _internal_msg_dpc();
+}
+inline ::BasicCSR* ArchState::release_msg_dpc() {
+  // @@protoc_insertion_point(field_release:ArchState.msg_dpc)
+  
+  ::BasicCSR* temp = msg_dpc_;
+  msg_dpc_ = nullptr;
+  return temp;
+}
+inline ::BasicCSR* ArchState::_internal_mutable_msg_dpc() {
+  
+  if (msg_dpc_ == nullptr) {
+    auto* p = CreateMaybeMessage<::BasicCSR>(GetArenaNoVirtual());
+    msg_dpc_ = p;
+  }
+  return msg_dpc_;
+}
+inline ::BasicCSR* ArchState::mutable_msg_dpc() {
+  // @@protoc_insertion_point(field_mutable:ArchState.msg_dpc)
+  return _internal_mutable_msg_dpc();
+}
+inline void ArchState::set_allocated_msg_dpc(::BasicCSR* msg_dpc) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_dpc_;
+  }
+  if (msg_dpc) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_dpc = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_dpc, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_dpc_ = msg_dpc;
+  // @@protoc_insertion_point(field_set_allocated:ArchState.msg_dpc)
+}
+
+// .DCSR msg_dcsr = 44;
+inline bool ArchState::_internal_has_msg_dcsr() const {
+  return this != internal_default_instance() && msg_dcsr_ != nullptr;
+}
+inline bool ArchState::has_msg_dcsr() const {
+  return _internal_has_msg_dcsr();
+}
+inline void ArchState::clear_msg_dcsr() {
+  if (GetArenaNoVirtual() == nullptr && msg_dcsr_ != nullptr) {
+    delete msg_dcsr_;
+  }
+  msg_dcsr_ = nullptr;
+}
+inline const ::DCSR& ArchState::_internal_msg_dcsr() const {
+  const ::DCSR* p = msg_dcsr_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::DCSR*>(
+      &::_DCSR_default_instance_);
+}
+inline const ::DCSR& ArchState::msg_dcsr() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_dcsr)
+  return _internal_msg_dcsr();
+}
+inline ::DCSR* ArchState::release_msg_dcsr() {
+  // @@protoc_insertion_point(field_release:ArchState.msg_dcsr)
+  
+  ::DCSR* temp = msg_dcsr_;
+  msg_dcsr_ = nullptr;
+  return temp;
+}
+inline ::DCSR* ArchState::_internal_mutable_msg_dcsr() {
+  
+  if (msg_dcsr_ == nullptr) {
+    auto* p = CreateMaybeMessage<::DCSR>(GetArenaNoVirtual());
+    msg_dcsr_ = p;
+  }
+  return msg_dcsr_;
+}
+inline ::DCSR* ArchState::mutable_msg_dcsr() {
+  // @@protoc_insertion_point(field_mutable:ArchState.msg_dcsr)
+  return _internal_mutable_msg_dcsr();
+}
+inline void ArchState::set_allocated_msg_dcsr(::DCSR* msg_dcsr) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_dcsr_;
+  }
+  if (msg_dcsr) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_dcsr = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_dcsr, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_dcsr_ = msg_dcsr;
+  // @@protoc_insertion_point(field_set_allocated:ArchState.msg_dcsr)
+}
+
+// .BasicCSR msg_tselect = 45;
+inline bool ArchState::_internal_has_msg_tselect() const {
+  return this != internal_default_instance() && msg_tselect_ != nullptr;
+}
+inline bool ArchState::has_msg_tselect() const {
+  return _internal_has_msg_tselect();
+}
+inline void ArchState::clear_msg_tselect() {
+  if (GetArenaNoVirtual() == nullptr && msg_tselect_ != nullptr) {
+    delete msg_tselect_;
+  }
+  msg_tselect_ = nullptr;
+}
+inline const ::BasicCSR& ArchState::_internal_msg_tselect() const {
+  const ::BasicCSR* p = msg_tselect_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::BasicCSR*>(
+      &::_BasicCSR_default_instance_);
+}
+inline const ::BasicCSR& ArchState::msg_tselect() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_tselect)
+  return _internal_msg_tselect();
+}
+inline ::BasicCSR* ArchState::release_msg_tselect() {
+  // @@protoc_insertion_point(field_release:ArchState.msg_tselect)
+  
+  ::BasicCSR* temp = msg_tselect_;
+  msg_tselect_ = nullptr;
+  return temp;
+}
+inline ::BasicCSR* ArchState::_internal_mutable_msg_tselect() {
+  
+  if (msg_tselect_ == nullptr) {
+    auto* p = CreateMaybeMessage<::BasicCSR>(GetArenaNoVirtual());
+    msg_tselect_ = p;
+  }
+  return msg_tselect_;
+}
+inline ::BasicCSR* ArchState::mutable_msg_tselect() {
+  // @@protoc_insertion_point(field_mutable:ArchState.msg_tselect)
+  return _internal_mutable_msg_tselect();
+}
+inline void ArchState::set_allocated_msg_tselect(::BasicCSR* msg_tselect) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_tselect_;
+  }
+  if (msg_tselect) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_tselect = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_tselect, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_tselect_ = msg_tselect;
+  // @@protoc_insertion_point(field_set_allocated:ArchState.msg_tselect)
+}
+
+// .BasicCSR msg_tdata2 = 46;
+inline bool ArchState::_internal_has_msg_tdata2() const {
+  return this != internal_default_instance() && msg_tdata2_ != nullptr;
+}
+inline bool ArchState::has_msg_tdata2() const {
+  return _internal_has_msg_tdata2();
+}
+inline void ArchState::clear_msg_tdata2() {
+  if (GetArenaNoVirtual() == nullptr && msg_tdata2_ != nullptr) {
+    delete msg_tdata2_;
+  }
+  msg_tdata2_ = nullptr;
+}
+inline const ::BasicCSR& ArchState::_internal_msg_tdata2() const {
+  const ::BasicCSR* p = msg_tdata2_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::BasicCSR*>(
+      &::_BasicCSR_default_instance_);
+}
+inline const ::BasicCSR& ArchState::msg_tdata2() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_tdata2)
+  return _internal_msg_tdata2();
+}
+inline ::BasicCSR* ArchState::release_msg_tdata2() {
+  // @@protoc_insertion_point(field_release:ArchState.msg_tdata2)
+  
+  ::BasicCSR* temp = msg_tdata2_;
+  msg_tdata2_ = nullptr;
+  return temp;
+}
+inline ::BasicCSR* ArchState::_internal_mutable_msg_tdata2() {
+  
+  if (msg_tdata2_ == nullptr) {
+    auto* p = CreateMaybeMessage<::BasicCSR>(GetArenaNoVirtual());
+    msg_tdata2_ = p;
+  }
+  return msg_tdata2_;
+}
+inline ::BasicCSR* ArchState::mutable_msg_tdata2() {
+  // @@protoc_insertion_point(field_mutable:ArchState.msg_tdata2)
+  return _internal_mutable_msg_tdata2();
+}
+inline void ArchState::set_allocated_msg_tdata2(::BasicCSR* msg_tdata2) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_tdata2_;
+  }
+  if (msg_tdata2) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_tdata2 = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_tdata2, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_tdata2_ = msg_tdata2;
+  // @@protoc_insertion_point(field_set_allocated:ArchState.msg_tdata2)
+}
+
+// .MaskedCSR msg_scontext = 47;
+inline bool ArchState::_internal_has_msg_scontext() const {
+  return this != internal_default_instance() && msg_scontext_ != nullptr;
+}
+inline bool ArchState::has_msg_scontext() const {
+  return _internal_has_msg_scontext();
+}
+inline void ArchState::clear_msg_scontext() {
+  if (GetArenaNoVirtual() == nullptr && msg_scontext_ != nullptr) {
+    delete msg_scontext_;
+  }
+  msg_scontext_ = nullptr;
+}
+inline const ::MaskedCSR& ArchState::_internal_msg_scontext() const {
+  const ::MaskedCSR* p = msg_scontext_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::MaskedCSR*>(
+      &::_MaskedCSR_default_instance_);
+}
+inline const ::MaskedCSR& ArchState::msg_scontext() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_scontext)
+  return _internal_msg_scontext();
+}
+inline ::MaskedCSR* ArchState::release_msg_scontext() {
+  // @@protoc_insertion_point(field_release:ArchState.msg_scontext)
+  
+  ::MaskedCSR* temp = msg_scontext_;
+  msg_scontext_ = nullptr;
+  return temp;
+}
+inline ::MaskedCSR* ArchState::_internal_mutable_msg_scontext() {
+  
+  if (msg_scontext_ == nullptr) {
+    auto* p = CreateMaybeMessage<::MaskedCSR>(GetArenaNoVirtual());
+    msg_scontext_ = p;
+  }
+  return msg_scontext_;
+}
+inline ::MaskedCSR* ArchState::mutable_msg_scontext() {
+  // @@protoc_insertion_point(field_mutable:ArchState.msg_scontext)
+  return _internal_mutable_msg_scontext();
+}
+inline void ArchState::set_allocated_msg_scontext(::MaskedCSR* msg_scontext) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_scontext_;
+  }
+  if (msg_scontext) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_scontext = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_scontext, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_scontext_ = msg_scontext;
+  // @@protoc_insertion_point(field_set_allocated:ArchState.msg_scontext)
+}
+
+// .McontextCSR msg_mcontext = 48;
+inline bool ArchState::_internal_has_msg_mcontext() const {
+  return this != internal_default_instance() && msg_mcontext_ != nullptr;
+}
+inline bool ArchState::has_msg_mcontext() const {
+  return _internal_has_msg_mcontext();
+}
+inline void ArchState::clear_msg_mcontext() {
+  if (GetArenaNoVirtual() == nullptr && msg_mcontext_ != nullptr) {
+    delete msg_mcontext_;
+  }
+  msg_mcontext_ = nullptr;
+}
+inline const ::McontextCSR& ArchState::_internal_msg_mcontext() const {
+  const ::McontextCSR* p = msg_mcontext_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::McontextCSR*>(
+      &::_McontextCSR_default_instance_);
+}
+inline const ::McontextCSR& ArchState::msg_mcontext() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_mcontext)
+  return _internal_msg_mcontext();
+}
+inline ::McontextCSR* ArchState::release_msg_mcontext() {
+  // @@protoc_insertion_point(field_release:ArchState.msg_mcontext)
+  
+  ::McontextCSR* temp = msg_mcontext_;
+  msg_mcontext_ = nullptr;
+  return temp;
+}
+inline ::McontextCSR* ArchState::_internal_mutable_msg_mcontext() {
+  
+  if (msg_mcontext_ == nullptr) {
+    auto* p = CreateMaybeMessage<::McontextCSR>(GetArenaNoVirtual());
+    msg_mcontext_ = p;
+  }
+  return msg_mcontext_;
+}
+inline ::McontextCSR* ArchState::mutable_msg_mcontext() {
+  // @@protoc_insertion_point(field_mutable:ArchState.msg_mcontext)
+  return _internal_mutable_msg_mcontext();
+}
+inline void ArchState::set_allocated_msg_mcontext(::McontextCSR* msg_mcontext) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_mcontext_;
+  }
+  if (msg_mcontext) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_mcontext = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_mcontext, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_mcontext_ = msg_mcontext;
+  // @@protoc_insertion_point(field_set_allocated:ArchState.msg_mcontext)
+}
+
+// .BasicCSR msg_jvt = 49;
+inline bool ArchState::_internal_has_msg_jvt() const {
+  return this != internal_default_instance() && msg_jvt_ != nullptr;
+}
+inline bool ArchState::has_msg_jvt() const {
+  return _internal_has_msg_jvt();
+}
+inline void ArchState::clear_msg_jvt() {
+  if (GetArenaNoVirtual() == nullptr && msg_jvt_ != nullptr) {
+    delete msg_jvt_;
+  }
+  msg_jvt_ = nullptr;
+}
+inline const ::BasicCSR& ArchState::_internal_msg_jvt() const {
+  const ::BasicCSR* p = msg_jvt_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::BasicCSR*>(
+      &::_BasicCSR_default_instance_);
+}
+inline const ::BasicCSR& ArchState::msg_jvt() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_jvt)
+  return _internal_msg_jvt();
+}
+inline ::BasicCSR* ArchState::release_msg_jvt() {
+  // @@protoc_insertion_point(field_release:ArchState.msg_jvt)
+  
+  ::BasicCSR* temp = msg_jvt_;
+  msg_jvt_ = nullptr;
+  return temp;
+}
+inline ::BasicCSR* ArchState::_internal_mutable_msg_jvt() {
+  
+  if (msg_jvt_ == nullptr) {
+    auto* p = CreateMaybeMessage<::BasicCSR>(GetArenaNoVirtual());
+    msg_jvt_ = p;
+  }
+  return msg_jvt_;
+}
+inline ::BasicCSR* ArchState::mutable_msg_jvt() {
+  // @@protoc_insertion_point(field_mutable:ArchState.msg_jvt)
+  return _internal_mutable_msg_jvt();
+}
+inline void ArchState::set_allocated_msg_jvt(::BasicCSR* msg_jvt) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_jvt_;
+  }
+  if (msg_jvt) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_jvt = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_jvt, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_jvt_ = msg_jvt;
+  // @@protoc_insertion_point(field_set_allocated:ArchState.msg_jvt)
+}
+
+// bool msg_debug_mode = 50;
+inline void ArchState::clear_msg_debug_mode() {
+  msg_debug_mode_ = false;
+}
+inline bool ArchState::_internal_msg_debug_mode() const {
+  return msg_debug_mode_;
+}
+inline bool ArchState::msg_debug_mode() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_debug_mode)
+  return _internal_msg_debug_mode();
+}
+inline void ArchState::_internal_set_msg_debug_mode(bool value) {
+  
+  msg_debug_mode_ = value;
+}
+inline void ArchState::set_msg_debug_mode(bool value) {
+  _internal_set_msg_debug_mode(value);
+  // @@protoc_insertion_point(field_set:ArchState.msg_debug_mode)
+}
+
+// .BasicCSR msg_mseccfg = 51;
+inline bool ArchState::_internal_has_msg_mseccfg() const {
+  return this != internal_default_instance() && msg_mseccfg_ != nullptr;
+}
+inline bool ArchState::has_msg_mseccfg() const {
+  return _internal_has_msg_mseccfg();
+}
+inline void ArchState::clear_msg_mseccfg() {
+  if (GetArenaNoVirtual() == nullptr && msg_mseccfg_ != nullptr) {
+    delete msg_mseccfg_;
+  }
+  msg_mseccfg_ = nullptr;
+}
+inline const ::BasicCSR& ArchState::_internal_msg_mseccfg() const {
+  const ::BasicCSR* p = msg_mseccfg_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::BasicCSR*>(
+      &::_BasicCSR_default_instance_);
+}
+inline const ::BasicCSR& ArchState::msg_mseccfg() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_mseccfg)
+  return _internal_msg_mseccfg();
+}
+inline ::BasicCSR* ArchState::release_msg_mseccfg() {
+  // @@protoc_insertion_point(field_release:ArchState.msg_mseccfg)
+  
+  ::BasicCSR* temp = msg_mseccfg_;
+  msg_mseccfg_ = nullptr;
+  return temp;
+}
+inline ::BasicCSR* ArchState::_internal_mutable_msg_mseccfg() {
+  
+  if (msg_mseccfg_ == nullptr) {
+    auto* p = CreateMaybeMessage<::BasicCSR>(GetArenaNoVirtual());
+    msg_mseccfg_ = p;
+  }
+  return msg_mseccfg_;
+}
+inline ::BasicCSR* ArchState::mutable_msg_mseccfg() {
+  // @@protoc_insertion_point(field_mutable:ArchState.msg_mseccfg)
+  return _internal_mutable_msg_mseccfg();
+}
+inline void ArchState::set_allocated_msg_mseccfg(::BasicCSR* msg_mseccfg) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_mseccfg_;
+  }
+  if (msg_mseccfg) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_mseccfg = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_mseccfg, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_mseccfg_ = msg_mseccfg;
+  // @@protoc_insertion_point(field_set_allocated:ArchState.msg_mseccfg)
+}
+
+// repeated .PmpCSR msg_pmpaddr = 52;
+inline int ArchState::_internal_msg_pmpaddr_size() const {
+  return msg_pmpaddr_.size();
+}
+inline int ArchState::msg_pmpaddr_size() const {
+  return _internal_msg_pmpaddr_size();
+}
+inline void ArchState::clear_msg_pmpaddr() {
+  msg_pmpaddr_.Clear();
+}
+inline ::PmpCSR* ArchState::mutable_msg_pmpaddr(int index) {
+  // @@protoc_insertion_point(field_mutable:ArchState.msg_pmpaddr)
+  return msg_pmpaddr_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::PmpCSR >*
+ArchState::mutable_msg_pmpaddr() {
+  // @@protoc_insertion_point(field_mutable_list:ArchState.msg_pmpaddr)
+  return &msg_pmpaddr_;
+}
+inline const ::PmpCSR& ArchState::_internal_msg_pmpaddr(int index) const {
+  return msg_pmpaddr_.Get(index);
+}
+inline const ::PmpCSR& ArchState::msg_pmpaddr(int index) const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_pmpaddr)
+  return _internal_msg_pmpaddr(index);
+}
+inline ::PmpCSR* ArchState::_internal_add_msg_pmpaddr() {
+  return msg_pmpaddr_.Add();
+}
+inline ::PmpCSR* ArchState::add_msg_pmpaddr() {
+  // @@protoc_insertion_point(field_add:ArchState.msg_pmpaddr)
+  return _internal_add_msg_pmpaddr();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::PmpCSR >&
+ArchState::msg_pmpaddr() const {
+  // @@protoc_insertion_point(field_list:ArchState.msg_pmpaddr)
+  return msg_pmpaddr_;
+}
+
+// .MaskedCSR msg_fflags = 53;
+inline bool ArchState::_internal_has_msg_fflags() const {
+  return this != internal_default_instance() && msg_fflags_ != nullptr;
+}
+inline bool ArchState::has_msg_fflags() const {
+  return _internal_has_msg_fflags();
+}
+inline void ArchState::clear_msg_fflags() {
+  if (GetArenaNoVirtual() == nullptr && msg_fflags_ != nullptr) {
+    delete msg_fflags_;
+  }
+  msg_fflags_ = nullptr;
+}
+inline const ::MaskedCSR& ArchState::_internal_msg_fflags() const {
+  const ::MaskedCSR* p = msg_fflags_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::MaskedCSR*>(
+      &::_MaskedCSR_default_instance_);
+}
+inline const ::MaskedCSR& ArchState::msg_fflags() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_fflags)
+  return _internal_msg_fflags();
+}
+inline ::MaskedCSR* ArchState::release_msg_fflags() {
+  // @@protoc_insertion_point(field_release:ArchState.msg_fflags)
+  
+  ::MaskedCSR* temp = msg_fflags_;
+  msg_fflags_ = nullptr;
+  return temp;
+}
+inline ::MaskedCSR* ArchState::_internal_mutable_msg_fflags() {
+  
+  if (msg_fflags_ == nullptr) {
+    auto* p = CreateMaybeMessage<::MaskedCSR>(GetArenaNoVirtual());
+    msg_fflags_ = p;
+  }
+  return msg_fflags_;
+}
+inline ::MaskedCSR* ArchState::mutable_msg_fflags() {
+  // @@protoc_insertion_point(field_mutable:ArchState.msg_fflags)
+  return _internal_mutable_msg_fflags();
+}
+inline void ArchState::set_allocated_msg_fflags(::MaskedCSR* msg_fflags) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_fflags_;
+  }
+  if (msg_fflags) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_fflags = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_fflags, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_fflags_ = msg_fflags;
+  // @@protoc_insertion_point(field_set_allocated:ArchState.msg_fflags)
+}
+
+// .MaskedCSR msg_frm = 54;
+inline bool ArchState::_internal_has_msg_frm() const {
+  return this != internal_default_instance() && msg_frm_ != nullptr;
+}
+inline bool ArchState::has_msg_frm() const {
+  return _internal_has_msg_frm();
+}
+inline void ArchState::clear_msg_frm() {
+  if (GetArenaNoVirtual() == nullptr && msg_frm_ != nullptr) {
+    delete msg_frm_;
+  }
+  msg_frm_ = nullptr;
+}
+inline const ::MaskedCSR& ArchState::_internal_msg_frm() const {
+  const ::MaskedCSR* p = msg_frm_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::MaskedCSR*>(
+      &::_MaskedCSR_default_instance_);
+}
+inline const ::MaskedCSR& ArchState::msg_frm() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_frm)
+  return _internal_msg_frm();
+}
+inline ::MaskedCSR* ArchState::release_msg_frm() {
+  // @@protoc_insertion_point(field_release:ArchState.msg_frm)
+  
+  ::MaskedCSR* temp = msg_frm_;
+  msg_frm_ = nullptr;
+  return temp;
+}
+inline ::MaskedCSR* ArchState::_internal_mutable_msg_frm() {
+  
+  if (msg_frm_ == nullptr) {
+    auto* p = CreateMaybeMessage<::MaskedCSR>(GetArenaNoVirtual());
+    msg_frm_ = p;
+  }
+  return msg_frm_;
+}
+inline ::MaskedCSR* ArchState::mutable_msg_frm() {
+  // @@protoc_insertion_point(field_mutable:ArchState.msg_frm)
+  return _internal_mutable_msg_frm();
+}
+inline void ArchState::set_allocated_msg_frm(::MaskedCSR* msg_frm) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_frm_;
+  }
+  if (msg_frm) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_frm = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_frm, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_frm_ = msg_frm;
+  // @@protoc_insertion_point(field_set_allocated:ArchState.msg_frm)
+}
+
+// .MaskedCSR msg_senvcfg = 55;
+inline bool ArchState::_internal_has_msg_senvcfg() const {
+  return this != internal_default_instance() && msg_senvcfg_ != nullptr;
+}
+inline bool ArchState::has_msg_senvcfg() const {
+  return _internal_has_msg_senvcfg();
+}
+inline void ArchState::clear_msg_senvcfg() {
+  if (GetArenaNoVirtual() == nullptr && msg_senvcfg_ != nullptr) {
+    delete msg_senvcfg_;
+  }
+  msg_senvcfg_ = nullptr;
+}
+inline const ::MaskedCSR& ArchState::_internal_msg_senvcfg() const {
+  const ::MaskedCSR* p = msg_senvcfg_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::MaskedCSR*>(
+      &::_MaskedCSR_default_instance_);
+}
+inline const ::MaskedCSR& ArchState::msg_senvcfg() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_senvcfg)
+  return _internal_msg_senvcfg();
+}
+inline ::MaskedCSR* ArchState::release_msg_senvcfg() {
+  // @@protoc_insertion_point(field_release:ArchState.msg_senvcfg)
+  
+  ::MaskedCSR* temp = msg_senvcfg_;
+  msg_senvcfg_ = nullptr;
+  return temp;
+}
+inline ::MaskedCSR* ArchState::_internal_mutable_msg_senvcfg() {
+  
+  if (msg_senvcfg_ == nullptr) {
+    auto* p = CreateMaybeMessage<::MaskedCSR>(GetArenaNoVirtual());
+    msg_senvcfg_ = p;
+  }
+  return msg_senvcfg_;
+}
+inline ::MaskedCSR* ArchState::mutable_msg_senvcfg() {
+  // @@protoc_insertion_point(field_mutable:ArchState.msg_senvcfg)
+  return _internal_mutable_msg_senvcfg();
+}
+inline void ArchState::set_allocated_msg_senvcfg(::MaskedCSR* msg_senvcfg) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_senvcfg_;
+  }
+  if (msg_senvcfg) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_senvcfg = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_senvcfg, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_senvcfg_ = msg_senvcfg;
+  // @@protoc_insertion_point(field_set_allocated:ArchState.msg_senvcfg)
+}
+
+// .HenvcfgCSR msg_henvcfg = 56;
+inline bool ArchState::_internal_has_msg_henvcfg() const {
+  return this != internal_default_instance() && msg_henvcfg_ != nullptr;
+}
+inline bool ArchState::has_msg_henvcfg() const {
+  return _internal_has_msg_henvcfg();
+}
+inline void ArchState::clear_msg_henvcfg() {
+  if (GetArenaNoVirtual() == nullptr && msg_henvcfg_ != nullptr) {
+    delete msg_henvcfg_;
+  }
+  msg_henvcfg_ = nullptr;
+}
+inline const ::HenvcfgCSR& ArchState::_internal_msg_henvcfg() const {
+  const ::HenvcfgCSR* p = msg_henvcfg_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::HenvcfgCSR*>(
+      &::_HenvcfgCSR_default_instance_);
+}
+inline const ::HenvcfgCSR& ArchState::msg_henvcfg() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_henvcfg)
+  return _internal_msg_henvcfg();
+}
+inline ::HenvcfgCSR* ArchState::release_msg_henvcfg() {
+  // @@protoc_insertion_point(field_release:ArchState.msg_henvcfg)
+  
+  ::HenvcfgCSR* temp = msg_henvcfg_;
+  msg_henvcfg_ = nullptr;
+  return temp;
+}
+inline ::HenvcfgCSR* ArchState::_internal_mutable_msg_henvcfg() {
+  
+  if (msg_henvcfg_ == nullptr) {
+    auto* p = CreateMaybeMessage<::HenvcfgCSR>(GetArenaNoVirtual());
+    msg_henvcfg_ = p;
+  }
+  return msg_henvcfg_;
+}
+inline ::HenvcfgCSR* ArchState::mutable_msg_henvcfg() {
+  // @@protoc_insertion_point(field_mutable:ArchState.msg_henvcfg)
+  return _internal_mutable_msg_henvcfg();
+}
+inline void ArchState::set_allocated_msg_henvcfg(::HenvcfgCSR* msg_henvcfg) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_henvcfg_;
+  }
+  if (msg_henvcfg) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_henvcfg = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_henvcfg, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_henvcfg_ = msg_henvcfg;
+  // @@protoc_insertion_point(field_set_allocated:ArchState.msg_henvcfg)
+}
+
+// repeated .MaskedCSR msg_mstateen = 57;
+inline int ArchState::_internal_msg_mstateen_size() const {
+  return msg_mstateen_.size();
+}
+inline int ArchState::msg_mstateen_size() const {
+  return _internal_msg_mstateen_size();
+}
+inline void ArchState::clear_msg_mstateen() {
+  msg_mstateen_.Clear();
+}
+inline ::MaskedCSR* ArchState::mutable_msg_mstateen(int index) {
+  // @@protoc_insertion_point(field_mutable:ArchState.msg_mstateen)
+  return msg_mstateen_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::MaskedCSR >*
+ArchState::mutable_msg_mstateen() {
+  // @@protoc_insertion_point(field_mutable_list:ArchState.msg_mstateen)
+  return &msg_mstateen_;
+}
+inline const ::MaskedCSR& ArchState::_internal_msg_mstateen(int index) const {
+  return msg_mstateen_.Get(index);
+}
+inline const ::MaskedCSR& ArchState::msg_mstateen(int index) const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_mstateen)
+  return _internal_msg_mstateen(index);
+}
+inline ::MaskedCSR* ArchState::_internal_add_msg_mstateen() {
+  return msg_mstateen_.Add();
+}
+inline ::MaskedCSR* ArchState::add_msg_mstateen() {
+  // @@protoc_insertion_point(field_add:ArchState.msg_mstateen)
+  return _internal_add_msg_mstateen();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::MaskedCSR >&
+ArchState::msg_mstateen() const {
+  // @@protoc_insertion_point(field_list:ArchState.msg_mstateen)
+  return msg_mstateen_;
+}
+
+// repeated .HstateenCSR msg_sstateen = 58;
+inline int ArchState::_internal_msg_sstateen_size() const {
+  return msg_sstateen_.size();
+}
+inline int ArchState::msg_sstateen_size() const {
+  return _internal_msg_sstateen_size();
+}
+inline void ArchState::clear_msg_sstateen() {
+  msg_sstateen_.Clear();
+}
+inline ::HstateenCSR* ArchState::mutable_msg_sstateen(int index) {
+  // @@protoc_insertion_point(field_mutable:ArchState.msg_sstateen)
+  return msg_sstateen_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::HstateenCSR >*
+ArchState::mutable_msg_sstateen() {
+  // @@protoc_insertion_point(field_mutable_list:ArchState.msg_sstateen)
+  return &msg_sstateen_;
+}
+inline const ::HstateenCSR& ArchState::_internal_msg_sstateen(int index) const {
+  return msg_sstateen_.Get(index);
+}
+inline const ::HstateenCSR& ArchState::msg_sstateen(int index) const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_sstateen)
+  return _internal_msg_sstateen(index);
+}
+inline ::HstateenCSR* ArchState::_internal_add_msg_sstateen() {
+  return msg_sstateen_.Add();
+}
+inline ::HstateenCSR* ArchState::add_msg_sstateen() {
+  // @@protoc_insertion_point(field_add:ArchState.msg_sstateen)
+  return _internal_add_msg_sstateen();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::HstateenCSR >&
+ArchState::msg_sstateen() const {
+  // @@protoc_insertion_point(field_list:ArchState.msg_sstateen)
+  return msg_sstateen_;
+}
+
+// repeated .HstateenCSR msg_hstateen = 59;
+inline int ArchState::_internal_msg_hstateen_size() const {
+  return msg_hstateen_.size();
+}
+inline int ArchState::msg_hstateen_size() const {
+  return _internal_msg_hstateen_size();
+}
+inline void ArchState::clear_msg_hstateen() {
+  msg_hstateen_.Clear();
+}
+inline ::HstateenCSR* ArchState::mutable_msg_hstateen(int index) {
+  // @@protoc_insertion_point(field_mutable:ArchState.msg_hstateen)
+  return msg_hstateen_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::HstateenCSR >*
+ArchState::mutable_msg_hstateen() {
+  // @@protoc_insertion_point(field_mutable_list:ArchState.msg_hstateen)
+  return &msg_hstateen_;
+}
+inline const ::HstateenCSR& ArchState::_internal_msg_hstateen(int index) const {
+  return msg_hstateen_.Get(index);
+}
+inline const ::HstateenCSR& ArchState::msg_hstateen(int index) const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_hstateen)
+  return _internal_msg_hstateen(index);
+}
+inline ::HstateenCSR* ArchState::_internal_add_msg_hstateen() {
+  return msg_hstateen_.Add();
+}
+inline ::HstateenCSR* ArchState::add_msg_hstateen() {
+  // @@protoc_insertion_point(field_add:ArchState.msg_hstateen)
+  return _internal_add_msg_hstateen();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::HstateenCSR >&
+ArchState::msg_hstateen() const {
+  // @@protoc_insertion_point(field_list:ArchState.msg_hstateen)
+  return msg_hstateen_;
+}
+
+// .BasicCSR msg_htimedelta = 60;
+inline bool ArchState::_internal_has_msg_htimedelta() const {
+  return this != internal_default_instance() && msg_htimedelta_ != nullptr;
+}
+inline bool ArchState::has_msg_htimedelta() const {
+  return _internal_has_msg_htimedelta();
+}
+inline void ArchState::clear_msg_htimedelta() {
+  if (GetArenaNoVirtual() == nullptr && msg_htimedelta_ != nullptr) {
+    delete msg_htimedelta_;
+  }
+  msg_htimedelta_ = nullptr;
+}
+inline const ::BasicCSR& ArchState::_internal_msg_htimedelta() const {
+  const ::BasicCSR* p = msg_htimedelta_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::BasicCSR*>(
+      &::_BasicCSR_default_instance_);
+}
+inline const ::BasicCSR& ArchState::msg_htimedelta() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_htimedelta)
+  return _internal_msg_htimedelta();
+}
+inline ::BasicCSR* ArchState::release_msg_htimedelta() {
+  // @@protoc_insertion_point(field_release:ArchState.msg_htimedelta)
+  
+  ::BasicCSR* temp = msg_htimedelta_;
+  msg_htimedelta_ = nullptr;
+  return temp;
+}
+inline ::BasicCSR* ArchState::_internal_mutable_msg_htimedelta() {
+  
+  if (msg_htimedelta_ == nullptr) {
+    auto* p = CreateMaybeMessage<::BasicCSR>(GetArenaNoVirtual());
+    msg_htimedelta_ = p;
+  }
+  return msg_htimedelta_;
+}
+inline ::BasicCSR* ArchState::mutable_msg_htimedelta() {
+  // @@protoc_insertion_point(field_mutable:ArchState.msg_htimedelta)
+  return _internal_mutable_msg_htimedelta();
+}
+inline void ArchState::set_allocated_msg_htimedelta(::BasicCSR* msg_htimedelta) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_htimedelta_;
+  }
+  if (msg_htimedelta) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_htimedelta = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_htimedelta, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_htimedelta_ = msg_htimedelta;
+  // @@protoc_insertion_point(field_set_allocated:ArchState.msg_htimedelta)
+}
+
+// .BasicCSR msg_time = 61;
+inline bool ArchState::_internal_has_msg_time() const {
+  return this != internal_default_instance() && msg_time_ != nullptr;
+}
+inline bool ArchState::has_msg_time() const {
+  return _internal_has_msg_time();
+}
+inline void ArchState::clear_msg_time() {
+  if (GetArenaNoVirtual() == nullptr && msg_time_ != nullptr) {
+    delete msg_time_;
+  }
+  msg_time_ = nullptr;
+}
+inline const ::BasicCSR& ArchState::_internal_msg_time() const {
+  const ::BasicCSR* p = msg_time_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::BasicCSR*>(
+      &::_BasicCSR_default_instance_);
+}
+inline const ::BasicCSR& ArchState::msg_time() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_time)
+  return _internal_msg_time();
+}
+inline ::BasicCSR* ArchState::release_msg_time() {
+  // @@protoc_insertion_point(field_release:ArchState.msg_time)
+  
+  ::BasicCSR* temp = msg_time_;
+  msg_time_ = nullptr;
+  return temp;
+}
+inline ::BasicCSR* ArchState::_internal_mutable_msg_time() {
+  
+  if (msg_time_ == nullptr) {
+    auto* p = CreateMaybeMessage<::BasicCSR>(GetArenaNoVirtual());
+    msg_time_ = p;
+  }
+  return msg_time_;
+}
+inline ::BasicCSR* ArchState::mutable_msg_time() {
+  // @@protoc_insertion_point(field_mutable:ArchState.msg_time)
+  return _internal_mutable_msg_time();
+}
+inline void ArchState::set_allocated_msg_time(::BasicCSR* msg_time) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_time_;
+  }
+  if (msg_time) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_time = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_time, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_time_ = msg_time;
+  // @@protoc_insertion_point(field_set_allocated:ArchState.msg_time)
+}
+
+// .CSR msg_time_proxy = 62;
+inline bool ArchState::_internal_has_msg_time_proxy() const {
+  return this != internal_default_instance() && msg_time_proxy_ != nullptr;
+}
+inline bool ArchState::has_msg_time_proxy() const {
+  return _internal_has_msg_time_proxy();
+}
+inline void ArchState::clear_msg_time_proxy() {
+  if (GetArenaNoVirtual() == nullptr && msg_time_proxy_ != nullptr) {
+    delete msg_time_proxy_;
+  }
+  msg_time_proxy_ = nullptr;
+}
+inline const ::CSR& ArchState::_internal_msg_time_proxy() const {
+  const ::CSR* p = msg_time_proxy_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::CSR*>(
+      &::_CSR_default_instance_);
+}
+inline const ::CSR& ArchState::msg_time_proxy() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_time_proxy)
+  return _internal_msg_time_proxy();
+}
+inline ::CSR* ArchState::release_msg_time_proxy() {
+  // @@protoc_insertion_point(field_release:ArchState.msg_time_proxy)
+  
+  ::CSR* temp = msg_time_proxy_;
+  msg_time_proxy_ = nullptr;
+  return temp;
+}
+inline ::CSR* ArchState::_internal_mutable_msg_time_proxy() {
+  
+  if (msg_time_proxy_ == nullptr) {
+    auto* p = CreateMaybeMessage<::CSR>(GetArenaNoVirtual());
+    msg_time_proxy_ = p;
+  }
+  return msg_time_proxy_;
+}
+inline ::CSR* ArchState::mutable_msg_time_proxy() {
+  // @@protoc_insertion_point(field_mutable:ArchState.msg_time_proxy)
+  return _internal_mutable_msg_time_proxy();
+}
+inline void ArchState::set_allocated_msg_time_proxy(::CSR* msg_time_proxy) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_time_proxy_;
+  }
+  if (msg_time_proxy) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_time_proxy = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_time_proxy, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_time_proxy_ = msg_time_proxy;
+  // @@protoc_insertion_point(field_set_allocated:ArchState.msg_time_proxy)
+}
+
+// .StimecmpCSR msg_stimecmp = 63;
+inline bool ArchState::_internal_has_msg_stimecmp() const {
+  return this != internal_default_instance() && msg_stimecmp_ != nullptr;
+}
+inline bool ArchState::has_msg_stimecmp() const {
+  return _internal_has_msg_stimecmp();
+}
+inline void ArchState::clear_msg_stimecmp() {
+  if (GetArenaNoVirtual() == nullptr && msg_stimecmp_ != nullptr) {
+    delete msg_stimecmp_;
+  }
+  msg_stimecmp_ = nullptr;
+}
+inline const ::StimecmpCSR& ArchState::_internal_msg_stimecmp() const {
+  const ::StimecmpCSR* p = msg_stimecmp_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::StimecmpCSR*>(
+      &::_StimecmpCSR_default_instance_);
+}
+inline const ::StimecmpCSR& ArchState::msg_stimecmp() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_stimecmp)
+  return _internal_msg_stimecmp();
+}
+inline ::StimecmpCSR* ArchState::release_msg_stimecmp() {
+  // @@protoc_insertion_point(field_release:ArchState.msg_stimecmp)
+  
+  ::StimecmpCSR* temp = msg_stimecmp_;
+  msg_stimecmp_ = nullptr;
+  return temp;
+}
+inline ::StimecmpCSR* ArchState::_internal_mutable_msg_stimecmp() {
+  
+  if (msg_stimecmp_ == nullptr) {
+    auto* p = CreateMaybeMessage<::StimecmpCSR>(GetArenaNoVirtual());
+    msg_stimecmp_ = p;
+  }
+  return msg_stimecmp_;
+}
+inline ::StimecmpCSR* ArchState::mutable_msg_stimecmp() {
+  // @@protoc_insertion_point(field_mutable:ArchState.msg_stimecmp)
+  return _internal_mutable_msg_stimecmp();
+}
+inline void ArchState::set_allocated_msg_stimecmp(::StimecmpCSR* msg_stimecmp) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_stimecmp_;
+  }
+  if (msg_stimecmp) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_stimecmp = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_stimecmp, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_stimecmp_ = msg_stimecmp;
+  // @@protoc_insertion_point(field_set_allocated:ArchState.msg_stimecmp)
+}
+
+// .StimecmpCSR msg_vstimecmp = 64;
+inline bool ArchState::_internal_has_msg_vstimecmp() const {
+  return this != internal_default_instance() && msg_vstimecmp_ != nullptr;
+}
+inline bool ArchState::has_msg_vstimecmp() const {
+  return _internal_has_msg_vstimecmp();
+}
+inline void ArchState::clear_msg_vstimecmp() {
+  if (GetArenaNoVirtual() == nullptr && msg_vstimecmp_ != nullptr) {
+    delete msg_vstimecmp_;
+  }
+  msg_vstimecmp_ = nullptr;
+}
+inline const ::StimecmpCSR& ArchState::_internal_msg_vstimecmp() const {
+  const ::StimecmpCSR* p = msg_vstimecmp_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::StimecmpCSR*>(
+      &::_StimecmpCSR_default_instance_);
+}
+inline const ::StimecmpCSR& ArchState::msg_vstimecmp() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_vstimecmp)
+  return _internal_msg_vstimecmp();
+}
+inline ::StimecmpCSR* ArchState::release_msg_vstimecmp() {
+  // @@protoc_insertion_point(field_release:ArchState.msg_vstimecmp)
+  
+  ::StimecmpCSR* temp = msg_vstimecmp_;
+  msg_vstimecmp_ = nullptr;
+  return temp;
+}
+inline ::StimecmpCSR* ArchState::_internal_mutable_msg_vstimecmp() {
+  
+  if (msg_vstimecmp_ == nullptr) {
+    auto* p = CreateMaybeMessage<::StimecmpCSR>(GetArenaNoVirtual());
+    msg_vstimecmp_ = p;
+  }
+  return msg_vstimecmp_;
+}
+inline ::StimecmpCSR* ArchState::mutable_msg_vstimecmp() {
+  // @@protoc_insertion_point(field_mutable:ArchState.msg_vstimecmp)
+  return _internal_mutable_msg_vstimecmp();
+}
+inline void ArchState::set_allocated_msg_vstimecmp(::StimecmpCSR* msg_vstimecmp) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_vstimecmp_;
+  }
+  if (msg_vstimecmp) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_vstimecmp = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_vstimecmp, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_vstimecmp_ = msg_vstimecmp;
+  // @@protoc_insertion_point(field_set_allocated:ArchState.msg_vstimecmp)
+}
+
+// bool msg_serialized = 65;
+inline void ArchState::clear_msg_serialized() {
+  msg_serialized_ = false;
+}
+inline bool ArchState::_internal_msg_serialized() const {
+  return msg_serialized_;
+}
+inline bool ArchState::msg_serialized() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_serialized)
+  return _internal_msg_serialized();
+}
+inline void ArchState::_internal_set_msg_serialized(bool value) {
+  
+  msg_serialized_ = value;
+}
+inline void ArchState::set_msg_serialized(bool value) {
+  _internal_set_msg_serialized(value);
+  // @@protoc_insertion_point(field_set:ArchState.msg_serialized)
+}
+
+// uint32 msg_single_step = 66;
+inline void ArchState::clear_msg_single_step() {
+  msg_single_step_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 ArchState::_internal_msg_single_step() const {
+  return msg_single_step_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 ArchState::msg_single_step() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_single_step)
+  return _internal_msg_single_step();
+}
+inline void ArchState::_internal_set_msg_single_step(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  msg_single_step_ = value;
+}
+inline void ArchState::set_msg_single_step(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_msg_single_step(value);
+  // @@protoc_insertion_point(field_set:ArchState.msg_single_step)
+}
+
+// uint64 msg_last_inst_priv = 67;
+inline void ArchState::clear_msg_last_inst_priv() {
+  msg_last_inst_priv_ = PROTOBUF_ULONGLONG(0);
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 ArchState::_internal_msg_last_inst_priv() const {
+  return msg_last_inst_priv_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 ArchState::msg_last_inst_priv() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_last_inst_priv)
+  return _internal_msg_last_inst_priv();
+}
+inline void ArchState::_internal_set_msg_last_inst_priv(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  
+  msg_last_inst_priv_ = value;
+}
+inline void ArchState::set_msg_last_inst_priv(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  _internal_set_msg_last_inst_priv(value);
+  // @@protoc_insertion_point(field_set:ArchState.msg_last_inst_priv)
+}
+
+// int32 msg_last_inst_xlen = 68;
+inline void ArchState::clear_msg_last_inst_xlen() {
+  msg_last_inst_xlen_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ArchState::_internal_msg_last_inst_xlen() const {
+  return msg_last_inst_xlen_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ArchState::msg_last_inst_xlen() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_last_inst_xlen)
+  return _internal_msg_last_inst_xlen();
+}
+inline void ArchState::_internal_set_msg_last_inst_xlen(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  msg_last_inst_xlen_ = value;
+}
+inline void ArchState::set_msg_last_inst_xlen(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_msg_last_inst_xlen(value);
+  // @@protoc_insertion_point(field_set:ArchState.msg_last_inst_xlen)
+}
+
+// int32 msg_last_inst_flen = 69;
+inline void ArchState::clear_msg_last_inst_flen() {
+  msg_last_inst_flen_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ArchState::_internal_msg_last_inst_flen() const {
+  return msg_last_inst_flen_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ArchState::msg_last_inst_flen() const {
+  // @@protoc_insertion_point(field_get:ArchState.msg_last_inst_flen)
+  return _internal_msg_last_inst_flen();
+}
+inline void ArchState::_internal_set_msg_last_inst_flen(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  msg_last_inst_flen_ = value;
+}
+inline void ArchState::set_msg_last_inst_flen(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_msg_last_inst_flen(value);
+  // @@protoc_insertion_point(field_set:ArchState.msg_last_inst_flen)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

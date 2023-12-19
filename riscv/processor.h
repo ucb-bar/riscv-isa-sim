@@ -444,7 +444,7 @@ public:
                                                  csr->has_page,
                                                  csr->sstatus_write_mask,
                                                  csr->sstatus_read_mask);
-    VsstatusCSR* v = google::protobuf::Arena::Create<VstatusCSR>(arena);
+    VsstatusCSR* v = google::protobuf::Arena::Create<VsstatusCSR>(arena);
     v->set_allocated_msg_base_status_csr(b);
     v->set_msg_val(csr->val);
     return v;
@@ -529,7 +529,7 @@ public:
     return proto;
   }
 
-  DCSR* gen_dcsr_csr_proto(dcsr_t_p csr) {
+  DCSR* gen_dcsr_csr_proto(dcsr_csr_t_p csr) {
     CSR* c = gen_csr_proto(csr->address);
     DCSR* d = google::protobuf::Arena::Create<DCSR>(arena);
     d->set_msg_prv     (csr->prv);
@@ -571,13 +571,33 @@ public:
     return henvproto;
   }
 
+  StimecmpCSR* gen_stimecmp_csr_proto(std::shared_ptr<stimecmp_csr_t> csr) {
+    BasicCSR* bp = gen_basic_csr_proto(csr->address, csr->val);
+    StimecmpCSR* sp = google::protobuf::Arena::Create<StimecmpCSR>(arena);
+    sp->set_allocated_msg_basic_csr(bp);
+    sp->set_msg_intr_mask(csr->intr_mask);
+    return sp;
+  }
+
   void serialize_proto(std::string& os) {
     std::cout << "serialize" << std::endl;
     arena = new google::protobuf::Arena();
+    assert(xlen == 64);
 
     ArchState* aproto = google::protobuf::Arena::Create<ArchState>(arena);
 
     aproto->set_msg_pc(state.pc);
+
+    for (int i = 0; i < NXPR; i++) {
+      aproto->add_msg_xpr(state.XPR[i]);
+    }
+
+    for (int i = 0; i < NFPR; i++) {
+      Float128* fp = aproto->add_msg_fpr();
+      fp->set_msg_0(state.FPR[i].v[0]);
+      fp->set_msg_1(state.FPR[i].v[1]);
+    }
+
     aproto->set_msg_prv(state.prv);
     aproto->set_msg_prev_prv(state.prev_prv);
     aproto->set_msg_prv_changed(state.prv_changed);
@@ -596,59 +616,50 @@ public:
     if (state.misa) {
       MisaCSR* misa_proto = gen_misa_csr_proto(state.misa);
       aproto->set_allocated_msg_misa(misa_proto);
-      state.misa->print();
     }
 
     if (state.mepc) {
       auto mepc = std::dynamic_pointer_cast<epc_csr_t>(state.mepc);
       BasicCSR* mepc_proto = gen_basic_csr_proto(mepc->address, mepc->val);
       aproto->set_allocated_msg_mepc(mepc_proto);
-      mepc->print();
     }
 
     if (state.mtval) {
       auto mtval = std::dynamic_pointer_cast<basic_csr_t>(state.mtval);
       BasicCSR* mtval_proto = gen_basic_csr_proto(mtval->address, mtval->val);
       aproto->set_allocated_msg_mtval(mtval_proto);
-      mtval->print();
     }
 
     if (state.mtvec) {
       auto mtvec = std::dynamic_pointer_cast<tvec_csr_t>(state.mtvec);
       BasicCSR* mtvec_proto = gen_basic_csr_proto(mtvec->address, mtvec->val);
       aproto->set_allocated_msg_mtvec(mtvec_proto);
-      mtvec->print();
     }
 
     if (state.mcause) {
       auto mcause = std::dynamic_pointer_cast<cause_csr_t>(state.mcause);
       BasicCSR* mcause_proto = gen_basic_csr_proto(mcause->address, mcause->val);
       aproto->set_allocated_msg_mcause(mcause_proto);
-      mcause->print();
     }
 
     if (state.minstret) {
       WideCntrCSR* minstret_proto = gen_wide_cntr_csr_proto(state.minstret);
       aproto->set_allocated_msg_minstret(minstret_proto);
-      state.minstret->print();
     }
 
     if (state.mcycle) {
       WideCntrCSR* mcycle_proto = gen_wide_cntr_csr_proto(state.mcycle);
       aproto->set_allocated_msg_mcycle(mcycle_proto);
-      state.mcycle->print();
     }
 
     if (state.mie) {
       BasicCSR* mie_proto = gen_basic_csr_proto(state.mie->address, state.mie->val);
       aproto->set_allocated_msg_mie(mie_proto);
-      state.mie->print();
     }
 
     if (state.mip) {
       BasicCSR* mip_proto = gen_basic_csr_proto(state.mip->address, state.mip->val);
       aproto->set_allocated_msg_mip(mip_proto);
-      state.mip->print();
     }
 
     if (state.medeleg) {
@@ -656,7 +667,6 @@ public:
       aproto->set_allocated_msg_medeleg(medeleg_proto);
 
       auto medeleg = std::dynamic_pointer_cast<medeleg_csr_t>(state.medeleg);
-      medeleg->print();
     }
 
     if (state.mcounteren) {
@@ -665,11 +675,10 @@ public:
                                                         mcounteren->val,
                                                         mcounteren->mask);
       aproto->set_allocated_msg_mcounteren(maskedcsr_proto);
-      mcounteren->print();
     }
 
-    if (state.mevent) {
-      for (int i = 0; i < N_HPMCOUNTERS; i++) {
+    for (int i = 0; i < N_HPMCOUNTERS; i++) {
+      if (state.mevent[i]) {
         BasicCSR* b_proto = aproto->add_msg_mevent();
         auto mevent = std::dynamic_pointer_cast<basic_csr_t>(state.mevent[i]);
         CSR* c_proto = gen_csr_proto(mevent->address);
@@ -677,10 +686,8 @@ public:
         b_proto->set_msg_val(mevent->val);
       }
 
-      std::cout << "mevent csrs" << std::endl;
       for (int i = 0; i < N_HPMCOUNTERS; i++) {
         auto mevent = std::dynamic_pointer_cast<basic_csr_t>(state.mevent[i]);
-        mevent->print();
       }
     }
 
@@ -688,14 +695,12 @@ public:
       auto mnstatus = std::dynamic_pointer_cast<basic_csr_t>(state.mnstatus);
       BasicCSR* b_proto = gen_basic_csr_proto(mnstatus->address, mnstatus->val);
       aproto->set_allocated_msg_mnstatus(b_proto);
-      mnstatus->print();
     }
 
     if (state.mnepc) {
       auto mnepc = std::dynamic_pointer_cast<epc_csr_t>(state.mnepc);
       BasicCSR* b_proto = gen_basic_csr_proto(mnepc->address, mnepc->val);
       aproto->set_allocated_msg_mnepc(b_proto);
-      mnepc->print();
     }
 
     if (state.scounteren) {
@@ -704,60 +709,47 @@ public:
                                                 sen->val,
                                                 sen->mask);
       aproto->set_allocated_msg_scounteren(m_proto);
-      sen->print();
     }
 
     if (state.sepc) {
       auto sepc = std::dynamic_pointer_cast<virtualized_csr_t>(state.sepc);
       VirtBasicCSR* sepc_proto = gen_virt_basic_csr_proto<epc_csr_t>(sepc);
       aproto->set_allocated_msg_sepc(sepc_proto);
-      state.sepc->print();
-      state.vsepc->print();
     }
 
     if (state.stval) {
       auto stval = std::dynamic_pointer_cast<virtualized_csr_t>(state.stval);
       VirtBasicCSR* stval_proto = gen_virt_basic_csr_proto<basic_csr_t>(stval);
       aproto->set_allocated_msg_stval(stval_proto);
-      state.stval->print();
-      state.vstval->print();
     }
 
     if (state.stvec) {
       auto stvec = std::dynamic_pointer_cast<virtualized_csr_t>(state.stvec);
       VirtBasicCSR* stvec_proto = gen_virt_basic_csr_proto<tvec_csr_t>(stvec);
       aproto->set_allocated_msg_stvec(stvec_proto);
-      state.stvec->print();
-      state.vstvec->print();
     }
 
     if (state.satp) {
       VirtBasicCSR* satp_proto = gen_virt_basic_csr_proto<basic_csr_t>(state.satp);
       aproto->set_allocated_msg_satp(satp_proto);
-      state.satp->print();
-      state.vsatp->print();
     }
 
     if (state.scause) {
       auto scause = std::dynamic_pointer_cast<virtualized_csr_t>(state.scause);
       VirtBasicCSR* scause_proto = gen_virt_basic_csr_proto<basic_csr_t>(scause);
       aproto->set_allocated_msg_scause(scause_proto);
-      state.scause->print();
-      state.vscause->print();
     }
 
     if (state.mtval2) {
       auto mtval2 = std::dynamic_pointer_cast<basic_csr_t>(state.mtval2);
       BasicCSR* mtval2_proto = gen_basic_csr_proto(mtval2->address, mtval2->val);
       aproto->set_allocated_msg_mtval2(mtval2_proto);
-      mtval2->print();
     }
 
     if (state.mtinst) {
       auto mtinst = std::dynamic_pointer_cast<basic_csr_t>(state.mtinst);
       BasicCSR* mtinst_proto = gen_basic_csr_proto(mtinst->address, mtinst->val);;
       aproto->set_allocated_msg_mtinst(mtinst_proto);
-      mtinst->print();
     }
 
     if (state.hstatus) {
@@ -766,17 +758,11 @@ public:
                                                       hstatus->val,
                                                       hstatus->mask);
       aproto->set_allocated_msg_hstatus(hstatus_proto);
-      hstatus->print();
     }
 
     if (state.hideleg) {
       HidelegCSR* hideleg_proto = gen_hideleg_csr_proto(state.hideleg);
       aproto->set_allocated_msg_hideleg(hideleg_proto);
-
-      auto hideleg = std::dynamic_pointer_cast<hideleg_csr_t>(csr);
-      auto mideleg = std::dynamic_pointer_cast<mideleg_csr_t>(hideleg->mideleg);
-      hideleg->print();
-      mideleg->print();
     }
 
     if (state.hedeleg) {
@@ -785,65 +771,55 @@ public:
                                                       hedeleg->val,
                                                       hedeleg->mask);
       aproto->set_allocated_msg_hedeleg(hedeleg_proto);
-      hedeleg->print();
     }
 
     if (state.hcounteren) {
-      auto hcntren = std::dynamic_pointer_cast<masked_csr_t>(state.hcntren);
+      auto hcntren = std::dynamic_pointer_cast<masked_csr_t>(state.hcounteren);
       MaskedCSR* hcntren_proto = gen_masked_csr_proto(hcntren->address,
                                                       hcntren->val,
                                                       hcntren->mask);
       aproto->set_allocated_msg_hcounteren(hcntren_proto);
-      hcntren->print();
     }
 
     if (state.htinst) {
       auto htinst = std::dynamic_pointer_cast<basic_csr_t>(state.htinst);
-      BasicCSR* b_proto = gen_masked_csr_proto(htinst->address, htinst->val);
+      BasicCSR* b_proto = gen_basic_csr_proto(htinst->address, htinst->val);
       aproto->set_allocated_msg_htinst(b_proto);
-      htinst->print();
     }
 
     if (state.htval) {
       auto htval = std::dynamic_pointer_cast<basic_csr_t>(state.htval);
-      BasicCSR* b_proto = gen_masked_csr_proto(htval->address, htval->val);
+      BasicCSR* b_proto = gen_basic_csr_proto(htval->address, htval->val);
       aproto->set_allocated_msg_htval(b_proto);
-      htval->print();
     }
 
     if (state.hgatp) {
       auto hgatp = std::dynamic_pointer_cast<basic_csr_t>(state.hgatp);
-      BasicCSR* b_proto = gen_masked_csr_proto(hgatp->address, hgatp->val);
+      BasicCSR* b_proto = gen_basic_csr_proto(hgatp->address, hgatp->val);
       aproto->set_allocated_msg_hgatp(b_proto);
-      hgatp->print();
     }
 
     if (state.sstatus) {
       SstatusCSR* s_proto = gen_sstatus_csr_proto(state.sstatus);
       aproto->set_allocated_msg_sstatus(s_proto);
-      state.sstatus->orig_sstatus->print();
-      state.sstatus->virt_sstatus->print();
     }
 
     if (state.dpc) {
-      auto dpc = std::dynamic_pointer_cast<basic_csr_t>(state.dpc);
+      auto dpc = std::dynamic_pointer_cast<epc_csr_t>(state.dpc);
       BasicCSR* b = gen_basic_csr_proto(dpc->address, dpc->val);
       aproto->set_allocated_msg_dpc(b);
-      dpc->print();
     }
 
     if (state.dcsr) {
       auto dcsr = std::dynamic_pointer_cast<dcsr_csr_t>(state.dcsr);
       DCSR* d = gen_dcsr_csr_proto(dcsr);
       aproto->set_allocated_msg_dcsr(d);
-      dcsr->print();
     }
 
     if (state.tselect) {
       auto tsel = std::dynamic_pointer_cast<basic_csr_t>(state.tselect);
       BasicCSR* b = gen_basic_csr_proto(tsel->address, tsel->val);
       aproto->set_allocated_msg_tselect(b);
-      tsel->print();
     }
 
     if (state.tdata2) {
@@ -862,7 +838,7 @@ public:
       auto sc = std::dynamic_pointer_cast<masked_csr_t>(state.scontext);
       MaskedCSR* c = gen_masked_csr_proto(sc->address,
                                           sc->val,
-                                          sc->maskau);
+                                          sc->mask);
       aproto->set_allocated_msg_scontext(c);
     }
 
@@ -884,13 +860,13 @@ public:
       aproto->set_allocated_msg_mseccfg(b);
     }
 
-    if (state.pmpaddr) {
-      for (int i = 0; i < max_pmp; i++) {
+    for (int i = 0; i < state.max_pmp; i++) {
+      if (state.pmpaddr[i]) {
         PmpCSR* p_proto = aproto->add_msg_pmpaddr();
 
         auto pmpaddr = state.pmpaddr[i];
-        CSR* c_proto = gen_csr_proto(pmpaddr->address);
-        p_proto->set_allocated_msg_csr(c_proto);
+        BasicCSR* c_proto = gen_basic_csr_proto(pmpaddr->address, pmpaddr->val);
+        p_proto->set_allocated_msg_basic_csr(c_proto);
         p_proto->set_msg_cfg(pmpaddr->cfg);
         p_proto->set_msg_pmpidx(pmpaddr->pmpidx);
       }
@@ -928,8 +904,8 @@ public:
       aproto->set_allocated_msg_henvcfg(h_proto);
     }
 
-    if (state.mstateen) {
-      for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
+      if (state.mstateen[i]) {
         auto mstateen = std::dynamic_pointer_cast<masked_csr_t>(state.mstateen[i]);
         MaskedCSR* m_proto = aproto->add_msg_mstateen();
         BasicCSR*  b_proto = gen_basic_csr_proto(mstateen->address, mstateen->val);
@@ -938,8 +914,8 @@ public:
       }
     }
 
-    if (state.sstaten) {
-      for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
+      if (state.sstateen[i]) {
         auto sstateen = std::dynamic_pointer_cast<hstateen_csr_t>(state.sstateen[i]);
         HstateenCSR* h_proto = aproto->add_msg_sstateen();
         MaskedCSR*   m_proto = gen_masked_csr_proto(sstateen->address,
@@ -950,8 +926,8 @@ public:
       }
     }
 
-    if (state.hstateen) {
-      for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
+      if (state.hstateen[i]) {
         auto hstateen = std::dynamic_pointer_cast<hstateen_csr_t>(state.hstateen[i]);
         HstateenCSR* h_proto = aproto->add_msg_hstateen();
         MaskedCSR*   m_proto = gen_masked_csr_proto(hstateen->address,
@@ -961,6 +937,42 @@ public:
         h_proto->set_msg_index(hstateen->index);
       }
     }
+
+    if (state.htimedelta) {
+      auto ht = std::dynamic_pointer_cast<basic_csr_t>(state.htimedelta);
+      BasicCSR* b = gen_basic_csr_proto(ht->address, ht->val);
+      aproto->set_allocated_msg_htimedelta(b);
+    }
+
+    if (state.time) {
+      auto t = state.time;
+      BasicCSR* b = gen_basic_csr_proto(t->address, t->shadow_val);
+      aproto->set_allocated_msg_time(b);
+    }
+
+    if (state.time_proxy) {
+      auto tp = state.time_proxy;
+      CSR* c = gen_csr_proto(tp->address);
+      aproto->set_allocated_msg_time_proxy(c);
+    }
+
+    if (state.stimecmp) {
+      auto st = std::dynamic_pointer_cast<stimecmp_csr_t>(state.stimecmp);
+      StimecmpCSR* sp = gen_stimecmp_csr_proto(st);
+      aproto->set_allocated_msg_stimecmp(sp);
+    }
+
+    if (state.vstimecmp) {
+      auto st = std::dynamic_pointer_cast<stimecmp_csr_t>(state.vstimecmp);
+      StimecmpCSR* sp = gen_stimecmp_csr_proto(st);
+      aproto->set_allocated_msg_vstimecmp(sp);
+    }
+
+    aproto->set_msg_serialized(state.serialized);
+    aproto->set_msg_single_step(state.single_step);
+    aproto->set_msg_last_inst_priv(state.last_inst_priv);
+    aproto->set_msg_last_inst_xlen(state.last_inst_xlen);
+    aproto->set_msg_last_inst_flen(state.last_inst_flen);
 
     aproto->SerializeToString(&os);
     google::protobuf::ShutdownProtobufLibrary();
@@ -997,18 +1009,18 @@ public:
   }
 
   void set_sstatus_proxy_csr_from_proto(sstatus_proxy_csr_t& csr, const SstatusProxyCSR& proto) {
-    set_mstatus_csr_from_proto(csr.mstatus, proto->msg_mstatus_csr());
-    set_basestatus_csr_from_proto(csr, proto->msg_base_status_csr());
+    set_mstatus_csr_from_proto(*(csr.mstatus), proto.msg_mstatus_csr());
+    set_basestatus_csr_from_proto(csr, proto.msg_base_status_csr());
   }
 
   void set_vsstatus_csr_from_proto(vsstatus_csr_t& csr, const VsstatusCSR& proto) {
-    set_basestatus_csr_from_proto(csr, proto->msg_base_status_csr());
-    csr.val = proto->msg_val();
+    set_basestatus_csr_from_proto(csr, proto.msg_base_status_csr());
+    csr.val = proto.msg_val();
   }
 
   void set_sstatus_csr_from_proto(sstatus_csr_t& csr, const SstatusCSR& proto) {
-    set_sstatus_proxy_csr_from_proto(csr->orig_sstatus, proto->msg_orig_sstatus());
-    set_vsstatus_csr_from_proto     (csr->virt_sstatus, proto->msg_virt_sstatus());
+    set_sstatus_proxy_csr_from_proto(*(csr.orig_sstatus), proto.msg_orig_sstatus());
+    set_vsstatus_csr_from_proto     (*(csr.virt_sstatus), proto.msg_virt_sstatus());
   }
 
   void set_mcause_csr_from_proto(cause_csr_t& csr, const BasicCSR& proto) {
@@ -1042,57 +1054,82 @@ public:
   }
 
   void set_hideleg_csr_from_proto(hideleg_csr_t& csr, const HidelegCSR& proto) {
-    set_masked_csr_from_proto(csr, proto->msg_hideleg_csr());
+    set_masked_csr_from_proto(csr, proto.msg_hideleg_csr());
 
     auto mideleg = std::dynamic_pointer_cast<basic_csr_t>(csr.mideleg);
-    set_basic_csr_from_proto(*mideleg, proto->msg_mideleg_csr());
+    set_basic_csr_from_proto(*mideleg, proto.msg_mideleg_csr());
   }
 
   void set_dcsr_csr_from_proto(dcsr_csr_t& csr, const DCSR& proto) {
-    set_csr_from_proto(csr, proto->msg_csr());
-    csr.prv      = proto->msg_prv();
-    csr.step     = proto->msg_step();
-    csr.ebreakm  = proto->msg_ebreakm();
-    csr.ebreaks  = proto->msg_ebreaks();
-    csr.ebreaku  = proto->msg_ebreaku();
-    csr.ebreakvs = proto->msg_ebreakvs();
-    csr.ebreakvu = proto->msg_ebreakvu();
-    csr.halt     = proto->msg_halt();
-    csr.v        = proto->msg_v();
-    csr.cause    = proto->msg_cause();
+    set_csr_from_proto(csr, proto.msg_csr());
+    csr.prv      = proto.msg_prv();
+    csr.step     = proto.msg_step();
+    csr.ebreakm  = proto.msg_ebreakm();
+    csr.ebreaks  = proto.msg_ebreaks();
+    csr.ebreaku  = proto.msg_ebreaku();
+    csr.ebreakvs = proto.msg_ebreakvs();
+    csr.ebreakvu = proto.msg_ebreakvu();
+    csr.halt     = proto.msg_halt();
+    csr.v        = proto.msg_v();
+    csr.cause    = proto.msg_cause();
   }
 
   void set_mcontext_csr_from_proto(proxy_csr_t& csr, const McontextCSR& proto) {
     auto delegate = std::dynamic_pointer_cast<masked_csr_t>(csr.delegate);
-    set_csr_from_proto(csr, proto->msg_csr());
-    set_masked_csr_from_proto(*delegate, proto->msg_delegate());
+    set_csr_from_proto(csr, proto.msg_csr());
+    set_masked_csr_from_proto(*delegate, proto.msg_delegate());
   }
 
   void set_pmpaddr_csr_from_proto(pmpaddr_csr_t& csr, const PmpCSR& proto) {
-    set_csr_from_proto(csr, proto->msg_csr());
-    csr.val = proto->msg_val();
-    csr.cfg = proto->msg_cfg();
-    csr.pmpidx = proto->msg_pmpidx();
+    set_csr_from_proto(csr, proto.msg_basic_csr().msg_csr());
+    csr.val = proto.msg_basic_csr().msg_val();
+    csr.cfg = proto.msg_cfg();
+    csr.pmpidx = proto.msg_pmpidx();
   }
 
   void set_henvcfg_csr_from_proto(henvcfg_csr_t& csr, const HenvcfgCSR& proto) {
-    set_masked_csr_from_proto(csr, proto->msg_henvcfg());
+    set_masked_csr_from_proto(csr, proto.msg_henvcfg());
     auto menv = std::dynamic_pointer_cast<masked_csr_t>(csr.menvcfg);
-    set_masked_csr_from_proto(*menv, proto->msg_menvcfg());
+    set_masked_csr_from_proto(*menv, proto.msg_menvcfg());
   }
 
   void set_hstateen_csr_from_proto(hstateen_csr_t& csr, const HstateenCSR& proto) {
-    set_masked_csr_from_proto(csr, proto->msg_masked_csr());
-    csr->index = proto->msg_index();
+    set_masked_csr_from_proto(csr, proto.msg_masked_csr());
+    csr.index = proto.msg_index();
+  }
+
+  void set_time_counter_csr_from_proto(time_counter_csr_t& csr, const BasicCSR& proto) {
+    set_csr_from_proto(csr, proto.msg_csr());
+    csr.shadow_val = proto.msg_val();
+  }
+
+  void set_stimecmp_csr_from_proto(stimecmp_csr_t& csr, const StimecmpCSR& proto) {
+    set_basic_csr_from_proto<basic_csr_t>(csr, proto.msg_basic_csr());
+    csr.intr_mask = proto.msg_intr_mask();
   }
 
   void deserialize_proto(std::string& is) {
     std::cout << "deserialize" << std::endl;
+    assert(xlen == 64);
 
     ArchState* aproto = google::protobuf::Arena::Create<ArchState>(arena);
     aproto->ParseFromString(is);
 
     state.pc          = aproto->msg_pc();
+
+    for (int i = 0, cnt = aproto->msg_xpr_size(); i < cnt; i++) {
+      state.XPR.write(i, aproto->msg_xpr(i));
+    }
+
+    for (int i = 0, cnt = aproto->msg_fpr_size(); i < cnt; i++) {
+      auto fpr_msg = aproto->msg_fpr(i);
+
+      float128_t fp;
+      fp.v[0] = fpr_msg.msg_0();
+      fp.v[1] = fpr_msg.msg_1();
+      state.FPR.write(i, fp);
+    }
+
     state.prv         = aproto->msg_prv();
     state.prev_prv    = aproto->msg_prev_prv();
     state.prv_changed = aproto->msg_prv_changed();
@@ -1110,43 +1147,36 @@ public:
 
     if (aproto->has_msg_misa()) {
       set_misa_csr_from_proto(*(state.misa), aproto->msg_misa());
-      state.misa->print();
     }
 
     if (aproto->has_msg_mepc()) {
       auto mepc = std::dynamic_pointer_cast<epc_csr_t>(state.mepc);
       set_basic_csr_from_proto<epc_csr_t>(*mepc, aproto->msg_mepc());
-      mepc->print();
     }
 
     if (aproto->has_msg_mtval()) {
       auto mtval = std::dynamic_pointer_cast<basic_csr_t>(state.mtval);
       set_basic_csr_from_proto<basic_csr_t>(*mtval, aproto->msg_mtval());
-      mtval->print();
     }
 
     if (aproto->has_msg_mtvec()) {
       auto mtvec = std::dynamic_pointer_cast<tvec_csr_t>(state.mtvec);
       set_basic_csr_from_proto<tvec_csr_t>(*mtvec, aproto->msg_mtvec());
-      mtvec->print();
     }
 
     if (aproto->has_msg_mcause()) {
       auto mcause = std::dynamic_pointer_cast<cause_csr_t>(state.mcause);
       set_basic_csr_from_proto<basic_csr_t>(*mcause, aproto->msg_mcause());
-      mcause->print();
     }
 
     if (aproto->has_msg_minstret()) {
       auto minstret = state.minstret;
       set_widecntr_csr_from_proto(*minstret, aproto->msg_minstret());
-      minstret->print();
     }
 
     if (aproto->has_msg_mcounteren()) {
       auto mcounteren = std::dynamic_pointer_cast<masked_csr_t>(state.mcounteren);
       set_masked_csr_from_proto(*mcounteren, aproto->msg_mcounteren());
-      mcounteren->print();
     }
 
     if (int cnt = aproto->msg_mevent_size() > 0) {
@@ -1156,125 +1186,100 @@ public:
         set_basic_csr_from_proto<basic_csr_t>(*mevent, aproto->msg_mevent(i));
       }
 
-      std::cout << "mevent_csrs" << std::endl;
       for (int i = 0; i < N_HPMCOUNTERS; i++) {
         auto mevent = std::dynamic_pointer_cast<basic_csr_t>(state.mevent[i]);
-        mevent->print();
       }
     }
 
     if (aproto->has_msg_mnstatus()) {
       auto mnstatus = std::dynamic_pointer_cast<basic_csr_t>(state.mnstatus);
       set_basic_csr_from_proto<basic_csr_t>(*mnstatus, aproto->msg_mnstatus());
-      mnstatus->print();
     }
 
     if (aproto->has_msg_mnepc()) {
       auto mnepc = std::dynamic_pointer_cast<epc_csr_t>(state.mnepc);
       set_basic_csr_from_proto<epc_csr_t>(*mnepc, aproto->msg_mnepc());
-      mnepc->print();
     }
 
     if (aproto->has_msg_scounteren()) {
       auto sen = std::dynamic_pointer_cast<masked_csr_t>(state.scounteren);
       set_masked_csr_from_proto(*sen, aproto->msg_scounteren());
-      sen->print();
     }
 
     if (aproto->has_msg_sepc()) {
       auto vsepc = std::dynamic_pointer_cast<epc_csr_t>(state.vsepc);
       auto sepc  = std::dynamic_pointer_cast<virtualized_csr_t>(state.sepc);
       set_virt_basic_csr_from_proto<epc_csr_t>(*sepc, *vsepc, aproto->msg_sepc());
-      sepc->print();
-      vsepc->print();
     }
 
     if (aproto->has_msg_stval()) {
       auto vstval = std::dynamic_pointer_cast<basic_csr_t>(state.vstval);
       auto stval  = std::dynamic_pointer_cast<virtualized_csr_t>(state.stval);
       set_virt_basic_csr_from_proto<basic_csr_t>(*stval, *vstval, aproto->msg_stval());
-      stval->print();
-      vstval->print();
     }
 
     if (aproto->has_msg_stvec()) {
       auto vstvec = std::dynamic_pointer_cast<tvec_csr_t>(state.vstvec);
       auto stvec  = std::dynamic_pointer_cast<virtualized_csr_t>(state.stvec);
       set_virt_basic_csr_from_proto<tvec_csr_t>(*stvec, *vstvec, aproto->msg_stvec());
-      stvec->print();
-      vstvec->print();
     }
 
     if (aproto->has_msg_satp()) {
       auto vsatp = std::dynamic_pointer_cast<basic_csr_t>(state.vsatp);
       auto satp  = state.satp;
       set_virt_basic_csr_from_proto<basic_csr_t>(*satp, *vsatp, aproto->msg_satp());
-      satp->print();
-      vsatp->print();
     }
 
     if (aproto->has_msg_scause()) {
       auto vscause = std::dynamic_pointer_cast<basic_csr_t>(state.vscause);
-      auto scause = state.scause;
+      auto scause = std::dynamic_pointer_cast<virtualized_csr_t>(state.scause);
       set_virt_basic_csr_from_proto<basic_csr_t>(*scause, *vscause, aproto->msg_scause());
-      scause->print();
-      vscause->print();
     }
 
     if (aproto->has_msg_mtval2()) {
       auto mtval2 = std::dynamic_pointer_cast<basic_csr_t>(state.mtval2);
       set_basic_csr_from_proto<basic_csr_t>(*mtval2, aproto->msg_mtval2());
-      mtval2->print();
     }
 
     if (aproto->has_msg_mtinst()) {
       auto mtinst = std::dynamic_pointer_cast<basic_csr_t>(state.mtinst);
       set_basic_csr_from_proto<basic_csr_t>(*mtinst, aproto->msg_mtinst());
-      mtinst->print();
     }
 
     if (aproto->has_msg_hstatus()) {
       auto hstatus = std::dynamic_pointer_cast<masked_csr_t>(state.hstatus);
       set_masked_csr_from_proto(*hstatus, aproto->msg_hstatus());
-      hstatus->print();
     }
 
     if (aproto->has_msg_hideleg()) {
       auto hideleg = std::dynamic_pointer_cast<hideleg_csr_t>(state.hideleg);
       auto mideleg = std::dynamic_pointer_cast<mideleg_csr_t>(hideleg->mideleg);
       set_hideleg_csr_from_proto(*hideleg, aproto->msg_hideleg());
-      hideleg->print();
-      mideleg->print();
     }
 
     if (aproto->has_msg_hedeleg()) {
       auto hedeleg = std::dynamic_pointer_cast<masked_csr_t>(state.hedeleg);
       set_masked_csr_from_proto(*hedeleg, aproto->msg_hedeleg());
-      hedeleg->print();
     }
 
     if (aproto->has_msg_hcounteren()) {
       auto hcounteren = std::dynamic_pointer_cast<masked_csr_t>(state.hcounteren);
       set_masked_csr_from_proto(*hcounteren, aproto->msg_hcounteren());
-      hcounteren->print();
     }
 
     if (aproto->has_msg_htval()) {
       auto htval = std::dynamic_pointer_cast<basic_csr_t>(state.htval);
       set_basic_csr_from_proto<basic_csr_t>(*htval, aproto->msg_htval());
-      htval->print();
     }
 
     if (aproto->has_msg_htinst()) {
       auto htinst = std::dynamic_pointer_cast<basic_csr_t>(state.htinst);
       set_basic_csr_from_proto<basic_csr_t>(*htinst, aproto->msg_htinst());
-      htinst->print();
     }
 
     if (aproto->has_msg_hgatp()) {
       auto hgatp = std::dynamic_pointer_cast<basic_csr_t>(state.hgatp);
       set_basic_csr_from_proto<basic_csr_t>(*hgatp, aproto->msg_hgatp());
-      hgatp->print();
     }
 
     if (aproto->has_msg_sstatus()) {
@@ -1282,63 +1287,54 @@ public:
     }
 
     if (aproto->has_msg_dpc()) {
-      auto dpc = std::dynamic_pointer_cast<basic_csr_t>(state.dpc);
-      set_basic_csr_from_proto<basic_csr_t>(*dpc, aproto->msg_dpc());
-      dpc->print();
+      auto dpc = std::dynamic_pointer_cast<epc_csr_t>(state.dpc);
+      set_basic_csr_from_proto<epc_csr_t>(*dpc, aproto->msg_dpc());
     }
 
     if (aproto->has_msg_dcsr()) {
       auto dcsr = std::dynamic_pointer_cast<dcsr_csr_t>(state.dcsr);
       set_dcsr_csr_from_proto(*dcsr, aproto->msg_dcsr());
-      dcsr->print();
     }
 
     if (aproto->has_msg_tselect()) {
       auto tsel = std::dynamic_pointer_cast<tselect_csr_t>(state.tselect);
       set_basic_csr_from_proto(*tsel, aproto->msg_tselect());
-      tsel->print();
     }
 
     if (aproto->has_msg_tdata2()) {
       if (this->get_cfg().trigger_count > 0) {
         auto tdata2 = std::dynamic_pointer_cast<csr_t>(state.tdata2);
-        set_csr_from_proto(*tdata2, aproto->msg_tdata2()->msg_csr());
-        tdata2->print();
+        set_csr_from_proto(*tdata2, aproto->msg_tdata2().msg_csr());
       } else {
         auto tdata2 = std::dynamic_pointer_cast<const_csr_t>(state.tdata2);
         set_basic_csr_from_proto<const_csr_t>(*tdata2, aproto->msg_tdata2());
-        tdata2->print();
       }
     }
 
     if (aproto->has_msg_scontext()) {
       auto sc = std::dynamic_pointer_cast<masked_csr_t>(state.scontext);
-      set_masked_csr_from_proto(sc, aproto->msg_scontext());
-      sc->print();
+      set_masked_csr_from_proto(*sc, aproto->msg_scontext());
     }
 
     if (aproto->has_msg_mcontext()) {
       auto pc = std::dynamic_pointer_cast<proxy_csr_t>(state.mcontext);
-      set_mcontext_csr_from_proto(pc, proto->msg_mcontext());
-      pc->print();
+      set_mcontext_csr_from_proto(*pc, aproto->msg_mcontext());
     }
 
     if (aproto->has_msg_jvt()) {
       auto jvt = std::dynamic_pointer_cast<basic_csr_t>(state.jvt);
-      set_basic_csr_from_proto<basic_csr_t>(*jvt, proto->msg_jvt());
-      jvt->print();
+      set_basic_csr_from_proto<basic_csr_t>(*jvt, aproto->msg_jvt());
     }
 
     state.debug_mode = aproto->msg_debug_mode();
 
     if (aproto->has_msg_mseccfg()) {
       auto mseccfg = std::dynamic_pointer_cast<basic_csr_t>(state.mseccfg);
-      set_basic_csr_from_proto<basic_csr_t>(*mseccfg, proto->msg_mseccfg());
-      mseccfg->print();
+      set_basic_csr_from_proto<basic_csr_t>(*mseccfg, aproto->msg_mseccfg());
     }
 
     if (int cnt = aproto->msg_pmpaddr_size() > 0) {
-      assert(cnt <= max_pmp);
+      assert(cnt <= state.max_pmp);
       for (int i = 0; i < cnt; i++) {
         auto pmpaddr = state.pmpaddr[i];
         set_pmpaddr_csr_from_proto(*pmpaddr, aproto->msg_pmpaddr(i));
@@ -1366,7 +1362,7 @@ public:
     if (int cnt = aproto->msg_mstateen_size() > 0) {
       assert(cnt <= 4);
       for (int i = 0; i < cnt; i++) {
-        auto mstateen = state.mstateen[i];
+        auto mstateen = std::dynamic_pointer_cast<masked_csr_t>(state.mstateen[i]);
         set_masked_csr_from_proto(*mstateen, aproto->msg_mstateen(i));
       }
     }
@@ -1386,6 +1382,45 @@ public:
         set_hstateen_csr_from_proto(*hstateen, aproto->msg_hstateen(i));
       }
     }
+
+    if (aproto->has_msg_htimedelta()) {
+      auto ht = std::dynamic_pointer_cast<basic_csr_t>(state.htimedelta);
+      set_basic_csr_from_proto<basic_csr_t>(*ht, aproto->msg_htimedelta());
+    }
+
+    if (aproto->has_msg_time()) {
+      set_time_counter_csr_from_proto(*(state.time), aproto->msg_time());
+    }
+
+    if (aproto->has_msg_time_proxy()) {
+      set_csr_from_proto(*(state.time_proxy), aproto->msg_time_proxy());
+    }
+
+    if (aproto->has_msg_stimecmp()) {
+      auto st = std::dynamic_pointer_cast<stimecmp_csr_t>(state.stimecmp);
+      set_stimecmp_csr_from_proto(*st, aproto->msg_stimecmp());
+    }
+
+    if (aproto->has_msg_vstimecmp()) {
+      auto st = std::dynamic_pointer_cast<stimecmp_csr_t>(state.vstimecmp);
+      set_stimecmp_csr_from_proto(*st, aproto->msg_vstimecmp());
+    }
+
+    state.serialized     = aproto->msg_serialized();
+
+    auto ss = aproto->msg_single_step();
+    if (ss == 0) {
+      state.single_step = state_t::STEP_NONE;
+    } else if (ss == 1) {
+      state.single_step = state_t::STEP_STEPPING;
+    } else if (ss == 2) {
+      state.single_step = state_t::STEP_STEPPED;
+    } else {
+      assert(false);
+    }
+    state.last_inst_priv = aproto->msg_last_inst_priv();
+    state.last_inst_xlen = aproto->msg_last_inst_xlen();
+    state.last_inst_flen = aproto->msg_last_inst_flen();
 
     google::protobuf::ShutdownProtobufLibrary();
   }

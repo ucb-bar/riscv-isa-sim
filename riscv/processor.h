@@ -557,6 +557,20 @@ public:
     return mcp;
   }
 
+  HenvcfgCSR* gen_henvcfg_csr_proto(std::shared_ptr<henvcfg_csr_t> csr) {
+    MaskedCSR* hproto = gen_masked_csr_proto(csr->address,
+                                             csr->val,
+                                             csr->mask);
+    auto menvcfg = std::dynamic_pointer_cast<masked_csr_t>(csr->menvcfg);
+    MaskedCSR* mproto = gen_masked_csr_proto(menvcfg->address,
+                                             menvcfg->val,
+                                             menvcfg->mask);
+    HenvcfgCSR* henvproto = google::protobuf::Arena::Create<HenvcfgCSR>(arena);
+    henvproto->set_allocated_msg_henvcfg(hproto);
+    henvproto->set_allocated_msg_menvcfg(mproto);
+    return henvproto;
+  }
+
   void serialize_proto(std::string& os) {
     std::cout << "serialize" << std::endl;
     arena = new google::protobuf::Arena();
@@ -908,6 +922,46 @@ public:
 
     aproto->set_msg_debug_mode(state.debug_mode);
 
+    if (state.henvcfg) {
+      auto henv = std::dynamic_pointer_cast<henvcfg_csr_t>(state.henvcfg);
+      HenvcfgCSR* h_proto = gen_henvcfg_csr_proto(henv);
+      aproto->set_allocated_msg_henvcfg(h_proto);
+    }
+
+    if (state.mstateen) {
+      for (int i = 0; i < 4; i++) {
+        auto mstateen = std::dynamic_pointer_cast<masked_csr_t>(state.mstateen[i]);
+        MaskedCSR* m_proto = aproto->add_msg_mstateen();
+        BasicCSR*  b_proto = gen_basic_csr_proto(mstateen->address, mstateen->val);
+        m_proto->set_allocated_msg_basic_csr(b_proto);
+        m_proto->set_msg_mask(mstateen->mask);
+      }
+    }
+
+    if (state.sstaten) {
+      for (int i = 0; i < 4; i++) {
+        auto sstateen = std::dynamic_pointer_cast<hstateen_csr_t>(state.sstateen[i]);
+        HstateenCSR* h_proto = aproto->add_msg_sstateen();
+        MaskedCSR*   m_proto = gen_masked_csr_proto(sstateen->address,
+                                                    sstateen->val,
+                                                    sstateen->mask);
+        h_proto->set_allocated_msg_masked_csr(m_proto);
+        h_proto->set_msg_index(sstateen->index);
+      }
+    }
+
+    if (state.hstateen) {
+      for (int i = 0; i < 4; i++) {
+        auto hstateen = std::dynamic_pointer_cast<hstateen_csr_t>(state.hstateen[i]);
+        HstateenCSR* h_proto = aproto->add_msg_hstateen();
+        MaskedCSR*   m_proto = gen_masked_csr_proto(hstateen->address,
+                                                    hstateen->val,
+                                                    hstateen->mask);
+        h_proto->set_allocated_msg_masked_csr(m_proto);
+        h_proto->set_msg_index(hstateen->index);
+      }
+    }
+
     aproto->SerializeToString(&os);
     google::protobuf::ShutdownProtobufLibrary();
   }
@@ -1019,6 +1073,17 @@ public:
     csr.val = proto->msg_val();
     csr.cfg = proto->msg_cfg();
     csr.pmpidx = proto->msg_pmpidx();
+  }
+
+  void set_henvcfg_csr_from_proto(henvcfg_csr_t& csr, const HenvcfgCSR& proto) {
+    set_masked_csr_from_proto(csr, proto->msg_henvcfg());
+    auto menv = std::dynamic_pointer_cast<masked_csr_t>(csr.menvcfg);
+    set_masked_csr_from_proto(*menv, proto->msg_menvcfg());
+  }
+
+  void set_hstateen_csr_from_proto(hstateen_csr_t& csr, const HstateenCSR& proto) {
+    set_masked_csr_from_proto(csr, proto->msg_masked_csr());
+    csr->index = proto->msg_index();
   }
 
   void deserialize_proto(std::string& is) {
@@ -1291,6 +1356,35 @@ public:
     if (aproto->has_msg_senvcfg()) {
       auto senv = std::dynamic_pointer_cast<masked_csr_t>(state.senvcfg);
       set_masked_csr_from_proto(*senv, aproto->msg_senvcfg());
+    }
+
+    if (aproto->has_msg_henvcfg()) {
+      auto henv = std::dynamic_pointer_cast<henvcfg_csr_t>(state.henvcfg);
+      set_henvcfg_csr_from_proto(*henv, aproto->msg_henvcfg());
+    }
+
+    if (int cnt = aproto->msg_mstateen_size() > 0) {
+      assert(cnt <= 4);
+      for (int i = 0; i < cnt; i++) {
+        auto mstateen = state.mstateen[i];
+        set_masked_csr_from_proto(*mstateen, aproto->msg_mstateen(i));
+      }
+    }
+
+    if (int cnt = aproto->msg_sstateen_size() > 0) {
+      assert(cnt <= 4);
+      for (int i = 0; i < cnt; i++) {
+        auto sstateen = std::dynamic_pointer_cast<hstateen_csr_t>(state.sstateen[i]);
+        set_hstateen_csr_from_proto(*sstateen, aproto->msg_sstateen(i));
+      }
+    }
+
+    if (int cnt = aproto->msg_hstateen_size() > 0) {
+      assert(cnt <= 4);
+      for (int i = 0; i < cnt; i++) {
+        auto hstateen = std::dynamic_pointer_cast<hstateen_csr_t>(state.hstateen[i]);
+        set_hstateen_csr_from_proto(*hstateen, aproto->msg_hstateen(i));
+      }
     }
 
     google::protobuf::ShutdownProtobufLibrary();

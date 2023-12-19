@@ -830,7 +830,7 @@ class hstateen_csr_t: public masked_csr_t {
   virtual void verify_permissions(insn_t insn, bool write, processor_t* p) const override;
  protected:
   virtual bool unlogged_write(const reg_t val, processor_t* p) noexcept override;
-protected:
+public:
   uint8_t index;
 };
 

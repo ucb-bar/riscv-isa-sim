@@ -134,6 +134,11 @@ message McontextCSR {
   MaskedCSR msg_delegate = 2;
 }
 
+message HenvcfgCSR {
+  MaskedCSR msg_henvcfg = 1;
+  MaskedCSR msg_menvcfg = 2;
+}
+
 // CSR       csr
 // MaskedCSR delegate
 
@@ -193,7 +198,7 @@ message ArchState {
   MaskedCSR    msg_fflags      = 53;
   MaskedCSR    msg_frm         = 54;
   MaskedCSR    msg_senvcfg     = 55;
-  ???          msg_henvcfg     = 56; // henvcfg + menvcfg
+  HenvcfgCSR   msg_henvcfg     = 56; // henvcfg + menvcfg
   repeated MaskedCSR msg_mstateen = 57;
   repeated HstateenCSR msg_sstateen = 58;
   repeated HstateenCSR msg_hstateen = 59;

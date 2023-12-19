@@ -647,8 +647,8 @@ class const_csr_t: public csr_t {
   virtual reg_t read(processor_t* p) const noexcept override;
  protected:
   bool unlogged_write(const reg_t val, processor_t* p) noexcept override;
- private:
-  const reg_t val;
+ public:
+  reg_t val;
 };
 
 // For a CSR that is an unprivileged accessor of a privileged counter

@@ -83,11 +83,6 @@ message MedelegCSR {
 message SstatusCSR {
 }
 
-message Tdata2CSR {
-  CSR            msg_csr = 1;
-  OptionalUInt64 msg_val = 2;
-}
-
 message HstateenCSR {
   MaskedCSR  msg_masked_csr = 1;
   uint32     msg_index      = 2;
@@ -133,6 +128,14 @@ message HidelegCSR {
   MaskedCSR msg_hideleg_csr = 1;
   BasicCSR  msg_mideleg_csr = 2;
 }
+
+message McontextCSR {
+  CSR       msg_csr = 1;
+  MaskedCSR msg_delegate = 2;
+}
+
+// CSR       csr
+// MaskedCSR delegate
 
 message ArchState {
   uint64  msg_pc          = 1;
@@ -180,9 +183,9 @@ message ArchState {
   BasicCSR     msg_dpc         = 43;
   DCSR         msg_dcsr        = 44;
   BasicCSR     msg_tselect     = 45;
-  Tdata2CSR    msg_tdata2      = 46;
+  BasicCSR     msg_tdata2      = 46;
   MaskedCSR    msg_scontext    = 47;
-  ???          msg_mcontext    = 48;
+  McontextCSR  msg_mcontext    = 48;
   BasicCSR     msg_jvt         = 49;
   bool         msg_debug_mode  = 50;
   BasicCSR     msg_mseccfg     = 51;

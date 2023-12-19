@@ -129,10 +129,13 @@ class pmpaddr_csr_t: public csr_t {
   reg_t napot_mask(processor_t* p) const noexcept;
 
   bool next_locked_and_tor(processor_t* p) const noexcept;
-  reg_t val;
+
+
+ public:
   friend class pmpcfg_csr_t;  // so he can access cfg
+  reg_t val;
   uint8_t cfg;
-  const size_t pmpidx;
+  size_t pmpidx;
 };
 
 typedef std::shared_ptr<pmpaddr_csr_t> pmpaddr_csr_t_p;
@@ -275,7 +278,7 @@ class vsstatus_csr_t final: public base_status_csr_t {
 
  protected:
   virtual bool unlogged_write(const reg_t val, processor_t* p) noexcept override;
- private:
+ public:
   reg_t val;
 };
 
@@ -346,7 +349,7 @@ class sstatus_proxy_csr_t final: public base_status_csr_t {
 
  protected:
   virtual bool unlogged_write(const reg_t val, processor_t* p) noexcept override;
- private:
+ public:
   mstatus_csr_t_p mstatus;
 };
 
@@ -360,7 +363,7 @@ class sstatus_csr_t: public virtualized_csr_t {
   void dirty(const reg_t dirties, processor_t* p);
   // Return true if the specified bits are not 00 (Off)
   bool enabled(const reg_t which, processor_t* p);
- private:
+ public:
   sstatus_proxy_csr_t_p orig_sstatus;
   vsstatus_csr_t_p virt_sstatus;
 };
@@ -675,7 +678,7 @@ class hideleg_csr_t: public masked_csr_t {
  public:
   hideleg_csr_t(const reg_t addr, csr_t_p mideleg);
   virtual reg_t read(processor_t* p) const noexcept override;
- private:
+ public:
   csr_t_p mideleg;
 };
 

@@ -566,6 +566,12 @@ int main(int argc, char** argv)
       cmd_file);
   s_2.deserialize_proto(proto_str);
 
+  if (s.compare(s_2.get_harts().at(0))) {
+    std::cout << "state_t matches" << std::endl;
+  } else {
+    std::cout << "FAIL" << std::endl;
+  }
+
   for (auto& mem : mems)
     delete mem.second;
 

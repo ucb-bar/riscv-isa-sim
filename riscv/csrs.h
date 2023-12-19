@@ -68,6 +68,10 @@ public:
   virtual void print() {
     std::cout << "csr_t: " << address << ", " << csr_priv << ", " << csr_read_only << std::endl;
   }
+
+  bool operator == (csr_t& csr) {
+    return address == csr.address;
+  }
 };
 
 typedef std::shared_ptr<csr_t> csr_t_p;
@@ -89,6 +93,10 @@ class basic_csr_t: public csr_t {
   virtual void print() override {
     std::cout << "basic_csr_t: " << val << std::endl;
     csr_t::print();
+  }
+
+  bool operator == (basic_csr_t& csr) {
+    return csr_t::operator==(csr) && (val == csr.val);
   }
 };
 
@@ -136,6 +144,13 @@ class pmpaddr_csr_t: public csr_t {
   reg_t val;
   uint8_t cfg;
   size_t pmpidx;
+
+  bool operator == (pmpaddr_csr_t& csr) {
+    return csr_t::operator==(csr) &&
+           (val == csr.val) &&
+           (cfg == csr.cfg) &&
+           (pmpidx == csr.pmpidx);
+  }
 };
 
 typedef std::shared_ptr<pmpaddr_csr_t> pmpaddr_csr_t_p;
@@ -187,6 +202,10 @@ class virtualized_csr_t: public csr_t {
     orig_csr->print();
     virt_csr->print();
   }
+
+  bool operator == (virtualized_csr_t& csr) {
+    return csr_t::operator==(csr);
+  }
 };
 
 typedef std::shared_ptr<virtualized_csr_t> virtualized_csr_t_p;
@@ -206,6 +225,10 @@ class epc_csr_t: public csr_t {
     std::cout << "epc_csr_t: " << val << std::endl;
     csr_t::print();
   }
+
+  bool operator == (epc_csr_t& csr) {
+    return csr_t::operator==(csr) && (val == csr.val);
+  }
 };
 
 // For mtvec, stvec, and vstvec
@@ -222,6 +245,10 @@ class tvec_csr_t: public csr_t {
   virtual void print() override {
     std::cout << "tvec_csr_t: " << val << std::endl;
     csr_t::print();
+  }
+
+  bool operator == (tvec_csr_t& csr) {
+    return csr_t::operator==(csr) && (val == csr.val);
   }
 };
 
@@ -262,6 +289,13 @@ public:
       << sstatus_read_mask << std::endl;
     csr_t::print();
   }
+
+  bool operator == (base_status_csr_t& csr) {
+    return csr_t::operator==(csr) &&
+           (has_page == csr.has_page) &&
+           (sstatus_write_mask == csr.sstatus_write_mask) &&
+           (sstatus_read_mask  == csr.sstatus_read_mask);
+  }
 };
 
 typedef std::shared_ptr<base_status_csr_t> base_status_csr_t_p;
@@ -280,6 +314,10 @@ class vsstatus_csr_t final: public base_status_csr_t {
   virtual bool unlogged_write(const reg_t val, processor_t* p) noexcept override;
  public:
   reg_t val;
+
+  bool operator == (vsstatus_csr_t& csr) {
+    return base_status_csr_t::operator==(csr) && (val == csr.val);
+  }
 };
 
 typedef std::shared_ptr<vsstatus_csr_t> vsstatus_csr_t_p;
@@ -301,6 +339,10 @@ class mstatus_csr_t final: public base_status_csr_t {
   virtual void print() override {
     std::cout << "mstatus_csr_t: " << val << std::endl;
     base_status_csr_t::print();
+  }
+
+  bool operator == (vsstatus_csr_t& csr) {
+    return base_status_csr_t::operator==(csr) && (val == csr.val);
   }
 };
 
@@ -366,6 +408,10 @@ class sstatus_csr_t: public virtualized_csr_t {
  public:
   sstatus_proxy_csr_t_p orig_sstatus;
   vsstatus_csr_t_p virt_sstatus;
+
+  bool operator == (sstatus_csr_t& csr) {
+    return (*orig_sstatus) == *(csr.orig_sstatus);
+  }
 };
 
 typedef std::shared_ptr<sstatus_csr_t> sstatus_csr_t_p;
@@ -391,6 +437,12 @@ class misa_csr_t final: public basic_csr_t {
     std::cout << "misa: " << max_isa << ", " << write_mask << std::endl;
     basic_csr_t::print();
   }
+
+  bool operator == (misa_csr_t& csr) {
+    return basic_csr_t::operator==(csr) &&
+           (max_isa == csr.max_isa) &&
+           (write_mask == csr.write_mask);
+  }
 };
 
 typedef std::shared_ptr<misa_csr_t> misa_csr_t_p;
@@ -413,6 +465,10 @@ class mip_or_mie_csr_t: public csr_t {
   virtual void print() override {
     std::cout << "mip_or_mie_csr_t: " << val << std::endl;
     csr_t::print();
+  }
+
+  bool operator == (mip_or_mie_csr_t& csr) {
+    return csr_t::operator==(csr) && (val == csr.val);
   }
 };
 
@@ -513,6 +569,10 @@ class medeleg_csr_t: public basic_csr_t {
     std::cout << "medeleg_csr_t: " << hypervisor_exceptions << std::endl;
     basic_csr_t::print();
   }
+
+  bool operator == (medeleg_csr_t& csr) {
+    return basic_csr_t::operator==(csr) && (hypervisor_exceptions == csr.hypervisor_exceptions);
+  }
 };
 
 // For CSRs with certain bits hardwired
@@ -527,6 +587,10 @@ class masked_csr_t: public basic_csr_t {
   virtual void print() override {
     std::cout << "masked_csr_t: " << mask << std::endl;
     basic_csr_t::print();
+  }
+
+  bool operator == (masked_csr_t& csr) {
+    return basic_csr_t::operator==(csr) && (mask == csr.mask);
   }
 };
 
@@ -610,6 +674,12 @@ class wide_counter_csr_t: public csr_t {
   smcntrpmf_csr_t_p config_csr;
 
   virtual void print() override;
+
+  bool operator == (wide_counter_csr_t& csr) {
+    bool csr_eq = csr_t::operator==(csr) && (val == csr.val);
+/* bool smc_eq = config_csr->smcntrpmf_csr_t::operator==(*(csr.config_csr)); */
+    return csr_eq;
+  }
 };
 
 typedef std::shared_ptr<wide_counter_csr_t> wide_counter_csr_t_p;
@@ -625,6 +695,10 @@ class time_counter_csr_t: public csr_t {
   virtual bool unlogged_write(const reg_t UNUSED val, processor_t* p) noexcept override { return false; };
  public:
   reg_t shadow_val;
+
+  bool operator == (time_counter_csr_t& csr) {
+    return csr_t::operator==(csr) && (shadow_val == csr.shadow_val);
+  }
 };
 
 typedef std::shared_ptr<time_counter_csr_t> time_counter_csr_t_p;
@@ -638,6 +712,10 @@ class proxy_csr_t: public csr_t {
   bool unlogged_write(const reg_t val, processor_t* p) noexcept override;
  public:
   csr_t_p delegate;
+
+  bool operator == (proxy_csr_t& csr) {
+    return csr_t::operator==(csr) && (*delegate == *(csr.delegate));
+  }
 };
 
 // For a CSR with a fixed, unchanging value
@@ -649,6 +727,10 @@ class const_csr_t: public csr_t {
   bool unlogged_write(const reg_t val, processor_t* p) noexcept override;
  public:
   reg_t val;
+
+  bool operator == (const_csr_t& csr) {
+    return csr_t::operator==(csr) && (val == csr.val);
+  }
 };
 
 // For a CSR that is an unprivileged accessor of a privileged counter
@@ -761,6 +843,20 @@ class dcsr_csr_t: public csr_t {
   bool halt;
   bool v;
   uint8_t cause;
+
+  bool operator == (dcsr_csr_t& csr) {
+    return csr_t::operator==(csr) &&
+          (prv == csr.prv) &&
+          (step == csr.step) &&
+          (ebreakm  == csr.ebreakm) &&
+          (ebreaks  == csr.ebreaks) &&
+          (ebreaku  == csr.ebreaku) &&
+          (ebreakvs == csr.ebreakvs) &&
+          (ebreakvu == csr.ebreakvu) &&
+          (halt == csr.halt) &&
+          (v == csr.v) &&
+          (cause == csr.cause);
+  }
 };
 
 typedef std::shared_ptr<dcsr_csr_t> dcsr_csr_t_p;
@@ -789,6 +885,10 @@ class composite_csr_t: public csr_t {
   csr_t_p upper_csr;
   csr_t_p lower_csr;
   const unsigned upper_lsb;
+
+  bool operator == (composite_csr_t& csr) {
+    return csr_t::operator==(csr) && (upper_lsb == csr.upper_lsb);
+  }
 };
 
 class seed_csr_t: public csr_t {
@@ -808,8 +908,12 @@ class vector_csr_t: public basic_csr_t {
   void write_raw(const reg_t val, processor_t* p) noexcept;
  protected:
   virtual bool unlogged_write(const reg_t val, processor_t* p) noexcept override;
- private:
+ public:
   reg_t mask;
+  
+  bool operator == (vector_csr_t& csr) {
+    return basic_csr_t::operator==(csr) && (mask == csr.mask);
+  }
 };
 
 typedef std::shared_ptr<vector_csr_t> vector_csr_t_p;
@@ -832,6 +936,10 @@ class hstateen_csr_t: public masked_csr_t {
   virtual bool unlogged_write(const reg_t val, processor_t* p) noexcept override;
 public:
   uint8_t index;
+
+  bool operator == (hstateen_csr_t& csr) {
+    return masked_csr_t::operator==(csr) && (index == csr.index);
+  }
 };
 
 class sstateen_csr_t: public hstateen_csr_t {
@@ -858,6 +966,10 @@ class stimecmp_csr_t: public basic_csr_t {
   virtual bool unlogged_write(const reg_t val, processor_t* p) noexcept override;
  public:
   reg_t intr_mask;
+
+  bool operator == (stimecmp_csr_t& csr) {
+    return basic_csr_t::operator==(csr) && (intr_mask == csr.intr_mask);
+  }
 };
 
 class virtualized_stimecmp_csr_t: public virtualized_csr_t {
@@ -917,7 +1029,6 @@ class smcntrpmf_csr_t : public masked_csr_t {
   std::optional<reg_t> prev_val;
 
   virtual void print() override {
-/* std::cout << "smcntrpmf_csr_t: " << prev_val.value_or("None") << std::endl; */
     std::cout << "smcntrpmf_csr_t: " << std::endl;
     masked_csr_t::print();
   }

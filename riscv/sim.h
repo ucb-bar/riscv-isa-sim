@@ -160,6 +160,12 @@ public:
   void deserialize_proto(std::string& is) {
     procs[0]->deserialize_proto(is);
   }
+
+  bool compare(processor_t* proc) {
+    auto state0 = *(procs[0]->get_state());
+    auto state1 = *(proc->get_state());
+    return state0 == state1;
+  }
 };
 
 extern volatile bool ctrlc_pressed;

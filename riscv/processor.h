@@ -78,6 +78,7 @@ typedef std::vector<std::tuple<reg_t, uint64_t, uint8_t>> commit_log_mem_t;
 struct state_t
 {
   void reset(processor_t* const proc, reg_t max_isa);
+  bool operator == (state_t& state);
 
   reg_t pc;
   regfile_t<reg_t, NXPR, true> XPR;

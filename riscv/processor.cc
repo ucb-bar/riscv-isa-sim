@@ -596,6 +596,29 @@ void state_t::reset(processor_t* const proc, reg_t max_isa)
   last_inst_flen = 0;
 }
 
+bool state_t::operator == (state_t& state) {
+  for (auto& kv : csrmap) {
+    auto k       = kv.first;
+    auto lhs_csr = kv.second;
+
+    auto it = state.csrmap.find(k);
+    if (it == state.csrmap.end()) {
+      std::cerr << "Could not find: " << k << " in csrmap" << std::endl;
+      return false;
+    }
+    auto rhs_csr = (*it).second;
+    if (*lhs_csr == *rhs_csr) {
+      continue;
+    } else {
+      std::cerr << "Mismatch in CSR value: " << std::hex<< "0x" << k << std::endl;
+      lhs_csr->print();
+      rhs_csr->print();
+      return false;
+    }
+  }
+  return true;
+}
+
 void processor_t::set_debug(bool value)
 {
   debug = value;

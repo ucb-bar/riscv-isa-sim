@@ -36,7 +36,7 @@ public:
   ~sim_t();
 
   // run the simulation to completion
-  int run();
+  virtual int run();
   void set_debug(bool value);
   void set_histogram(bool value);
   void add_device(reg_t addr, std::shared_ptr<abstract_device_t> dev);
@@ -65,7 +65,7 @@ public:
   static const size_t INSNS_PER_RTC_TICK = 100; // 10 MHz clock for 1 BIPS core
   static const size_t CPU_HZ = 1000000000; // 1GHz CPU
 
-private:
+protected:
   isa_parser_t isa;
   const cfg_t * const cfg;
   std::vector<std::pair<reg_t, abstract_mem_t*>> mems;

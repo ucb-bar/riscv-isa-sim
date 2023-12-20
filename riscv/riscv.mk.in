@@ -40,6 +40,7 @@ riscv_install_hdrs = \
 	processor.h \
 	rocc.h \
 	sim.h \
+	sim_lib.h \
 	simif.h \
 	trap.h \
 	triggers.h \
@@ -53,6 +54,7 @@ riscv_srcs = \
 	execute.cc \
 	dts.cc \
 	sim.cc \
+	sim_lib.cc \
 	interactive.cc \
 	cachesim.cc \
 	mmu.cc \

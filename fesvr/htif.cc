@@ -35,7 +35,6 @@
 # define TARGET_DIR "/" TARGET_ARCH "/bin/"
 #endif
 
-static volatile bool signal_exit = false;
 static void handle_signal(int sig)
 {
   if (sig == SIGABRT || signal_exit) // someone set up us the bomb!
@@ -94,13 +93,6 @@ void htif_t::start()
   }
 
   reset();
-}
-
-static void bad_address(const std::string& situation, reg_t addr)
-{
-  std::cerr << "Access exception occurred while " << situation << ":\n";
-  std::cerr << "Memory address 0x" << std::hex << addr << " is invalid\n";
-  exit(-1);
 }
 
 std::map<std::string, uint64_t> htif_t::load_payload(const std::string& payload, reg_t* entry)

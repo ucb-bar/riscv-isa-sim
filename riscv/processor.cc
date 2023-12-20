@@ -599,7 +599,7 @@ void state_t::reset(processor_t* const proc, reg_t max_isa)
 bool state_t::operator == (state_t& state) {
   if (pc != state.pc) {
     std::cerr << "PC mismatch " << std::hex
-              << "0x" << pc <<
+              << "0x" << pc
               << "0x" << state.pc << std::endl;;
     return false;
   }

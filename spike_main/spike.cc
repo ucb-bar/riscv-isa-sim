@@ -572,6 +572,14 @@ int main(int argc, char** argv)
     std::cout << "FAIL" << std::endl;
   }
 
+  auto s2_mems = s_2.get_mems();
+  auto s2_mem = (mem_t*)(s2_mems[0].second);
+  if (s.compare_mem(s2_mem)) {
+    std::cout << "mem_t matches" << std::endl;
+  } else {
+    std::cout << "FAIL" << std::endl;
+  }
+
   for (auto& mem : mems)
     delete mem.second;
 

@@ -581,12 +581,11 @@ public:
     return sp;
   }
 
-  void serialize_proto(std::string& os) {
+  void serialize_proto(ArchState* aproto, google::protobuf::Arena* arena) {
     std::cout << "serialize" << std::endl;
-    arena = new google::protobuf::Arena();
     assert(xlen == 64);
 
-    ArchState* aproto = google::protobuf::Arena::Create<ArchState>(arena);
+    this->arena = arena;
 
     aproto->set_msg_pc(state.pc);
 
@@ -975,9 +974,6 @@ public:
     aproto->set_msg_last_inst_priv(state.last_inst_priv);
     aproto->set_msg_last_inst_xlen(state.last_inst_xlen);
     aproto->set_msg_last_inst_flen(state.last_inst_flen);
-
-    aproto->SerializeToString(&os);
-    google::protobuf::ShutdownProtobufLibrary();
   }
 
   void set_csr_from_proto(csr_t& csr, const CSR& proto) {
@@ -1110,14 +1106,11 @@ public:
     csr.intr_mask = proto.msg_intr_mask();
   }
 
-  void deserialize_proto(std::string& is) {
+  void deserialize_proto(ArchState* aproto) {
     std::cout << "deserialize" << std::endl;
     assert(xlen == 64);
 
-    ArchState* aproto = google::protobuf::Arena::Create<ArchState>(arena);
-    aproto->ParseFromString(is);
-
-    state.pc          = aproto->msg_pc();
+    state.pc = aproto->msg_pc();
 
     for (int i = 0, cnt = aproto->msg_xpr_size(); i < cnt; i++) {
       state.XPR.write(i, aproto->msg_xpr(i));

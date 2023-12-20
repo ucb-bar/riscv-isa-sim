@@ -7,15 +7,20 @@
 #include "debug_module.h"
 #include "devices.h"
 #include "log_file.h"
+#include "mmu.h"
 #include "processor.h"
 #include "simif.h"
 
+#include <cstdint>
 #include <fesvr/htif.h>
 #include <vector>
 #include <map>
 #include <string>
 #include <memory>
 #include <sys/types.h>
+
+#include "arch-state.pb.h"
+#include <google/protobuf/arena.h>
 
 class mmu_t;
 class remote_bitbang_t;
@@ -64,6 +69,8 @@ public:
   static const size_t INTERLEAVE = 5000;
   static const size_t INSNS_PER_RTC_TICK = 100; // 10 MHz clock for 1 BIPS core
   static const size_t CPU_HZ = 1000000000; // 1GHz CPU
+  
+  std::vector<std::pair<reg_t, abstract_mem_t*>> get_mems() { return mems; }
 
 private:
   isa_parser_t isa;
@@ -153,18 +160,115 @@ public:
   debug_module_t debug_module;
 
 public:
+  google::protobuf::Arena* arena;
+
   void serialize_proto(std::string& os) {
-    procs[0]->serialize_proto(os);
+    arena = new google::protobuf::Arena();
+    SimState* sim_proto = google::protobuf::Arena::Create<SimState>(arena);
+
+    for (int i = 0, cnt = (int)procs.size(); i < cnt; i++) {
+      ArchState* arch_proto = sim_proto->add_msg_arch_state();
+      procs[i]->serialize_proto(arch_proto, arena);
+    }
+
+    // only one dram device for now
+    assert((int)mems.size() == 1);
+
+    for (auto& addr_mem : mems) {
+      auto mem = (mem_t*)addr_mem.second;
+      std::map<reg_t, char*>& spm = mem->sparse_memory_map;
+      for (auto& page: spm) {
+        Page* page_proto = sim_proto->add_msg_sparse_mm();
+        page_proto->set_msg_ppn(page.first);
+        page_proto->set_msg_bytes((const void*)page.second, PGSIZE);
+      }
+    }
+
+    sim_proto->SerializeToString(&os);
+    google::protobuf::ShutdownProtobufLibrary();
   }
 
   void deserialize_proto(std::string& is) {
-    procs[0]->deserialize_proto(is);
+    arena = new google::protobuf::Arena();
+    SimState* sim_proto = google::protobuf::Arena::Create<SimState>(arena);
+    sim_proto->ParseFromString(is);
+
+    for (int i = 0, cnt = sim_proto->msg_arch_state_size(); i < cnt; i++) {
+      auto arch_proto = sim_proto->msg_arch_state(i);
+      procs[i]->deserialize_proto(&arch_proto);
+    }
+
+    // only one dram device for now
+    assert((int)mems.size() == 1);
+
+    for (auto& addr_mem : mems) {
+      auto mem = (mem_t*)addr_mem.second;
+      std::map<reg_t, char*>& spm = mem->sparse_memory_map;
+
+      // clear memory
+      for (auto& page: spm) {
+        free(page.second);
+      }
+      spm.clear();
+
+      // insert new dram contents
+      for (int i = 0, cnt = sim_proto->msg_sparse_mm_size(); i < cnt; i++) {
+        const Page& page_proto = sim_proto->msg_sparse_mm(i);
+
+        reg_t ppn = page_proto.msg_ppn();
+        const std::string& bytes = page_proto.msg_bytes();
+        assert(bytes.size() == PGSIZE);
+
+        char* res = (char*)calloc(PGSIZE, 1);
+        if (res == nullptr)
+          throw std::bad_alloc();
+        memcpy((void*)res, bytes.data(), bytes.size());
+        spm[ppn] = res;
+      }
+    }
+
+
+    google::protobuf::ShutdownProtobufLibrary();
   }
 
   bool compare(processor_t* proc) {
     auto state0 = *(procs[0]->get_state());
     auto state1 = *(proc->get_state());
     return state0 == state1;
+  }
+
+  bool compare_mem(mem_t* mem) {
+    auto my_mem = (mem_t*)(mems[0].second);
+    auto my_mm  = my_mem->sparse_memory_map;
+    auto ref_mm = mem->sparse_memory_map;
+    if (ref_mm.size() != my_mm.size()) {
+      std::cerr << "Page count mismatch ref vs my "
+                << std::dec << ref_mm.size() << my_mm.size() << std::endl;
+      return false;
+    }
+
+    for (auto& a2p : ref_mm) {
+      reg_t ppn = a2p.first;
+      uint64_t* ref_page_by_8B = (uint64_t*)a2p.second;
+
+      auto it = my_mm.find(ppn);
+      if (it == my_mm.end()) {
+        std::cerr << "PPN: " << ppn << " not found" << std::endl;
+        return false;
+      }
+      uint64_t*  my_page_by_8B = (uint64_t*)it->second;
+
+      for (int i = 0; i < PGSIZE / 8; i++) {
+        uint64_t ref_data = ref_page_by_8B[i];
+        uint64_t my_data  = my_page_by_8B[i];
+        if (ref_data != my_data) {
+          std::cerr << "page[" << 8 * i << "]: expect "
+                    << std::hex << ref_data << " got " << my_data << std::endl;
+          return false;
+        }
+      }
+    }
+    return true;
   }
 };
 

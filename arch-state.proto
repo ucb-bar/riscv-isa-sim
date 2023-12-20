@@ -217,3 +217,13 @@ message ArchState {
   int32        msg_last_inst_xlen = 68;
   int32        msg_last_inst_flen = 69;
 }
+
+message Page {
+  uint64 msg_ppn   = 1;
+  bytes  msg_bytes = 2;
+}
+
+message SimState {
+  repeated ArchState msg_arch_state = 1;
+  repeated Page      msg_sparse_mm  = 2;
+}

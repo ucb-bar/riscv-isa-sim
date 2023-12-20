@@ -47,7 +47,7 @@ struct TableStruct_arch_2dstate_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[26]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[28]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -99,12 +99,18 @@ extern MstatusCSRDefaultTypeInternal _MstatusCSR_default_instance_;
 class OptionalUInt64;
 class OptionalUInt64DefaultTypeInternal;
 extern OptionalUInt64DefaultTypeInternal _OptionalUInt64_default_instance_;
+class Page;
+class PageDefaultTypeInternal;
+extern PageDefaultTypeInternal _Page_default_instance_;
 class PmpCSR;
 class PmpCSRDefaultTypeInternal;
 extern PmpCSRDefaultTypeInternal _PmpCSR_default_instance_;
 class SatpCSR;
 class SatpCSRDefaultTypeInternal;
 extern SatpCSRDefaultTypeInternal _SatpCSR_default_instance_;
+class SimState;
+class SimStateDefaultTypeInternal;
+extern SimStateDefaultTypeInternal _SimState_default_instance_;
 class SmcntrpmfCSR;
 class SmcntrpmfCSRDefaultTypeInternal;
 extern SmcntrpmfCSRDefaultTypeInternal _SmcntrpmfCSR_default_instance_;
@@ -148,8 +154,10 @@ template<> ::MedelegCSR* Arena::CreateMaybeMessage<::MedelegCSR>(Arena*);
 template<> ::MisaCSR* Arena::CreateMaybeMessage<::MisaCSR>(Arena*);
 template<> ::MstatusCSR* Arena::CreateMaybeMessage<::MstatusCSR>(Arena*);
 template<> ::OptionalUInt64* Arena::CreateMaybeMessage<::OptionalUInt64>(Arena*);
+template<> ::Page* Arena::CreateMaybeMessage<::Page>(Arena*);
 template<> ::PmpCSR* Arena::CreateMaybeMessage<::PmpCSR>(Arena*);
 template<> ::SatpCSR* Arena::CreateMaybeMessage<::SatpCSR>(Arena*);
+template<> ::SimState* Arena::CreateMaybeMessage<::SimState>(Arena*);
 template<> ::SmcntrpmfCSR* Arena::CreateMaybeMessage<::SmcntrpmfCSR>(Arena*);
 template<> ::SstatusCSR* Arena::CreateMaybeMessage<::SstatusCSR>(Arena*);
 template<> ::SstatusProxyCSR* Arena::CreateMaybeMessage<::SstatusProxyCSR>(Arena*);
@@ -5166,6 +5174,309 @@ class ArchState :
   ::PROTOBUF_NAMESPACE_ID::uint32 msg_single_step_;
   ::PROTOBUF_NAMESPACE_ID::int32 msg_last_inst_xlen_;
   ::PROTOBUF_NAMESPACE_ID::int32 msg_last_inst_flen_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_arch_2dstate_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Page :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Page) */ {
+ public:
+  Page();
+  virtual ~Page();
+
+  Page(const Page& from);
+  Page(Page&& from) noexcept
+    : Page() {
+    *this = ::std::move(from);
+  }
+
+  inline Page& operator=(const Page& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Page& operator=(Page&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const Page& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const Page* internal_default_instance() {
+    return reinterpret_cast<const Page*>(
+               &_Page_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    26;
+
+  friend void swap(Page& a, Page& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Page* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Page* New() const final {
+    return CreateMaybeMessage<Page>(nullptr);
+  }
+
+  Page* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Page>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const Page& from);
+  void MergeFrom(const Page& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Page* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Page";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_arch_2dstate_2eproto);
+    return ::descriptor_table_arch_2dstate_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMsgBytesFieldNumber = 2,
+    kMsgPpnFieldNumber = 1,
+  };
+  // bytes msg_bytes = 2;
+  void clear_msg_bytes();
+  const std::string& msg_bytes() const;
+  void set_msg_bytes(const std::string& value);
+  void set_msg_bytes(std::string&& value);
+  void set_msg_bytes(const char* value);
+  void set_msg_bytes(const void* value, size_t size);
+  std::string* mutable_msg_bytes();
+  std::string* release_msg_bytes();
+  void set_allocated_msg_bytes(std::string* msg_bytes);
+  private:
+  const std::string& _internal_msg_bytes() const;
+  void _internal_set_msg_bytes(const std::string& value);
+  std::string* _internal_mutable_msg_bytes();
+  public:
+
+  // uint64 msg_ppn = 1;
+  void clear_msg_ppn();
+  ::PROTOBUF_NAMESPACE_ID::uint64 msg_ppn() const;
+  void set_msg_ppn(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint64 _internal_msg_ppn() const;
+  void _internal_set_msg_ppn(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Page)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr msg_bytes_;
+  ::PROTOBUF_NAMESPACE_ID::uint64 msg_ppn_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_arch_2dstate_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SimState :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:SimState) */ {
+ public:
+  SimState();
+  virtual ~SimState();
+
+  SimState(const SimState& from);
+  SimState(SimState&& from) noexcept
+    : SimState() {
+    *this = ::std::move(from);
+  }
+
+  inline SimState& operator=(const SimState& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SimState& operator=(SimState&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const SimState& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const SimState* internal_default_instance() {
+    return reinterpret_cast<const SimState*>(
+               &_SimState_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    27;
+
+  friend void swap(SimState& a, SimState& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SimState* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline SimState* New() const final {
+    return CreateMaybeMessage<SimState>(nullptr);
+  }
+
+  SimState* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SimState>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const SimState& from);
+  void MergeFrom(const SimState& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SimState* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "SimState";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_arch_2dstate_2eproto);
+    return ::descriptor_table_arch_2dstate_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMsgArchStateFieldNumber = 1,
+    kMsgSparseMmFieldNumber = 2,
+  };
+  // repeated .ArchState msg_arch_state = 1;
+  int msg_arch_state_size() const;
+  private:
+  int _internal_msg_arch_state_size() const;
+  public:
+  void clear_msg_arch_state();
+  ::ArchState* mutable_msg_arch_state(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::ArchState >*
+      mutable_msg_arch_state();
+  private:
+  const ::ArchState& _internal_msg_arch_state(int index) const;
+  ::ArchState* _internal_add_msg_arch_state();
+  public:
+  const ::ArchState& msg_arch_state(int index) const;
+  ::ArchState* add_msg_arch_state();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::ArchState >&
+      msg_arch_state() const;
+
+  // repeated .Page msg_sparse_mm = 2;
+  int msg_sparse_mm_size() const;
+  private:
+  int _internal_msg_sparse_mm_size() const;
+  public:
+  void clear_msg_sparse_mm();
+  ::Page* mutable_msg_sparse_mm(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Page >*
+      mutable_msg_sparse_mm();
+  private:
+  const ::Page& _internal_msg_sparse_mm(int index) const;
+  ::Page* _internal_add_msg_sparse_mm();
+  public:
+  const ::Page& msg_sparse_mm(int index) const;
+  ::Page* add_msg_sparse_mm();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Page >&
+      msg_sparse_mm() const;
+
+  // @@protoc_insertion_point(class_scope:SimState)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::ArchState > msg_arch_state_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Page > msg_sparse_mm_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_arch_2dstate_2eproto;
 };
@@ -11141,9 +11452,179 @@ inline void ArchState::set_msg_last_inst_flen(::PROTOBUF_NAMESPACE_ID::int32 val
   // @@protoc_insertion_point(field_set:ArchState.msg_last_inst_flen)
 }
 
+// -------------------------------------------------------------------
+
+// Page
+
+// uint64 msg_ppn = 1;
+inline void Page::clear_msg_ppn() {
+  msg_ppn_ = PROTOBUF_ULONGLONG(0);
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 Page::_internal_msg_ppn() const {
+  return msg_ppn_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 Page::msg_ppn() const {
+  // @@protoc_insertion_point(field_get:Page.msg_ppn)
+  return _internal_msg_ppn();
+}
+inline void Page::_internal_set_msg_ppn(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  
+  msg_ppn_ = value;
+}
+inline void Page::set_msg_ppn(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  _internal_set_msg_ppn(value);
+  // @@protoc_insertion_point(field_set:Page.msg_ppn)
+}
+
+// bytes msg_bytes = 2;
+inline void Page::clear_msg_bytes() {
+  msg_bytes_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& Page::msg_bytes() const {
+  // @@protoc_insertion_point(field_get:Page.msg_bytes)
+  return _internal_msg_bytes();
+}
+inline void Page::set_msg_bytes(const std::string& value) {
+  _internal_set_msg_bytes(value);
+  // @@protoc_insertion_point(field_set:Page.msg_bytes)
+}
+inline std::string* Page::mutable_msg_bytes() {
+  // @@protoc_insertion_point(field_mutable:Page.msg_bytes)
+  return _internal_mutable_msg_bytes();
+}
+inline const std::string& Page::_internal_msg_bytes() const {
+  return msg_bytes_.GetNoArena();
+}
+inline void Page::_internal_set_msg_bytes(const std::string& value) {
+  
+  msg_bytes_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void Page::set_msg_bytes(std::string&& value) {
+  
+  msg_bytes_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:Page.msg_bytes)
+}
+inline void Page::set_msg_bytes(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  msg_bytes_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:Page.msg_bytes)
+}
+inline void Page::set_msg_bytes(const void* value, size_t size) {
+  
+  msg_bytes_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:Page.msg_bytes)
+}
+inline std::string* Page::_internal_mutable_msg_bytes() {
+  
+  return msg_bytes_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* Page::release_msg_bytes() {
+  // @@protoc_insertion_point(field_release:Page.msg_bytes)
+  
+  return msg_bytes_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void Page::set_allocated_msg_bytes(std::string* msg_bytes) {
+  if (msg_bytes != nullptr) {
+    
+  } else {
+    
+  }
+  msg_bytes_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), msg_bytes);
+  // @@protoc_insertion_point(field_set_allocated:Page.msg_bytes)
+}
+
+// -------------------------------------------------------------------
+
+// SimState
+
+// repeated .ArchState msg_arch_state = 1;
+inline int SimState::_internal_msg_arch_state_size() const {
+  return msg_arch_state_.size();
+}
+inline int SimState::msg_arch_state_size() const {
+  return _internal_msg_arch_state_size();
+}
+inline void SimState::clear_msg_arch_state() {
+  msg_arch_state_.Clear();
+}
+inline ::ArchState* SimState::mutable_msg_arch_state(int index) {
+  // @@protoc_insertion_point(field_mutable:SimState.msg_arch_state)
+  return msg_arch_state_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::ArchState >*
+SimState::mutable_msg_arch_state() {
+  // @@protoc_insertion_point(field_mutable_list:SimState.msg_arch_state)
+  return &msg_arch_state_;
+}
+inline const ::ArchState& SimState::_internal_msg_arch_state(int index) const {
+  return msg_arch_state_.Get(index);
+}
+inline const ::ArchState& SimState::msg_arch_state(int index) const {
+  // @@protoc_insertion_point(field_get:SimState.msg_arch_state)
+  return _internal_msg_arch_state(index);
+}
+inline ::ArchState* SimState::_internal_add_msg_arch_state() {
+  return msg_arch_state_.Add();
+}
+inline ::ArchState* SimState::add_msg_arch_state() {
+  // @@protoc_insertion_point(field_add:SimState.msg_arch_state)
+  return _internal_add_msg_arch_state();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::ArchState >&
+SimState::msg_arch_state() const {
+  // @@protoc_insertion_point(field_list:SimState.msg_arch_state)
+  return msg_arch_state_;
+}
+
+// repeated .Page msg_sparse_mm = 2;
+inline int SimState::_internal_msg_sparse_mm_size() const {
+  return msg_sparse_mm_.size();
+}
+inline int SimState::msg_sparse_mm_size() const {
+  return _internal_msg_sparse_mm_size();
+}
+inline void SimState::clear_msg_sparse_mm() {
+  msg_sparse_mm_.Clear();
+}
+inline ::Page* SimState::mutable_msg_sparse_mm(int index) {
+  // @@protoc_insertion_point(field_mutable:SimState.msg_sparse_mm)
+  return msg_sparse_mm_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Page >*
+SimState::mutable_msg_sparse_mm() {
+  // @@protoc_insertion_point(field_mutable_list:SimState.msg_sparse_mm)
+  return &msg_sparse_mm_;
+}
+inline const ::Page& SimState::_internal_msg_sparse_mm(int index) const {
+  return msg_sparse_mm_.Get(index);
+}
+inline const ::Page& SimState::msg_sparse_mm(int index) const {
+  // @@protoc_insertion_point(field_get:SimState.msg_sparse_mm)
+  return _internal_msg_sparse_mm(index);
+}
+inline ::Page* SimState::_internal_add_msg_sparse_mm() {
+  return msg_sparse_mm_.Add();
+}
+inline ::Page* SimState::add_msg_sparse_mm() {
+  // @@protoc_insertion_point(field_add:SimState.msg_sparse_mm)
+  return _internal_add_msg_sparse_mm();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Page >&
+SimState::msg_sparse_mm() const {
+  // @@protoc_insertion_point(field_list:SimState.msg_sparse_mm)
+  return msg_sparse_mm_;
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

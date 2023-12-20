@@ -17,6 +17,7 @@ riscv_install_prog_srcs = \
 
 riscv_install_hdrs = \
 	abstract_device.h \
+	arch-state.pb.h \
 	abstract_interrupt_controller.h \
 	cachesim.h \
 	cfg.h \
@@ -40,6 +41,7 @@ riscv_install_hdrs = \
 	processor.h \
 	rocc.h \
 	sim.h \
+	sim_lib.h \
 	simif.h \
 	trap.h \
 	triggers.h \
@@ -50,9 +52,11 @@ riscv_precompiled_hdrs = \
 
 riscv_srcs = \
 	processor.cc \
+	arch-state.pb.cc \
 	execute.cc \
 	dts.cc \
 	sim.cc \
+	sim_lib.cc \
 	interactive.cc \
 	cachesim.cc \
 	mmu.cc \

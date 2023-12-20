@@ -423,6 +423,8 @@ void sim_t::interactive_run(const std::string& cmd, const std::vector<std::strin
 
 void sim_t::interactive_quit(const std::string& cmd, const std::vector<std::string>& args)
 {
+  std::string proto_str;
+  serialize_proto(proto_str);
   exit(0);
 }
 

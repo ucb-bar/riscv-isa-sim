@@ -11,6 +11,18 @@
 #include <map>
 #include <vector>
 #include <assert.h>
+#include <iostream>
+
+
+
+static volatile bool signal_exit = false;
+
+static void bad_address(const std::string& situation, reg_t addr)
+{
+  std::cerr << "Access exception occurred while " << situation << ":\n";
+  std::cerr << "Memory address 0x" << std::hex << addr << " is invalid\n";
+  exit(-1);
+}
 
 class htif_t : public chunked_memif_t
 {
@@ -74,7 +86,7 @@ class htif_t : public chunked_memif_t
   // Given an address, return symbol from addr2symbol map
   const char* get_symbol(uint64_t addr);
 
- private:
+ protected:
   void parse_arguments(int argc, char ** argv);
   void register_devices();
   void usage(const char * program_name);

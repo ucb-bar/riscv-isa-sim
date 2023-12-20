@@ -7,15 +7,21 @@
 #include "debug_module.h"
 #include "devices.h"
 #include "log_file.h"
+#include "mmu.h"
 #include "processor.h"
 #include "simif.h"
 
+#include <cstdint>
 #include <fesvr/htif.h>
 #include <vector>
 #include <map>
 #include <string>
 #include <memory>
 #include <sys/types.h>
+
+#include "arch-state.pb.h"
+#include <google/protobuf/arena.h>
+#include <google/protobuf/util/json_util.h>
 
 class mmu_t;
 class remote_bitbang_t;
@@ -32,11 +38,12 @@ public:
         const debug_module_config_t &dm_config, const char *log_path,
         bool dtb_enabled, const char *dtb_file,
         bool socket_enabled,
-        FILE *cmd_file); // needed for command line option --cmd
+        FILE *cmd_file, // needed for command line option --cmd
+        const char* proto_json_path);
   ~sim_t();
 
   // run the simulation to completion
-  int run();
+  virtual int run();
   void set_debug(bool value);
   void set_histogram(bool value);
   void add_device(reg_t addr, std::shared_ptr<abstract_device_t> dev);
@@ -64,8 +71,10 @@ public:
   static const size_t INTERLEAVE = 5000;
   static const size_t INSNS_PER_RTC_TICK = 100; // 10 MHz clock for 1 BIPS core
   static const size_t CPU_HZ = 1000000000; // 1GHz CPU
+  
+  std::vector<std::pair<reg_t, abstract_mem_t*>> get_mems() { return mems; }
 
-private:
+protected:
   isa_parser_t isa;
   const cfg_t * const cfg;
   std::vector<std::pair<reg_t, abstract_mem_t*>> mems;
@@ -82,6 +91,7 @@ private:
   log_file_t log_file;
 
   FILE *cmd_file; // pointer to debug command input file
+  const char* proto_json_path;
 
   socketif_t *socketif;
   std::ostream sout_; // used for socket and terminal interface
@@ -151,6 +161,14 @@ public:
   // enumerate processors, which segfaults if procs hasn't been initialized
   // yet.
   debug_module_t debug_module;
+
+public:
+  google::protobuf::Arena* arena;
+
+  void serialize_proto(std::string& os);
+  void deserialize_proto(std::string& is, bool is_json);
+  bool compare_proc(processor_t* proc);
+  bool compare_mem(mem_t* mem);
 };
 
 extern volatile bool ctrlc_pressed;

@@ -7,3 +7,4 @@ autom4te.cache/
 .gdb_history
 .#*
 *~
+build.log

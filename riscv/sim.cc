@@ -44,7 +44,8 @@ sim_t::sim_t(const cfg_t *cfg, bool halted,
              const char *log_path,
              bool dtb_enabled, const char *dtb_file,
              bool socket_enabled,
-             FILE *cmd_file) // needed for command line option --cmd
+             FILE *cmd_file, // needed for command line option --cmd
+             const char* proto_json_path)
   : htif_t(args),
     isa(cfg->isa, cfg->priv),
     cfg(cfg),
@@ -53,6 +54,7 @@ sim_t::sim_t(const cfg_t *cfg, bool halted,
     dtb_enabled(dtb_enabled),
     log_file(log_path),
     cmd_file(cmd_file),
+    proto_json_path(proto_json_path),
     sout_(nullptr),
     current_step(0),
     current_proc(0),
@@ -436,4 +438,217 @@ endianness_t sim_t::get_target_endianness() const
 void sim_t::proc_reset(unsigned id)
 {
   debug_module.proc_reset(id);
+}
+
+
+// Protobuf stuff
+
+void sim_t::serialize_proto(std::string& os) {
+  arena = new google::protobuf::Arena();
+  SimState* sim_proto = google::protobuf::Arena::Create<SimState>(arena);
+
+  for (int i = 0, cnt = (int)procs.size(); i < cnt; i++) {
+    ArchState* arch_proto = sim_proto->add_msg_arch_state();
+    procs[i]->serialize_proto(arch_proto, arena);
+  }
+
+  // CLINT
+  CLINT* clint_proto = google::protobuf::Arena::Create<CLINT>(arena);
+  clint_proto->set_msg_mtime(clint->mtime);
+  for (auto& mtc : clint->mtimecmp) {
+    UInt64Map* kv = clint_proto->add_msg_mtimecmp();
+    kv->set_msg_k(mtc.first);
+    kv->set_msg_v(mtc.second);
+  }
+  sim_proto->set_allocated_msg_clint(clint_proto);
+
+  // PLIC
+  PLIC* plic_proto = google::protobuf::Arena::Create<PLIC>(arena);
+  for (auto& pc : plic->contexts) {
+    PLICContext* ctx_proto = plic_proto->add_msg_contexts();
+    ctx_proto->set_msg_priority_threshold(pc.priority_threshold);
+
+    for (int i = 0; i < PLIC_MAX_DEVICES/32; i++) {
+      ctx_proto->add_msg_enable (pc.enable[i]);
+      ctx_proto->add_msg_pending(pc.pending[i]);
+      ctx_proto->add_msg_claimed(pc.claimed[i]);
+    }
+
+    for (int i = 0; i < PLIC_MAX_DEVICES; i++) {
+      ctx_proto->add_msg_pending_priority(pc.pending_priority[i]);
+    }
+  }
+
+  for (int i = 0; i < PLIC_MAX_DEVICES; i++) {
+    plic_proto->add_msg_priority(plic->priority[i]);
+  }
+
+  for (int i = 0; i < PLIC_MAX_DEVICES/32; i++) {
+    plic_proto->add_msg_level(plic->level[i]);
+  }
+  sim_proto->set_allocated_msg_plic(plic_proto);
+
+  // only one dram device for now
+  assert((int)mems.size() == 1);
+
+  for (auto& addr_mem : mems) {
+    auto mem = (mem_t*)addr_mem.second;
+    std::map<reg_t, char*>& spm = mem->sparse_memory_map;
+    for (auto& page: spm) {
+      Page* page_proto = sim_proto->add_msg_sparse_mm();
+      page_proto->set_msg_ppn(page.first);
+      page_proto->set_msg_bytes((const void*)page.second, PGSIZE);
+    }
+  }
+
+  sim_proto->SerializeToString(&os);
+
+  // Create a json_string from sr.
+  std::string json_string;
+  google::protobuf::util::JsonPrintOptions options;
+  options.add_whitespace = true;
+  options.always_print_primitive_fields = true;
+  options.preserve_proto_field_names = true;
+  google::protobuf::util::MessageToJsonString(*sim_proto, &json_string, options);
+
+  std::fstream json_file;
+  if (proto_json_path == nullptr) {
+    proto_json_path = "arch-state.json";
+  }
+  json_file.open(proto_json_path, std::ios::out);
+  json_file << json_string << std::endl;
+  json_file.close();
+
+  google::protobuf::ShutdownProtobufLibrary();
+}
+
+void sim_t::deserialize_proto(std::string& is, bool is_json) {
+  arena = new google::protobuf::Arena();
+  SimState* sim_proto = google::protobuf::Arena::Create<SimState>(arena);
+
+  if (is_json) {
+      google::protobuf::util::JsonParseOptions options;
+      google::protobuf::util::JsonStringToMessage(is, sim_proto, options);
+  } else {
+    sim_proto->ParseFromString(is);
+  }
+
+  for (int i = 0, cnt = sim_proto->msg_arch_state_size(); i < cnt; i++) {
+    auto arch_proto = sim_proto->msg_arch_state(i);
+    procs[i]->deserialize_proto(&arch_proto);
+  }
+
+  // CLINT
+  const CLINT& clint_proto = sim_proto->msg_clint();
+  clint->mtime = clint_proto.msg_mtime();
+  assert(clint->mtimecmp.size() == clint_proto.msg_mtimecmp_size());
+  clint->mtimecmp.clear();
+
+  for (int i = 0, cnt = clint_proto.msg_mtimecmp_size(); i < cnt; i++) {
+    const UInt64Map& kv = clint_proto.msg_mtimecmp(i);
+    clint->mtimecmp[kv.msg_k()] = kv.msg_v();
+  }
+
+  // PLIC
+  const PLIC& plic_proto = sim_proto->msg_plic();
+  assert(plic->contexts.size() == plic_proto.msg_contexts_size());
+  for (int i = 0, cnt = plic_proto.msg_contexts_size(); i < cnt; i++) {
+    const PLICContext& pc = plic_proto.msg_contexts(i);
+    plic->contexts[i].priority_threshold = pc.msg_priority_threshold();
+
+    for (int j = 0; j < pc.msg_enable_size(); j++)
+      plic->contexts[i].enable[j] = pc.msg_enable(j);
+
+    for (int j = 0; j < pc.msg_pending_size(); j++)
+      plic->contexts[i].pending[j] = pc.msg_pending(j);
+
+    for (int j = 0; j < pc.msg_pending_priority_size(); j++)
+      plic->contexts[i].pending_priority[j] = pc.msg_pending_priority(j);
+
+    for (int j = 0; j < pc.msg_claimed_size(); j++)
+      plic->contexts[i].claimed[j] = pc.msg_claimed(j);
+  }
+
+  assert(plic_proto.msg_priority_size() == PLIC_MAX_DEVICES);
+  for (int i = 0, cnt = plic_proto.msg_priority_size(); i < cnt; i++) {
+    plic->priority[i] = plic_proto.msg_priority(i);
+  }
+
+  assert(plic_proto.msg_priority_size() == PLIC_MAX_DEVICES / 32);
+  for (int i = 0, cnt = plic_proto.msg_level_size(); i < cnt; i++) {
+    plic->level[i] = plic_proto.msg_level(i);
+  }
+
+
+
+  // only one dram device for now
+  assert((int)mems.size() == 1);
+
+  for (auto& addr_mem : mems) {
+    auto mem = (mem_t*)addr_mem.second;
+    std::map<reg_t, char*>& spm = mem->sparse_memory_map;
+
+    // clear memory
+    for (auto& page: spm) {
+      free(page.second);
+    }
+    spm.clear();
+
+    // insert new dram contents
+    for (int i = 0, cnt = sim_proto->msg_sparse_mm_size(); i < cnt; i++) {
+      const Page& page_proto = sim_proto->msg_sparse_mm(i);
+
+      reg_t ppn = page_proto.msg_ppn();
+      const std::string& bytes = page_proto.msg_bytes();
+      assert(bytes.size() == PGSIZE);
+
+      char* res = (char*)calloc(PGSIZE, 1);
+      if (res == nullptr)
+        throw std::bad_alloc();
+      memcpy((void*)res, bytes.data(), bytes.size());
+      spm[ppn] = res;
+    }
+  }
+  google::protobuf::ShutdownProtobufLibrary();
+}
+
+// For debugging protobuf messages
+bool sim_t::compare_proc(processor_t* proc) {
+  auto state0 = *(procs[0]->get_state());
+  auto state1 = *(proc->get_state());
+  return state0 == state1;
+}
+
+bool sim_t::compare_mem(mem_t* mem) {
+  auto my_mem = (mem_t*)(mems[0].second);
+  auto my_mm  = my_mem->sparse_memory_map;
+  auto ref_mm = mem->sparse_memory_map;
+  if (ref_mm.size() != my_mm.size()) {
+    std::cerr << "Page count mismatch ref vs my "
+              << std::dec << ref_mm.size() << my_mm.size() << std::endl;
+    return false;
+  }
+
+  for (auto& a2p : ref_mm) {
+    reg_t ppn = a2p.first;
+    uint64_t* ref_page_by_8B = (uint64_t*)a2p.second;
+
+    auto it = my_mm.find(ppn);
+    if (it == my_mm.end()) {
+      std::cerr << "PPN: " << ppn << " not found" << std::endl;
+      return false;
+    }
+    uint64_t*  my_page_by_8B = (uint64_t*)it->second;
+
+    for (int i = 0; i < PGSIZE / 8; i++) {
+      uint64_t ref_data = ref_page_by_8B[i];
+      uint64_t my_data  = my_page_by_8B[i];
+      if (ref_data != my_data) {
+        std::cerr << "page[" << 8 * i << "]: expect "
+                  << std::hex << ref_data << " got " << my_data << std::endl;
+        return false;
+      }
+    }
+  }
+  return true;
 }

@@ -60,8 +60,10 @@ class mem_t : public abstract_mem_t {
  private:
   bool load_store(reg_t addr, size_t len, uint8_t* bytes, bool store);
 
-  std::map<reg_t, char*> sparse_memory_map;
   reg_t sz;
+
+ public:
+  std::map<reg_t, char*> sparse_memory_map;
 };
 
 class clint_t : public abstract_device_t {
@@ -73,7 +75,7 @@ class clint_t : public abstract_device_t {
   void tick(reg_t rtc_ticks) override;
   uint64_t get_mtimecmp(reg_t hartid) { return mtimecmp[hartid]; }
   uint64_t get_mtime() { return mtime; }
- private:
+ public:
   typedef uint64_t mtime_t;
   typedef uint64_t mtimecmp_t;
   typedef uint32_t msip_t;
@@ -110,7 +112,7 @@ class plic_t : public abstract_device_t, public abstract_interrupt_controller_t 
   bool store(reg_t addr, size_t len, const uint8_t* bytes) override;
   void set_interrupt_level(uint32_t id, int lvl) override;
   size_t size() { return PLIC_SIZE; }
- private:
+ public:
   std::vector<plic_context_t> contexts;
   uint32_t num_ids;
   uint32_t num_ids_word;

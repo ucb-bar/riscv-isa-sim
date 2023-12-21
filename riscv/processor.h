@@ -376,6 +376,8 @@ public:
   vectorUnit_t VU;
   triggers::module_t TM;
 
+  uint64_t tot_instret = 0;
+
 public:
   google::protobuf::Arena* arena;
 

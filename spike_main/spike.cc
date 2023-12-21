@@ -557,29 +557,6 @@ int main(int argc, char** argv)
 
   auto return_code = s.run();
 
-  std::string proto_str;
-  s.serialize_proto(proto_str);
-
-  sim_t s_2(&cfg, halted,
-      mems, plugin_device_factories, htif_args, dm_config, log_path, dtb_enabled, dtb_file,
-      socket,
-      cmd_file);
-  s_2.deserialize_proto(proto_str);
-
-  if (s.compare(s_2.get_harts().at(0))) {
-    std::cout << "state_t matches" << std::endl;
-  } else {
-    std::cout << "FAIL" << std::endl;
-  }
-
-  auto s2_mems = s_2.get_mems();
-  auto s2_mem = (mem_t*)(s2_mems[0].second);
-  if (s.compare_mem(s2_mem)) {
-    std::cout << "mem_t matches" << std::endl;
-  } else {
-    std::cout << "FAIL" << std::endl;
-  }
-
   for (auto& mem : mems)
     delete mem.second;
 

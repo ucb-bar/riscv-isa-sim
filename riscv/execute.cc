@@ -233,7 +233,7 @@ void processor_t::step(size_t n)
       if (unlikely(invalid_pc(pc))) { \
         switch (pc) { \
           case PC_SERIALIZE_BEFORE: state.serialized = true; break; \
-          case PC_SERIALIZE_AFTER: ++instret; break; \
+          case PC_SERIALIZE_AFTER: ++instret; ++tot_instret; break; \
           default: abort(); \
         } \
         pc = state.pc; \
@@ -241,6 +241,7 @@ void processor_t::step(size_t n)
       } else { \
         state.pc = pc; \
         instret++; \
+        tot_instret++; \
       }
 
     try
@@ -298,6 +299,7 @@ void processor_t::step(size_t n)
           if (unlikely(instret + 1 == n))
             break;
           instret++;
+          tot_instret++;
           state.pc = pc;
         }
 
@@ -339,6 +341,7 @@ void processor_t::step(size_t n)
       // allows us to switch to other threads only once per idle loop in case
       // there is activity.
       n = ++instret;
+      ++tot_instret;
       in_wfi = true;
     }
 

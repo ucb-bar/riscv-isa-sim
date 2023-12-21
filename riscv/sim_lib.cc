@@ -1,6 +1,7 @@
 // See LICENSE for license details.
 
 #include "config.h"
+#include "sim.h"
 #include "sim_lib.h"
 #include "mmu.h"
 #include "dts.h"
@@ -46,6 +47,51 @@ sim_lib_t::sim_lib_t(const cfg_t *cfg, bool halted,
 sim_lib_t::~sim_lib_t() {
 }
 
+void sim_lib_t::run_for_and_ckpt(uint64_t steps, std::string& os) {
+  init();
+
+  while (target_running() && procs[0]->tot_instret < steps) {
+    uint64_t tohost_req = check_tohost_req();
+    if (tohost_req) {
+      handle_tohost_req(tohost_req);
+    } else {
+      step_target(1, 1);
+    }
+    send_fromhost_req();
+  }
+
+  if (!target_running()) {
+    fprintf(stderr, "target finished before %" PRIu64 " steps\n", steps);
+    exit(1);
+  }
+
+  fprintf(stdout, "Taking checkpoint at instret %" PRIu64 " step\n", procs[0]->tot_instret);
+  serialize_proto(os);
+}
+
+int sim_lib_t::load_ckpt_and_run(std::string& is, bool is_json) {
+  init();
+
+  deserialize_proto(is, is_json);
+
+/* compare(p); */
+/* compare_mem(m); */
+
+  while (target_running()) {
+    uint64_t tohost_req = check_tohost_req();
+    if (tohost_req) {
+      handle_tohost_req(tohost_req);
+    } else {
+      if (debug || ctrlc_pressed)
+        interactive();
+      else
+        step_target(INTERLEAVE, INTERLEAVE / INSNS_PER_RTC_TICK);
+    }
+    send_fromhost_req();
+  }
+  return stop_sim();
+}
+
 // Example usage of the APIs.
 // We can decompose the below loop to have fine-grained control over the
 // fesver polling loop.
@@ -57,7 +103,10 @@ int sim_lib_t::run() {
     if (tohost_req) {
       handle_tohost_req(tohost_req);
     } else {
-      step_target(INTERLEAVE, INTERLEAVE / INSNS_PER_RTC_TICK);
+      if (debug || ctrlc_pressed)
+        interactive();
+      else
+        step_target(INTERLEAVE, INTERLEAVE / INSNS_PER_RTC_TICK);
     }
     send_fromhost_req();
   }
@@ -65,6 +114,9 @@ int sim_lib_t::run() {
 }
 
 void sim_lib_t::init() {
+  if (!debug && log)
+    set_procs_debug(true);
+
   htif_t::set_expected_xlen(isa.get_max_xlen());
 
   // load the binary

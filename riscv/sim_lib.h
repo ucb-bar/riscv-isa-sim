@@ -38,6 +38,9 @@ public:
         FILE *cmd_file); // needed for command line option --cmd
   ~sim_lib_t();
 
+  void run_for_and_ckpt(uint64_t steps, std::string& os);
+  int load_ckpt_and_run(std::string& is, bool is_json);
+
   virtual int run() override;
   void init();
   bool target_running();

@@ -3,6 +3,10 @@
 
 
 function build_spike() {
+  echo "Generate Protobuf messages"
+  echo $PROTOBUF_INSTALL_DIR
+  $PROTOBUF_INSTALL_DIR/bin/protoc arch-state.proto --cpp_out=riscv
+
   if [ ! -d build ]; then
     mkdir -p build
     cd build

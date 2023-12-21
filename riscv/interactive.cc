@@ -423,6 +423,13 @@ void sim_t::interactive_run(const std::string& cmd, const std::vector<std::strin
 
 void sim_t::interactive_quit(const std::string& cmd, const std::vector<std::string>& args)
 {
+  for (auto& p : procs) {
+    printf("proc instret: %" PRIu64 "\n", p->tot_instret);
+    printf("pc: 0x%" PRIx64 "\n", p->get_state()->pc);
+  }
+
+  std::string proto_str;
+  serialize_proto(proto_str);
   exit(0);
 }
 

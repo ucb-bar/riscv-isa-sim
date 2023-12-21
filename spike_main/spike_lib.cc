@@ -83,6 +83,8 @@ static void help(int exit_code = 1)
   fprintf(stderr, "  --dm-no-halt-groups   Debug module won't support halt groups\n");
   fprintf(stderr, "  --dm-no-impebreak     Debug module won't support implicit ebreak in program buffer\n");
   fprintf(stderr, "  --blocksz=<size>      Cache block size (B) for CMO operations(powers of 2) [default 64]\n");
+  fprintf(stderr, "  --restart-step=<size> Steps to run before serialize & reload\n");
+  fprintf(stderr, "  --proto-json=<path>   File name for serialized sim state\n");
 
   exit(exit_code);
 }
@@ -347,23 +349,12 @@ int main(int argc, char** argv)
   bool use_rbb = false;
   unsigned dmi_rti = 0;
   reg_t blocksz = 64;
+  uint64_t restart_step = 0;
+  const char *proto_json_path = nullptr;
   debug_module_config_t dm_config;
   cfg_arg_t<size_t> nprocs(1);
 
   cfg_t cfg;
-/* cfg.initrd_bounds = std::make_pair((reg_t)0, (reg_t)0); */
-/* cfg.bootargs = nullptr; */
-/* cfg.isa = DEFAULT_ISA; */
-/* cfg.priv = DEFAULT_PRIV; */
-/* cfg.varch = DEFAULT_VARCH; */
-/* cfg.misaligned = false; */
-/* cfg.endianness = endianness_little; */
-/* cfg.pmpregions = 16; */
-/* cfg.pmpgranularity = (1 << PMP_SHIFT); */
-/* cfg.mem_layout = parse_mem_layout("2048"); */
-/* cfg.hartids = std::vector<size_t>(); */
-/* cfg.real_time_clint = false; */
-/* cfg.trigger_count = 4; */
 
   auto const device_parser = [&plugin_device_factories](const char *s) {
     const std::string device_args(s);
@@ -475,6 +466,11 @@ int main(int argc, char** argv)
       exit(-1);
     }
   });
+  parser.option(0, "restart-step", 1, [&](const char* s) {
+      restart_step = strtoull(s, 0, 0);
+  });
+  parser.option(0, "proto-json", 1,
+                [&](const char* s){proto_json_path = s;});
 
   auto argv1 = parser.parse(argv);
   std::vector<std::string> htif_args(argv1, (const char*const*)argv + argc);
@@ -536,6 +532,9 @@ int main(int argc, char** argv)
   sim_lib_t s(&cfg, halted, mems, plugin_device_factories, htif_args, dm_config,
       log_path, dtb_enabled, dtb_file, socket, cmd_file);
 
+  sim_lib_t s_2(&cfg, halted, mems, plugin_device_factories, htif_args, dm_config,
+      log_path, dtb_enabled, dtb_file, socket, cmd_file);
+
   if (dump_dts) {
     printf("%s", s.get_dts());
     return 0;
@@ -549,14 +548,48 @@ int main(int argc, char** argv)
   {
     if (ic) s.get_core(i)->get_mmu()->register_memtracer(&*ic);
     if (dc) s.get_core(i)->get_mmu()->register_memtracer(&*dc);
-    for (auto e : extensions)
+    for (auto e : extensions) {
       s.get_core(i)->register_extension(e());
+      s_2.get_core(i)->register_extension(e());
+    }
     s.get_core(i)->get_mmu()->set_cache_blocksz(blocksz);
+    s_2.get_core(i)->get_mmu()->set_cache_blocksz(blocksz);
   }
 
+  s.set_debug(debug);
   s.configure_log(log, log_commits);
 
-  auto return_code = s.run();
+  s_2.set_debug(debug);
+  s_2.configure_log(log, log_commits);
+
+  int return_code;
+
+  if (proto_json_path) { // reload from json and run
+    std::ifstream json_file(proto_json_path);
+    std::string proto_str = "";
+    std::cout << "opening proto file" << std::endl;
+    if (json_file.is_open()) {
+      std::string line;
+      while (std::getline(json_file, line)) {
+        proto_str += line;
+        proto_str += "\n";
+      }
+      json_file.close();
+    }
+    std::cout << "done reading proto file" << std::endl;
+/* std::cout << proto_str << std::endl; */
+    s_2.load_ckpt_and_run(proto_str, true);
+  } else if (restart_step == 0) { // just run the thing
+    return_code = s.run();
+  } else { // checkpoint, reload, and run
+    std::string proto;
+    s.run_for_and_ckpt(restart_step, proto);
+
+/* auto s_mems = s.get_mems(); */
+/* auto s_mem = (mem_t*)(s_mems[0].second); */
+/* return_code = s_2.load_ckpt_and_run(proto, s.get_harts().at(0), s_mem); */
+    return_code = s_2.load_ckpt_and_run(proto, false);
+  }
 
   return return_code;
 }

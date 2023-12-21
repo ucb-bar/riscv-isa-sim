@@ -21,6 +21,7 @@
 
 #include "arch-state.pb.h"
 #include <google/protobuf/arena.h>
+#include <google/protobuf/util/json_util.h>
 
 class mmu_t;
 class remote_bitbang_t;
@@ -169,6 +170,7 @@ public:
     for (int i = 0, cnt = (int)procs.size(); i < cnt; i++) {
       ArchState* arch_proto = sim_proto->add_msg_arch_state();
       procs[i]->serialize_proto(arch_proto, arena);
+      printf("proc instret: %" PRIu64 "\n", procs[i]->tot_instret);
     }
 
     // only one dram device for now
@@ -185,13 +187,33 @@ public:
     }
 
     sim_proto->SerializeToString(&os);
+
+    // Create a json_string from sr.
+    std::string json_string;
+    google::protobuf::util::JsonPrintOptions options;
+    options.add_whitespace = true;
+    options.always_print_primitive_fields = true;
+    options.preserve_proto_field_names = true;
+    google::protobuf::util::MessageToJsonString(*sim_proto, &json_string, options);
+
+    std::fstream json_file;
+    json_file.open("arch-state.json", std::ios::out);
+    json_file << json_string << std::endl;
+    json_file.close();
+
     google::protobuf::ShutdownProtobufLibrary();
   }
 
-  void deserialize_proto(std::string& is) {
+  void deserialize_proto(std::string& is, bool is_json) {
     arena = new google::protobuf::Arena();
     SimState* sim_proto = google::protobuf::Arena::Create<SimState>(arena);
-    sim_proto->ParseFromString(is);
+
+    if (is_json) {
+        google::protobuf::util::JsonParseOptions options;
+        google::protobuf::util::JsonStringToMessage(is, sim_proto, options);
+    } else {
+      sim_proto->ParseFromString(is);
+    }
 
     for (int i = 0, cnt = sim_proto->msg_arch_state_size(); i < cnt; i++) {
       auto arch_proto = sim_proto->msg_arch_state(i);

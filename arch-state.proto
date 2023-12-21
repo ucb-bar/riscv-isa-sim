@@ -8,8 +8,7 @@ message CSR {
 }
 
 message BasicCSR {
-  CSR    msg_csr = 1;
-  uint64 msg_val = 2;
+  uint64 msg_val = 1;
 }
 
 message MisaCSR {
@@ -29,10 +28,9 @@ message VirtBasicCSR {
 }
 
 message BaseStatusCSR {
-  CSR    msg_csr           = 1;
-  bool   msg_has_page      = 2;
-  uint64 msg_sstatus_write_mask = 3;
-  uint64 msg_sstatus_read_mask  = 4;
+  bool   msg_has_page           = 1;
+  uint64 msg_sstatus_write_mask = 2;
+  uint64 msg_sstatus_read_mask  = 3;
 }
 
 message MstatusCSR {
@@ -70,9 +68,8 @@ message SmcntrpmfCSR {
 }
 
 message WideCntrCSR {
-  CSR          msg_csr        = 1;
-  uint64       msg_val        = 2;
-  SmcntrpmfCSR msg_config_csr = 3;
+  uint64       msg_val        = 1;
+  SmcntrpmfCSR msg_config_csr = 2;
 }
 
 message MedelegCSR {
@@ -86,22 +83,20 @@ message HstateenCSR {
 }
 
 message TimeProxyCSR {
-  CSR      msg_csr  = 1;
-  BasicCSR msg_time = 2;
+  BasicCSR msg_time = 1;
 }
 
 message DCSR {
-  CSR    msg_csr      = 1;
-  uint32 msg_prv      = 2;
-  bool   msg_step     = 3;
-  bool   msg_ebreakm  = 4;
-  bool   msg_ebreaks  = 5;
-  bool   msg_ebreaku  = 6;
-  bool   msg_ebreakvs = 7;
-  bool   msg_ebreakvu = 8;
-  bool   msg_halt     = 9;
-  bool   msg_v        = 10;
-  uint32 msg_cause    = 11;
+  uint32 msg_prv      = 1;
+  bool   msg_step     = 2;
+  bool   msg_ebreakm  = 3;
+  bool   msg_ebreaks  = 4;
+  bool   msg_ebreaku  = 5;
+  bool   msg_ebreakvs = 6;
+  bool   msg_ebreakvu = 7;
+  bool   msg_halt     = 8;
+  bool   msg_v        = 9;
+  uint32 msg_cause    = 10;
 }
 
 message PmpCSR {
@@ -110,21 +105,10 @@ message PmpCSR {
   uint64    msg_pmpidx    = 3;
 }
 
-message TimeCntrCSR {
-  CSR    msg_csr        = 1;
-  uint64 msg_shadow_val = 2;
-}
-
 message StimecmpCSR {
   BasicCSR msg_basic_csr = 1;
   uint64   msg_intr_mask = 2;
 }
-
-// enum StepEnum {
-//   STEP_NONE = 0;
-//   STEP_STEPPING = 1;
-//   STEP_STEPPED = 2;
-// }
 
 message HidelegCSR {
   MaskedCSR msg_hideleg_csr = 1;
@@ -132,7 +116,6 @@ message HidelegCSR {
 }
 
 message McontextCSR {
-  CSR       msg_csr = 1;
   MaskedCSR msg_delegate = 2;
 }
 
@@ -147,7 +130,7 @@ message Float128 {
 }
 
 message ArchState {
-  uint64  msg_pc               = 1;
+  uint64          msg_pc       = 1;
   repeated uint64 msg_XPR      = 2;
   repeated Float128 msg_FPR    = 3;
   uint64       msg_prv         = 4;
@@ -156,66 +139,131 @@ message ArchState {
   bool         msg_v_changed   = 7;
   bool         msg_v           = 8;
   bool         msg_prev_v      = 9;
+
   MisaCSR      msg_misa        = 10;
-  // MstatusCSR   msg_mstatus     = 11;
-  // CSR          msg_mstatush    = 12;
-  BasicCSR     msg_mepc        = 13;
-  BasicCSR     msg_mtval       = 14;
+  MstatusCSR   msg_mstatus     = 11;
+  BasicCSR     msg_mepc        = 12;
+  BasicCSR     msg_mtval       = 13;
+  BasicCSR     msg_mscratch    = 14;
   BasicCSR     msg_mtvec       = 15;
   BasicCSR     msg_mcause      = 16;
+
   WideCntrCSR  msg_minstret    = 17;
   WideCntrCSR  msg_mcycle      = 18;
-  BasicCSR     msg_mie         = 19;
-  BasicCSR     msg_mip         = 20;
-  MedelegCSR   msg_medeleg     = 21;
-  // BasicCSR     msg_mideleg     = 22; // msg_hideleg
-  MaskedCSR    msg_mcounteren  = 23;
-  repeated BasicCSR msg_mevent = 24;
-  BasicCSR     msg_mnstatus    = 25;
-  BasicCSR     msg_mnepc       = 26;
-  MaskedCSR    msg_scounteren  = 27;
-  VirtBasicCSR msg_sepc        = 28;
-  VirtBasicCSR msg_stval       = 29;
-  VirtBasicCSR msg_stvec       = 30;
-  VirtBasicCSR msg_satp        = 31;
-  VirtBasicCSR msg_scause      = 32;
-  BasicCSR     msg_mtval2      = 33;
-  BasicCSR     msg_mtinst      = 34;
-  MaskedCSR    msg_hstatus     = 35;
-  HidelegCSR   msg_hideleg     = 36; // hideleg + mideleg
-  MaskedCSR    msg_hedeleg     = 37;
-  MaskedCSR    msg_hcounteren  = 38;
-  BasicCSR     msg_htval       = 39;
-  BasicCSR     msg_htinst      = 40;
-  BasicCSR     msg_hgatp       = 41;
-  SstatusCSR   msg_sstatus     = 42;
-  BasicCSR     msg_dpc         = 43;
-  DCSR         msg_dcsr        = 44;
-  BasicCSR     msg_tselect     = 45;
-  BasicCSR     msg_tdata2      = 46;
-  MaskedCSR    msg_scontext    = 47;
-  McontextCSR  msg_mcontext    = 48;
-  BasicCSR     msg_jvt         = 49;
-  bool         msg_debug_mode  = 50;
-  BasicCSR     msg_mseccfg     = 51;
-  repeated PmpCSR msg_pmpaddr  = 52;
-  MaskedCSR    msg_fflags      = 53;
-  MaskedCSR    msg_frm         = 54;
-  MaskedCSR    msg_senvcfg     = 55;
-  HenvcfgCSR   msg_henvcfg     = 56; // henvcfg + menvcfg
-  repeated MaskedCSR msg_mstateen = 57;
-  repeated HstateenCSR msg_sstateen = 58;
-  repeated HstateenCSR msg_hstateen = 59;
-  BasicCSR     msg_htimedelta  = 60;
-  BasicCSR     msg_time        = 61;
-  CSR          msg_time_proxy  = 62;
-  StimecmpCSR  msg_stimecmp    = 63;
-  StimecmpCSR  msg_vstimecmp   = 64;
-  bool         msg_serialized  = 65;
-  uint32       msg_single_step = 66;
-  uint64       msg_last_inst_priv = 67;
-  int32        msg_last_inst_xlen = 68;
-  int32        msg_last_inst_flen = 69;
+  BasicCSR     msg_time        = 19;
+
+  repeated BasicCSR msg_mevent = 20;
+  // MCOUNTER const_csr_t      = 21;
+  // COUNTER  proxy_csr_t      = 22;
+  // MCOUNTINIHIBIT const_csr_t = 23;
+  // SCOUNTOVF csr_t            = 24;
+
+  BasicCSR     msg_mie         = 25;
+  BasicCSR     msg_mip         = 26;
+
+  // VSIP  mip_proxy_csr_t     = 27;
+  // SIP   virtualized_csr_t   = 28;
+  // HIP   mip_proxy_csr_t     = 29;
+  // HVIP  mip_proxy_csr_t     = 30;
+
+  // VSIE  mie_proxy_csr_t     = 31;
+  // SIE   virtualized_csr_t   = 32;
+  // HIE   mie_proxy_csr_t     = 33;
+
+  MedelegCSR   msg_medeleg     = 34;
+  // BasicCSR     msg_mideleg     = 35; // inside HidelegCSR
+  MaskedCSR    msg_mcounteren  = 36;
+  MaskedCSR    msg_scounteren  = 37;
+  VirtBasicCSR msg_sepc        = 38;
+  VirtBasicCSR msg_stval       = 39;
+  VirtBasicCSR msg_sscratch    = 40;
+  VirtBasicCSR msg_stvec       = 41;
+  VirtBasicCSR msg_satp        = 42;
+  VirtBasicCSR msg_scause      = 43;
+  BasicCSR     msg_mtval2      = 44;
+  BasicCSR     msg_mtinst      = 45;
+  MaskedCSR    msg_hstatus     = 46;
+  // HGEIE const_csr_t         = 47;
+  // HGEIP const_csr_t         = 48;
+  HidelegCSR   msg_hideleg     = 49; // hideleg + mideleg
+  MaskedCSR    msg_hedeleg     = 50;
+  MaskedCSR    msg_hcounteren  = 51;
+  BasicCSR     msg_htimedelta  = 52;
+  BasicCSR     msg_htval       = 53;
+  BasicCSR     msg_htinst      = 54;
+  BasicCSR     msg_hgatp       = 55;
+  SstatusCSR   msg_sstatus     = 56; // sstatus + mstatus
+
+  BasicCSR     msg_dpc         = 57;
+  BasicCSR     msg_dscratch0   = 58;
+  BasicCSR     msg_dscratch1   = 59;
+  DCSR         msg_dcsr        = 60;
+
+  BasicCSR     msg_tselect     = 61;
+  // TDATA1    csr_t           = 62;
+  // TDATA2    csr_t           = 63;
+  // TDATA3    csr_t           = 64;
+  // TINFO     csr_t           = 65;
+
+  MaskedCSR    msg_scontext    = 66;
+  MaskedCSR    msg_hcontext    = 67;
+  // MCONTEXT  proxy_csr_t     = 68;
+
+  BasicCSR     msg_mseccfg     = 69;
+
+  repeated PmpCSR msg_pmpaddr  = 70;
+  // PMPCFG0 pmpcfg_csr_t      = 71;
+
+  MaskedCSR    msg_fflags      = 72;
+  MaskedCSR    msg_frm         = 73;
+  // FCSR      composite_csr_t = 74;
+
+  // SEED        csr_t         = 75;
+  // MARCHID    const_csr_t    = 76;
+  // MIMPID     const_csr_t    = 77;
+  // MVENDORID  const_csr_t    = 78;
+  // MHARTID    const_csr_t    = 79;
+  // MCONFIGPTR const_csr_t    = 80;
+
+  // MENVCFG inside henvcfg    = 81;
+  MaskedCSR    msg_senvcfg     = 82;
+  HenvcfgCSR   msg_henvcfg     = 83; // henvcfg + menvcfg
+
+  repeated MaskedCSR   msg_mstateen = 84;
+  repeated HstateenCSR msg_sstateen = 85;
+  repeated HstateenCSR msg_hstateen = 86;
+
+  BasicCSR msg_mnscratch       = 87;
+  BasicCSR msg_mnepc           = 88;
+  // MNCAUSE const_csr_t       = 89;
+  BasicCSR msg_mnstatus        = 90;
+
+  StimecmpCSR  msg_stimecmp    = 91;
+  StimecmpCSR  msg_vstimecmp   = 92;
+
+  BasicCSR     msg_jvt         = 93;
+
+  BasicCSR     msg_miselect    = 94;
+  // MIREG                     = 95;
+  // MIREG2                    = 96;
+  // MIREG3                    = 97;
+  // MIREG4                    = 98;
+  // MIREG5                    = 99;
+  // MIREG6                    = 100;
+
+  VirtBasicCSR msg_siselect    = 101; // vsiselect & siselect
+  // VSIREG, VSIREG2, VSIREG3... VSIREG6 102 ~ 107
+  // SIREG,  SIREG2, ...         SIREG6  108 ~ 113
+
+  // MCYCLECFG   // inside wide_counter_csr_t 114
+  // MINSTRETCFG // inside wide_counter_csr_t 115
+
+  bool         msg_debug_mode     = 116;
+  bool         msg_serialized     = 117;
+  uint32       msg_single_step    = 118;
+  uint64       msg_last_inst_priv = 119;
+  int32        msg_last_inst_xlen = 120;
+  int32        msg_last_inst_flen = 121;
 }
 
 message Page {

@@ -271,7 +271,33 @@ message Page {
   bytes  msg_bytes = 2;
 }
 
+message UInt64Map {
+  uint64 msg_k = 1;
+  uint64 msg_v = 2;
+}
+
+message CLINT {
+  uint64             msg_mtime    = 1;
+  repeated UInt64Map msg_mtimecmp = 2;
+}
+
+message PLICContext {
+  uint32          msg_priority_threshold = 1;
+  repeated uint32 msg_enable             = 2;
+  repeated uint32 msg_pending            = 3;
+  repeated uint32 msg_pending_priority   = 4;
+  repeated uint32 msg_claimed            = 5;
+}
+
+message PLIC {
+  repeated PLICContext msg_contexts = 1;
+  repeated uint32      msg_priority = 2;
+  repeated uint32      msg_level    = 3;
+}
+
 message SimState {
   repeated ArchState msg_arch_state = 1;
-  repeated Page      msg_sparse_mm  = 2;
+           CLINT     msg_clint      = 2;
+           PLIC      msg_plic       = 3;
+  repeated Page      msg_sparse_mm  = 4;
 }

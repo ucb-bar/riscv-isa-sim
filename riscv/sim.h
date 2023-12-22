@@ -173,6 +173,42 @@ public:
       printf("proc instret: %" PRIu64 "\n", procs[i]->tot_instret);
     }
 
+    // CLINT
+    CLINT* clint_proto = google::protobuf::Arena::Create<CLINT>(arena);
+    clint_proto->set_msg_mtime(clint->mtime);
+    for (auto& mtc : clint->mtimecmp) {
+      UInt64Map* kv = clint_proto->add_msg_mtimecmp();
+      kv->set_msg_k(mtc.first);
+      kv->set_msg_v(mtc.second);
+    }
+    sim_proto->set_allocated_msg_clint(clint_proto);
+
+    // PLIC
+    PLIC* plic_proto = google::protobuf::Arena::Create<PLIC>(arena);
+    for (auto& pc : plic->contexts) {
+      PLICContext* ctx_proto = plic_proto->add_msg_contexts();
+      ctx_proto->set_msg_priority_threshold(pc.priority_threshold);
+
+      for (int i = 0; i < PLIC_MAX_DEVICES/32; i++) {
+        ctx_proto->add_msg_enable (pc.enable[i]);
+        ctx_proto->add_msg_pending(pc.pending[i]);
+        ctx_proto->add_msg_claimed(pc.claimed[i]);
+      }
+
+      for (int i = 0; i < PLIC_MAX_DEVICES; i++) {
+        ctx_proto->add_msg_pending_priority(pc.pending_priority[i]);
+      }
+    }
+
+    for (int i = 0; i < PLIC_MAX_DEVICES; i++) {
+      plic_proto->add_msg_priority(plic->priority[i]);
+    }
+
+    for (int i = 0; i < PLIC_MAX_DEVICES/32; i++) {
+      plic_proto->add_msg_level(plic->level[i]);
+    }
+    sim_proto->set_allocated_msg_plic(plic_proto);
+
     // only one dram device for now
     assert((int)mems.size() == 1);
 
@@ -219,6 +255,49 @@ public:
       auto arch_proto = sim_proto->msg_arch_state(i);
       procs[i]->deserialize_proto(&arch_proto);
     }
+
+    // CLINT
+    const CLINT& clint_proto = sim_proto->msg_clint();
+    clint->mtime = clint_proto.msg_mtime();
+    assert(clint->mtimecmp.size() == clint_proto.msg_mtimecmp_size());
+    clint->mtimecmp.clear();
+
+    for (int i = 0, cnt = clint_proto.msg_mtimecmp_size(); i < cnt; i++) {
+      const UInt64Map& kv = clint_proto.msg_mtimecmp(i);
+      clint->mtimecmp[kv.msg_k()] = kv.msg_v();
+    }
+
+    // PLIC
+    const PLIC& plic_proto = sim_proto->msg_plic();
+    assert(plic->contexts.size() == plic_proto.msg_contexts_size());
+    for (int i = 0, cnt = plic_proto.msg_contexts_size(); i < cnt; i++) {
+      const PLICContext& pc = plic_proto.msg_contexts(i);
+      plic->contexts[i].priority_threshold = pc.msg_priority_threshold();
+
+      for (int j = 0; j < pc.msg_enable_size(); j++)
+        plic->contexts[i].enable[j] = pc.msg_enable(j);
+
+      for (int j = 0; j < pc.msg_pending_size(); j++)
+        plic->contexts[i].pending[j] = pc.msg_pending(j);
+
+      for (int j = 0; j < pc.msg_pending_priority_size(); j++)
+        plic->contexts[i].pending_priority[j] = pc.msg_pending_priority(j);
+
+      for (int j = 0; j < pc.msg_claimed_size(); j++)
+        plic->contexts[i].claimed[j] = pc.msg_claimed(j);
+    }
+
+    assert(plic_proto.msg_priority_size() == PLIC_MAX_DEVICES);
+    for (int i = 0, cnt = plic_proto.msg_priority_size(); i < cnt; i++) {
+      plic->priority[i] = plic_proto.msg_priority(i);
+    }
+
+    assert(plic_proto.msg_priority_size() == PLIC_MAX_DEVICES / 32);
+    for (int i = 0, cnt = plic_proto.msg_level_size(); i < cnt; i++) {
+      plic->level[i] = plic_proto.msg_level(i);
+    }
+
+
 
     // only one dram device for now
     assert((int)mems.size() == 1);

@@ -47,7 +47,7 @@ struct TableStruct_arch_2dstate_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[27]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[31]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -63,6 +63,9 @@ extern BaseStatusCSRDefaultTypeInternal _BaseStatusCSR_default_instance_;
 class BasicCSR;
 class BasicCSRDefaultTypeInternal;
 extern BasicCSRDefaultTypeInternal _BasicCSR_default_instance_;
+class CLINT;
+class CLINTDefaultTypeInternal;
+extern CLINTDefaultTypeInternal _CLINT_default_instance_;
 class CSR;
 class CSRDefaultTypeInternal;
 extern CSRDefaultTypeInternal _CSR_default_instance_;
@@ -99,6 +102,12 @@ extern MstatusCSRDefaultTypeInternal _MstatusCSR_default_instance_;
 class OptionalUInt64;
 class OptionalUInt64DefaultTypeInternal;
 extern OptionalUInt64DefaultTypeInternal _OptionalUInt64_default_instance_;
+class PLIC;
+class PLICDefaultTypeInternal;
+extern PLICDefaultTypeInternal _PLIC_default_instance_;
+class PLICContext;
+class PLICContextDefaultTypeInternal;
+extern PLICContextDefaultTypeInternal _PLICContext_default_instance_;
 class Page;
 class PageDefaultTypeInternal;
 extern PageDefaultTypeInternal _Page_default_instance_;
@@ -126,6 +135,9 @@ extern StimecmpCSRDefaultTypeInternal _StimecmpCSR_default_instance_;
 class TimeProxyCSR;
 class TimeProxyCSRDefaultTypeInternal;
 extern TimeProxyCSRDefaultTypeInternal _TimeProxyCSR_default_instance_;
+class UInt64Map;
+class UInt64MapDefaultTypeInternal;
+extern UInt64MapDefaultTypeInternal _UInt64Map_default_instance_;
 class VirtBasicCSR;
 class VirtBasicCSRDefaultTypeInternal;
 extern VirtBasicCSRDefaultTypeInternal _VirtBasicCSR_default_instance_;
@@ -139,6 +151,7 @@ PROTOBUF_NAMESPACE_OPEN
 template<> ::ArchState* Arena::CreateMaybeMessage<::ArchState>(Arena*);
 template<> ::BaseStatusCSR* Arena::CreateMaybeMessage<::BaseStatusCSR>(Arena*);
 template<> ::BasicCSR* Arena::CreateMaybeMessage<::BasicCSR>(Arena*);
+template<> ::CLINT* Arena::CreateMaybeMessage<::CLINT>(Arena*);
 template<> ::CSR* Arena::CreateMaybeMessage<::CSR>(Arena*);
 template<> ::DCSR* Arena::CreateMaybeMessage<::DCSR>(Arena*);
 template<> ::Float128* Arena::CreateMaybeMessage<::Float128>(Arena*);
@@ -151,6 +164,8 @@ template<> ::MedelegCSR* Arena::CreateMaybeMessage<::MedelegCSR>(Arena*);
 template<> ::MisaCSR* Arena::CreateMaybeMessage<::MisaCSR>(Arena*);
 template<> ::MstatusCSR* Arena::CreateMaybeMessage<::MstatusCSR>(Arena*);
 template<> ::OptionalUInt64* Arena::CreateMaybeMessage<::OptionalUInt64>(Arena*);
+template<> ::PLIC* Arena::CreateMaybeMessage<::PLIC>(Arena*);
+template<> ::PLICContext* Arena::CreateMaybeMessage<::PLICContext>(Arena*);
 template<> ::Page* Arena::CreateMaybeMessage<::Page>(Arena*);
 template<> ::PmpCSR* Arena::CreateMaybeMessage<::PmpCSR>(Arena*);
 template<> ::SatpCSR* Arena::CreateMaybeMessage<::SatpCSR>(Arena*);
@@ -160,6 +175,7 @@ template<> ::SstatusCSR* Arena::CreateMaybeMessage<::SstatusCSR>(Arena*);
 template<> ::SstatusProxyCSR* Arena::CreateMaybeMessage<::SstatusProxyCSR>(Arena*);
 template<> ::StimecmpCSR* Arena::CreateMaybeMessage<::StimecmpCSR>(Arena*);
 template<> ::TimeProxyCSR* Arena::CreateMaybeMessage<::TimeProxyCSR>(Arena*);
+template<> ::UInt64Map* Arena::CreateMaybeMessage<::UInt64Map>(Arena*);
 template<> ::VirtBasicCSR* Arena::CreateMaybeMessage<::VirtBasicCSR>(Arena*);
 template<> ::VsstatusCSR* Arena::CreateMaybeMessage<::VsstatusCSR>(Arena*);
 template<> ::WideCntrCSR* Arena::CreateMaybeMessage<::WideCntrCSR>(Arena*);
@@ -5176,6 +5192,708 @@ class Page :
 };
 // -------------------------------------------------------------------
 
+class UInt64Map :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:UInt64Map) */ {
+ public:
+  UInt64Map();
+  virtual ~UInt64Map();
+
+  UInt64Map(const UInt64Map& from);
+  UInt64Map(UInt64Map&& from) noexcept
+    : UInt64Map() {
+    *this = ::std::move(from);
+  }
+
+  inline UInt64Map& operator=(const UInt64Map& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline UInt64Map& operator=(UInt64Map&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const UInt64Map& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const UInt64Map* internal_default_instance() {
+    return reinterpret_cast<const UInt64Map*>(
+               &_UInt64Map_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    26;
+
+  friend void swap(UInt64Map& a, UInt64Map& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(UInt64Map* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline UInt64Map* New() const final {
+    return CreateMaybeMessage<UInt64Map>(nullptr);
+  }
+
+  UInt64Map* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<UInt64Map>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const UInt64Map& from);
+  void MergeFrom(const UInt64Map& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(UInt64Map* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "UInt64Map";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_arch_2dstate_2eproto);
+    return ::descriptor_table_arch_2dstate_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMsgKFieldNumber = 1,
+    kMsgVFieldNumber = 2,
+  };
+  // uint64 msg_k = 1;
+  void clear_msg_k();
+  ::PROTOBUF_NAMESPACE_ID::uint64 msg_k() const;
+  void set_msg_k(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint64 _internal_msg_k() const;
+  void _internal_set_msg_k(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  public:
+
+  // uint64 msg_v = 2;
+  void clear_msg_v();
+  ::PROTOBUF_NAMESPACE_ID::uint64 msg_v() const;
+  void set_msg_v(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint64 _internal_msg_v() const;
+  void _internal_set_msg_v(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:UInt64Map)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::uint64 msg_k_;
+  ::PROTOBUF_NAMESPACE_ID::uint64 msg_v_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_arch_2dstate_2eproto;
+};
+// -------------------------------------------------------------------
+
+class CLINT :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CLINT) */ {
+ public:
+  CLINT();
+  virtual ~CLINT();
+
+  CLINT(const CLINT& from);
+  CLINT(CLINT&& from) noexcept
+    : CLINT() {
+    *this = ::std::move(from);
+  }
+
+  inline CLINT& operator=(const CLINT& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CLINT& operator=(CLINT&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const CLINT& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const CLINT* internal_default_instance() {
+    return reinterpret_cast<const CLINT*>(
+               &_CLINT_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    27;
+
+  friend void swap(CLINT& a, CLINT& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(CLINT* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline CLINT* New() const final {
+    return CreateMaybeMessage<CLINT>(nullptr);
+  }
+
+  CLINT* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<CLINT>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const CLINT& from);
+  void MergeFrom(const CLINT& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(CLINT* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "CLINT";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_arch_2dstate_2eproto);
+    return ::descriptor_table_arch_2dstate_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMsgMtimecmpFieldNumber = 2,
+    kMsgMtimeFieldNumber = 1,
+  };
+  // repeated .UInt64Map msg_mtimecmp = 2;
+  int msg_mtimecmp_size() const;
+  private:
+  int _internal_msg_mtimecmp_size() const;
+  public:
+  void clear_msg_mtimecmp();
+  ::UInt64Map* mutable_msg_mtimecmp(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::UInt64Map >*
+      mutable_msg_mtimecmp();
+  private:
+  const ::UInt64Map& _internal_msg_mtimecmp(int index) const;
+  ::UInt64Map* _internal_add_msg_mtimecmp();
+  public:
+  const ::UInt64Map& msg_mtimecmp(int index) const;
+  ::UInt64Map* add_msg_mtimecmp();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::UInt64Map >&
+      msg_mtimecmp() const;
+
+  // uint64 msg_mtime = 1;
+  void clear_msg_mtime();
+  ::PROTOBUF_NAMESPACE_ID::uint64 msg_mtime() const;
+  void set_msg_mtime(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint64 _internal_msg_mtime() const;
+  void _internal_set_msg_mtime(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:CLINT)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::UInt64Map > msg_mtimecmp_;
+  ::PROTOBUF_NAMESPACE_ID::uint64 msg_mtime_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_arch_2dstate_2eproto;
+};
+// -------------------------------------------------------------------
+
+class PLICContext :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:PLICContext) */ {
+ public:
+  PLICContext();
+  virtual ~PLICContext();
+
+  PLICContext(const PLICContext& from);
+  PLICContext(PLICContext&& from) noexcept
+    : PLICContext() {
+    *this = ::std::move(from);
+  }
+
+  inline PLICContext& operator=(const PLICContext& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PLICContext& operator=(PLICContext&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const PLICContext& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const PLICContext* internal_default_instance() {
+    return reinterpret_cast<const PLICContext*>(
+               &_PLICContext_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    28;
+
+  friend void swap(PLICContext& a, PLICContext& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(PLICContext* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline PLICContext* New() const final {
+    return CreateMaybeMessage<PLICContext>(nullptr);
+  }
+
+  PLICContext* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<PLICContext>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const PLICContext& from);
+  void MergeFrom(const PLICContext& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(PLICContext* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "PLICContext";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_arch_2dstate_2eproto);
+    return ::descriptor_table_arch_2dstate_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMsgEnableFieldNumber = 2,
+    kMsgPendingFieldNumber = 3,
+    kMsgPendingPriorityFieldNumber = 4,
+    kMsgClaimedFieldNumber = 5,
+    kMsgPriorityThresholdFieldNumber = 1,
+  };
+  // repeated uint32 msg_enable = 2;
+  int msg_enable_size() const;
+  private:
+  int _internal_msg_enable_size() const;
+  public:
+  void clear_msg_enable();
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_msg_enable(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+      _internal_msg_enable() const;
+  void _internal_add_msg_enable(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+      _internal_mutable_msg_enable();
+  public:
+  ::PROTOBUF_NAMESPACE_ID::uint32 msg_enable(int index) const;
+  void set_msg_enable(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value);
+  void add_msg_enable(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+      msg_enable() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+      mutable_msg_enable();
+
+  // repeated uint32 msg_pending = 3;
+  int msg_pending_size() const;
+  private:
+  int _internal_msg_pending_size() const;
+  public:
+  void clear_msg_pending();
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_msg_pending(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+      _internal_msg_pending() const;
+  void _internal_add_msg_pending(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+      _internal_mutable_msg_pending();
+  public:
+  ::PROTOBUF_NAMESPACE_ID::uint32 msg_pending(int index) const;
+  void set_msg_pending(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value);
+  void add_msg_pending(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+      msg_pending() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+      mutable_msg_pending();
+
+  // repeated uint32 msg_pending_priority = 4;
+  int msg_pending_priority_size() const;
+  private:
+  int _internal_msg_pending_priority_size() const;
+  public:
+  void clear_msg_pending_priority();
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_msg_pending_priority(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+      _internal_msg_pending_priority() const;
+  void _internal_add_msg_pending_priority(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+      _internal_mutable_msg_pending_priority();
+  public:
+  ::PROTOBUF_NAMESPACE_ID::uint32 msg_pending_priority(int index) const;
+  void set_msg_pending_priority(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value);
+  void add_msg_pending_priority(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+      msg_pending_priority() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+      mutable_msg_pending_priority();
+
+  // repeated uint32 msg_claimed = 5;
+  int msg_claimed_size() const;
+  private:
+  int _internal_msg_claimed_size() const;
+  public:
+  void clear_msg_claimed();
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_msg_claimed(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+      _internal_msg_claimed() const;
+  void _internal_add_msg_claimed(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+      _internal_mutable_msg_claimed();
+  public:
+  ::PROTOBUF_NAMESPACE_ID::uint32 msg_claimed(int index) const;
+  void set_msg_claimed(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value);
+  void add_msg_claimed(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+      msg_claimed() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+      mutable_msg_claimed();
+
+  // uint32 msg_priority_threshold = 1;
+  void clear_msg_priority_threshold();
+  ::PROTOBUF_NAMESPACE_ID::uint32 msg_priority_threshold() const;
+  void set_msg_priority_threshold(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_msg_priority_threshold() const;
+  void _internal_set_msg_priority_threshold(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:PLICContext)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 > msg_enable_;
+  mutable std::atomic<int> _msg_enable_cached_byte_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 > msg_pending_;
+  mutable std::atomic<int> _msg_pending_cached_byte_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 > msg_pending_priority_;
+  mutable std::atomic<int> _msg_pending_priority_cached_byte_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 > msg_claimed_;
+  mutable std::atomic<int> _msg_claimed_cached_byte_size_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 msg_priority_threshold_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_arch_2dstate_2eproto;
+};
+// -------------------------------------------------------------------
+
+class PLIC :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:PLIC) */ {
+ public:
+  PLIC();
+  virtual ~PLIC();
+
+  PLIC(const PLIC& from);
+  PLIC(PLIC&& from) noexcept
+    : PLIC() {
+    *this = ::std::move(from);
+  }
+
+  inline PLIC& operator=(const PLIC& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PLIC& operator=(PLIC&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const PLIC& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const PLIC* internal_default_instance() {
+    return reinterpret_cast<const PLIC*>(
+               &_PLIC_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    29;
+
+  friend void swap(PLIC& a, PLIC& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(PLIC* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline PLIC* New() const final {
+    return CreateMaybeMessage<PLIC>(nullptr);
+  }
+
+  PLIC* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<PLIC>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const PLIC& from);
+  void MergeFrom(const PLIC& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(PLIC* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "PLIC";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_arch_2dstate_2eproto);
+    return ::descriptor_table_arch_2dstate_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMsgContextsFieldNumber = 1,
+    kMsgPriorityFieldNumber = 2,
+    kMsgLevelFieldNumber = 3,
+  };
+  // repeated .PLICContext msg_contexts = 1;
+  int msg_contexts_size() const;
+  private:
+  int _internal_msg_contexts_size() const;
+  public:
+  void clear_msg_contexts();
+  ::PLICContext* mutable_msg_contexts(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::PLICContext >*
+      mutable_msg_contexts();
+  private:
+  const ::PLICContext& _internal_msg_contexts(int index) const;
+  ::PLICContext* _internal_add_msg_contexts();
+  public:
+  const ::PLICContext& msg_contexts(int index) const;
+  ::PLICContext* add_msg_contexts();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::PLICContext >&
+      msg_contexts() const;
+
+  // repeated uint32 msg_priority = 2;
+  int msg_priority_size() const;
+  private:
+  int _internal_msg_priority_size() const;
+  public:
+  void clear_msg_priority();
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_msg_priority(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+      _internal_msg_priority() const;
+  void _internal_add_msg_priority(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+      _internal_mutable_msg_priority();
+  public:
+  ::PROTOBUF_NAMESPACE_ID::uint32 msg_priority(int index) const;
+  void set_msg_priority(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value);
+  void add_msg_priority(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+      msg_priority() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+      mutable_msg_priority();
+
+  // repeated uint32 msg_level = 3;
+  int msg_level_size() const;
+  private:
+  int _internal_msg_level_size() const;
+  public:
+  void clear_msg_level();
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_msg_level(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+      _internal_msg_level() const;
+  void _internal_add_msg_level(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+      _internal_mutable_msg_level();
+  public:
+  ::PROTOBUF_NAMESPACE_ID::uint32 msg_level(int index) const;
+  void set_msg_level(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value);
+  void add_msg_level(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+      msg_level() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+      mutable_msg_level();
+
+  // @@protoc_insertion_point(class_scope:PLIC)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::PLICContext > msg_contexts_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 > msg_priority_;
+  mutable std::atomic<int> _msg_priority_cached_byte_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 > msg_level_;
+  mutable std::atomic<int> _msg_level_cached_byte_size_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_arch_2dstate_2eproto;
+};
+// -------------------------------------------------------------------
+
 class SimState :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:SimState) */ {
  public:
@@ -5218,7 +5936,7 @@ class SimState :
                &_SimState_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    26;
+    30;
 
   friend void swap(SimState& a, SimState& b) {
     a.Swap(&b);
@@ -5283,7 +6001,9 @@ class SimState :
 
   enum : int {
     kMsgArchStateFieldNumber = 1,
-    kMsgSparseMmFieldNumber = 2,
+    kMsgSparseMmFieldNumber = 4,
+    kMsgClintFieldNumber = 2,
+    kMsgPlicFieldNumber = 3,
   };
   // repeated .ArchState msg_arch_state = 1;
   int msg_arch_state_size() const;
@@ -5303,7 +6023,7 @@ class SimState :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::ArchState >&
       msg_arch_state() const;
 
-  // repeated .Page msg_sparse_mm = 2;
+  // repeated .Page msg_sparse_mm = 4;
   int msg_sparse_mm_size() const;
   private:
   int _internal_msg_sparse_mm_size() const;
@@ -5321,6 +6041,36 @@ class SimState :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Page >&
       msg_sparse_mm() const;
 
+  // .CLINT msg_clint = 2;
+  bool has_msg_clint() const;
+  private:
+  bool _internal_has_msg_clint() const;
+  public:
+  void clear_msg_clint();
+  const ::CLINT& msg_clint() const;
+  ::CLINT* release_msg_clint();
+  ::CLINT* mutable_msg_clint();
+  void set_allocated_msg_clint(::CLINT* msg_clint);
+  private:
+  const ::CLINT& _internal_msg_clint() const;
+  ::CLINT* _internal_mutable_msg_clint();
+  public:
+
+  // .PLIC msg_plic = 3;
+  bool has_msg_plic() const;
+  private:
+  bool _internal_has_msg_plic() const;
+  public:
+  void clear_msg_plic();
+  const ::PLIC& msg_plic() const;
+  ::PLIC* release_msg_plic();
+  ::PLIC* mutable_msg_plic();
+  void set_allocated_msg_plic(::PLIC* msg_plic);
+  private:
+  const ::PLIC& _internal_msg_plic() const;
+  ::PLIC* _internal_mutable_msg_plic();
+  public:
+
   // @@protoc_insertion_point(class_scope:SimState)
  private:
   class _Internal;
@@ -5328,6 +6078,8 @@ class SimState :
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::ArchState > msg_arch_state_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Page > msg_sparse_mm_;
+  ::CLINT* msg_clint_;
+  ::PLIC* msg_plic_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_arch_2dstate_2eproto;
 };
@@ -11305,6 +12057,462 @@ inline void Page::set_allocated_msg_bytes(std::string* msg_bytes) {
 
 // -------------------------------------------------------------------
 
+// UInt64Map
+
+// uint64 msg_k = 1;
+inline void UInt64Map::clear_msg_k() {
+  msg_k_ = PROTOBUF_ULONGLONG(0);
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 UInt64Map::_internal_msg_k() const {
+  return msg_k_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 UInt64Map::msg_k() const {
+  // @@protoc_insertion_point(field_get:UInt64Map.msg_k)
+  return _internal_msg_k();
+}
+inline void UInt64Map::_internal_set_msg_k(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  
+  msg_k_ = value;
+}
+inline void UInt64Map::set_msg_k(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  _internal_set_msg_k(value);
+  // @@protoc_insertion_point(field_set:UInt64Map.msg_k)
+}
+
+// uint64 msg_v = 2;
+inline void UInt64Map::clear_msg_v() {
+  msg_v_ = PROTOBUF_ULONGLONG(0);
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 UInt64Map::_internal_msg_v() const {
+  return msg_v_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 UInt64Map::msg_v() const {
+  // @@protoc_insertion_point(field_get:UInt64Map.msg_v)
+  return _internal_msg_v();
+}
+inline void UInt64Map::_internal_set_msg_v(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  
+  msg_v_ = value;
+}
+inline void UInt64Map::set_msg_v(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  _internal_set_msg_v(value);
+  // @@protoc_insertion_point(field_set:UInt64Map.msg_v)
+}
+
+// -------------------------------------------------------------------
+
+// CLINT
+
+// uint64 msg_mtime = 1;
+inline void CLINT::clear_msg_mtime() {
+  msg_mtime_ = PROTOBUF_ULONGLONG(0);
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 CLINT::_internal_msg_mtime() const {
+  return msg_mtime_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 CLINT::msg_mtime() const {
+  // @@protoc_insertion_point(field_get:CLINT.msg_mtime)
+  return _internal_msg_mtime();
+}
+inline void CLINT::_internal_set_msg_mtime(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  
+  msg_mtime_ = value;
+}
+inline void CLINT::set_msg_mtime(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  _internal_set_msg_mtime(value);
+  // @@protoc_insertion_point(field_set:CLINT.msg_mtime)
+}
+
+// repeated .UInt64Map msg_mtimecmp = 2;
+inline int CLINT::_internal_msg_mtimecmp_size() const {
+  return msg_mtimecmp_.size();
+}
+inline int CLINT::msg_mtimecmp_size() const {
+  return _internal_msg_mtimecmp_size();
+}
+inline void CLINT::clear_msg_mtimecmp() {
+  msg_mtimecmp_.Clear();
+}
+inline ::UInt64Map* CLINT::mutable_msg_mtimecmp(int index) {
+  // @@protoc_insertion_point(field_mutable:CLINT.msg_mtimecmp)
+  return msg_mtimecmp_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::UInt64Map >*
+CLINT::mutable_msg_mtimecmp() {
+  // @@protoc_insertion_point(field_mutable_list:CLINT.msg_mtimecmp)
+  return &msg_mtimecmp_;
+}
+inline const ::UInt64Map& CLINT::_internal_msg_mtimecmp(int index) const {
+  return msg_mtimecmp_.Get(index);
+}
+inline const ::UInt64Map& CLINT::msg_mtimecmp(int index) const {
+  // @@protoc_insertion_point(field_get:CLINT.msg_mtimecmp)
+  return _internal_msg_mtimecmp(index);
+}
+inline ::UInt64Map* CLINT::_internal_add_msg_mtimecmp() {
+  return msg_mtimecmp_.Add();
+}
+inline ::UInt64Map* CLINT::add_msg_mtimecmp() {
+  // @@protoc_insertion_point(field_add:CLINT.msg_mtimecmp)
+  return _internal_add_msg_mtimecmp();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::UInt64Map >&
+CLINT::msg_mtimecmp() const {
+  // @@protoc_insertion_point(field_list:CLINT.msg_mtimecmp)
+  return msg_mtimecmp_;
+}
+
+// -------------------------------------------------------------------
+
+// PLICContext
+
+// uint32 msg_priority_threshold = 1;
+inline void PLICContext::clear_msg_priority_threshold() {
+  msg_priority_threshold_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 PLICContext::_internal_msg_priority_threshold() const {
+  return msg_priority_threshold_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 PLICContext::msg_priority_threshold() const {
+  // @@protoc_insertion_point(field_get:PLICContext.msg_priority_threshold)
+  return _internal_msg_priority_threshold();
+}
+inline void PLICContext::_internal_set_msg_priority_threshold(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  msg_priority_threshold_ = value;
+}
+inline void PLICContext::set_msg_priority_threshold(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_msg_priority_threshold(value);
+  // @@protoc_insertion_point(field_set:PLICContext.msg_priority_threshold)
+}
+
+// repeated uint32 msg_enable = 2;
+inline int PLICContext::_internal_msg_enable_size() const {
+  return msg_enable_.size();
+}
+inline int PLICContext::msg_enable_size() const {
+  return _internal_msg_enable_size();
+}
+inline void PLICContext::clear_msg_enable() {
+  msg_enable_.Clear();
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 PLICContext::_internal_msg_enable(int index) const {
+  return msg_enable_.Get(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 PLICContext::msg_enable(int index) const {
+  // @@protoc_insertion_point(field_get:PLICContext.msg_enable)
+  return _internal_msg_enable(index);
+}
+inline void PLICContext::set_msg_enable(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  msg_enable_.Set(index, value);
+  // @@protoc_insertion_point(field_set:PLICContext.msg_enable)
+}
+inline void PLICContext::_internal_add_msg_enable(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  msg_enable_.Add(value);
+}
+inline void PLICContext::add_msg_enable(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_add_msg_enable(value);
+  // @@protoc_insertion_point(field_add:PLICContext.msg_enable)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+PLICContext::_internal_msg_enable() const {
+  return msg_enable_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+PLICContext::msg_enable() const {
+  // @@protoc_insertion_point(field_list:PLICContext.msg_enable)
+  return _internal_msg_enable();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+PLICContext::_internal_mutable_msg_enable() {
+  return &msg_enable_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+PLICContext::mutable_msg_enable() {
+  // @@protoc_insertion_point(field_mutable_list:PLICContext.msg_enable)
+  return _internal_mutable_msg_enable();
+}
+
+// repeated uint32 msg_pending = 3;
+inline int PLICContext::_internal_msg_pending_size() const {
+  return msg_pending_.size();
+}
+inline int PLICContext::msg_pending_size() const {
+  return _internal_msg_pending_size();
+}
+inline void PLICContext::clear_msg_pending() {
+  msg_pending_.Clear();
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 PLICContext::_internal_msg_pending(int index) const {
+  return msg_pending_.Get(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 PLICContext::msg_pending(int index) const {
+  // @@protoc_insertion_point(field_get:PLICContext.msg_pending)
+  return _internal_msg_pending(index);
+}
+inline void PLICContext::set_msg_pending(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  msg_pending_.Set(index, value);
+  // @@protoc_insertion_point(field_set:PLICContext.msg_pending)
+}
+inline void PLICContext::_internal_add_msg_pending(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  msg_pending_.Add(value);
+}
+inline void PLICContext::add_msg_pending(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_add_msg_pending(value);
+  // @@protoc_insertion_point(field_add:PLICContext.msg_pending)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+PLICContext::_internal_msg_pending() const {
+  return msg_pending_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+PLICContext::msg_pending() const {
+  // @@protoc_insertion_point(field_list:PLICContext.msg_pending)
+  return _internal_msg_pending();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+PLICContext::_internal_mutable_msg_pending() {
+  return &msg_pending_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+PLICContext::mutable_msg_pending() {
+  // @@protoc_insertion_point(field_mutable_list:PLICContext.msg_pending)
+  return _internal_mutable_msg_pending();
+}
+
+// repeated uint32 msg_pending_priority = 4;
+inline int PLICContext::_internal_msg_pending_priority_size() const {
+  return msg_pending_priority_.size();
+}
+inline int PLICContext::msg_pending_priority_size() const {
+  return _internal_msg_pending_priority_size();
+}
+inline void PLICContext::clear_msg_pending_priority() {
+  msg_pending_priority_.Clear();
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 PLICContext::_internal_msg_pending_priority(int index) const {
+  return msg_pending_priority_.Get(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 PLICContext::msg_pending_priority(int index) const {
+  // @@protoc_insertion_point(field_get:PLICContext.msg_pending_priority)
+  return _internal_msg_pending_priority(index);
+}
+inline void PLICContext::set_msg_pending_priority(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  msg_pending_priority_.Set(index, value);
+  // @@protoc_insertion_point(field_set:PLICContext.msg_pending_priority)
+}
+inline void PLICContext::_internal_add_msg_pending_priority(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  msg_pending_priority_.Add(value);
+}
+inline void PLICContext::add_msg_pending_priority(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_add_msg_pending_priority(value);
+  // @@protoc_insertion_point(field_add:PLICContext.msg_pending_priority)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+PLICContext::_internal_msg_pending_priority() const {
+  return msg_pending_priority_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+PLICContext::msg_pending_priority() const {
+  // @@protoc_insertion_point(field_list:PLICContext.msg_pending_priority)
+  return _internal_msg_pending_priority();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+PLICContext::_internal_mutable_msg_pending_priority() {
+  return &msg_pending_priority_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+PLICContext::mutable_msg_pending_priority() {
+  // @@protoc_insertion_point(field_mutable_list:PLICContext.msg_pending_priority)
+  return _internal_mutable_msg_pending_priority();
+}
+
+// repeated uint32 msg_claimed = 5;
+inline int PLICContext::_internal_msg_claimed_size() const {
+  return msg_claimed_.size();
+}
+inline int PLICContext::msg_claimed_size() const {
+  return _internal_msg_claimed_size();
+}
+inline void PLICContext::clear_msg_claimed() {
+  msg_claimed_.Clear();
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 PLICContext::_internal_msg_claimed(int index) const {
+  return msg_claimed_.Get(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 PLICContext::msg_claimed(int index) const {
+  // @@protoc_insertion_point(field_get:PLICContext.msg_claimed)
+  return _internal_msg_claimed(index);
+}
+inline void PLICContext::set_msg_claimed(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  msg_claimed_.Set(index, value);
+  // @@protoc_insertion_point(field_set:PLICContext.msg_claimed)
+}
+inline void PLICContext::_internal_add_msg_claimed(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  msg_claimed_.Add(value);
+}
+inline void PLICContext::add_msg_claimed(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_add_msg_claimed(value);
+  // @@protoc_insertion_point(field_add:PLICContext.msg_claimed)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+PLICContext::_internal_msg_claimed() const {
+  return msg_claimed_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+PLICContext::msg_claimed() const {
+  // @@protoc_insertion_point(field_list:PLICContext.msg_claimed)
+  return _internal_msg_claimed();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+PLICContext::_internal_mutable_msg_claimed() {
+  return &msg_claimed_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+PLICContext::mutable_msg_claimed() {
+  // @@protoc_insertion_point(field_mutable_list:PLICContext.msg_claimed)
+  return _internal_mutable_msg_claimed();
+}
+
+// -------------------------------------------------------------------
+
+// PLIC
+
+// repeated .PLICContext msg_contexts = 1;
+inline int PLIC::_internal_msg_contexts_size() const {
+  return msg_contexts_.size();
+}
+inline int PLIC::msg_contexts_size() const {
+  return _internal_msg_contexts_size();
+}
+inline void PLIC::clear_msg_contexts() {
+  msg_contexts_.Clear();
+}
+inline ::PLICContext* PLIC::mutable_msg_contexts(int index) {
+  // @@protoc_insertion_point(field_mutable:PLIC.msg_contexts)
+  return msg_contexts_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::PLICContext >*
+PLIC::mutable_msg_contexts() {
+  // @@protoc_insertion_point(field_mutable_list:PLIC.msg_contexts)
+  return &msg_contexts_;
+}
+inline const ::PLICContext& PLIC::_internal_msg_contexts(int index) const {
+  return msg_contexts_.Get(index);
+}
+inline const ::PLICContext& PLIC::msg_contexts(int index) const {
+  // @@protoc_insertion_point(field_get:PLIC.msg_contexts)
+  return _internal_msg_contexts(index);
+}
+inline ::PLICContext* PLIC::_internal_add_msg_contexts() {
+  return msg_contexts_.Add();
+}
+inline ::PLICContext* PLIC::add_msg_contexts() {
+  // @@protoc_insertion_point(field_add:PLIC.msg_contexts)
+  return _internal_add_msg_contexts();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::PLICContext >&
+PLIC::msg_contexts() const {
+  // @@protoc_insertion_point(field_list:PLIC.msg_contexts)
+  return msg_contexts_;
+}
+
+// repeated uint32 msg_priority = 2;
+inline int PLIC::_internal_msg_priority_size() const {
+  return msg_priority_.size();
+}
+inline int PLIC::msg_priority_size() const {
+  return _internal_msg_priority_size();
+}
+inline void PLIC::clear_msg_priority() {
+  msg_priority_.Clear();
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 PLIC::_internal_msg_priority(int index) const {
+  return msg_priority_.Get(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 PLIC::msg_priority(int index) const {
+  // @@protoc_insertion_point(field_get:PLIC.msg_priority)
+  return _internal_msg_priority(index);
+}
+inline void PLIC::set_msg_priority(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  msg_priority_.Set(index, value);
+  // @@protoc_insertion_point(field_set:PLIC.msg_priority)
+}
+inline void PLIC::_internal_add_msg_priority(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  msg_priority_.Add(value);
+}
+inline void PLIC::add_msg_priority(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_add_msg_priority(value);
+  // @@protoc_insertion_point(field_add:PLIC.msg_priority)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+PLIC::_internal_msg_priority() const {
+  return msg_priority_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+PLIC::msg_priority() const {
+  // @@protoc_insertion_point(field_list:PLIC.msg_priority)
+  return _internal_msg_priority();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+PLIC::_internal_mutable_msg_priority() {
+  return &msg_priority_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+PLIC::mutable_msg_priority() {
+  // @@protoc_insertion_point(field_mutable_list:PLIC.msg_priority)
+  return _internal_mutable_msg_priority();
+}
+
+// repeated uint32 msg_level = 3;
+inline int PLIC::_internal_msg_level_size() const {
+  return msg_level_.size();
+}
+inline int PLIC::msg_level_size() const {
+  return _internal_msg_level_size();
+}
+inline void PLIC::clear_msg_level() {
+  msg_level_.Clear();
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 PLIC::_internal_msg_level(int index) const {
+  return msg_level_.Get(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 PLIC::msg_level(int index) const {
+  // @@protoc_insertion_point(field_get:PLIC.msg_level)
+  return _internal_msg_level(index);
+}
+inline void PLIC::set_msg_level(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  msg_level_.Set(index, value);
+  // @@protoc_insertion_point(field_set:PLIC.msg_level)
+}
+inline void PLIC::_internal_add_msg_level(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  msg_level_.Add(value);
+}
+inline void PLIC::add_msg_level(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_add_msg_level(value);
+  // @@protoc_insertion_point(field_add:PLIC.msg_level)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+PLIC::_internal_msg_level() const {
+  return msg_level_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+PLIC::msg_level() const {
+  // @@protoc_insertion_point(field_list:PLIC.msg_level)
+  return _internal_msg_level();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+PLIC::_internal_mutable_msg_level() {
+  return &msg_level_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+PLIC::mutable_msg_level() {
+  // @@protoc_insertion_point(field_mutable_list:PLIC.msg_level)
+  return _internal_mutable_msg_level();
+}
+
+// -------------------------------------------------------------------
+
 // SimState
 
 // repeated .ArchState msg_arch_state = 1;
@@ -11346,7 +12554,127 @@ SimState::msg_arch_state() const {
   return msg_arch_state_;
 }
 
-// repeated .Page msg_sparse_mm = 2;
+// .CLINT msg_clint = 2;
+inline bool SimState::_internal_has_msg_clint() const {
+  return this != internal_default_instance() && msg_clint_ != nullptr;
+}
+inline bool SimState::has_msg_clint() const {
+  return _internal_has_msg_clint();
+}
+inline void SimState::clear_msg_clint() {
+  if (GetArenaNoVirtual() == nullptr && msg_clint_ != nullptr) {
+    delete msg_clint_;
+  }
+  msg_clint_ = nullptr;
+}
+inline const ::CLINT& SimState::_internal_msg_clint() const {
+  const ::CLINT* p = msg_clint_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::CLINT*>(
+      &::_CLINT_default_instance_);
+}
+inline const ::CLINT& SimState::msg_clint() const {
+  // @@protoc_insertion_point(field_get:SimState.msg_clint)
+  return _internal_msg_clint();
+}
+inline ::CLINT* SimState::release_msg_clint() {
+  // @@protoc_insertion_point(field_release:SimState.msg_clint)
+  
+  ::CLINT* temp = msg_clint_;
+  msg_clint_ = nullptr;
+  return temp;
+}
+inline ::CLINT* SimState::_internal_mutable_msg_clint() {
+  
+  if (msg_clint_ == nullptr) {
+    auto* p = CreateMaybeMessage<::CLINT>(GetArenaNoVirtual());
+    msg_clint_ = p;
+  }
+  return msg_clint_;
+}
+inline ::CLINT* SimState::mutable_msg_clint() {
+  // @@protoc_insertion_point(field_mutable:SimState.msg_clint)
+  return _internal_mutable_msg_clint();
+}
+inline void SimState::set_allocated_msg_clint(::CLINT* msg_clint) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_clint_;
+  }
+  if (msg_clint) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_clint = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_clint, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_clint_ = msg_clint;
+  // @@protoc_insertion_point(field_set_allocated:SimState.msg_clint)
+}
+
+// .PLIC msg_plic = 3;
+inline bool SimState::_internal_has_msg_plic() const {
+  return this != internal_default_instance() && msg_plic_ != nullptr;
+}
+inline bool SimState::has_msg_plic() const {
+  return _internal_has_msg_plic();
+}
+inline void SimState::clear_msg_plic() {
+  if (GetArenaNoVirtual() == nullptr && msg_plic_ != nullptr) {
+    delete msg_plic_;
+  }
+  msg_plic_ = nullptr;
+}
+inline const ::PLIC& SimState::_internal_msg_plic() const {
+  const ::PLIC* p = msg_plic_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::PLIC*>(
+      &::_PLIC_default_instance_);
+}
+inline const ::PLIC& SimState::msg_plic() const {
+  // @@protoc_insertion_point(field_get:SimState.msg_plic)
+  return _internal_msg_plic();
+}
+inline ::PLIC* SimState::release_msg_plic() {
+  // @@protoc_insertion_point(field_release:SimState.msg_plic)
+  
+  ::PLIC* temp = msg_plic_;
+  msg_plic_ = nullptr;
+  return temp;
+}
+inline ::PLIC* SimState::_internal_mutable_msg_plic() {
+  
+  if (msg_plic_ == nullptr) {
+    auto* p = CreateMaybeMessage<::PLIC>(GetArenaNoVirtual());
+    msg_plic_ = p;
+  }
+  return msg_plic_;
+}
+inline ::PLIC* SimState::mutable_msg_plic() {
+  // @@protoc_insertion_point(field_mutable:SimState.msg_plic)
+  return _internal_mutable_msg_plic();
+}
+inline void SimState::set_allocated_msg_plic(::PLIC* msg_plic) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete msg_plic_;
+  }
+  if (msg_plic) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      msg_plic = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, msg_plic, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  msg_plic_ = msg_plic;
+  // @@protoc_insertion_point(field_set_allocated:SimState.msg_plic)
+}
+
+// repeated .Page msg_sparse_mm = 4;
 inline int SimState::_internal_msg_sparse_mm_size() const {
   return msg_sparse_mm_.size();
 }
@@ -11388,6 +12716,14 @@ SimState::msg_sparse_mm() const {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

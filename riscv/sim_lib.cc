@@ -36,9 +36,10 @@ sim_lib_t::sim_lib_t(const cfg_t *cfg, bool halted,
         const debug_module_config_t &dm_config, const char *log_path,
         bool dtb_enabled, const char *dtb_file,
         bool socket_enabled,
-        FILE *cmd_file) 
+        FILE *cmd_file,
+        const char* proto_json)
   : sim_t(cfg, halted, mems, plugin_device_factories, args, dm_config,
-          log_path, dtb_enabled, dtb_file, socket_enabled, cmd_file)
+          log_path, dtb_enabled, dtb_file, socket_enabled, cmd_file, proto_json)
 {
   auto enq_func = [](std::queue<reg_t>* q, uint64_t x) { q->push(x); };
   fromhost_callback = std::bind(enq_func, &fromhost_queue, std::placeholders::_1);
@@ -50,12 +51,15 @@ sim_lib_t::~sim_lib_t() {
 void sim_lib_t::run_for_and_ckpt(uint64_t steps, std::string& os) {
   init();
 
-  while (target_running() && procs[0]->tot_instret < steps) {
+  uint64_t cur_step = 0;
+
+  while (target_running() && cur_step < steps) {
     uint64_t tohost_req = check_tohost_req();
     if (tohost_req) {
       handle_tohost_req(tohost_req);
     } else {
-      step_target(1, 1);
+      step_target(INTERLEAVE, INTERLEAVE / INSNS_PER_RTC_TICK);
+      cur_step += INTERLEAVE;
     }
     send_fromhost_req();
   }
@@ -65,7 +69,7 @@ void sim_lib_t::run_for_and_ckpt(uint64_t steps, std::string& os) {
     exit(1);
   }
 
-  fprintf(stdout, "Taking checkpoint at instret %" PRIu64 " step\n", procs[0]->tot_instret);
+  fprintf(stdout, "Taking checkpoint at step %" PRIu64 " step\n", cur_step);
   serialize_proto(os);
 }
 
@@ -73,22 +77,6 @@ int sim_lib_t::load_ckpt_and_run(std::string& is, bool is_json) {
   init();
 
   deserialize_proto(is, is_json);
-
-  printf("deserialzation of proto done, start running\n");
-
-  for (auto& p : procs) {
-    printf("proc instret: %" PRIu64 "\n", p->tot_instret);
-    printf("pc: 0x%" PRIx64 "\n", p->get_state()->pc);
-    auto s = p->get_state();
-    for (int i = 0; i < s->max_pmp; i++) {
-      if (s->pmpaddr[i]) {
-        printf("pmpadd[%d]: 0x%" PRIx64 "\n", i, s->pmpaddr[i]->val);
-      }
-    }
-  }
-
-/* compare(p); */
-/* compare_mem(m); */
 
   while (target_running()) {
     uint64_t tohost_req = check_tohost_req();

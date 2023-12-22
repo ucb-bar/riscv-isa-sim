@@ -35,7 +35,8 @@ public:
         const debug_module_config_t &dm_config, const char *log_path,
         bool dtb_enabled, const char *dtb_file,
         bool socket_enabled,
-        FILE *cmd_file); // needed for command line option --cmd
+        FILE *cmd_file, // needed for command line option --cmd
+        const char* proto_json);
   ~sim_lib_t();
 
   void run_for_and_ckpt(uint64_t steps, std::string& os);

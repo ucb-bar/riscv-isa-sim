@@ -83,8 +83,9 @@ static void help(int exit_code = 1)
   fprintf(stderr, "  --dm-no-halt-groups   Debug module won't support halt groups\n");
   fprintf(stderr, "  --dm-no-impebreak     Debug module won't support implicit ebreak in program buffer\n");
   fprintf(stderr, "  --blocksz=<size>      Cache block size (B) for CMO operations(powers of 2) [default 64]\n");
-  fprintf(stderr, "  --restart-step=<size> Steps to run before serialize & reload\n");
-  fprintf(stderr, "  --proto-json=<path>   File name for serialized sim state\n");
+  fprintf(stderr, "  --ckpt-mode=<N>       0: run w/o ckpt (default), 1: ckpt at ckpt-step & reload, 2: load ckpt from proto-json and run\n");
+  fprintf(stderr, "  --ckpt-step=<size>    Steps to run before serialize & reload\n");
+  fprintf(stderr, "  --proto-json=<path>   File name for serialized sim state. Ouput for ckpt-mode 1 & input for ckpt-mode 2\n");
 
   exit(exit_code);
 }
@@ -349,7 +350,8 @@ int main(int argc, char** argv)
   bool use_rbb = false;
   unsigned dmi_rti = 0;
   reg_t blocksz = 64;
-  uint64_t restart_step = 0;
+  int ckpt_mode = 0;
+  uint64_t ckpt_step = 0;
   const char *proto_json_path = nullptr;
   debug_module_config_t dm_config;
   cfg_arg_t<size_t> nprocs(1);
@@ -466,8 +468,11 @@ int main(int argc, char** argv)
       exit(-1);
     }
   });
-  parser.option(0, "restart-step", 1, [&](const char* s) {
-      restart_step = strtoull(s, 0, 0);
+  parser.option(0, "ckpt-mode", 1, [&](const char* s) {
+      ckpt_mode = strtoull(s, 0, 0);
+  });
+  parser.option(0, "ckpt-step", 1, [&](const char* s) {
+      ckpt_step = strtoull(s, 0, 0);
   });
   parser.option(0, "proto-json", 1,
                 [&](const char* s){proto_json_path = s;});
@@ -530,10 +535,10 @@ int main(int argc, char** argv)
   }
 
   sim_lib_t s(&cfg, halted, mems, plugin_device_factories, htif_args, dm_config,
-      log_path, dtb_enabled, dtb_file, socket, cmd_file);
+      log_path, dtb_enabled, dtb_file, socket, cmd_file, proto_json_path);
 
   sim_lib_t s_2(&cfg, halted, mems, plugin_device_factories, htif_args, dm_config,
-      log_path, dtb_enabled, dtb_file, socket, cmd_file);
+      log_path, dtb_enabled, dtb_file, socket, cmd_file, proto_json_path);
 
   if (dump_dts) {
     printf("%s", s.get_dts());
@@ -564,9 +569,18 @@ int main(int argc, char** argv)
 
   int return_code;
 
-  if (proto_json_path) { // reload from json and run
+  if (ckpt_mode == 0) { // run without checkpointing
+    return_code = s.run();
+  } else if (ckpt_mode == 1) { // checkpoint, load, run
+    std::string proto;
+    s.run_for_and_ckpt(ckpt_step, proto);
+    return_code = s_2.load_ckpt_and_run(proto, false);
+  } else { // load checkpoint from json file and run
+    assert(proto_json_path);
+
     std::ifstream json_file(proto_json_path);
     std::string proto_str = "";
+
     std::cout << "opening proto file" << std::endl;
     if (json_file.is_open()) {
       std::string line;
@@ -577,18 +591,8 @@ int main(int argc, char** argv)
       json_file.close();
     }
     std::cout << "done reading proto file" << std::endl;
-/* std::cout << proto_str << std::endl; */
-    s_2.load_ckpt_and_run(proto_str, true);
-  } else if (restart_step == 0) { // just run the thing
-    return_code = s.run();
-  } else { // checkpoint, reload, and run
-    std::string proto;
-    s.run_for_and_ckpt(restart_step, proto);
 
-/* auto s_mems = s.get_mems(); */
-/* auto s_mem = (mem_t*)(s_mems[0].second); */
-/* return_code = s_2.load_ckpt_and_run(proto, s.get_harts().at(0), s_mem); */
-    return_code = s_2.load_ckpt_and_run(proto, false);
+    s_2.load_ckpt_and_run(proto_str, true);
   }
 
   return return_code;

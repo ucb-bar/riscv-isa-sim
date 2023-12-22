@@ -844,6 +844,8 @@ public:
         p_proto->set_allocated_msg_basic_csr(c_proto);
         p_proto->set_msg_cfg(pmpaddr->cfg);
         p_proto->set_msg_pmpidx(pmpaddr->pmpidx);
+
+        printf("pmpaddr[%d]: 0x%" PRIx64 ", pmp proto size: %d\n", i, pmpaddr->val, aproto->msg_pmpaddr_size());
       }
     }
 
@@ -1167,7 +1169,8 @@ public:
     }
 
 
-    if (int cnt = aproto->msg_mevent_size() > 0) {
+    if (aproto->msg_mevent_size() > 0) {
+      int cnt = aproto->msg_mevent_size();
       assert(cnt <= N_HPMCOUNTERS);
       for (int i = 0; i < cnt; i++) {
         auto mevent = std::dynamic_pointer_cast<basic_csr_t>(state.mevent[i]);
@@ -1343,7 +1346,9 @@ public:
       set_basic_csr_from_proto<basic_csr_t>(*mseccfg, aproto->msg_mseccfg());
     }
 
-    if (int cnt = aproto->msg_pmpaddr_size() > 0) {
+    if (aproto->msg_pmpaddr_size() > 0) {
+      int cnt = aproto->msg_pmpaddr_size();
+      printf("deser pmpaddr, cnt: %d, pmpaddr_size(): %d\n", cnt, aproto->msg_pmpaddr_size());
       assert(cnt <= state.max_pmp);
       for (int i = 0; i < cnt; i++) {
         auto pmpaddr = state.pmpaddr[i];
@@ -1369,7 +1374,8 @@ public:
       set_henvcfg_csr_from_proto(*henv, aproto->msg_henvcfg());
     }
 
-    if (int cnt = aproto->msg_mstateen_size() > 0) {
+    if (aproto->msg_mstateen_size() > 0) {
+      int cnt = aproto->msg_mstateen_size();
       assert(cnt <= 4);
       for (int i = 0; i < cnt; i++) {
         auto mstateen = std::dynamic_pointer_cast<masked_csr_t>(state.mstateen[i]);
@@ -1377,7 +1383,8 @@ public:
       }
     }
 
-    if (int cnt = aproto->msg_sstateen_size() > 0) {
+    if (aproto->msg_sstateen_size() > 0) {
+      int cnt = aproto->msg_sstateen_size();
       assert(cnt <= 4);
       for (int i = 0; i < cnt; i++) {
         auto sstateen = std::dynamic_pointer_cast<hstateen_csr_t>(state.sstateen[i]);
@@ -1385,7 +1392,8 @@ public:
       }
     }
 
-    if (int cnt = aproto->msg_hstateen_size() > 0) {
+    if (aproto->msg_hstateen_size() > 0) {
+      int cnt = aproto->msg_hstateen_size();
       assert(cnt <= 4);
       for (int i = 0; i < cnt; i++) {
         auto hstateen = std::dynamic_pointer_cast<hstateen_csr_t>(state.hstateen[i]);

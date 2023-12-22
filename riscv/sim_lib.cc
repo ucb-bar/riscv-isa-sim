@@ -74,6 +74,19 @@ int sim_lib_t::load_ckpt_and_run(std::string& is, bool is_json) {
 
   deserialize_proto(is, is_json);
 
+  printf("deserialzation of proto done, start running\n");
+
+  for (auto& p : procs) {
+    printf("proc instret: %" PRIu64 "\n", p->tot_instret);
+    printf("pc: 0x%" PRIx64 "\n", p->get_state()->pc);
+    auto s = p->get_state();
+    for (int i = 0; i < s->max_pmp; i++) {
+      if (s->pmpaddr[i]) {
+        printf("pmpadd[%d]: 0x%" PRIx64 "\n", i, s->pmpaddr[i]->val);
+      }
+    }
+  }
+
 /* compare(p); */
 /* compare_mem(m); */
 

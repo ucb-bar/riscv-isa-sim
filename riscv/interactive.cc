@@ -426,6 +426,12 @@ void sim_t::interactive_quit(const std::string& cmd, const std::vector<std::stri
   for (auto& p : procs) {
     printf("proc instret: %" PRIu64 "\n", p->tot_instret);
     printf("pc: 0x%" PRIx64 "\n", p->get_state()->pc);
+    auto s = p->get_state();
+    for (int i = 0; i < s->max_pmp; i++) {
+      if (s->pmpaddr[i]) {
+        printf("pmpadd[%d]: 0x%" PRIx64 "\n", i, s->pmpaddr[i]->val);
+      }
+    }
   }
 
   std::string proto_str;

@@ -14,7 +14,6 @@
 #include <cinttypes>
 #include <cmath>
 #include <cstdlib>
-#include <google/protobuf/arena.h>
 #include <iostream>
 #include <iomanip>
 #include <assert.h>
@@ -22,6 +21,8 @@
 #include <stdexcept>
 #include <string>
 #include <algorithm>
+
+#include <google/protobuf/arena.h>
 
 
 #ifdef __GNUC__

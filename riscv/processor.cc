@@ -507,7 +507,7 @@ void state_t::reset(processor_t* const proc, reg_t max_isa)
       }
 
       const reg_t sstateen_mask = i == 0 ? sstateen0_mask : 0;
-      csrmap[CSR_SSTATEEN0 + i] = sstateen[i] = std::make_shared<sstateen_csr_t>(proc, CSR_HSTATEEN0 + i, sstateen_mask, 0, i);
+      csrmap[CSR_SSTATEEN0 + i] = sstateen[i] = std::make_shared<sstateen_csr_t>(proc, CSR_SSTATEEN0 + i, sstateen_mask, 0, i);
     }
   }
 

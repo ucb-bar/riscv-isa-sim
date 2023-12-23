@@ -1284,6 +1284,20 @@ void processor_t::trigger_updated(const std::vector<triggers::trigger_t *> &trig
 }
 
 
+
+reg_t processor_t::get_asid() {
+  reg_t satp = this->get_state()->satp->read();
+  reg_t asid = get_field(satp, this->get_xlen() == 32 ? SATP32_ASID : SATP64_ASID);
+  return asid;
+}
+
+reg_t processor_t::get_ppn() {
+  reg_t satp = this->get_state()->satp->read();
+  reg_t ppn = get_field(satp, this->get_xlen() == 32 ? SATP32_PPN : SATP64_PPN);
+  return ppn;
+}
+
+
 // Protobuf stuff
 
 BasicCSR* processor_t::gen_basic_csr_proto(reg_t init) {
@@ -1465,7 +1479,7 @@ StimecmpCSR* processor_t::gen_stimecmp_csr_proto(std::shared_ptr<stimecmp_csr_t>
 }
 
 void processor_t::serialize_proto(ArchState* aproto, google::protobuf::Arena* arena) {
-  std::cout << "serialize" << std::endl;
+/* std::cout << "serialize" << std::endl; */
   assert(xlen == 64);
 
   auto csrmap = state.csrmap;
@@ -1490,13 +1504,13 @@ void processor_t::serialize_proto(ArchState* aproto, google::protobuf::Arena* ar
   aproto->set_msg_v(state.v);
   aproto->set_msg_prev_v(state.prev_v);
 
-  std::cout << " pc: " << state.pc
-            << " prv: " << state.prv
-            << " prev_prv: " << state.prev_prv
-            << " prv_changed: " << state.prv_changed 
-            << " v_changed: " << state.v_changed 
-            << " v: " << state.v 
-            << " prev_v: " << state.prev_v << std::endl;
+/* std::cout << " pc: " << state.pc */
+/* << " prv: " << state.prv */
+/* << " prev_prv: " << state.prev_prv */
+/* << " prv_changed: " << state.prv_changed */
+/* << " v_changed: " << state.v_changed */
+/* << " v: " << state.v */
+/* << " prev_v: " << state.prev_v << std::endl; */
 
   if (state.misa) {
     MisaCSR* misa_proto = gen_misa_csr_proto(state.misa);
@@ -2008,7 +2022,7 @@ void processor_t::set_stimecmp_csr_from_proto(stimecmp_csr_t& csr,
 }
 
 void processor_t::deserialize_proto(ArchState* aproto) {
-  std::cout << "deserialize" << std::endl;
+/* std::cout << "deserialize" << std::endl; */
   assert(xlen == 64);
 
   auto csrmap = state.csrmap;
@@ -2035,13 +2049,13 @@ void processor_t::deserialize_proto(ArchState* aproto) {
   state.v           = aproto->msg_v();
   state.prev_v      = aproto->msg_prev_v();
 
-  std::cout << " pc: " << state.pc
-            << " prv: " << state.prv
-            << " prev_prv: " << state.prev_prv
-            << " prv_changed: " << state.prv_changed 
-            << " v_changed: " << state.v_changed 
-            << " v: " << state.v 
-            << " prev_v: " << state.prev_v << std::endl;
+/* std::cout << " pc: " << state.pc */
+/* << " prv: " << state.prv */
+/* << " prev_prv: " << state.prev_prv */
+/* << " prv_changed: " << state.prv_changed */
+/* << " v_changed: " << state.v_changed */
+/* << " v: " << state.v */
+/* << " prev_v: " << state.prev_v << std::endl; */
 
   if (aproto->has_msg_misa()) {
     set_misa_csr_from_proto(*(state.misa), aproto->msg_misa());

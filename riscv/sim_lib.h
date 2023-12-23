@@ -39,8 +39,9 @@ public:
         const char* proto_json);
   ~sim_lib_t();
 
-  void run_for_and_ckpt(uint64_t steps, std::string& os);
-  int load_ckpt_and_run(std::string& is, bool is_json);
+  void run_for(uint64_t steps);
+  void take_ckpt(std::string& os);
+  void load_ckpt(std::string& is, bool is_json);
 
   virtual int run() override;
   void init();
@@ -64,6 +65,14 @@ private:
 
   std::queue<reg_t> fromhost_queue;
   std::function<void(reg_t)> fromhost_callback;
+
+
+public:
+  // Returns the pc trace fore the current "run_for"
+  std::vector<reg_t>& pctrace() { return target_PC; }
+
+private:
+  std::vector<reg_t> target_PC;
 };
 
 

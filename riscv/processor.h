@@ -444,6 +444,16 @@ public:
   void set_stimecmp_csr_from_proto(stimecmp_csr_t& csr, const StimecmpCSR& proto);
 
   void deserialize_proto(ArchState* aproto);
+
+  // Profiler specific APIs
+public:
+  reg_t get_asid();
+  reg_t get_ppn();
+
+  std::vector<reg_t>& step_pctrace() { return step_PC; }
+
+private:
+  std::vector<reg_t> step_PC;
 };
 
 #endif

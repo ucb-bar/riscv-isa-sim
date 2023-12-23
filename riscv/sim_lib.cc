@@ -48,10 +48,9 @@ sim_lib_t::sim_lib_t(const cfg_t *cfg, bool halted,
 sim_lib_t::~sim_lib_t() {
 }
 
-void sim_lib_t::run_for_and_ckpt(uint64_t steps, std::string& os) {
-  init();
-
+void sim_lib_t::run_for(uint64_t steps) {
   uint64_t cur_step = 0;
+  target_PC.clear();
 
   while (target_running() && cur_step < steps) {
     uint64_t tohost_req = check_tohost_req();
@@ -59,6 +58,10 @@ void sim_lib_t::run_for_and_ckpt(uint64_t steps, std::string& os) {
       handle_tohost_req(tohost_req);
     } else {
       step_target(INTERLEAVE, INTERLEAVE / INSNS_PER_RTC_TICK);
+      for (int i = 0, nprocs = (int)procs.size(); i < nprocs; i++) {
+        auto pctrace = procs[i]->step_pctrace();
+        target_PC.insert(target_PC.end(), pctrace.begin(), pctrace.end());
+      }
       cur_step += INTERLEAVE;
     }
     send_fromhost_req();
@@ -68,37 +71,20 @@ void sim_lib_t::run_for_and_ckpt(uint64_t steps, std::string& os) {
     fprintf(stderr, "target finished before %" PRIu64 " steps\n", steps);
     exit(1);
   }
+}
 
-  fprintf(stdout, "Taking checkpoint at step %" PRIu64 " step\n", cur_step);
+void sim_lib_t::take_ckpt(std::string& os) {
   serialize_proto(os);
 }
 
-int sim_lib_t::load_ckpt_and_run(std::string& is, bool is_json) {
-  init();
-
+void sim_lib_t::load_ckpt(std::string& is, bool is_json) {
   deserialize_proto(is, is_json);
-
-  while (target_running()) {
-    uint64_t tohost_req = check_tohost_req();
-    if (tohost_req) {
-      handle_tohost_req(tohost_req);
-    } else {
-      if (debug || ctrlc_pressed)
-        interactive();
-      else
-        step_target(INTERLEAVE, INTERLEAVE / INSNS_PER_RTC_TICK);
-    }
-    send_fromhost_req();
-  }
-  return stop_sim();
 }
 
 // Example usage of the APIs.
 // We can decompose the below loop to have fine-grained control over the
 // fesver polling loop.
 int sim_lib_t::run() {
-  init();
-
   while (target_running()) {
     uint64_t tohost_req = check_tohost_req();
     if (tohost_req) {

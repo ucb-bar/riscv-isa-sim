@@ -489,35 +489,35 @@ void sim_t::serialize_proto(std::string& os) {
   sim_proto->set_allocated_msg_plic(plic_proto);
 
   // only one dram device for now
-  assert((int)mems.size() == 1);
+/* assert((int)mems.size() == 1); */
 
-  for (auto& addr_mem : mems) {
-    auto mem = (mem_t*)addr_mem.second;
-    std::map<reg_t, char*>& spm = mem->sparse_memory_map;
-    for (auto& page: spm) {
-      Page* page_proto = sim_proto->add_msg_sparse_mm();
-      page_proto->set_msg_ppn(page.first);
-      page_proto->set_msg_bytes((const void*)page.second, PGSIZE);
-    }
-  }
+/* for (auto& addr_mem : mems) { */
+/* auto mem = (mem_t*)addr_mem.second; */
+/* std::map<reg_t, char*>& spm = mem->sparse_memory_map; */
+/* for (auto& page: spm) { */
+/* Page* page_proto = sim_proto->add_msg_sparse_mm(); */
+/* page_proto->set_msg_ppn(page.first); */
+/* page_proto->set_msg_bytes((const void*)page.second, PGSIZE); */
+/* } */
+/* } */
 
   sim_proto->SerializeToString(&os);
 
   // Create a json_string from sr.
-  std::string json_string;
-  google::protobuf::util::JsonPrintOptions options;
-  options.add_whitespace = true;
-  options.always_print_primitive_fields = true;
-  options.preserve_proto_field_names = true;
-  google::protobuf::util::MessageToJsonString(*sim_proto, &json_string, options);
+/* std::string json_string; */
+/* google::protobuf::util::JsonPrintOptions options; */
+/* options.add_whitespace = true; */
+/* options.always_print_primitive_fields = true; */
+/* options.preserve_proto_field_names = true; */
+/* google::protobuf::util::MessageToJsonString(*sim_proto, &json_string, options); */
 
-  std::fstream json_file;
-  if (proto_json_path == nullptr) {
-    proto_json_path = "arch-state.json";
-  }
-  json_file.open(proto_json_path, std::ios::out);
-  json_file << json_string << std::endl;
-  json_file.close();
+/* std::fstream json_file; */
+/* if (proto_json_path == nullptr) { */
+/* proto_json_path = "arch-state.json"; */
+/* } */
+/* json_file.open(proto_json_path, std::ios::out); */
+/* json_file << json_string << std::endl; */
+/* json_file.close(); */
 
   google::protobuf::ShutdownProtobufLibrary();
 }

@@ -567,14 +567,18 @@ int main(int argc, char** argv)
   s_2.set_debug(debug);
   s_2.configure_log(log, log_commits);
 
+  s.init();
+  s_2.init();
   int return_code;
 
   if (ckpt_mode == 0) { // run without checkpointing
     return_code = s.run();
   } else if (ckpt_mode == 1) { // checkpoint, load, run
     std::string proto;
-    s.run_for_and_ckpt(ckpt_step, proto);
-    return_code = s_2.load_ckpt_and_run(proto, false);
+    s.run_for(ckpt_step);
+    s.take_ckpt(proto);
+    s_2.load_ckpt(proto, false);
+    return_code = s_2.run();
   } else { // load checkpoint from json file and run
     assert(proto_json_path);
 
@@ -592,7 +596,8 @@ int main(int argc, char** argv)
     }
     std::cout << "done reading proto file" << std::endl;
 
-    s_2.load_ckpt_and_run(proto_str, true);
+    s_2.load_ckpt(proto_str, true);
+    return_code = s_2.run();
   }
 
   return return_code;

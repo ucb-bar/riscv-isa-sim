@@ -211,6 +211,8 @@ bool processor_t::slow_path()
 // fetch/decode/execute loop
 void processor_t::step(size_t n)
 {
+  step_PC.clear();
+
   if (!state.debug_mode) {
     if (halt_request == HR_REGULAR) {
       enter_debug_mode(DCSR_CAUSE_DEBUGINT);
@@ -228,6 +230,7 @@ void processor_t::step(size_t n)
     mmu_t* _mmu = mmu;
     state.prv_changed = false;
     state.v_changed = false;
+    step_PC.push_back(pc);
 
     #define advance_pc() \
       if (unlikely(invalid_pc(pc))) { \
@@ -241,6 +244,7 @@ void processor_t::step(size_t n)
       } else { \
         state.pc = pc; \
         instret++; \
+        step_PC.push_back(pc); \
       }
 
     try
@@ -299,6 +303,7 @@ void processor_t::step(size_t n)
             break;
           instret++;
           state.pc = pc;
+          step_PC.push_back(pc);
         }
 
         advance_pc();

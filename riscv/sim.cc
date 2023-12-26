@@ -531,6 +531,10 @@ void sim_t::serialize_proto(std::string& os) {
     }
   }
 #endif
+
+  for (auto& dev : devices) {
+    dev->set_ckpt();
+  }
 }
 
 void sim_t::deserialize_proto(std::string& is, bool is_json) {
@@ -617,7 +621,7 @@ void sim_t::deserialize_proto(std::string& is, bool is_json) {
       } else {
         auto it = mm_ckpt.find(haddr);
         if (it != mm_ckpt.end()) {
-          std::cout << std::hex << "0x" << (uint64_t)haddr << std::endl;
+/* std::cout << std::hex << "0x" << (uint64_t)haddr << std::endl; */
           memcpy(haddr, it->second, PGSIZE);
         }
       }
@@ -645,6 +649,10 @@ void sim_t::deserialize_proto(std::string& is, bool is_json) {
   }
   std::cout << "deser done" << std::endl;
 #endif
+
+  for (auto& dev : devices) {
+    dev->load_ckpt();
+  }
 }
 
 // For debugging protobuf messages

@@ -69,10 +69,10 @@ private:
 
 public:
   // Returns the pc trace fore the current "run_for"
-  std::vector<reg_t>& pctrace() { return target_PC; }
+  trace_t& run_trace() { return target_trace; }
 
 private:
-  std::vector<reg_t> target_PC;
+  trace_t target_trace;
 };
 
 

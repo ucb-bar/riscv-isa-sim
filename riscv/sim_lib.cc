@@ -49,27 +49,29 @@ sim_lib_t::~sim_lib_t() {
 }
 
 void sim_lib_t::run_for(uint64_t steps) {
-  uint64_t cur_step = 0;
-  target_PC.clear();
+  uint64_t tot_step = 0;
+  target_trace.clear();
 
-  while (target_running() && cur_step < steps) {
+  while (target_running() && tot_step < steps) {
     uint64_t tohost_req = check_tohost_req();
     if (tohost_req) {
       handle_tohost_req(tohost_req);
     } else {
-      step_target(INTERLEAVE, INTERLEAVE / INSNS_PER_RTC_TICK);
+      uint64_t cur_step = std::min(steps - tot_step, INTERLEAVE);
+      uint64_t dev_step = std::max((uint64_t)1, cur_step / INSNS_PER_RTC_TICK);
+      step_target(cur_step, dev_step);
       for (int i = 0, nprocs = (int)procs.size(); i < nprocs; i++) {
-        auto pctrace = procs[i]->step_pctrace();
-        target_PC.insert(target_PC.end(), pctrace.begin(), pctrace.end());
+        auto pst = procs[i]->step_trace();
+        target_trace.insert(target_trace.end(), pst.begin(), pst.end());
+        tot_step += pst.size();
       }
-      cur_step += INTERLEAVE;
     }
     send_fromhost_req();
   }
 
   if (!target_running()) {
     fprintf(stderr, "target finished before %" PRIu64 " steps\n", steps);
-    exit(1);
+/* exit(1); */
   }
 }
 
@@ -134,9 +136,13 @@ void sim_lib_t::step_devs(size_t n) {
 
 void sim_lib_t::step_target(size_t proc_step, size_t dev_step) {
   unsigned int nprocs = (unsigned int)procs.size();
+
+  // TODO : yield_load_rsrv in multicore. currently, spike may loop infinitely
+  // when the single processor yields every time it executes a single step
+  assert(nprocs == 1);
   for (unsigned int pidx = 0; pidx < nprocs; pidx++) {
     step_proc(proc_step, pidx);
-    yield_load_rsrv(pidx);
+/* yield_load_rsrv(pidx); */
   }
   step_devs(dev_step);
 }

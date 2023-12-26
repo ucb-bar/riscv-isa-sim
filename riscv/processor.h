@@ -193,6 +193,16 @@ struct state_t
   int last_inst_flen;
 };
 
+struct trace_entry_t {
+  reg_t pc;
+  reg_t asid;
+  reg_t prv;
+  reg_t prev_prv;
+  insn_t insn;
+};
+
+typedef std::vector<trace_entry_t> trace_t;
+
 // this class represents one processor in a RISC-V machine.
 class processor_t : public abstract_device_t
 {
@@ -450,10 +460,10 @@ public:
   reg_t get_asid();
   reg_t get_ppn();
 
-  std::vector<reg_t>& step_pctrace() { return step_PC; }
+  trace_t& step_trace() { return trace; }
 
 private:
-  std::vector<reg_t> step_PC;
+  trace_t trace;
 };
 
 #endif

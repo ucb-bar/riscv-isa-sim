@@ -211,7 +211,7 @@ bool processor_t::slow_path()
 // fetch/decode/execute loop
 void processor_t::step(size_t n)
 {
-  step_PC.clear();
+  trace.clear();
 
   if (!state.debug_mode) {
     if (halt_request == HR_REGULAR) {
@@ -230,7 +230,6 @@ void processor_t::step(size_t n)
     mmu_t* _mmu = mmu;
     state.prv_changed = false;
     state.v_changed = false;
-    step_PC.push_back(pc);
 
     #define advance_pc() \
       if (unlikely(invalid_pc(pc))) { \
@@ -244,7 +243,6 @@ void processor_t::step(size_t n)
       } else { \
         state.pc = pc; \
         instret++; \
-        step_PC.push_back(pc); \
       }
 
     try
@@ -286,6 +284,7 @@ void processor_t::step(size_t n)
           insn_fetch_t fetch = mmu->load_insn(pc);
           if (debug && !state.serialized)
             disasm(fetch.insn);
+          trace.push_back({pc, get_asid(), state.prv, state.prev_prv, fetch.insn});
           pc = execute_insn_logged(this, pc, fetch);
           advance_pc();
         }
@@ -295,6 +294,7 @@ void processor_t::step(size_t n)
         // Main simulation loop, fast path.
         for (auto ic_entry = _mmu->access_icache(pc); ; ) {
           auto fetch = ic_entry->data;
+          trace.push_back({pc, get_asid(), state.prv, state.prev_prv, fetch.insn});
           pc = execute_insn_fast(this, pc, fetch);
           ic_entry = ic_entry->next;
           if (unlikely(ic_entry->tag != pc))
@@ -303,7 +303,6 @@ void processor_t::step(size_t n)
             break;
           instret++;
           state.pc = pc;
-          step_PC.push_back(pc);
         }
 
         advance_pc();

@@ -18,6 +18,8 @@ class abstract_device_t {
   virtual bool store(reg_t addr, size_t len, const uint8_t* bytes) = 0;
   virtual ~abstract_device_t() {}
   virtual void tick(reg_t UNUSED rtc_ticks) {}
+  virtual void set_ckpt() {}
+  virtual void load_ckpt() {}
 };
 
 // factory for devices which should show up in the DTS, and can be

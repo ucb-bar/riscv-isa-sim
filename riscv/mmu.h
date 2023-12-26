@@ -495,6 +495,9 @@ private:
   triggers::matched_t *matched_trigger;
 
   friend class processor_t;
+
+public:
+  void take_checkpoint(char* host_offset);
 };
 
 struct vm_info {

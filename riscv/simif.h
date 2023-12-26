@@ -4,8 +4,12 @@
 #define _RISCV_SIMIF_H
 
 #include <map>
+#include <vector>
 #include "decode.h"
 #include "cfg.h"
+
+typedef std::map<char*, char*> pagemap;
+typedef std::vector<char*>     pagepool;
 
 class processor_t;
 class mmu_t;
@@ -34,6 +38,11 @@ public:
   unsigned nprocs() const { return get_cfg().nprocs(); }
 
   mmu_t* debug_mmu;  // debug port into main memory, for use by debug_module
+
+public:
+  virtual pagepool& get_ckpt_mempool() = 0;
+  virtual pagemap&   get_mm_ckpt()      = 0;
+  virtual bool do_ckpt() { return false; }
 };
 
 #endif

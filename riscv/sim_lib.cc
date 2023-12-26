@@ -37,9 +37,9 @@ sim_lib_t::sim_lib_t(const cfg_t *cfg, bool halted,
         bool dtb_enabled, const char *dtb_file,
         bool socket_enabled,
         FILE *cmd_file,
-        const char* proto_json)
+        bool checkpoint)
   : sim_t(cfg, halted, mems, plugin_device_factories, args, dm_config,
-          log_path, dtb_enabled, dtb_file, socket_enabled, cmd_file, proto_json)
+          log_path, dtb_enabled, dtb_file, socket_enabled, cmd_file, checkpoint)
 {
   auto enq_func = [](std::queue<reg_t>* q, uint64_t x) { q->push(x); };
   fromhost_callback = std::bind(enq_func, &fromhost_queue, std::placeholders::_1);

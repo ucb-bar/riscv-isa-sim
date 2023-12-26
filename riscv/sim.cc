@@ -9,6 +9,7 @@
 #include "platform.h"
 #include "libfdt.h"
 #include "socketif.h"
+#include <chrono>
 #include <fstream>
 #include <map>
 #include <iostream>
@@ -20,6 +21,8 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <sys/types.h>
+
+/* #define DEBUG */
 
 volatile bool ctrlc_pressed = false;
 static void handle_signal(int sig)
@@ -44,8 +47,8 @@ sim_t::sim_t(const cfg_t *cfg, bool halted,
              const char *log_path,
              bool dtb_enabled, const char *dtb_file,
              bool socket_enabled,
-             FILE *cmd_file, // needed for command line option --cmd
-             const char* proto_json_path)
+             FILE *cmd_file,
+             bool checkpoint) // needed for command line option --cmd
   : htif_t(args),
     isa(cfg->isa, cfg->priv),
     cfg(cfg),
@@ -54,7 +57,6 @@ sim_t::sim_t(const cfg_t *cfg, bool halted,
     dtb_enabled(dtb_enabled),
     log_file(log_path),
     cmd_file(cmd_file),
-    proto_json_path(proto_json_path),
     sout_(nullptr),
     current_step(0),
     current_proc(0),
@@ -62,7 +64,8 @@ sim_t::sim_t(const cfg_t *cfg, bool halted,
     histogram_enabled(false),
     log(false),
     remote_bitbang(NULL),
-    debug_module(this, dm_config)
+    debug_module(this, dm_config),
+    checkpoint(checkpoint)
 {
   signal(SIGINT, &handle_signal);
 
@@ -444,6 +447,11 @@ void sim_t::proc_reset(unsigned id)
 // Protobuf stuff
 
 void sim_t::serialize_proto(std::string& os) {
+#ifdef DEBUG
+  std::cout << "serialize" << std::endl;
+#endif
+  serialize_called = true;
+
   arena = new google::protobuf::Arena();
   SimState* sim_proto = google::protobuf::Arena::Create<SimState>(arena);
 
@@ -488,41 +496,49 @@ void sim_t::serialize_proto(std::string& os) {
   }
   sim_proto->set_allocated_msg_plic(plic_proto);
 
-  // only one dram device for now
-/* assert((int)mems.size() == 1); */
-
-/* for (auto& addr_mem : mems) { */
-/* auto mem = (mem_t*)addr_mem.second; */
-/* std::map<reg_t, char*>& spm = mem->sparse_memory_map; */
-/* for (auto& page: spm) { */
-/* Page* page_proto = sim_proto->add_msg_sparse_mm(); */
-/* page_proto->set_msg_ppn(page.first); */
-/* page_proto->set_msg_bytes((const void*)page.second, PGSIZE); */
-/* } */
-/* } */
-
   sim_proto->SerializeToString(&os);
-
-  // Create a json_string from sr.
-/* std::string json_string; */
-/* google::protobuf::util::JsonPrintOptions options; */
-/* options.add_whitespace = true; */
-/* options.always_print_primitive_fields = true; */
-/* options.preserve_proto_field_names = true; */
-/* google::protobuf::util::MessageToJsonString(*sim_proto, &json_string, options); */
-
-/* std::fstream json_file; */
-/* if (proto_json_path == nullptr) { */
-/* proto_json_path = "arch-state.json"; */
-/* } */
-/* json_file.open(proto_json_path, std::ios::out); */
-/* json_file << json_string << std::endl; */
-/* json_file.close(); */
-
   google::protobuf::ShutdownProtobufLibrary();
+
+  // only one dram device for now
+  assert((int)mems.size() == 1);
+
+  for (int i = 0, nprocs = procs.size(); i < nprocs; i++) {
+    procs[i]->get_mmu()->flush_tlb();
+  }
+  debug_mmu->flush_tlb();
+
+  ckpt_ppn.clear();
+  for (auto& addr_mem : mems) {
+    auto mem = (mem_t*)addr_mem.second;
+    std::map<reg_t, char*>& spm = mem->sparse_memory_map;
+    for (auto& page : spm) {
+      ckpt_ppn.insert(page.first);
+    }
+  }
+  for (auto &page : mm_ckpt) {
+    ckpt_mempool.push_back(page.second);
+  }
+  mm_ckpt.clear();
+
+#ifdef DEBUG
+  for (auto& addr_mem: mems) {
+    auto mem = (mem_t*)addr_mem.second;
+    std::map<reg_t, char*>& spm = mem->sparse_memory_map;
+    for (auto& page : spm) {
+      char* buf = (char*)calloc(PGSIZE, 1);
+      memcpy(buf, page.second, PGSIZE);
+      all_mm_ckpt[page.first] = buf;
+    }
+  }
+#endif
 }
 
 void sim_t::deserialize_proto(std::string& is, bool is_json) {
+#ifdef DEBUG
+  std::cout << "deserialize" << std::endl;
+#endif
+
+  serialize_called = false;
   arena = new google::protobuf::Arena();
   SimState* sim_proto = google::protobuf::Arena::Create<SimState>(arena);
 
@@ -578,8 +594,12 @@ void sim_t::deserialize_proto(std::string& is, bool is_json) {
   for (int i = 0, cnt = plic_proto.msg_level_size(); i < cnt; i++) {
     plic->level[i] = plic_proto.msg_level(i);
   }
+  google::protobuf::ShutdownProtobufLibrary();
 
-
+  for (int i = 0, nprocs = procs.size(); i < nprocs; i++) {
+    procs[i]->get_mmu()->flush_tlb();
+  }
+  debug_mmu->flush_tlb();
 
   // only one dram device for now
   assert((int)mems.size() == 1);
@@ -588,28 +608,43 @@ void sim_t::deserialize_proto(std::string& is, bool is_json) {
     auto mem = (mem_t*)addr_mem.second;
     std::map<reg_t, char*>& spm = mem->sparse_memory_map;
 
-    // clear memory
-    for (auto& page: spm) {
-      free(page.second);
+    std::vector<reg_t> tofree;
+    for (auto& page : spm) {
+      auto ppn   = page.first;
+      auto haddr = page.second;
+      if (ckpt_ppn.find(ppn) == ckpt_ppn.end()) {
+        tofree.push_back(ppn);
+      } else {
+        auto it = mm_ckpt.find(haddr);
+        if (it != mm_ckpt.end()) {
+          std::cout << std::hex << "0x" << (uint64_t)haddr << std::endl;
+          memcpy(haddr, it->second, PGSIZE);
+        }
+      }
     }
-    spm.clear();
-
-    // insert new dram contents
-    for (int i = 0, cnt = sim_proto->msg_sparse_mm_size(); i < cnt; i++) {
-      const Page& page_proto = sim_proto->msg_sparse_mm(i);
-
-      reg_t ppn = page_proto.msg_ppn();
-      const std::string& bytes = page_proto.msg_bytes();
-      assert(bytes.size() == PGSIZE);
-
-      char* res = (char*)calloc(PGSIZE, 1);
-      if (res == nullptr)
-        throw std::bad_alloc();
-      memcpy((void*)res, bytes.data(), bytes.size());
-      spm[ppn] = res;
+    for (auto x: tofree) {
+      free(spm[x]);
+      spm.erase(x);
     }
   }
-  google::protobuf::ShutdownProtobufLibrary();
+
+#ifdef DEBUG
+  for (auto& addr_mem : mems) {
+    auto mem = (mem_t*)addr_mem.second;
+    std::map<reg_t, char*>& spm = mem->sparse_memory_map;
+    for (auto& page : spm) {
+      char* ref_page = all_mm_ckpt[page.first];
+      for (int  i = 0; i < PGSIZE; i++) {
+        if (ref_page[i] != page.second[i]) {
+          printf("Mismatch PPN: 0x%" PRIx64 " haddr: 0x%" PRIx64 " byte: %d got %d expect %d\n",
+              page.first, (uint64_t)page.second, i, page.second[i], ref_page[i]);
+          exit(1);
+        }
+      }
+    }
+  }
+  std::cout << "deser done" << std::endl;
+#endif
 }
 
 // For debugging protobuf messages

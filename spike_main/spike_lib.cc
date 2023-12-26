@@ -85,7 +85,6 @@ static void help(int exit_code = 1)
   fprintf(stderr, "  --blocksz=<size>      Cache block size (B) for CMO operations(powers of 2) [default 64]\n");
   fprintf(stderr, "  --ckpt-mode=<N>       0: run w/o ckpt (default), 1: ckpt at ckpt-step & reload, 2: load ckpt from proto-json and run\n");
   fprintf(stderr, "  --ckpt-step=<size>    Steps to run before serialize & reload\n");
-  fprintf(stderr, "  --proto-json=<path>   File name for serialized sim state. Ouput for ckpt-mode 1 & input for ckpt-mode 2\n");
 
   exit(exit_code);
 }
@@ -352,7 +351,6 @@ int main(int argc, char** argv)
   reg_t blocksz = 64;
   int ckpt_mode = 0;
   uint64_t ckpt_step = 0;
-  const char *proto_json_path = nullptr;
   debug_module_config_t dm_config;
   cfg_arg_t<size_t> nprocs(1);
 
@@ -474,9 +472,6 @@ int main(int argc, char** argv)
   parser.option(0, "ckpt-step", 1, [&](const char* s) {
       ckpt_step = strtoull(s, 0, 0);
   });
-  parser.option(0, "proto-json", 1,
-                [&](const char* s){proto_json_path = s;});
-
   auto argv1 = parser.parse(argv);
   std::vector<std::string> htif_args(argv1, (const char*const*)argv + argc);
 
@@ -534,11 +529,9 @@ int main(int argc, char** argv)
     cfg.hartids = default_hartids;
   }
 
+  bool checkpoint = (ckpt_mode != 0);
   sim_lib_t s(&cfg, halted, mems, plugin_device_factories, htif_args, dm_config,
-      log_path, dtb_enabled, dtb_file, socket, cmd_file, proto_json_path);
-
-  sim_lib_t s_2(&cfg, halted, mems, plugin_device_factories, htif_args, dm_config,
-      log_path, dtb_enabled, dtb_file, socket, cmd_file, proto_json_path);
+      log_path, dtb_enabled, dtb_file, socket, cmd_file, checkpoint);
 
   if (dump_dts) {
     printf("%s", s.get_dts());
@@ -555,49 +548,25 @@ int main(int argc, char** argv)
     if (dc) s.get_core(i)->get_mmu()->register_memtracer(&*dc);
     for (auto e : extensions) {
       s.get_core(i)->register_extension(e());
-      s_2.get_core(i)->register_extension(e());
     }
     s.get_core(i)->get_mmu()->set_cache_blocksz(blocksz);
-    s_2.get_core(i)->get_mmu()->set_cache_blocksz(blocksz);
   }
 
   s.set_debug(debug);
   s.configure_log(log, log_commits);
 
-  s_2.set_debug(debug);
-  s_2.configure_log(log, log_commits);
-
   s.init();
-  s_2.init();
   int return_code;
 
-  if (ckpt_mode == 0) { // run without checkpointing
+  if (!checkpoint) { // run without checkpointing
     return_code = s.run();
-  } else if (ckpt_mode == 1) { // checkpoint, load, run
+  } else { // checkpoint, load, run
     std::string proto;
     s.run_for(ckpt_step);
     s.take_ckpt(proto);
-    s_2.load_ckpt(proto, false);
-    return_code = s_2.run();
-  } else { // load checkpoint from json file and run
-    assert(proto_json_path);
-
-    std::ifstream json_file(proto_json_path);
-    std::string proto_str = "";
-
-    std::cout << "opening proto file" << std::endl;
-    if (json_file.is_open()) {
-      std::string line;
-      while (std::getline(json_file, line)) {
-        proto_str += line;
-        proto_str += "\n";
-      }
-      json_file.close();
-    }
-    std::cout << "done reading proto file" << std::endl;
-
-    s_2.load_ckpt(proto_str, true);
-    return_code = s_2.run();
+    s.run_for(ckpt_step);
+    s.load_ckpt(proto, false);
+    return_code = s.run();
   }
 
   return return_code;

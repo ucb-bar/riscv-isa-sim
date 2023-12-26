@@ -250,13 +250,37 @@ void mmu_t::load_slow_path(reg_t addr, reg_t len, uint8_t* bytes, xlate_flags_t 
   check_triggers(triggers::OPERATION_LOAD, addr, access_info.effective_virt, reg_from_bytes(len, bytes));
 }
 
+void mmu_t::take_checkpoint(char* host_offset) {
+  auto& mm_ckpt = sim->get_mm_ckpt();
+  auto& mempool = sim->get_ckpt_mempool();
+  if (mm_ckpt.find(host_offset) == mm_ckpt.end()) {
+    if (mempool.size() == 0) {
+      char* buf = (char*)calloc(PGSIZE, 1);
+      if (!buf)
+        throw std::bad_alloc();
+      mm_ckpt[host_offset] = buf;
+    } else {
+      mm_ckpt[host_offset] = mempool.back();
+      mempool.pop_back();
+    }
+/* std::cout << std::hex << "0x" << (uint64_t)host_offset << std::endl; */
+    memcpy(mm_ckpt[host_offset], (void*)host_offset, PGSIZE);
+  }
+}
+
 void mmu_t::store_slow_path_intrapage(reg_t len, const uint8_t* bytes, mem_access_info_t access_info, bool actually_store)
 {
+  bool ckpt = sim->do_ckpt();
   reg_t addr = access_info.vaddr;
   reg_t vpn = addr >> PGSHIFT;
   if (!access_info.flags.is_special_access() && vpn == (tlb_store_tag[vpn % TLB_ENTRIES] & ~TLB_CHECK_TRIGGERS)) {
     if (actually_store) {
-      auto host_addr = tlb_data[vpn % TLB_ENTRIES].host_offset + addr;
+      char* host_offset = tlb_data[vpn % TLB_ENTRIES].host_offset;
+      auto host_addr = host_offset + addr;
+
+      if (ckpt)
+        take_checkpoint(host_offset);
+
       memcpy(host_addr, bytes, len);
     }
     return;
@@ -266,6 +290,11 @@ void mmu_t::store_slow_path_intrapage(reg_t len, const uint8_t* bytes, mem_acces
 
   if (actually_store) {
     if (auto host_addr = sim->addr_to_mem(paddr)) {
+      if (ckpt) {
+        reg_t pgoffset = paddr % PGSIZE;
+        char* host_offset = host_addr - pgoffset;
+        take_checkpoint(host_offset);
+      }
       memcpy(host_addr, bytes, len);
       if (tracer.interested_in_range(paddr, paddr + PGSIZE, STORE))
         tracer.trace(paddr, len, STORE);

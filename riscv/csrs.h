@@ -1051,4 +1051,10 @@ class smcntrpmf_csr_t : public masked_csr_t {
   }
 };
 
+// srmcfg CSR provided by Ssqosid extension
+class srmcfg_csr_t: public masked_csr_t {
+ public:
+  srmcfg_csr_t(processor_t* const proc, const reg_t addr, const reg_t mask, const reg_t init);
+  virtual void verify_permissions(insn_t insn, bool write) const override;
+};
 #endif

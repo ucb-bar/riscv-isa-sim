@@ -1699,3 +1699,22 @@ bool smcntrpmf_csr_t::unlogged_write(const reg_t val) noexcept {
   prev_val = read();
   return masked_csr_t::unlogged_write(val);
 }
+
+srmcfg_csr_t::srmcfg_csr_t(processor_t* const proc, const reg_t addr, const reg_t mask, const reg_t init):
+  masked_csr_t(proc, addr, mask, init) {
+}
+
+void srmcfg_csr_t::verify_permissions(insn_t insn, bool write) const {
+  csr_t::verify_permissions(insn, write);
+
+  if (!proc->extension_enabled(EXT_SSQOSID))
+    throw trap_illegal_instruction(insn.bits());
+
+  if (proc->extension_enabled(EXT_SMSTATEEN)) {
+    if ((state->prv < PRV_M) && !(state->mstateen[0]->read() & MSTATEEN0_PRIV114))
+      throw trap_illegal_instruction(insn.bits());
+  }
+
+  if (state->v)
+      throw trap_virtual_instruction(insn.bits());
+}

@@ -486,7 +486,7 @@ void state_t::reset(processor_t* const proc, reg_t max_isa)
                                  (proc->extension_enabled(EXT_ZCMT) ? SSTATEEN0_JVT : 0) |
                                  SSTATEEN0_CS;
     const reg_t hstateen0_mask = sstateen0_mask | HSTATEEN0_SENVCFG | HSTATEEN_SSTATEEN;
-    const reg_t mstateen0_mask = hstateen0_mask;
+    const reg_t mstateen0_mask = hstateen0_mask | (proc->extension_enabled(EXT_SSQOSID) ?  MSTATEEN0_PRIV114 : 0);
     for (int i = 0; i < 4; i++) {
       const reg_t mstateen_mask = i == 0 ? mstateen0_mask : MSTATEEN_HSTATEEN;
       mstateen[i] = std::make_shared<masked_csr_t>(proc, CSR_MSTATEEN0 + i, mstateen_mask, 0);
@@ -586,6 +586,12 @@ void state_t::reset(processor_t* const proc, reg_t max_isa)
         csrmap[CSR_MCYCLECFG] = mcyclecfg;
         csrmap[CSR_MINSTRETCFG] = minstretcfg;
       }
+  }
+
+  if (proc->extension_enabled_const(EXT_SSQOSID)) {
+    const reg_t srmcfg_mask = SRMCFG_MCID | SRMCFG_RCID;
+    srmcfg = std::make_shared<srmcfg_csr_t>(proc, CSR_SRMCFG, srmcfg_mask, 0);
+    csrmap[CSR_SRMCFG] = srmcfg;
   }
 
   serialized = false;

@@ -893,6 +893,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_arch_2dstate_2eproto::offsets[
   PROTOBUF_FIELD_OFFSET(::ArchState, msg_jvt_),
   PROTOBUF_FIELD_OFFSET(::ArchState, msg_miselect_),
   PROTOBUF_FIELD_OFFSET(::ArchState, msg_siselect_),
+  PROTOBUF_FIELD_OFFSET(::ArchState, msg_srmcfg_),
   PROTOBUF_FIELD_OFFSET(::ArchState, msg_debug_mode_),
   PROTOBUF_FIELD_OFFSET(::ArchState, msg_serialized_),
   PROTOBUF_FIELD_OFFSET(::ArchState, msg_single_step_),
@@ -974,12 +975,12 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 162, -1, sizeof(::HenvcfgCSR)},
   { 169, -1, sizeof(::Float128)},
   { 176, -1, sizeof(::ArchState)},
-  { 253, -1, sizeof(::Page)},
-  { 260, -1, sizeof(::UInt64Map)},
-  { 267, -1, sizeof(::CLINT)},
-  { 274, -1, sizeof(::PLICContext)},
-  { 284, -1, sizeof(::PLIC)},
-  { 292, -1, sizeof(::SimState)},
+  { 254, -1, sizeof(::Page)},
+  { 261, -1, sizeof(::UInt64Map)},
+  { 268, -1, sizeof(::CLINT)},
+  { 275, -1, sizeof(::PLICContext)},
+  { 285, -1, sizeof(::PLIC)},
+  { 293, -1, sizeof(::SimState)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -1064,7 +1065,7 @@ const char descriptor_table_protodef_arch_2dstate_2eproto[] PROTOBUF_SECTION_VAR
   " \n\014msg_delegate\030\002 \001(\0132\n.MaskedCSR\"N\n\nHen"
   "vcfgCSR\022\037\n\013msg_henvcfg\030\001 \001(\0132\n.MaskedCSR"
   "\022\037\n\013msg_menvcfg\030\002 \001(\0132\n.MaskedCSR\"(\n\010Flo"
-  "at128\022\r\n\005msg_0\030\001 \001(\004\022\r\n\005msg_1\030\002 \001(\004\"\237\021\n\t"
+  "at128\022\r\n\005msg_0\030\001 \001(\004\022\r\n\005msg_1\030\002 \001(\004\"\277\021\n\t"
   "ArchState\022\016\n\006msg_pc\030\001 \001(\004\022\017\n\007msg_XPR\030\002 \003"
   "(\004\022\032\n\007msg_FPR\030\003 \003(\0132\t.Float128\022\017\n\007msg_pr"
   "v\030\004 \001(\004\022\024\n\014msg_prev_prv\030\005 \001(\004\022\027\n\017msg_prv"
@@ -1116,23 +1117,24 @@ const char descriptor_table_protodef_arch_2dstate_2eproto[] PROTOBUF_SECTION_VAR
   "_vstimecmp\030\\ \001(\0132\014.StimecmpCSR\022\032\n\007msg_jv"
   "t\030] \001(\0132\t.BasicCSR\022\037\n\014msg_miselect\030^ \001(\013"
   "2\t.BasicCSR\022#\n\014msg_siselect\030e \001(\0132\r.Virt"
-  "BasicCSR\022\026\n\016msg_debug_mode\030t \001(\010\022\026\n\016msg_"
-  "serialized\030u \001(\010\022\027\n\017msg_single_step\030v \001("
-  "\r\022\032\n\022msg_last_inst_priv\030w \001(\004\022\032\n\022msg_las"
-  "t_inst_xlen\030x \001(\005\022\032\n\022msg_last_inst_flen\030"
-  "y \001(\005\"*\n\004Page\022\017\n\007msg_ppn\030\001 \001(\004\022\021\n\tmsg_by"
-  "tes\030\002 \001(\014\")\n\tUInt64Map\022\r\n\005msg_k\030\001 \001(\004\022\r\n"
-  "\005msg_v\030\002 \001(\004\"<\n\005CLINT\022\021\n\tmsg_mtime\030\001 \001(\004"
-  "\022 \n\014msg_mtimecmp\030\002 \003(\0132\n.UInt64Map\"\211\001\n\013P"
-  "LICContext\022\036\n\026msg_priority_threshold\030\001 \001"
-  "(\r\022\022\n\nmsg_enable\030\002 \003(\r\022\023\n\013msg_pending\030\003 "
-  "\003(\r\022\034\n\024msg_pending_priority\030\004 \003(\r\022\023\n\013msg"
-  "_claimed\030\005 \003(\r\"S\n\004PLIC\022\"\n\014msg_contexts\030\001"
-  " \003(\0132\014.PLICContext\022\024\n\014msg_priority\030\002 \003(\r"
-  "\022\021\n\tmsg_level\030\003 \003(\r\"\200\001\n\010SimState\022\"\n\016msg_"
-  "arch_state\030\001 \003(\0132\n.ArchState\022\031\n\tmsg_clin"
-  "t\030\002 \001(\0132\006.CLINT\022\027\n\010msg_plic\030\003 \001(\0132\005.PLIC"
-  "\022\034\n\rmsg_sparse_mm\030\004 \003(\0132\005.Pageb\006proto3"
+  "BasicCSR\022\036\n\nmsg_srmcfg\030t \001(\0132\n.MaskedCSR"
+  "\022\026\n\016msg_debug_mode\030u \001(\010\022\026\n\016msg_serializ"
+  "ed\030v \001(\010\022\027\n\017msg_single_step\030w \001(\r\022\032\n\022msg"
+  "_last_inst_priv\030x \001(\004\022\032\n\022msg_last_inst_x"
+  "len\030y \001(\005\022\032\n\022msg_last_inst_flen\030z \001(\005\"*\n"
+  "\004Page\022\017\n\007msg_ppn\030\001 \001(\004\022\021\n\tmsg_bytes\030\002 \001("
+  "\014\")\n\tUInt64Map\022\r\n\005msg_k\030\001 \001(\004\022\r\n\005msg_v\030\002"
+  " \001(\004\"<\n\005CLINT\022\021\n\tmsg_mtime\030\001 \001(\004\022 \n\014msg_"
+  "mtimecmp\030\002 \003(\0132\n.UInt64Map\"\211\001\n\013PLICConte"
+  "xt\022\036\n\026msg_priority_threshold\030\001 \001(\r\022\022\n\nms"
+  "g_enable\030\002 \003(\r\022\023\n\013msg_pending\030\003 \003(\r\022\034\n\024m"
+  "sg_pending_priority\030\004 \003(\r\022\023\n\013msg_claimed"
+  "\030\005 \003(\r\"S\n\004PLIC\022\"\n\014msg_contexts\030\001 \003(\0132\014.P"
+  "LICContext\022\024\n\014msg_priority\030\002 \003(\r\022\021\n\tmsg_"
+  "level\030\003 \003(\r\"\200\001\n\010SimState\022\"\n\016msg_arch_sta"
+  "te\030\001 \003(\0132\n.ArchState\022\031\n\tmsg_clint\030\002 \001(\0132"
+  "\006.CLINT\022\027\n\010msg_plic\030\003 \001(\0132\005.PLIC\022\034\n\rmsg_"
+  "sparse_mm\030\004 \003(\0132\005.Pageb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_arch_2dstate_2eproto_deps[1] = {
 };
@@ -1172,7 +1174,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_arc
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_arch_2dstate_2eproto_once;
 static bool descriptor_table_arch_2dstate_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_arch_2dstate_2eproto = {
-  &descriptor_table_arch_2dstate_2eproto_initialized, descriptor_table_protodef_arch_2dstate_2eproto, "arch-state.proto", 4638,
+  &descriptor_table_arch_2dstate_2eproto_initialized, descriptor_table_protodef_arch_2dstate_2eproto, "arch-state.proto", 4670,
   &descriptor_table_arch_2dstate_2eproto_once, descriptor_table_arch_2dstate_2eproto_sccs, descriptor_table_arch_2dstate_2eproto_deps, 31, 0,
   schemas, file_default_instances, TableStruct_arch_2dstate_2eproto::offsets,
   file_level_metadata_arch_2dstate_2eproto, 31, file_level_enum_descriptors_arch_2dstate_2eproto, file_level_service_descriptors_arch_2dstate_2eproto,
@@ -7039,6 +7041,8 @@ void ArchState::InitAsDefaultInstance() {
       ::BasicCSR::internal_default_instance());
   ::_ArchState_default_instance_._instance.get_mutable()->msg_siselect_ = const_cast< ::VirtBasicCSR*>(
       ::VirtBasicCSR::internal_default_instance());
+  ::_ArchState_default_instance_._instance.get_mutable()->msg_srmcfg_ = const_cast< ::MaskedCSR*>(
+      ::MaskedCSR::internal_default_instance());
 }
 class ArchState::_Internal {
  public:
@@ -7094,6 +7098,7 @@ class ArchState::_Internal {
   static const ::BasicCSR& msg_jvt(const ArchState* msg);
   static const ::BasicCSR& msg_miselect(const ArchState* msg);
   static const ::VirtBasicCSR& msg_siselect(const ArchState* msg);
+  static const ::MaskedCSR& msg_srmcfg(const ArchState* msg);
 };
 
 const ::MisaCSR&
@@ -7303,6 +7308,10 @@ ArchState::_Internal::msg_miselect(const ArchState* msg) {
 const ::VirtBasicCSR&
 ArchState::_Internal::msg_siselect(const ArchState* msg) {
   return *msg->msg_siselect_;
+}
+const ::MaskedCSR&
+ArchState::_Internal::msg_srmcfg(const ArchState* msg) {
+  return *msg->msg_srmcfg_;
 }
 ArchState::ArchState()
   : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
@@ -7580,6 +7589,11 @@ ArchState::ArchState(const ArchState& from)
   } else {
     msg_siselect_ = nullptr;
   }
+  if (from._internal_has_msg_srmcfg()) {
+    msg_srmcfg_ = new ::MaskedCSR(*from.msg_srmcfg_);
+  } else {
+    msg_srmcfg_ = nullptr;
+  }
   ::memcpy(&msg_pc_, &from.msg_pc_,
     static_cast<size_t>(reinterpret_cast<char*>(&msg_last_inst_xlen_) -
     reinterpret_cast<char*>(&msg_pc_)) + sizeof(msg_last_inst_xlen_));
@@ -7651,6 +7665,7 @@ void ArchState::SharedDtor() {
   if (this != internal_default_instance()) delete msg_jvt_;
   if (this != internal_default_instance()) delete msg_miselect_;
   if (this != internal_default_instance()) delete msg_siselect_;
+  if (this != internal_default_instance()) delete msg_srmcfg_;
 }
 
 void ArchState::SetCachedSize(int size) const {
@@ -7883,6 +7898,10 @@ void ArchState::Clear() {
     delete msg_siselect_;
   }
   msg_siselect_ = nullptr;
+  if (GetArenaNoVirtual() == nullptr && msg_srmcfg_ != nullptr) {
+    delete msg_srmcfg_;
+  }
+  msg_srmcfg_ = nullptr;
   ::memset(&msg_pc_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&msg_last_inst_xlen_) -
       reinterpret_cast<char*>(&msg_pc_)) + sizeof(msg_last_inst_xlen_));
@@ -8391,44 +8410,51 @@ const char* ArchState::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // bool msg_debug_mode = 116;
+      // .MaskedCSR msg_srmcfg = 116;
       case 116:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 160)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 162)) {
+          ptr = ctx->ParseMessage(_internal_mutable_msg_srmcfg(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // bool msg_debug_mode = 117;
+      case 117:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 168)) {
           msg_debug_mode_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // bool msg_serialized = 117;
-      case 117:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 168)) {
+      // bool msg_serialized = 118;
+      case 118:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 176)) {
           msg_serialized_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // uint32 msg_single_step = 118;
-      case 118:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 176)) {
+      // uint32 msg_single_step = 119;
+      case 119:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 184)) {
           msg_single_step_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // uint64 msg_last_inst_priv = 119;
-      case 119:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 184)) {
+      // uint64 msg_last_inst_priv = 120;
+      case 120:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 192)) {
           msg_last_inst_priv_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // int32 msg_last_inst_xlen = 120;
-      case 120:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 192)) {
+      // int32 msg_last_inst_xlen = 121;
+      case 121:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 200)) {
           msg_last_inst_xlen_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // int32 msg_last_inst_flen = 121;
-      case 121:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 200)) {
+      // int32 msg_last_inst_flen = 122;
+      case 122:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 208)) {
           msg_last_inst_flen_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
@@ -8974,40 +9000,48 @@ failure:
         101, _Internal::msg_siselect(this), target, stream);
   }
 
-  // bool msg_debug_mode = 116;
+  // .MaskedCSR msg_srmcfg = 116;
+  if (this->has_msg_srmcfg()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        116, _Internal::msg_srmcfg(this), target, stream);
+  }
+
+  // bool msg_debug_mode = 117;
   if (this->msg_debug_mode() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(116, this->_internal_msg_debug_mode(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(117, this->_internal_msg_debug_mode(), target);
   }
 
-  // bool msg_serialized = 117;
+  // bool msg_serialized = 118;
   if (this->msg_serialized() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(117, this->_internal_msg_serialized(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(118, this->_internal_msg_serialized(), target);
   }
 
-  // uint32 msg_single_step = 118;
+  // uint32 msg_single_step = 119;
   if (this->msg_single_step() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(118, this->_internal_msg_single_step(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(119, this->_internal_msg_single_step(), target);
   }
 
-  // uint64 msg_last_inst_priv = 119;
+  // uint64 msg_last_inst_priv = 120;
   if (this->msg_last_inst_priv() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(119, this->_internal_msg_last_inst_priv(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(120, this->_internal_msg_last_inst_priv(), target);
   }
 
-  // int32 msg_last_inst_xlen = 120;
+  // int32 msg_last_inst_xlen = 121;
   if (this->msg_last_inst_xlen() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(120, this->_internal_msg_last_inst_xlen(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(121, this->_internal_msg_last_inst_xlen(), target);
   }
 
-  // int32 msg_last_inst_flen = 121;
+  // int32 msg_last_inst_flen = 122;
   if (this->msg_last_inst_flen() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(121, this->_internal_msg_last_inst_flen(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(122, this->_internal_msg_last_inst_flen(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -9447,6 +9481,13 @@ size_t ArchState::ByteSizeLong() const {
         *msg_siselect_);
   }
 
+  // .MaskedCSR msg_srmcfg = 116;
+  if (this->has_msg_srmcfg()) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *msg_srmcfg_);
+  }
+
   // uint64 msg_pc = 1;
   if (this->msg_pc() != 0) {
     total_size += 1 +
@@ -9488,38 +9529,38 @@ size_t ArchState::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
-  // bool msg_debug_mode = 116;
+  // bool msg_debug_mode = 117;
   if (this->msg_debug_mode() != 0) {
     total_size += 2 + 1;
   }
 
-  // bool msg_serialized = 117;
+  // bool msg_serialized = 118;
   if (this->msg_serialized() != 0) {
     total_size += 2 + 1;
   }
 
-  // int32 msg_last_inst_flen = 121;
+  // int32 msg_last_inst_flen = 122;
   if (this->msg_last_inst_flen() != 0) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
         this->_internal_msg_last_inst_flen());
   }
 
-  // uint64 msg_last_inst_priv = 119;
+  // uint64 msg_last_inst_priv = 120;
   if (this->msg_last_inst_priv() != 0) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
         this->_internal_msg_last_inst_priv());
   }
 
-  // uint32 msg_single_step = 118;
+  // uint32 msg_single_step = 119;
   if (this->msg_single_step() != 0) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
         this->_internal_msg_single_step());
   }
 
-  // int32 msg_last_inst_xlen = 120;
+  // int32 msg_last_inst_xlen = 121;
   if (this->msg_last_inst_xlen() != 0) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
@@ -9720,6 +9761,9 @@ void ArchState::MergeFrom(const ArchState& from) {
   if (from.has_msg_siselect()) {
     _internal_mutable_msg_siselect()->::VirtBasicCSR::MergeFrom(from._internal_msg_siselect());
   }
+  if (from.has_msg_srmcfg()) {
+    _internal_mutable_msg_srmcfg()->::MaskedCSR::MergeFrom(from._internal_msg_srmcfg());
+  }
   if (from.msg_pc() != 0) {
     _internal_set_msg_pc(from._internal_msg_pc());
   }
@@ -9841,6 +9885,7 @@ void ArchState::InternalSwap(ArchState* other) {
   swap(msg_jvt_, other->msg_jvt_);
   swap(msg_miselect_, other->msg_miselect_);
   swap(msg_siselect_, other->msg_siselect_);
+  swap(msg_srmcfg_, other->msg_srmcfg_);
   swap(msg_pc_, other->msg_pc_);
   swap(msg_prv_, other->msg_prv_);
   swap(msg_prev_prv_, other->msg_prev_prv_);

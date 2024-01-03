@@ -1877,6 +1877,12 @@ void processor_t::serialize_proto(ArchState* aproto, google::protobuf::Arena* ar
     aproto->set_allocated_msg_siselect(proto);
   }
 
+  if (state.srmcfg) {
+    auto csr = std::dynamic_pointer_cast<masked_csr_t>(state.srmcfg);
+    MaskedCSR* proto = gen_masked_csr_proto(csr->val, csr->mask);
+    aproto->set_allocated_msg_srmcfg(proto);
+  }
+
   aproto->set_msg_debug_mode(state.debug_mode);
   aproto->set_msg_serialized(state.serialized);
   aproto->set_msg_single_step(state.single_step);
@@ -2393,6 +2399,11 @@ void processor_t::deserialize_proto(ArchState* aproto) {
     auto vs = std::dynamic_pointer_cast<basic_csr_t>(it->second);
 
     set_virt_basic_csr_from_proto<basic_csr_t>(*ss, *vs, aproto->msg_siselect());
+  }
+
+  if (aproto->has_msg_srmcfg()) {
+    auto csr = std::dynamic_pointer_cast<masked_csr_t>(state.srmcfg);
+    set_masked_csr_from_proto(*csr, aproto->msg_srmcfg());
   }
 
   state.debug_mode = aproto->msg_debug_mode();

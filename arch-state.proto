@@ -258,12 +258,14 @@ message ArchState {
   // MCYCLECFG   // inside wide_counter_csr_t 114
   // MINSTRETCFG // inside wide_counter_csr_t 115
 
-  bool         msg_debug_mode     = 116;
-  bool         msg_serialized     = 117;
-  uint32       msg_single_step    = 118;
-  uint64       msg_last_inst_priv = 119;
-  int32        msg_last_inst_xlen = 120;
-  int32        msg_last_inst_flen = 121;
+  MaskedCSR    msg_srmcfg         = 116;
+
+  bool         msg_debug_mode     = 117;
+  bool         msg_serialized     = 118;
+  uint32       msg_single_step    = 119;
+  uint64       msg_last_inst_priv = 120;
+  int32        msg_last_inst_xlen = 121;
+  int32        msg_last_inst_flen = 122;
 }
 
 message Page {

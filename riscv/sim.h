@@ -180,6 +180,8 @@ public:
   std::set<reg_t> ckpt_ppn;
   pagepool ckpt_mempool;
   pagemap mm_ckpt; // host addr -> ckpt addr
+  // FIXME : Add argument later..
+  bool serialize_mem = true;
 };
 
 extern volatile bool ctrlc_pressed;

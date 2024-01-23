@@ -20,6 +20,11 @@
 #include <cstdlib>
 #include <cassert>
 #include <signal.h>
+<<<<<<< HEAD
+=======
+#include <inttypes.h>
+#include <string>
+>>>>>>> f051e001... Working state... cleanup later
 #include <unistd.h>
 #include <sys/wait.h>
 #include <sys/types.h>

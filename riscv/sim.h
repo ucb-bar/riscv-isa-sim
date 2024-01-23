@@ -38,8 +38,9 @@ public:
         const debug_module_config_t &dm_config, const char *log_path,
         bool dtb_enabled, const char *dtb_file,
         bool socket_enabled,
-        FILE *cmd_file,
-        bool checkpoint); // needed for command line option --cmd
+        FILE *cmd_file, // needed for command line option --cmd
+        bool checkpoint,
+        bool serialize_mem);
   ~sim_t();
 
   // run the simulation to completion
@@ -180,7 +181,6 @@ public:
   std::set<reg_t> ckpt_ppn;
   pagepool ckpt_mempool;
   pagemap mm_ckpt; // host addr -> ckpt addr
-  // FIXME : Add argument later..
   bool serialize_mem = true;
 };
 

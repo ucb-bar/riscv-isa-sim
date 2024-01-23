@@ -20,11 +20,8 @@
 #include <cstdlib>
 #include <cassert>
 #include <signal.h>
-<<<<<<< HEAD
-=======
 #include <inttypes.h>
 #include <string>
->>>>>>> f051e001... Working state... cleanup later
 #include <unistd.h>
 #include <sys/wait.h>
 #include <sys/types.h>
@@ -42,9 +39,11 @@ sim_lib_t::sim_lib_t(const cfg_t *cfg, bool halted,
         bool dtb_enabled, const char *dtb_file,
         bool socket_enabled,
         FILE *cmd_file,
-        bool checkpoint)
+        bool checkpoint,
+        bool serialize_mem)
   : sim_t(cfg, halted, mems, plugin_device_factories, args, dm_config,
-          log_path, dtb_enabled, dtb_file, socket_enabled, cmd_file, checkpoint)
+          log_path, dtb_enabled, dtb_file, socket_enabled, cmd_file,
+          checkpoint, serialize_mem)
 {
   auto enq_func = [](std::queue<reg_t>* q, uint64_t x) { q->push(x); };
   fromhost_callback = std::bind(enq_func, &fromhost_queue, std::placeholders::_1);

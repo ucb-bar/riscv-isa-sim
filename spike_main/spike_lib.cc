@@ -85,6 +85,7 @@ static void help(int exit_code = 1)
   fprintf(stderr, "  --blocksz=<size>      Cache block size (B) for CMO operations(powers of 2) [default 64]\n");
   fprintf(stderr, "  --ckpt-mode=<N>       0: run w/o ckpt (default), 1: ckpt at ckpt-step & reload, 2: load ckpt from proto-json and run\n");
   fprintf(stderr, "  --ckpt-step=<size>    Steps to run before serialize & reload\n");
+  fprintf(stderr, "  --ckpt-mem            Serialize memory contents into protobuf. If not set, the checkpoint will only track the dirty pages.\n");
 
   exit(exit_code);
 }
@@ -351,6 +352,7 @@ int main(int argc, char** argv)
   reg_t blocksz = 64;
   int ckpt_mode = 0;
   uint64_t ckpt_step = 0;
+  bool ckpt_mem = false;
   debug_module_config_t dm_config;
   cfg_arg_t<size_t> nprocs(1);
 
@@ -472,6 +474,7 @@ int main(int argc, char** argv)
   parser.option(0, "ckpt-step", 1, [&](const char* s) {
       ckpt_step = strtoull(s, 0, 0);
   });
+  parser.option(0, "ckpt-mem", 0, [&](const char UNUSED *s){ckpt_mem = true;});
   auto argv1 = parser.parse(argv);
   std::vector<std::string> htif_args(argv1, (const char*const*)argv + argc);
 
@@ -531,7 +534,7 @@ int main(int argc, char** argv)
 
   bool checkpoint = (ckpt_mode != 0);
   sim_lib_t s(&cfg, halted, mems, plugin_device_factories, htif_args, dm_config,
-      log_path, dtb_enabled, dtb_file, socket, cmd_file, checkpoint);
+      log_path, dtb_enabled, dtb_file, socket, cmd_file, checkpoint, ckpt_mem);
 
   if (dump_dts) {
     printf("%s", s.get_dts());

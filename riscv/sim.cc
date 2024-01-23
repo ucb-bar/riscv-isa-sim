@@ -47,8 +47,9 @@ sim_t::sim_t(const cfg_t *cfg, bool halted,
              const char *log_path,
              bool dtb_enabled, const char *dtb_file,
              bool socket_enabled,
-             FILE *cmd_file,
-             bool checkpoint) // needed for command line option --cmd
+             FILE *cmd_file, // needed for command line option --cmd
+             bool checkpoint,
+             bool serialize_mem)
   : htif_t(args),
     isa(cfg->isa, cfg->priv),
     cfg(cfg),
@@ -65,7 +66,8 @@ sim_t::sim_t(const cfg_t *cfg, bool halted,
     log(false),
     remote_bitbang(NULL),
     debug_module(this, dm_config),
-    checkpoint(checkpoint)
+    checkpoint(checkpoint),
+    serialize_mem(serialize_mem)
 {
   signal(SIGINT, &handle_signal);
 
